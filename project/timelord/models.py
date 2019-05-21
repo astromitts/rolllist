@@ -18,6 +18,7 @@ for i in range(1, 12):
     time_options_strings.append('%s:00 PM' % i)
     time_options_strings.append('%s:30 PM' % i)
 
+# TODO move this to a user preferences
 earliest_time_index = time_options_strings.index('8:00 AM')
 latest_time_index = time_options_strings.index('6:30 PM')
 relevant_time_dict = {
@@ -25,6 +26,7 @@ relevant_time_dict = {
 }
 
 
+# TODO add a user class and hook to Day
 class Day(models.Model):
     date = models.DateField(default=datetime.today)
 

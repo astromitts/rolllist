@@ -20,6 +20,7 @@ from timelord import views as tl
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('today/', tl.day_view),
-    path('additem/<int:start_time_int>/<str:datestr>/', tl.add_item_form, name='add_item'),
+    path('additem/<str:datestr>/<int:start_time_int>/', tl.add_item_form, name='add_item'),
+    path('addtodoitem/<str:datestr>/', tl.add_to_do_item_form, name='add_todo_item'),
     path('<str:datestr>/', tl.day_view, name='day_view'),
 ]

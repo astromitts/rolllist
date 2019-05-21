@@ -5,8 +5,18 @@ from django.template import loader
 
 from datetime import datetime
 
-from .forms import ScheduleItemForm
+from .forms import ScheduleItemForm, ToDoItemForm, ToDoItem
 from .models import Day, DaySchedule, ScheduleItem, relevant_time_dict
+
+
+def set_chronological_context(target_date=None):
+    context = {}
+    if not target_date:
+        target_date = datetime.today()
+    context['is_today'] = target_date == datetime.today()
+    context['target_next_day'] = target_date + datetime.timedelta(days=1)
+    context['target_previous_date'] = target_date - datetime.timedelta(days=1)
+    return context
 
 
 def day_view(request, datestr=None):
@@ -14,6 +24,7 @@ def day_view(request, datestr=None):
 
     if not datestr:
         target_date = datetime.today()
+        datestr = '{0:%Y%m%d}'.format(target_date)
     else:
         target_date = datetime.strptime(datestr, "%Y%m%d").date()
 
@@ -36,7 +47,7 @@ def day_view(request, datestr=None):
 
 
 def add_item_form(request, start_time_int=None, datestr=None):
-    template = loader.get_template('timelord/add_schedule_item.html')
+    template = loader.get_template('timelord/generic_form.html')
 
     if request.POST:
         data = request.POST.copy()
@@ -64,5 +75,31 @@ def add_item_form(request, start_time_int=None, datestr=None):
             init_values['end_time'] = relevant_time_dict[start_time_int + 1]
 
         form = ScheduleItemForm(initial=init_values)
+        context = {'form_rendered_list': form.as_ul()}
+        return HttpResponse(template.render(context, request))
+
+
+def add_to_do_item_form(request, datestr=None):
+    template = loader.get_template('timelord/generic_form.html')
+    if not datestr:
+        target_date = Day.objects.get(date=datetime.today())
+    else:
+        target_date = Day.objects.get(date=datetime.strptime(datestr, "%Y%m%d").date())
+
+    if request.POST:
+        form = ToDoItemForm(request.POST)
+        if form.is_valid:
+            save_data = {
+                'day': target_date,
+                'title': request.POST['title'],
+            }
+            new_item = ToDoItem(**save_data)
+            new_item.save()
+            return redirect('day_view', datestr=datestr)
+        else:
+            context = {'form_rendered_list': form.as_ul()}
+            return HttpResponse(template.render(context, request))
+    else:
+        form = ToDoItemForm()
         context = {'form_rendered_list': form.as_ul()}
         return HttpResponse(template.render(context, request))

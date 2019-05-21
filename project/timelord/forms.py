@@ -1,5 +1,5 @@
 from django.forms import ModelForm, ChoiceField
-from .models import ScheduleItem, relevant_time_dict
+from .models import ScheduleItem, ToDoItem, relevant_time_dict
 
 
 class ScheduleItemForm(ModelForm):
@@ -14,3 +14,9 @@ class ScheduleItemForm(ModelForm):
     class Meta:
         model = ScheduleItem
         fields = ['start_time', 'end_time', 'title', 'location']
+
+
+class ToDoItemForm(ModelForm):
+    class Meta:
+        model = ToDoItem
+        fields = ['title']
