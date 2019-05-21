@@ -15,8 +15,10 @@
 	    <div class="col col-lg-9">
 			<h2>Here is your schedule for {{day}}.</h2>
 			<table border=1>
+				<tr><th colspan=3></th><th>Item</th><th>Location</th></tr>
 			{% for interval in day_schedule.time_intervals %}
 				<tr>
+					<td><a href="{% url 'add_item' start_time_int=interval.index datestr=datestr %}">+</a></td>
 					<td>{{interval.start_string}}</td><td>{{interval.end_string}}</td>
 					{% for item in interval.items %}
 					<td>{{item.title}}</td><td>{{item.location}}</td>

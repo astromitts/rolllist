@@ -18,6 +18,12 @@ for i in range(1, 12):
     time_options_strings.append('%s:00 PM' % i)
     time_options_strings.append('%s:30 PM' % i)
 
+earliest_time_index = time_options_strings.index('8:00 AM')
+latest_time_index = time_options_strings.index('6:30 PM')
+relevant_time_dict = {
+    i: time_options_strings[i] for i in range(earliest_time_index, latest_time_index + 1)
+}
+
 
 class Day(models.Model):
     date = models.DateField(default=datetime.today)
