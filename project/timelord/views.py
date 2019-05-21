@@ -9,16 +9,6 @@ from .forms import ScheduleItemForm, ToDoItemForm, ToDoItem
 from .models import Day, DaySchedule, ScheduleItem, relevant_time_dict
 
 
-def set_chronological_context(target_date=None):
-    context = {}
-    if not target_date:
-        target_date = datetime.today()
-    context['is_today'] = target_date == datetime.today()
-    context['target_next_day'] = target_date + datetime.timedelta(days=1)
-    context['target_previous_date'] = target_date - datetime.timedelta(days=1)
-    return context
-
-
 def day_view(request, datestr=None):
     template = loader.get_template('timelord/day_schedule.html')
 
@@ -77,6 +67,20 @@ def add_item_form(request, start_time_int=None, datestr=None):
         form = ScheduleItemForm(initial=init_values)
         context = {'form_rendered_list': form.as_ul()}
         return HttpResponse(template.render(context, request))
+
+
+def delete_item(request, item_id):
+    item = ScheduleItem.objects.get(pk=item_id)
+    day = item.day
+    item.delete()
+    return redirect('day_view', datestr=day.url_str)
+
+
+def delete_todo_item(request, item_id):
+    item = ToDoItem.objects.get(pk=item_id)
+    day = item.day
+    item.delete()
+    return redirect('day_view', datestr=day.url_str)
 
 
 def add_to_do_item_form(request, datestr=None):

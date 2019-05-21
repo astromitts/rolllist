@@ -21,6 +21,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('today/', tl.day_view),
     path('additem/<str:datestr>/<int:start_time_int>/', tl.add_item_form, name='add_item'),
+    path('deleteitem/<int:item_id>/', tl.delete_item, name='delete_item'),
     path('addtodoitem/<str:datestr>/', tl.add_to_do_item_form, name='add_todo_item'),
+    path('deletetodoitem/<int:item_id>/', tl.delete_todo_item, name='delete_todo_item'),
     path('<str:datestr>/', tl.day_view, name='day_view'),
 ]

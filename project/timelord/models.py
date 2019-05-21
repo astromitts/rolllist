@@ -33,6 +33,10 @@ class Day(models.Model):
     class Meta:
         ordering = ['date']
 
+    @property
+    def url_str(self):
+        return '{0:%Y%m%d}'.format(self.date)
+
     def __str__(self):
         return '{0:%B %d %Y}'.format(self.date)
 

@@ -53,6 +53,9 @@
 						<td>{{interval.start_string}}</td><td>{{interval.end_string}}</td>
 						{% for item in interval.items %}
 						<td>{{item.title}}</td><td>{{item.location}}</td>
+						<td>
+							<a href="{% url 'delete_item' item_id=item.id %}">[  -  ]</a>
+						</td>
 						{% endfor %}
 					</tr>
 				{% endfor %}
@@ -63,7 +66,7 @@
 				<h2>To-do:</h2>
 				<ul>
 					{% for item in todo_items %}
-						<li>{{item.title}}</li>
+						<li>{{item.title}} <a href="{% url 'delete_todo_item' item_id=item.id %}">[  -  ]</a></li>
 					{% endfor %}
 				</ul>
 				<a href="{% url 'add_todo_item' datestr=datestr %}">[  +  ]</a>
