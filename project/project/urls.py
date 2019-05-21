@@ -23,6 +23,9 @@ urlpatterns = [
     path('additem/<str:datestr>/<int:start_time_int>/', tl.add_item_form, name='add_item'),
     path('deleteitem/<int:item_id>/', tl.delete_item, name='delete_item'),
     path('addtodoitem/<str:datestr>/', tl.add_to_do_item_form, name='add_todo_item'),
+    path('rollovertodo/<str:datestr>/', tl.rollover_todo, name='rollover_todo'),
     path('deletetodoitem/<int:item_id>/', tl.delete_todo_item, name='delete_todo_item'),
+    path('completetodoitem/<int:item_id>/', tl.complete_todo_item, name='complete_todo_item'),
+    path('reverttodoitem/<int:item_id>/', tl.revert_todo_item, name='revert_todo_item'),
     path('<str:datestr>/', tl.day_view, name='day_view'),
 ]

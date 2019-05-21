@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 
 from django.template import loader
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from .forms import ScheduleItemForm, ToDoItemForm, ToDoItem
 from .models import Day, DaySchedule, ScheduleItem, relevant_time_dict
@@ -76,13 +76,6 @@ def delete_item(request, item_id):
     return redirect('day_view', datestr=day.url_str)
 
 
-def delete_todo_item(request, item_id):
-    item = ToDoItem.objects.get(pk=item_id)
-    day = item.day
-    item.delete()
-    return redirect('day_view', datestr=day.url_str)
-
-
 def add_to_do_item_form(request, datestr=None):
     template = loader.get_template('timelord/generic_form.html')
     if not datestr:
@@ -107,3 +100,36 @@ def add_to_do_item_form(request, datestr=None):
         form = ToDoItemForm()
         context = {'form_rendered_list': form.as_ul()}
         return HttpResponse(template.render(context, request))
+
+
+def rollover_todo(request, datestr):
+    target_day = Day.objects.get(date=datetime.strptime(datestr, "%Y%m%d").date())
+    previous_day = target_day.date - timedelta(days=1)
+    source_date = Day.objects.get(date=previous_day)
+    for item in source_date.todoitem_set.filter(completed=False).all():
+        new_item = ToDoItem(title=item.title, day=target_day)
+        new_item.save()
+    return redirect('day_view', datestr=target_day.url_str)
+
+
+def delete_todo_item(request, item_id):
+    item = ToDoItem.objects.get(pk=item_id)
+    day = item.day
+    item.delete()
+    return redirect('day_view', datestr=day.url_str)
+
+
+def complete_todo_item(request, item_id):
+    item = ToDoItem.objects.get(pk=item_id)
+    day = item.day
+    item.completed = True
+    item.save()
+    return redirect('day_view', datestr=day.url_str)
+
+
+def revert_todo_item(request, item_id):
+    item = ToDoItem.objects.get(pk=item_id)
+    day = item.day
+    item.completed = False
+    item.save()
+    return redirect('day_view', datestr=day.url_str)

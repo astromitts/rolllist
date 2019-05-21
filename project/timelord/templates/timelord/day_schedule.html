@@ -48,13 +48,13 @@
 				{% for interval in day_schedule.time_intervals %}
 					<tr>
 						<td>
-							<a href="{% url 'add_item' start_time_int=interval.index datestr=datestr %}">[  +  ]</a>
+							<a href="{% url 'add_item' start_time_int=interval.index datestr=datestr %}">[&nbsp;+&nbsp;]</a>
 						</td>
 						<td>{{interval.start_string}}</td><td>{{interval.end_string}}</td>
 						{% for item in interval.items %}
 						<td>{{item.title}}</td><td>{{item.location}}</td>
 						<td>
-							<a href="{% url 'delete_item' item_id=item.id %}">[  -  ]</a>
+							<a href="{% url 'delete_item' item_id=item.id %}">[&nbsp;-&nbsp;]</a>
 						</td>
 						{% endfor %}
 					</tr>
@@ -64,12 +64,22 @@
 
 			<div class="col-3">
 				<h2>To-do:</h2>
-				<ul>
+				<a href="{% url 'rollover_todo' datestr=datestr %}">Rollover</a>
+				<table border=1>
 					{% for item in todo_items %}
-						<li>{{item.title}} <a href="{% url 'delete_todo_item' item_id=item.id %}">[  -  ]</a></li>
+						<tr>
+							{% if item.completed %}
+								<td><a href="{% url 'revert_todo_item' item_id=item.id %}">revert</a></td>
+								<td><span style="text-decoration: line-through;">{{item.title}}</span></td>
+							{% else %}
+								<td><a href="{% url 'complete_todo_item' item_id=item.id %}">complete</a></td>
+								<td>{{item.title}}</td>
+							{% endif %}
+							<td><a href="{% url 'delete_todo_item' item_id=item.id %}">[&nbsp;-&nbsp;]</a></td>
+						</tr>
 					{% endfor %}
-				</ul>
-				<a href="{% url 'add_todo_item' datestr=datestr %}">[  +  ]</a>
+				</table>
+				<a href="{% url 'add_todo_item' datestr=datestr %}">[&nbsp;+&nbsp;]</a>
 			</div>
 	  </div>
 
