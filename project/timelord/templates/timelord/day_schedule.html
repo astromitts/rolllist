@@ -1,0 +1,23 @@
+<h1>Welcome to Time Lord</h1>
+<h2>Here is your schedule for {{day}}.</h2>
+<div id="schedule">
+<table border=1>
+	{% for interval in day_schedule.time_intervals %}
+		<tr>
+			<td>{{interval.start_string}}</td><td>{{interval.end_string}}</td>
+			{% for item in interval.items %}
+			<td>{{item.title}}</td><td>{{item.location}}</td>
+			{% endfor %}
+		</tr>
+	{% endfor %}
+</table>
+</div>
+
+<div id="todo">
+	<h2>To-do:</h2>
+	<ul>
+		{% for item in todo_items %}
+			<li>{{item.title}}</li>
+		{% endfor %}
+	</ul>
+</div>

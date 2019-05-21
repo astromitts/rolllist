@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from timelord import views as tl
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('today/', tl.today_view),
 ]
