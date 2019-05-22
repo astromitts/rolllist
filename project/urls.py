@@ -18,7 +18,7 @@ from django.urls import path
 from rolllist import views
 
 urlpatterns = [
-    path('/', views.day_view),
+    path('', views.day_view),
     path('admin/', admin.site.urls),
     path('additem/<str:datestr>/<int:start_time_int>/', views.add_item_form, name='add_item'),
     path('deleteitem/<int:item_id>/', views.delete_item, name='delete_item'),
