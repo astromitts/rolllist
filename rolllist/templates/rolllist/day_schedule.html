@@ -1,90 +1,47 @@
+{% extends 'rolllist/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <title>RollList</title>
-  <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
-
-  <!-- Bootstrap core CSS -->
-  <link href="{% static 'rolllist/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-
-</head>
-
-<body>
-
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-    <div class="container">
-      <a class="navbar-brand" href="/today">RollList</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'day_view' datestr=target_previous_date %}">< Previous Day</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'day_view' datestr=target_next_day %}">Next Day ></a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-	<div class="container">
-	  <div class="row">
-		  <div class="row justify-content-md-center">
-		    <div class="col col-lg-9">
-				<h2>Here is your schedule for {{day}}.</h2>
-				<table border=1>
-					<tr><th colspan=3></th><th>Item</th><th>Location</th></tr>
-				{% for interval in day_schedule.time_intervals %}
-					<tr>
-						<td>
-							<a href="{% url 'add_item' start_time_int=interval.index datestr=datestr %}">[&nbsp;+&nbsp;]</a>
-						</td>
-						<td>{{interval.start_string}}</td><td>{{interval.end_string}}</td>
-						{% for item in interval.items %}
-						<td>{{item.title}}</td><td>{{item.location}}</td>
-						<td>
-							<a href="{% url 'delete_item' item_id=item.id %}">[&nbsp;-&nbsp;]</a>
-						</td>
-						{% endfor %}
-					</tr>
+{% block main_content %}
+<div class="row">
+  <div class="row justify-content-md-center">
+    <div class="col col-lg-9">
+		<h2>Here is your schedule for {{day}}.</h2>
+		<table border=1>
+			<tr><th colspan=3></th><th>Item</th><th>Location</th></tr>
+		{% for interval in day_schedule.time_intervals %}
+			<tr>
+				<td>
+					<a href="{% url 'add_item' start_time_int=interval.index datestr=datestr %}">[&nbsp;+&nbsp;]</a>
+				</td>
+				<td>{{interval.start_string}}</td><td>{{interval.end_string}}</td>
+				{% for item in interval.items %}
+				<td>{{item.title}}</td><td>{{item.location}}</td>
+				<td>
+					<a href="{% url 'delete_item' item_id=item.id %}">[&nbsp;-&nbsp;]</a>
+				</td>
 				{% endfor %}
-				</table>
-		    </div>
+			</tr>
+		{% endfor %}
+		</table>
+    </div>
 
-			<div class="col-3">
-				<h2>To-do:</h2>
-				<a href="{% url 'rollover_todo' datestr=datestr %}">Rollover</a>
-				<table border=1>
-					{% for item in todo_items %}
-						<tr>
-							{% if item.completed %}
-								<td><a href="{% url 'revert_todo_item' item_id=item.id %}">revert</a></td>
-								<td><span style="text-decoration: line-through;">{{item.title}}</span></td>
-							{% else %}
-								<td><a href="{% url 'complete_todo_item' item_id=item.id %}">complete</a></td>
-								<td>{{item.title}}</td>
-							{% endif %}
-							<td><a href="{% url 'delete_todo_item' item_id=item.id %}">[&nbsp;-&nbsp;]</a></td>
-						</tr>
-					{% endfor %}
-				</table>
-				<a href="{% url 'add_todo_item' datestr=datestr %}">[&nbsp;+&nbsp;]</a>
-			</div>
-	  </div>
-
+	<div class="col-3">
+		<h2>To-do:</h2>
+		<a href="{% url 'rollover_todo' datestr=datestr %}">Rollover</a>
+		<table border=1>
+			{% for item in todo_items %}
+				<tr>
+					{% if item.completed %}
+						<td><a href="{% url 'revert_todo_item' item_id=item.id %}">revert</a></td>
+						<td><span style="text-decoration: line-through;">{{item.title}}</span></td>
+					{% else %}
+						<td><a href="{% url 'complete_todo_item' item_id=item.id %}">complete</a></td>
+						<td>{{item.title}}</td>
+					{% endif %}
+					<td><a href="{% url 'delete_todo_item' item_id=item.id %}">[&nbsp;-&nbsp;]</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+		<a href="{% url 'add_todo_item' datestr=datestr %}">[&nbsp;+&nbsp;]</a>
 	</div>
-
-	<script src="{% static 'rolllist/vendor/jquery/jquery.slim.min.js' %}"></script>
-  	<script src="{% static 'rolllist/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-</body>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>RollList</title>
+  <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'rolllist/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+	<div class="container">
+	  <a class="navbar-brand" href="/">RollList</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+	  <div class="collapse navbar-collapse" id="navbarResponsive">
+	    <ul class="navbar-nav ml-auto">
+	      <li class="nav-item">
+	        <a class="nav-link" href="{% url 'day_view' datestr=target_previous_date %}">< Previous Day</a>
+	      </li>
+
+	      <li class="nav-item">
+	        <a class="nav-link" href="{% url 'day_view' datestr=target_next_day %}">Next Day ></a>
+	      </li>
+	    </ul>
+	  </div>
+	</div>
+	</nav>
+	<div class="container">
+  	{% block main_content %}{% endblock %}
+	</div>
+
+	<script src="{% static 'rolllist/vendor/jquery/jquery.slim.min.js' %}"></script>
+  	<script src="{% static 'rolllist/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  	{% block extra_js %}{% endblock %}
+</body>
