@@ -10,7 +10,7 @@ from .models import Day, DaySchedule, ScheduleItem, relevant_time_dict
 
 
 def day_view(request, datestr=None):
-    template = loader.get_template('timelord/day_schedule.html')
+    template = loader.get_template('rolllist/day_schedule.html')
 
     if not datestr:
         target_date = datetime.today()
@@ -37,7 +37,7 @@ def day_view(request, datestr=None):
 
 
 def add_item_form(request, start_time_int=None, datestr=None):
-    template = loader.get_template('timelord/generic_form.html')
+    template = loader.get_template('rolllist/generic_form.html')
 
     if request.POST:
         data = request.POST.copy()
@@ -77,7 +77,7 @@ def delete_item(request, item_id):
 
 
 def add_to_do_item_form(request, datestr=None):
-    template = loader.get_template('timelord/generic_form.html')
+    template = loader.get_template('rolllist/generic_form.html')
     if not datestr:
         target_date = Day.objects.get(date=datetime.today())
     else:

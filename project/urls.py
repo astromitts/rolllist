@@ -15,17 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from timelord import views as tl
+from rolllist import views
 
 urlpatterns = [
+    path('/', views.day_view),
     path('admin/', admin.site.urls),
-    path('today/', tl.day_view),
-    path('additem/<str:datestr>/<int:start_time_int>/', tl.add_item_form, name='add_item'),
-    path('deleteitem/<int:item_id>/', tl.delete_item, name='delete_item'),
-    path('addtodoitem/<str:datestr>/', tl.add_to_do_item_form, name='add_todo_item'),
-    path('rollovertodo/<str:datestr>/', tl.rollover_todo, name='rollover_todo'),
-    path('deletetodoitem/<int:item_id>/', tl.delete_todo_item, name='delete_todo_item'),
-    path('completetodoitem/<int:item_id>/', tl.complete_todo_item, name='complete_todo_item'),
-    path('reverttodoitem/<int:item_id>/', tl.revert_todo_item, name='revert_todo_item'),
-    path('<str:datestr>/', tl.day_view, name='day_view'),
+    path('additem/<str:datestr>/<int:start_time_int>/', views.add_item_form, name='add_item'),
+    path('deleteitem/<int:item_id>/', views.delete_item, name='delete_item'),
+    path('addtodoitem/<str:datestr>/', views.add_to_do_item_form, name='add_todo_item'),
+    path('rollovertodo/<str:datestr>/', views.rollover_todo, name='rollover_todo'),
+    path('deletetodoitem/<int:item_id>/', views.delete_todo_item, name='delete_todo_item'),
+    path('completetodoitem/<int:item_id>/', views.complete_todo_item, name='complete_todo_item'),
+    path('reverttodoitem/<int:item_id>/', views.revert_todo_item, name='revert_todo_item'),
+    path('<str:datestr>/', views.day_view, name='day_view'),
 ]
