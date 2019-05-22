@@ -25,7 +25,7 @@ SECRET_KEY = '9vh3bal_=lh0blhqh=7)p0kzo7@%r-x00%f4lzjfq=ym5zi=-#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['whispering-oasis-96641.herokuapp.com/', 'localhost']
+ALLOWED_HOSTS = ['whispering-oasis-96641.herokuapp.com', 'localhost']
 
 
 # Application definition
