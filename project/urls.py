@@ -14,8 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 from rolllist import views
+
 
 urlpatterns = [
     path('', views.day_view),
@@ -28,4 +31,4 @@ urlpatterns = [
     path('completetodoitem/<int:item_id>/', views.complete_todo_item, name='complete_todo_item'),
     path('reverttodoitem/<int:item_id>/', views.revert_todo_item, name='revert_todo_item'),
     path('<str:datestr>/', views.day_view, name='day_view'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
