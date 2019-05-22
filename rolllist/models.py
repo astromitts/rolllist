@@ -98,7 +98,7 @@ class DaySchedule(object):
                 i, time_options_strings[i], time_options_strings[i + 1]
             )
             this_interval.items = day.scheduleitem_set.filter(
-                models.Q(start_time=i) | models.Q(end_time=i) |
+                models.Q(start_time=i) |
                 (models.Q(start_time__lt=i) & models.Q(end_time__gt=i))
             ).all()
             self.time_intervals.append(this_interval)
