@@ -8,18 +8,31 @@
 		<table border=1>
 			<tr><th colspan=3></th><th>Item</th><th>Location</th></tr>
 		{% for interval in day_schedule.time_intervals %}
-			<tr>
-				<td>
-					<a href="{% url 'add_item' start_time_int=interval.index datestr=datestr %}">[&nbsp;+&nbsp;]</a>
-				</td>
-				<td>{{interval.start_string}}</td><td>{{interval.end_string}}</td>
-				{% for item in interval.items %}
-				<td>{{item.title}}</td><td>{{item.location}}</td>
-				<td>
-					<a href="{% url 'delete_item' item_id=item.id %}">[&nbsp;-&nbsp;]</a>
-				</td>
-				{% endfor %}
-			</tr>
+
+			{% if not interval.items %}
+				<tr class="openinterval">
+					<td>
+						<a href="{% url 'add_item' start_time_int=interval.index datestr=datestr %}">[&nbsp;+&nbsp;]</a>
+					</td>
+					<td>{{interval.start_string}}</td>
+					<td>{{interval.end_string}}</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			{% else %}
+				<tr class="closedinterval">
+					<td></td>
+					<td>{{interval.start_string}}</td><td>{{interval.end_string}}</td>
+					{% for item in interval.items %}
+						<td>{{item.title}}</td>
+						<td>{{item.location}}</td>
+						<td>
+							<a href="{% url 'delete_item' item_id=item.id %}">[&nbsp;-&nbsp;]</a>
+						</td>
+					{% endfor %}
+				</tr>
+			{% endif %}
 		{% endfor %}
 		</table>
     </div>
@@ -28,7 +41,7 @@
 		<h2>To-do:</h2>
 		<a href="{% url 'rollover_todo' datestr=datestr %}">Rollover</a>
 		<table border=1>
-			{% for item in todo_items %}
+			{% for item in todo_list.todoitem_set.all %}
 				<tr>
 					{% if item.completed %}
 						<td><a href="{% url 'revert_todo_item' item_id=item.id %}">revert</a></td>
@@ -41,7 +54,23 @@
 				</tr>
 			{% endfor %}
 		</table>
-		<a href="{% url 'add_todo_item' datestr=datestr %}">[&nbsp;+&nbsp;]</a>
+		<a href="{% url 'add_todo_item' list_id=todo_list.pk %}">[&nbsp;+&nbsp;]</a>
+
+
+		<h2>Yesterday:</h2>
+		<table border=1>
+			{% for item in yesterday_to_do_list.todoitem_set.all %}
+				<tr>
+					{% if item.completed %}
+						<td>Complete</td>
+						<td>{{item.title}}</td>
+					{% else %}
+						<td>Incomplete</td>
+						<td><span style="font-weight: bold;">{{item.title}}</span></td>
+					{% endif %}
+				</tr>
+			{% endfor %}
+		</table>
 	</div>
 </div>
 {% endblock %}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Day, ScheduleItem, ToDoItem
+from .models.appmodels import Day, ScheduleItem, ToDoItem
 
 # Register your models here.
 admin.site.register(Day)

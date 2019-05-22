@@ -1,5 +1,6 @@
 from django.forms import ModelForm, ChoiceField
-from .models import ScheduleItem, ToDoItem, relevant_time_dict
+from .models.appmodels import ScheduleItem, ToDoItem
+from .utils import relevant_time_dict
 
 
 class ScheduleItemForm(ModelForm):

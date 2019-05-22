@@ -6,7 +6,8 @@ from django.template import loader
 from datetime import datetime, timedelta
 
 from .forms import ScheduleItemForm, ToDoItemForm, ToDoItem
-from .models import Day, DaySchedule, ScheduleItem, relevant_time_dict
+from .models.appmodels import Day, ScheduleItem, ToDoList
+from .utils import DaySchedule, relevant_time_dict
 
 
 def day_view(request, datestr=None):
@@ -18,19 +19,25 @@ def day_view(request, datestr=None):
     else:
         target_date = datetime.strptime(datestr, "%Y%m%d").date()
 
-    try:
-        today_day = Day.objects.get(date=target_date)
-    except Day.DoesNotExist:
-        today_day = Day(date=target_date)
-        today_day.save()
+    target_day, target_day_created = Day.get_or_create(date=target_date)
 
-    day_schedule = DaySchedule(today_day, relevant_time_dict)
+    previous_day_date = target_day.date - timedelta(days=1)
+    previous_day, previous_created = Day.get_or_create(date=previous_day_date)
+
+    if target_day_created:
+        ScheduleItem.rollover_recurring_items(target_day)
+
+    day_schedule = DaySchedule(target_day, relevant_time_dict)
+
+    todo_list = ToDoList.get_or_create(target_day)
+    yesterday_to_do_list = ToDoList.get_or_create(previous_day)
 
     context = {
         'datestr': datestr,
-        'day': today_day,
+        'day': target_day,
         'day_schedule': day_schedule,
-        'todo_items': today_day.todoitem_set.all(),
+        'todo_list': todo_list,
+        'yesterday_to_do_list': yesterday_to_do_list,
     }
 
     return HttpResponse(template.render(context, request))
@@ -49,7 +56,8 @@ def add_item_form(request, start_time_int=None, datestr=None):
                 'start_time': data['start_time'],
                 'end_time': data['end_time'],
                 'title': data['title'],
-                'location': data['location']
+                'location': data['location'],
+                # 'recurring': data['recurring'] == 'on',
             }
             new_item = ScheduleItem(**save_data)
             new_item.save()
@@ -76,23 +84,19 @@ def delete_item(request, item_id):
     return redirect('day_view', datestr=day.url_str)
 
 
-def add_to_do_item_form(request, datestr=None):
+def add_to_do_item_form(request, list_id=None):
     template = loader.get_template('rolllist/generic_form.html')
-    if not datestr:
-        target_date = Day.objects.get(date=datetime.today())
-    else:
-        target_date = Day.objects.get(date=datetime.strptime(datestr, "%Y%m%d").date())
-
     if request.POST:
         form = ToDoItemForm(request.POST)
+        to_do_list = ToDoList.objects.get(pk=list_id)
         if form.is_valid:
             save_data = {
-                'day': target_date,
+                'to_do_list': to_do_list,
                 'title': request.POST['title'],
             }
             new_item = ToDoItem(**save_data)
             new_item.save()
-            return redirect('day_view', datestr=datestr)
+            return redirect('day_view', datestr=to_do_list.day.url_str)
         else:
             context = {'form_rendered_list': form.as_ul()}
             return HttpResponse(template.render(context, request))
@@ -104,24 +108,27 @@ def add_to_do_item_form(request, datestr=None):
 
 def rollover_todo(request, datestr):
     target_day = Day.objects.get(date=datetime.strptime(datestr, "%Y%m%d").date())
-    previous_day = target_day.date - timedelta(days=1)
-    source_date = Day.objects.get(date=previous_day)
-    for item in source_date.todoitem_set.filter(completed=False).all():
-        new_item = ToDoItem(title=item.title, day=target_day)
+    previous_day_date = target_day.date - timedelta(days=1)
+    source_day = Day.objects.get(date=previous_day_date)
+    source_list = ToDoList.get_or_create(day=source_day)
+    new_list = ToDoList.get_or_create(day=target_day)
+
+    for item in source_list.todoitem_set.filter(completed=False).all():
+        new_item = ToDoItem(title=item.title, to_do_list=new_list)
         new_item.save()
     return redirect('day_view', datestr=target_day.url_str)
 
 
 def delete_todo_item(request, item_id):
     item = ToDoItem.objects.get(pk=item_id)
-    day = item.day
+    day = item.to_do_list.day
     item.delete()
     return redirect('day_view', datestr=day.url_str)
 
 
 def complete_todo_item(request, item_id):
     item = ToDoItem.objects.get(pk=item_id)
-    day = item.day
+    day = item.to_do_list.day
     item.completed = True
     item.save()
     return redirect('day_view', datestr=day.url_str)
@@ -129,7 +136,7 @@ def complete_todo_item(request, item_id):
 
 def revert_todo_item(request, item_id):
     item = ToDoItem.objects.get(pk=item_id)
-    day = item.day
+    day = item.to_do_list.day
     item.completed = False
     item.save()
     return redirect('day_view', datestr=day.url_str)
