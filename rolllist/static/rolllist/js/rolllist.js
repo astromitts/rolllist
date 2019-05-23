@@ -4,10 +4,40 @@ function set_dropdown_times(){
 	$('#id_end_time').val(start_val);
 }
 
+function bind_ajax_form_submit(action){
+	$('form.ajaxme').submit(function(event){
+		event.preventDefault();
+		$.ajax({
+			type: 'POST',
+			url: action,
+			data: $(this).serialize(),
+			success: function(data){
+				location.reload();
+			},
+			error: function(data){
+				$('div#modal').hide();
+				alert("there was an error");
+			}
+		});
+	});
+}
+
 function bind_modal_open(){
 	$('a.openmodal').click(function(event){
 		event.preventDefault();
-		$('div#modal').show();
+		var target_url = $(this).attr('href')
+		$.ajax({
+			type: 'GET',
+			url: target_url,
+			success: function(data){
+				$('div#modalcontent').html(data);
+				$('div#modal').show();
+				bind_ajax_form_submit(target_url);
+			},
+			error: function(data){
+				alert("there was an error");
+			}
+		});
 	});
 }
 
@@ -24,9 +54,6 @@ $(document).ready(function(){
 
 	if (on_additem_page) {
 		set_dropdown_times();
-		$.ajax(
-
-		)
 	}
 
 	bind_modal_open();

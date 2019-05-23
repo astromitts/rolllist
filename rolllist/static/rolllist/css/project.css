@@ -34,9 +34,11 @@
 
 #modal {
 	position: absolute;
+	right: -1px;
 	width: 100%;
 	height: 100%;
 	z-index: 100;
 	background-color: #fff;
 	display: none;
+	border: 2px solid;
 }
