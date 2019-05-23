@@ -1,12 +1,5 @@
-{% extends 'rolllist/base.html' %}
 {% load static %}
-{% block main_content %}
-	<form method="POST" action="">{% csrf_token %}
-	{{ form_rendered_list|safe }}
-	<input type="submit" value="submit"/>
-	</form>
-{% endblock %}
-
-{% block extra_js %}
-	<script src="{% static 'rolllist/js/rolllist.js' %}"></script>
-{% endblock %}
+<form method="POST" action="" class="ajaxme">{% csrf_token %}
+{{ form_rendered_list|safe }}
+<input type="submit" value="submit"/>
+</form>
