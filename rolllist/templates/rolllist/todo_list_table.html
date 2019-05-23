@@ -1,0 +1,44 @@
+<div class="row">
+	<div class="col">
+		<span class="title">To-do:</span>
+		<span>
+			<a href="{% url 'add_todo_item' list_id=todo_list.pk %}" class="openmodaltodo">+ item</a> | 
+			<a href="{% url 'rollover_todo' datestr=datestr %}">Rollover</a>
+		</span>
+		<table border=1>
+			{% for item in todo_list.todoitem_set.all %}
+				<tr>
+					{% if item.completed %}
+						<td><a href="{% url 'revert_todo_item' item_id=item.id %}">revert</a></td>
+						<td><span style="text-decoration: line-through;">{{item.title}}</span></td>
+					{% else %}
+						<td><a href="{% url 'complete_todo_item' item_id=item.id %}">complete</a></td>
+						<td>{{item.title}}</td>
+					{% endif %}
+					<td><a href="{% url 'delete_todo_item' item_id=item.id %}">[-]</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+</div>
+
+{% if yesterday_to_do_list.todoitem_set.count > 0 %}
+	<div cass="row">
+		<div class="col">
+			<span class="title">Yesterday:</span>
+			<table border=1>
+				{% for item in yesterday_to_do_list.todoitem_set.all %}
+					<tr>
+						{% if item.completed %}
+							<td>Complete</td>
+							<td>{{item.title}}</td>
+						{% else %}
+							<td>Incomplete</td>
+							<td><span style="font-weight: bold;">{{item.title}}</span></td>
+						{% endif %}
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+{% endif %}

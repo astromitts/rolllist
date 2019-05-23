@@ -23,6 +23,8 @@ from rolllist import views
 urlpatterns = [
     path('', views.day_view),
     path('admin/', admin.site.urls),
+    path('getschedule/<str:datestr>/', views.schedule_view, name='get_schedule'),
+    path('gettodolist/<str:datestr>/', views.todo_list_view, name='get_todo'),
     path('additem/<str:datestr>/<int:start_time_int>/', views.add_item_form, name='add_item'),
     path('deleteitem/<int:item_id>/', views.delete_item, name='delete_item'),
     path('addtodoitem/<int:list_id>/', views.add_to_do_item_form, name='add_todo_item'),

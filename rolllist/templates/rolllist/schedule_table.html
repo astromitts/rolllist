@@ -1,0 +1,26 @@
+<div class="scheduletable">
+	{% for interval in day_schedule.time_intervals %}
+		{% cycle 'hour' 'halfhour' as rowinterval silent %}
+		{% if not interval.items %}
+			<div class="schedulerow {{ rowinterval }}">
+				<div class="schedulecell schedulecell-vsm">
+					<a href="{% url 'add_item' start_time_int=interval.index datestr=datestr %}" class="openmodalschedule" id="{{interval.index}}">[+]</a>
+				</div>
+				<div class="schedulecell schedulecell-sm">{{interval.start_string}}</div>
+				<div class="schedulecell schedulecell-lg schedulecell-filler"></div>
+				<div class="schedulecell schedulecell-lg schedulecell-filler"></div>
+			</div>
+		{% else %}
+			<div class="schedulerow  {{ rowinterval }}">
+				{% with item=interval.items.first %}
+					<div class="schedulecell schedulecell-vsm">
+						<a href="{% url 'delete_item' item_id=item.id %}">[+]</a>
+					</div>
+					<div class="schedulecell schedulecell-sm">{{interval.start_string}}</div>
+					<div class="schedulecell schedulecell-lg">{{item.title}}</div>
+					<div class="schedulecell schedulecell-lg">{{item.location}}</div>
+				{% endwith %}
+			</div>
+		{% endif %}
+	{% endfor %}
+</div>

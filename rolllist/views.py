@@ -21,25 +21,45 @@ def day_view(request, datestr=None):
 
     target_day, target_day_created = Day.get_or_create(date=target_date)
 
+    context = {
+        'datestr': datestr,
+        'day': target_day
+    }
+
+    return HttpResponse(template.render(context, request))
+
+
+def schedule_view(request, datestr):
+    template = loader.get_template('rolllist/schedule_table.html')
+    target_date = datetime.strptime(datestr, "%Y%m%d").date()
+    target_day, target_day_created = Day.get_or_create(date=target_date)
+    day_schedule = DaySchedule(target_day, relevant_time_dict)
+
+    context = {
+        'datestr': datestr,
+        'day': target_day,
+        'day_schedule': day_schedule,
+    }
+
+    return HttpResponse(template.render(context, request))
+
+
+def todo_list_view(request, datestr):
+    template = loader.get_template('rolllist/todo_list_table.html')
+    target_date = datetime.strptime(datestr, "%Y%m%d").date()
+    target_day, target_day_created = Day.get_or_create(date=target_date)
+
     previous_day_date = target_day.date - timedelta(days=1)
     previous_day, previous_created = Day.get_or_create(date=previous_day_date)
-
-    if target_day_created:
-        ScheduleItem.rollover_recurring_items(target_day)
-
-    day_schedule = DaySchedule(target_day, relevant_time_dict)
 
     todo_list = ToDoList.get_or_create(target_day)
     yesterday_to_do_list = ToDoList.get_or_create(previous_day)
 
     context = {
         'datestr': datestr,
-        'day': target_day,
-        'day_schedule': day_schedule,
         'todo_list': todo_list,
         'yesterday_to_do_list': yesterday_to_do_list,
     }
-
     return HttpResponse(template.render(context, request))
 
 
@@ -63,7 +83,7 @@ def add_item_form(request, start_time_int=None, datestr=None):
             new_item.save()
             return redirect('day_view', datestr=datestr)
         else:
-            context = {'form_rendered_list': form.as_ul()}
+            context = {'form': form}
             return HttpResponse(template.render(context, request))
 
     else:
@@ -73,7 +93,7 @@ def add_item_form(request, start_time_int=None, datestr=None):
             init_values['end_time'] = relevant_time_dict[start_time_int + 1]
 
         form = ScheduleItemForm(initial=init_values)
-        context = {'form_rendered_list': form.as_ul()}
+        context = {'form': form}
         return HttpResponse(template.render(context, request))
 
 
@@ -98,11 +118,11 @@ def add_to_do_item_form(request, list_id=None):
             new_item.save()
             return redirect('day_view', datestr=to_do_list.day.url_str)
         else:
-            context = {'form_rendered_list': form.as_ul()}
+            context = {'form': form}
             return HttpResponse(template.render(context, request))
     else:
         form = ToDoItemForm()
-        context = {'form_rendered_list': form.as_ul()}
+        context = {'form': form}
         return HttpResponse(template.render(context, request))
 
 

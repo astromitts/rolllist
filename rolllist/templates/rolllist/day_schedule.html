@@ -1,73 +1,28 @@
 {% extends 'rolllist/base.html' %}
 {% load static %}
 {% block main_content %}
-<div class="row">
-    <div class="col">
-		<span class="title">Here is your schedule for {{day}}.</span>
-		<div class="schedulecontainer">
-			<div class="scheduletable">
-				{% for interval in day_schedule.time_intervals %}
-					{% cycle 'hour' 'halfhour' as rowinterval silent %}
-					{% if not interval.items %}
-						<div class="schedulerow {{ rowinterval }}">
-							<div class="schedulecell schedulecell-vsm">
-								<a href="{% url 'add_item' start_time_int=interval.index datestr=datestr %}">[+]</a>
-							</div>
-							<div class="schedulecell schedulecell-sm">{{interval.start_string}}</div>
-							<div class="schedulecell schedulecell-lg schedulecell-filler"></div>
-							<div class="schedulecell schedulecell-lg schedulecell-filler"></div>
-						</div>
-					{% else %}
-						<div class="schedulerow  {{ rowinterval }}">
-							{% with item=interval.items.first %}
-								<div class="schedulecell schedulecell-vsm">
-									<a href="{% url 'delete_item' item_id=item.id %}">[+]</a>
-								</div>
-								<div class="schedulecell schedulecell-sm">{{interval.start_string}}</div>
-								<div class="schedulecell schedulecell-lg">{{item.title}}</div>
-								<div class="schedulecell schedulecell-lg">{{item.location}}</div>
-							{% endwith %}
-						</div>
-					{% endif %}
-				{% endfor %}
-			</div>
+	{% comment %} hidden modal for ajaxy forms {% endcomment %}
+	<div id="modal">
+		<div id="closemodal">
+			<a href="" class="closemodal">(X)</a>
 		</div>
-    </div>
-</div>
-	<div class="col">
-		<span class="title">To-do:</span>
-		<a href="{% url 'rollover_todo' datestr=datestr %}">Rollover</a>
-		<table border=1>
-			{% for item in todo_list.todoitem_set.all %}
-				<tr>
-					{% if item.completed %}
-						<td><a href="{% url 'revert_todo_item' item_id=item.id %}">revert</a></td>
-						<td><span style="text-decoration: line-through;">{{item.title}}</span></td>
-					{% else %}
-						<td><a href="{% url 'complete_todo_item' item_id=item.id %}">complete</a></td>
-						<td>{{item.title}}</td>
-					{% endif %}
-					<td><a href="{% url 'delete_todo_item' item_id=item.id %}">[-]</a></td>
-				</tr>
-			{% endfor %}
-		</table>
-		<a href="{% url 'add_todo_item' list_id=todo_list.pk %}">[+]</a>
-
-
-		<span class="title">Yesterday:</span>
-		<table border=1>
-			{% for item in yesterday_to_do_list.todoitem_set.all %}
-				<tr>
-					{% if item.completed %}
-						<td>Complete</td>
-						<td>{{item.title}}</td>
-					{% else %}
-						<td>Incomplete</td>
-						<td><span style="font-weight: bold;">{{item.title}}</span></td>
-					{% endif %}
-				</tr>
-			{% endfor %}
-		</table>
+		<div id="modalcontent"></div>
 	</div>
-</div>
+
+	{% comment %} hidden field for loading other views via date id {% endcomment %}
+	<div id="get_schedule" style="display: none;">{% url 'get_schedule' datestr=datestr %}</div>
+	<div id="get_todo" style="display: none;">{% url 'get_todo' datestr=datestr %}</div>
+	<div id="datestr" style="display: none;">{{ datestr }}</div>
+
+	{% comment %} content containers {% endcomment %}
+	<div class="row">
+	    <div class="col">
+			<span class="title">Here is your schedule for {{day}}.</span>
+			<div id="schedulecontainer" class="schedulecontainer">
+			</div>
+	    </div>
+	</div>
+
+	<span id="todocontainter">
+	</span>
 {% endblock %}
