@@ -2,30 +2,42 @@
 .container{
 	padding-top: 6px;
 }
+.schedulecontainer{
+	border: 1px solid;
+}
 .scheduletable{
 	padding-left: 6px;
 	display: table;
+	border-collapse: collapse;
 	width: 100%;
 }
-.schedulerow .hour{
-	border: solid #000 1px;
-	display: table-row;
-}
-.schedulerow .halfhour{
-	border: dashed #000 1px;
+.schedulerow{
 	display: table-row;
 }
 .schedulecell{
 	display: table-cell;
 }
+.hour{
+	border-bottom: 1px solid;
+}
+.halfhour{
+	border-bottom: 1px dotted;
+}
 .schedulecell-vsm{
-	width: 28px;
+	border-left: solid 1px;
+	border-right: solid 1px;
+	width: 4%; /* 1 of them */
 }
 .schedulecell-sm{
-	width: 75px;
+	width: 20%; /* 1 of them */
+	border-right: solid 1px;
 }
 .schedulecell-lg{
-	width: 80px;
+	width: 32%; /* 2 of them */
+	border-right: solid 1px;
+}
+.schedulerow-filler{
+	border-right: 0px;
 }
 
 .title{
