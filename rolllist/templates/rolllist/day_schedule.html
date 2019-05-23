@@ -2,43 +2,38 @@
 {% load static %}
 {% block main_content %}
 <div class="row">
-  <div class="row justify-content-md-center">
-    <div class="col col-lg-9">
-		<h2>Here is your schedule for {{day}}.</h2>
-		<table border=1>
-			<tr><th colspan=3></th><th>Item</th><th>Location</th></tr>
-		{% for interval in day_schedule.time_intervals %}
-
-			{% if not interval.items %}
-				<tr class="openinterval">
-					<td>
-						<a href="{% url 'add_item' start_time_int=interval.index datestr=datestr %}">[&nbsp;+&nbsp;]</a>
-					</td>
-					<td>{{interval.start_string}}</td>
-					<td>{{interval.end_string}}</td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-			{% else %}
-				<tr class="closedinterval">
-					<td></td>
-					<td>{{interval.start_string}}</td><td>{{interval.end_string}}</td>
-					{% for item in interval.items %}
-						<td>{{item.title}}</td>
-						<td>{{item.location}}</td>
-						<td>
-							<a href="{% url 'delete_item' item_id=item.id %}">[&nbsp;-&nbsp;]</a>
-						</td>
-					{% endfor %}
-				</tr>
-			{% endif %}
-		{% endfor %}
-		</table>
+    <div class="col">
+		<span class="title">Here is your schedule for {{day}}.</span>
+		<div id="scheduletable">
+			{% for interval in day_schedule.time_intervals %}
+				{% cycle 'hour' 'halfour' as rowinterval silent %}
+				{% if not interval.items %}
+					<div class="schedulerow openinterval {{ rowinterval }}">
+						<div class="schedulecell schedulecell-vsm">
+							<a href="{% url 'add_item' start_time_int=interval.index datestr=datestr %}">[+]</a>
+						</div>
+						<div class="schedulecell schedulecell-sm">{{interval.start_string}}</div>
+						<div class="schedulecell schedulerow-filler">&nbsp;</div>
+					</div>
+				{% else %}
+					<div class="schedulerow closedinterval  {{ rowinterval }}">
+						<div class="schedulecell schedulecell-vsm">&nbsp;</div>
+						<div class="schedulecell schedulecell-sm">{{interval.start_string}}</div>
+						{% for item in interval.items %}
+							<div class="schedulecell schedulecell-lg">{{item.title}}</div>
+							<div class="schedulecell schedulecell-lg">{{item.location}}</div>
+							<div class="schedulecell schedulecell-vsm">
+								<a href="{% url 'delete_item' item_id=item.id %}">[-]</a>
+							</div>
+						{% endfor %}
+					</div>
+				{% endif %}
+			{% endfor %}
+		</div>
     </div>
-
-	<div class="col-3">
-		<h2>To-do:</h2>
+</div>
+	<div class="col">
+		<span class="title">To-do:</span>
 		<a href="{% url 'rollover_todo' datestr=datestr %}">Rollover</a>
 		<table border=1>
 			{% for item in todo_list.todoitem_set.all %}
@@ -57,7 +52,7 @@
 		<a href="{% url 'add_todo_item' list_id=todo_list.pk %}">[&nbsp;+&nbsp;]</a>
 
 
-		<h2>Yesterday:</h2>
+		<span class="title">Yesterday:</span>
 		<table border=1>
 			{% for item in yesterday_to_do_list.todoitem_set.all %}
 				<tr>

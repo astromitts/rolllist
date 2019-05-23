@@ -1,0 +1,33 @@
+
+.container{
+	padding-top: 6px;
+}
+.scheduletable{
+	padding-left: 6px;
+	display: table;
+	width: 100%;
+}
+.schedulerow .hour{
+	border: solid #000 1px;
+	display: table-row;
+}
+.schedulerow .halfhour{
+	border: dashed #000 1px;
+	display: table-row;
+}
+.schedulecell{
+	display: table-cell;
+}
+.schedulecell-vsm{
+	width: 28px;
+}
+.schedulecell-sm{
+	width: 75px;
+}
+.schedulecell-lg{
+	width: 80px;
+}
+
+.title{
+	font-weight: bold;
+}
