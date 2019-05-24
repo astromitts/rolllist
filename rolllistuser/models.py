@@ -13,7 +13,7 @@ def user_post_signal(sender, instance, created, **kwargs):
     """
     if created:
         instance.groups.add(Group.objects.get(name='public_users'))
-        rolllist_user = RollListUser(user=User)
+        rolllist_user = RollListUser(user=instance)
         rolllist_user.save()
     else:
         pass

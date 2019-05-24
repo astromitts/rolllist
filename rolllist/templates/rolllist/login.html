@@ -1,0 +1,26 @@
+{% extends 'rolllist/base.html' %}
+{% load static %}
+{% block main_content %}
+	<style>
+		li{
+			list-style: none;
+			display: table-row;
+			width: 100%;
+		}
+		label{
+			width: 90px;
+			display: table-cell;
+			padding: 5px;
+		}
+		select, input: {
+			display: table-cell;
+			padding: 5px;
+		}
+	</style>
+
+	<h2>Log in:</h2>
+	<form method="POST" action="{% url 'login_handler' %}">{% csrf_token %}
+	{{ login_form.as_ul|safe }}
+	<input type="submit" value="log in"/>
+	</form>
+{% endblock %}

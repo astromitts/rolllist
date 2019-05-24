@@ -3,14 +3,20 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 from rolllist import views
+from rolllistuser import views as userviews
 
 
 urlpatterns = [
     # admin
     path('admin/', admin.site.urls),
 
+    # user handlers
+    path('user/', userviews.create_init_view, name='user_init'),
+    path('login/', userviews.login_handler, name='login_handler'),
+    path('user/create/', userviews.create_handler, name='create_user_handler'),
+
     # dashboard
-    path('', views.day_view),
+    path('', views.day_view, name='dashboard'),
     path('<str:datestr>/', views.day_view, name='day_view'),
 
     # dashboard ajax views
