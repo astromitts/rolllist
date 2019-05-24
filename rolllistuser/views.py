@@ -21,7 +21,7 @@ def login_handler(request):
         data['username'] = data['email']
         form = LoginUserForm(data)
         if form.is_valid():
-            user = authenticate(username=data['email'], password=data['password'])
+            user = authenticate(username=data['username'], password=data['password'])
             if user:
                 login(request, user)
                 return redirect(reverse('dashboard'))
@@ -42,11 +42,9 @@ def logout_handler(request):
 def create_handler(request):
     if request.POST:
         data = request.POST.copy()
-        data['username'] = data['email']
         form = CreateUserForm(data)
         if form.is_valid():
             new_user = User.objects.create_user(
-                username=data['username'],
                 **form.cleaned_data
             )
             login(request, new_user)

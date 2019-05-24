@@ -6,12 +6,17 @@ class LoginUserForm(ModelForm):
 
     class Meta:
         model = User
-        fields = ['email', 'password']
+        fields = ['username', 'password']
         widgets = {
             'password': PasswordInput(),
         }
 
 
-class CreateUserForm(LoginUserForm):
+class CreateUserForm(ModelForm):
 
-    pass
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password']
+        widgets = {
+            'password': PasswordInput(),
+        }
