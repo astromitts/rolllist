@@ -1,5 +1,5 @@
 function show_modal_and_overlay(){
-	$('div#modal').show();
+	$('div#modal').css('display', 'inline-block');
 	$('div#backgroundcover').show();
 }
 

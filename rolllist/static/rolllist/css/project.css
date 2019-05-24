@@ -48,15 +48,17 @@
 
 /* Modal styles */
 #modal {
-	position: absolute;
+	position: absolute;        
+	top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) !important;
+	padding: 0!important;
+	margin: 0 auto;
+	vertical-align: middle;
 	width: 93%;
-	height: 90%;
 	z-index: 200;
 	background-color: #F8F9F9;
-	display: none;
 	border: 2px solid;
-	margin: auto;
-	padding: 0;
 }
 #backgroundcover{
 	position: fixed;
