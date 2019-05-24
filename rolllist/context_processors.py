@@ -2,6 +2,8 @@ from datetime import datetime, date, timedelta
 
 
 def chronology(request, *args, **kwargs):
+    """ Context data to set up previous/next day navigation links
+    """
     context = {}
     target_date = date.today()
     path_parts = request.path.split('/')

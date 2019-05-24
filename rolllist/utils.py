@@ -25,6 +25,8 @@ relevant_time_dict = {
 
 
 class TimeInterval(object):
+    """ Helper object for organizing data about a time interval
+    """
     def __init__(self, index, start_string, end_string):
         self.index = index
         self.start_string = start_string
@@ -33,6 +35,8 @@ class TimeInterval(object):
 
 
 class DaySchedule(object):
+    """ Helper object for organizing scheduled items by time interval
+    """
     def __init__(self, day, relevant_time_dict):
         self.day = day
         self.time_intervals = []
