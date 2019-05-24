@@ -1,5 +1,5 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-
 from django.template import loader
 
 from datetime import datetime, timedelta
@@ -9,6 +9,7 @@ from .models.appmodels import Day, ScheduleItem, ToDoList
 from .utils import DaySchedule, relevant_time_dict
 
 
+@login_required(login_url='login/')
 def day_view(request, datestr=None):
     """ Dashboard type view
         Provides static elements for presentation and set up for ajax calls
@@ -34,6 +35,7 @@ def day_view(request, datestr=None):
     return HttpResponse(template.render(context, request))
 
 
+@login_required(login_url='login/')
 def schedule_view(request, datestr):
     """ View providing the time interval schedule for a given day
     """
@@ -51,6 +53,7 @@ def schedule_view(request, datestr):
     return HttpResponse(template.render(context, request))
 
 
+@login_required(login_url='login/')
 def todo_list_view(request, datestr):
     """ View providing the to do lists for a given day
     """
@@ -72,6 +75,7 @@ def todo_list_view(request, datestr):
     return HttpResponse(template.render(context, request))
 
 
+@login_required(login_url='login/')
 def add_schedule_item_form(request, start_time_int=None, datestr=None):
     """ Handler for add schedule item form
     """
@@ -108,6 +112,7 @@ def add_schedule_item_form(request, start_time_int=None, datestr=None):
         return HttpResponse(template.render(context, request))
 
 
+@login_required(login_url='login/')
 def delete_schedule_item(request, item_id):
     """ Delete schedule item of given ID """
     item = ScheduleItem.objects.get(pk=item_id)
@@ -115,6 +120,7 @@ def delete_schedule_item(request, item_id):
     return HttpResponse()
 
 
+@login_required(login_url='login/')
 def add_to_do_item_form(request, list_id=None):
     """ Handler for add to do item form
     """
@@ -139,6 +145,7 @@ def add_to_do_item_form(request, list_id=None):
         return HttpResponse(template.render(context, request))
 
 
+@login_required(login_url='login/')
 def rollover_todo(request, datestr):
     """ Handles copying incomplete items from previous day to day of given datestr
     """
@@ -154,6 +161,7 @@ def rollover_todo(request, datestr):
     return HttpResponse()
 
 
+@login_required(login_url='login/')
 def delete_todo_item(request, item_id):
     """ Delete to do item of given ID """
     item = ToDoItem.objects.get(pk=item_id)
@@ -161,6 +169,7 @@ def delete_todo_item(request, item_id):
     return HttpResponse()
 
 
+@login_required(login_url='login/')
 def complete_todo_item(request, item_id):
     """ Set completed status on to do item of given ID """
     item = ToDoItem.objects.get(pk=item_id)
@@ -169,6 +178,7 @@ def complete_todo_item(request, item_id):
     return HttpResponse()
 
 
+@login_required(login_url='login/')
 def revert_todo_item(request, item_id):
     """ Revert completed status on to do item of given ID """
     item = ToDoItem.objects.get(pk=item_id)
