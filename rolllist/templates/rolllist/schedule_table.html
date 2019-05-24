@@ -14,7 +14,7 @@
 			<div class="schedulerow  {{ rowinterval }}">
 				{% with item=interval.items.first %}
 					<div class="schedulecell schedulecell-vsm">
-						<a href="{% url 'delete_item' item_id=item.id %}">[+]</a>
+						<a href="{% url 'delete_item' item_id=item.id %}" class="schedule-generic">[+]</a>
 					</div>
 					<div class="schedulecell schedulecell-sm">{{interval.start_string}}</div>
 					<div class="schedulecell schedulecell-lg">{{item.title}}</div>

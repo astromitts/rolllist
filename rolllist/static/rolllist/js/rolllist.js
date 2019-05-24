@@ -73,13 +73,28 @@ function bind_modal_close(){
 	});
 }
 
+function bind_schedule_generic_handlers(){
+	$('a.schedule-generic').click(function(event){
+		event.preventDefault();
+		var action = $(this).attr('href');
+		$.ajax({
+			url: action,
+			type: 'GET',
+			success: function(data){
+				get_schedule_table();
+			},
+		})
+	});
+}
+
 function get_schedule_table(){
 	$.ajax({
 		url: $('div#get_schedule').text(),
-		typ: 'GET',
+		type: 'GET',
 		success: function(data){
 			$('div#schedulecontainer').html(data);
 			bind_modal_open_schedule();
+			bind_schedule_generic_handlers();
 			bind_modal_close();
 		},
 	})
@@ -91,7 +106,7 @@ function bind_todo_generic_handlers(){
 		var action = $(this).attr('href');
 		$.ajax({
 			url: action,
-			typ: 'GET',
+			type: 'GET',
 			success: function(data){
 				get_todo_table();
 			},
@@ -102,7 +117,7 @@ function bind_todo_generic_handlers(){
 function get_todo_table(){
 	$.ajax({
 		url: $('div#get_todo').text(),
-		typ: 'GET',
+		type: 'GET',
 		success: function(data){
 			$('span#todocontainter').html(data);
 			bind_modal_open_todo();
