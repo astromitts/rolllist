@@ -49,13 +49,22 @@
 /* Modal styles */
 #modal {
 	position: absolute;
-	right: -1px;
-	width: 100%;
-	height: 100%;
-	z-index: 100;
+	width: 93%;
+	height: 90%;
+	z-index: 200;
 	background-color: #F8F9F9;
 	display: none;
 	border: 2px solid;
+	margin: auto;
+	padding: 0;
+}
+#backgroundcover{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	opacity: 0.5;
+	z-index: 100;
 }
 .closemodal{
 	float: right;

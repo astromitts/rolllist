@@ -1,5 +1,11 @@
-function set_dropdown_times(){
+function show_modal_and_overlay(){
+	$('div#modal').show();
+	$('div#backgroundcover').show();
+}
 
+function hide_modal_and_overlay(){
+	$('div#modal').hide();
+	$('div#backgroundcover').hide();
 }
 
 function bind_ajax_form_submit(form, action, reload_function){
@@ -11,10 +17,10 @@ function bind_ajax_form_submit(form, action, reload_function){
 			data: $(this).serialize(),
 			success: function(data){
 				reload_function(datestr);
-				$('div#modal').hide();
+				hide_modal_and_overlay();
 			},
 			error: function(data){
-				$('div#modal').hide();
+				hide_modal_and_overlay();
 				alert("there was an error");
 			}
 		});
@@ -35,7 +41,7 @@ function bind_modal_open_schedule(datestr){
 				$('#id_start_time').val(start_val);
 				$('#id_end_time').val(parseInt(start_val) + 1);
 				
-				$('div#modal').show();
+				show_modal_and_overlay();
 				bind_ajax_form_submit($('form.ajaxme'), target_url, get_schedule_table, datestr);
 			},
 			error: function(data){
@@ -56,7 +62,7 @@ function bind_modal_open_todo(datestr){
 			url: target_url,
 			success: function(data){
 				$('div#modalcontent').html(data);
-				$('div#modal').show();
+				show_modal_and_overlay();
 				bind_ajax_form_submit($('form.ajaxme'), target_url, get_todo_table, datestr);
 			},
 			error: function(data){
@@ -69,7 +75,7 @@ function bind_modal_open_todo(datestr){
 function bind_modal_close(){
 	$('a.closemodal').click(function(event){
 		event.preventDefault();
-		$('div#modal').hide();
+		hide_modal_and_overlay();
 	});
 }
 
