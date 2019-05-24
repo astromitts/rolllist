@@ -3,19 +3,19 @@
 		<span class="title">To-do:</span>
 		<span>
 			<a href="{% url 'add_todo_item' list_id=todo_list.pk %}" class="openmodaltodo">+ item</a> | 
-			<a href="{% url 'rollover_todo' datestr=datestr %}">Rollover</a>
+			<a href="{% url 'rollover_todo' datestr=datestr %}" class="todo-generic">Rollover</a>
 		</span>
 		<table border=1>
 			{% for item in todo_list.todoitem_set.all %}
 				<tr>
 					{% if item.completed %}
-						<td><a href="{% url 'revert_todo_item' item_id=item.id %}">revert</a></td>
+						<td><a href="{% url 'revert_todo_item' item_id=item.id %}" class="todo-generic">revert</a></td>
 						<td><span style="text-decoration: line-through;">{{item.title}}</span></td>
 					{% else %}
-						<td><a href="{% url 'complete_todo_item' item_id=item.id %}">complete</a></td>
+						<td><a href="{% url 'complete_todo_item' item_id=item.id %}" class="todo-generic">complete</a></td>
 						<td>{{item.title}}</td>
 					{% endif %}
-					<td><a href="{% url 'delete_todo_item' item_id=item.id %}">[-]</a></td>
+					<td><a href="{% url 'delete_todo_item' item_id=item.id %}" class="todo-generic">[-]</a></td>
 				</tr>
 			{% endfor %}
 		</table>

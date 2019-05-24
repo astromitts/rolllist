@@ -85,6 +85,20 @@ function get_schedule_table(){
 	})
 }
 
+function bind_todo_generic_handlers(){
+	$('a.todo-generic').click(function(event){
+		event.preventDefault();
+		var action = $(this).attr('href');
+		$.ajax({
+			url: action,
+			typ: 'GET',
+			success: function(data){
+				get_todo_table();
+			},
+		})
+	});
+}
+
 function get_todo_table(){
 	$.ajax({
 		url: $('div#get_todo').text(),
@@ -92,6 +106,7 @@ function get_todo_table(){
 		success: function(data){
 			$('span#todocontainter').html(data);
 			bind_modal_open_todo();
+			bind_todo_generic_handlers()
 			bind_modal_close();
 		},
 	})

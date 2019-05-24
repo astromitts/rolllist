@@ -145,8 +145,8 @@ def rollover_todo(request, datestr):
     target_day = Day.objects.get(date=datetime.strptime(datestr, "%Y%m%d").date())
     previous_day_date = target_day.date - timedelta(days=1)
     source_day = Day.objects.get(date=previous_day_date)
-    source_list = ToDoList.get_or_create(day=source_day)
-    new_list = ToDoList.get_or_create(day=target_day)
+    source_list, created = ToDoList.get_or_create(day=source_day)
+    new_list, created = ToDoList.get_or_create(day=target_day)
 
     for item in source_list.todoitem_set.filter(completed=False).all():
         new_item = ToDoItem(title=item.title, to_do_list=new_list)
