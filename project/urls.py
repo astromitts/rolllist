@@ -6,12 +6,12 @@ from rolllist import views
 
 
 urlpatterns = [
+    # admin
+    path('admin/', admin.site.urls),
+
     # dashboard
     path('', views.day_view),
     path('<str:datestr>/', views.day_view, name='day_view'),
-
-    # admin
-    path('admin/', admin.site.urls),
 
     # dashboard ajax views
     path('getschedule/<str:datestr>/', views.schedule_view, name='get_schedule'),
