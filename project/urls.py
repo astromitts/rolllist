@@ -7,6 +7,9 @@ from rolllistuser import views as userviews
 
 
 urlpatterns = [
+    # dashboard
+    path('', views.day_view, name='dashboard'),
+
     # admin
     path('admin/', admin.site.urls),
 
@@ -17,7 +20,6 @@ urlpatterns = [
     path('user/create/', userviews.create_handler, name='create_user_handler'),
 
     # dashboard
-    path('', views.day_view, name='dashboard'),
     path('<str:datestr>/', views.day_view, name='day_view'),
 
     # dashboard ajax views

@@ -16,19 +16,26 @@ def create_init_view(request):
 
 def login_handler(request):
     template = loader.get_template('rolllist/login.html')
+    if request.user.is_authenticated:
+        return redirect(reverse('dashboard'))
     if request.POST:
         data = request.POST.copy()
-        data['username'] = data['email']
         form = LoginUserForm(data)
         if form.is_valid():
-            user = authenticate(username=data['username'], password=data['password'])
-            if user:
-                login(request, user)
-                return redirect(reverse('dashboard'))
-            else:
+            try:
+                user = User.objects.get(email=data['email'])
+                if user.check_password(data['password']):
+                    login(request, user)
+                    return redirect(reverse('dashboard'))
+                else:
+                    context = {'login_form': form}
+                    context['error'] = 'invalid password'
+                    return HttpResponse(template.render(context, request))
+            except:
                 context = {'login_form': form}
-                context['error'] = 'invalid password or email'
+                context['error'] = 'invalid email'
                 return HttpResponse(template.render(context, request))
+
     else:
         context = {'login_form': LoginUserForm}
         return HttpResponse(template.render(context, request))
