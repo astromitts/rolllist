@@ -5,6 +5,17 @@
 .hiddentext{
 	color: #FFFFFF;
 }
+.daynav{
+	width: 100%;
+}
+.daynavprev{
+	float: left;
+	padding-left: 10px;
+}
+.daynavnext{
+	float: right;
+	padding-right: 10px;
+}
 
 /* schedule table styles */
 .schedulecontainer{
