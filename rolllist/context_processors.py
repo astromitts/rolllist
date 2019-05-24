@@ -17,4 +17,5 @@ def chronology(request, *args, **kwargs):
     context['is_today'] = target_date == date.today()
     context['target_next_day'] = '{0:%Y%m%d}'.format(target_date + timedelta(days=1))
     context['target_previous_date'] = '{0:%Y%m%d}'.format(target_date - timedelta(days=1))
+    context['user_logged_in'] = request.user.is_authenticated
     return context

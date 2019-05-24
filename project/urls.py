@@ -13,6 +13,7 @@ urlpatterns = [
     # user handlers
     path('user/', userviews.create_init_view, name='user_init'),
     path('login/', userviews.login_handler, name='login_handler'),
+    path('logout/', userviews.logout_handler, name='logout_handler'),
     path('user/create/', userviews.create_handler, name='create_user_handler'),
 
     # dashboard

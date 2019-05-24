@@ -19,6 +19,7 @@
 	</style>
 
 	<h2>Log in:</h2>
+	{% if error %}<div class="alert">{{ error }}</div>{% endif %}
 	<form method="POST" action="{% url 'login_handler' %}">{% csrf_token %}
 	{{ login_form.as_ul|safe }}
 	<input type="submit" value="log in"/>

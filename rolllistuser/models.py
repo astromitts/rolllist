@@ -7,6 +7,9 @@ from django.db.models.signals import post_save
 class RollListUser(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.user.username
+
 
 def user_post_signal(sender, instance, created, **kwargs):
     """ Handler for custom user creation logic

@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, logout, authenticate
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import redirect
@@ -27,10 +27,16 @@ def login_handler(request):
                 return redirect(reverse('dashboard'))
             else:
                 context = {'login_form': form}
+                context['error'] = 'invalid password or email'
                 return HttpResponse(template.render(context, request))
     else:
         context = {'login_form': LoginUserForm}
         return HttpResponse(template.render(context, request))
+
+
+def logout_handler(request):
+    logout(request)
+    return redirect(reverse('login_handler'))
 
 
 def create_handler(request):
