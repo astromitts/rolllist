@@ -4,7 +4,11 @@
 		{% if not interval.items %}
 			<div class="schedulerow {{ rowinterval }}">
 				<div class="schedulecell schedulecell-vsm">
+					{% if interval.next_index %}
 					<a href="{% url 'add_item' start_time_int=interval.index datestr=datestr %}" class="openmodalschedule" id="{{interval.index}}">[+]</a>
+					{% else %}
+						<span class="hiddentext">[+]</span>
+					{% endif %}
 				</div>
 				<div class="schedulecell schedulecell-sm">{{interval.start_string}}</div>
 				<div class="schedulecell schedulecell-lg schedulecell-filler"></div>

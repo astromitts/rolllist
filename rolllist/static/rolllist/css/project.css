@@ -2,6 +2,9 @@
 .container{
 	padding-top: 6px;
 }
+.hiddentext{
+	color: #FFFFFF;
+}
 
 /* schedule table styles */
 .schedulecontainer{
@@ -52,8 +55,8 @@
 	z-index: 100;  
 	top:50%;  
 	left:50%;  
-	margin:-45% 0 0 -45%;  
-	width:90%;  
+	margin:-150px 0 0 -150px;  
+	width:300px;  
 	background-color: #F8F9F9;
 	border: 2px solid;
 }

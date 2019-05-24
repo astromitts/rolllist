@@ -22,6 +22,7 @@ latest_time_index = time_options_strings.index('6:30 PM')
 relevant_time_dict = {
     i: time_options_strings[i] for i in range(earliest_time_index, latest_time_index + 1)
 }
+relevant_keys = [i for i in relevant_time_dict.keys()]
 
 
 class TimeInterval(object):
@@ -32,6 +33,10 @@ class TimeInterval(object):
         self.start_string = start_string
         self.end_string = end_string
         self.items = []
+        if index == relevant_keys[-1]:
+            self.next_index = None
+        else:
+            self.next_index = index + 1
 
 
 class DaySchedule(object):
@@ -43,8 +48,11 @@ class DaySchedule(object):
 
         for i, string in relevant_time_dict.items():
             this_interval = TimeInterval(
-                i, time_options_strings[i], time_options_strings[i + 1]
+                i,
+                time_options_strings[i],
+                time_options_strings[i + 1]
             )
+
             this_interval.items = day.scheduleitem_set.filter(
                 models.Q(start_time=i) |
                 (models.Q(start_time__lt=i) & models.Q(end_time__gt=i))
