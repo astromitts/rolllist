@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.template import loader
 
@@ -6,7 +7,13 @@ from datetime import datetime, timedelta
 
 from .forms import ScheduleItemForm, ToDoItemForm, ToDoItem
 from .models.appmodels import Day, ScheduleItem, ToDoList
+from rolllistuser.models import RollListUser
 from .utils import DaySchedule, relevant_time_dict
+
+
+def get_user(request):
+    user = User.objects.get(email=request.user.email)
+    return RollListUser.objects.get(user=user)
 
 
 @login_required(login_url='login/')
@@ -42,7 +49,7 @@ def schedule_view(request, datestr):
     template = loader.get_template('rolllist/schedule_table.html')
     target_date = datetime.strptime(datestr, "%Y%m%d").date()
     target_day, target_day_created = Day.get_or_create(date=target_date)
-    day_schedule = DaySchedule(target_day, relevant_time_dict)
+    day_schedule = DaySchedule(target_day, relevant_time_dict, get_user(request))
 
     context = {
         'datestr': datestr,
@@ -64,8 +71,8 @@ def todo_list_view(request, datestr):
     previous_day_date = target_day.date - timedelta(days=1)
     previous_day, previous_created = Day.get_or_create(date=previous_day_date)
 
-    todo_list, created = ToDoList.get_or_create(day=target_day)
-    yesterday_to_do_list, created = ToDoList.get_or_create(day=previous_day)
+    todo_list, created = ToDoList.get_or_create(day=target_day, user=get_user(request))
+    yesterday_to_do_list, created = ToDoList.get_or_create(day=previous_day, user=get_user(request))
 
     context = {
         'datestr': datestr,
@@ -92,7 +99,7 @@ def add_schedule_item_form(request, start_time_int=None, datestr=None):
                 'end_time': data['end_time'],
                 'title': data['title'],
                 'location': data['location'],
-                # 'recurring': data['recurring'] == 'on',
+                'user': get_user(request),
             }
             new_item = ScheduleItem(**save_data)
             new_item.save()
@@ -131,7 +138,7 @@ def add_to_do_item_form(request, list_id=None):
         if form.is_valid:
             save_data = {
                 'to_do_list': to_do_list,
-                'title': request.POST['title'],
+                'title': request.POST['title']
             }
             new_item = ToDoItem(**save_data)
             new_item.save()

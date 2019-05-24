@@ -42,7 +42,7 @@ class TimeInterval(object):
 class DaySchedule(object):
     """ Helper object for organizing scheduled items by time interval
     """
-    def __init__(self, day, relevant_time_dict):
+    def __init__(self, day, relevant_time_dict, user):
         self.day = day
         self.time_intervals = []
 
@@ -56,5 +56,5 @@ class DaySchedule(object):
             this_interval.items = day.scheduleitem_set.filter(
                 models.Q(start_time=i) |
                 (models.Q(start_time__lt=i) & models.Q(end_time__gt=i))
-            ).all()
+            ).filter(user=user).all()
             self.time_intervals.append(this_interval)

@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 
+from rolllistuser.models import RollListUser
 from rolllist.utils import time_options_strings
 
 
@@ -34,6 +35,7 @@ class Day(models.Model, BaseModel):
 class ScheduleItem(models.Model, BaseModel):
     """ Model for schedule items
     """
+    user = models.ForeignKey(RollListUser, on_delete=models.CASCADE)
     day = models.ForeignKey(Day, on_delete=models.CASCADE)
     title = models.CharField(max_length=150)
     start_time = models.IntegerField(
@@ -77,6 +79,7 @@ class ScheduleItem(models.Model, BaseModel):
 class ToDoList(models.Model, BaseModel):
     """ Model for linking together to do items to a day
     """
+    user = models.ForeignKey(RollListUser, on_delete=models.CASCADE)
     day = models.ForeignKey(Day, on_delete=models.CASCADE)
     rolled_over = models.BooleanField(default=False)  # TODO: implement
 
