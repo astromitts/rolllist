@@ -19,6 +19,17 @@
 	</style>
 
 	<h2>Create an account:</h2>
+	{% if errors %}
+		<div class="alert">
+			Errors:
+			<ul>
+				{% for error in errors %}
+					<li>{{error}}</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
+
 	<form method="POST" action="{% url 'create_user_handler' %}">{% csrf_token %}
 	{{ create_form.as_ul|safe }}
 	<input type="submit" value="create"/>

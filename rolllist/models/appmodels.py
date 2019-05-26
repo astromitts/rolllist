@@ -83,6 +83,9 @@ class ToDoList(models.Model, BaseModel):
     day = models.ForeignKey(Day, on_delete=models.CASCADE)
     rolled_over = models.BooleanField(default=False)  # TODO: implement
 
+    class Meta:
+        unique_together = ('user', 'day',)
+
     def __str__(self):
         return 'list for day %s' % self.day
 

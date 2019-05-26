@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import redirect
@@ -57,8 +57,15 @@ def create_handler(request):
             login(request, new_user)
             return redirect(reverse('dashboard'))
         else:
-            template = loader.get_template('rolllist/create_user.html')
-            context = {'create_form': form}
+            if form.errors:
+                errors = form.errors
+            else:
+                errors = ['invalid request, try again']
+            template = loader.get_template('rolllist/create.html')
+            context = {'create_form': form, 'errors': errors}
             return HttpResponse(template.render(context, request))
 
-    return redirect(reverse('user_init'))
+    template = loader.get_template('rolllist/create.html')
+    form = CreateUserForm()
+    context = {'create_form': form}
+    return HttpResponse(template.render(context, request))

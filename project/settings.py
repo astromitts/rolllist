@@ -112,3 +112,23 @@ USE_TZ = True
 STATIC_URL = '/rolllist/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'rolllist/static')
+
+NON_STAFF_PERMS = [
+    'add_day',
+    'view_day',
+    'add_todolist',
+    'change_todolist',
+    'delete_todolist',
+    'view_todolist',
+    'add_todoitem',
+    'change_todoitem',
+    'delete_todoitem',
+    'view_todoitem',
+    'add_scheduleitem',
+    'change_scheduleitem',
+    'delete_scheduleitem',
+    'view_scheduleitem',
+    'add_rolllistuser',
+    'change_rolllistuser',
+    'view_rolllistuser',
+]
