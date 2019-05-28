@@ -25,6 +25,12 @@ relevant_time_dict = {
 relevant_keys = [i for i in relevant_time_dict.keys()]
 
 
+def get_relevant_time_id(search_time):
+    for _id, _val in relevant_time_dict.items():
+        if _val == search_time:
+            return _id
+
+
 class TimeInterval(object):
     """ Helper object for organizing data about a time interval
     """
