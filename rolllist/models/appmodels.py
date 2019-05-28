@@ -68,6 +68,10 @@ class ScheduleItem(models.Model, BaseModel):
         """ Front end helper to display human version of end time interval """
         return time_options_strings[self.end_time]
 
+    @property
+    def get_delete_url(self):
+        return '/deletescheduleitem/%d/' % self.id
+
     # TODO probably need a new model for recurring items
     @classmethod
     def rollover_recurring_items(cls, day):

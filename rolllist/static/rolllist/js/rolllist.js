@@ -133,6 +133,24 @@ function get_todo_table(){
 	})
 }
 
+function bind_toggle_buttons(){
+	$('#todocontainter').hide();
+	$('button.toggle-btn').click(function(){
+		var this_button = $(this);
+		var target_id = this_button.attr('id').replace('toggle-','');
+		var target_div = $('#' + target_id);
+
+		$('.toggle-target').hide();
+		target_div.show();
+
+		$('button.toggle-btn').addClass('btn-outline-primary');
+		$('button.toggle-btn').removeClass('btn-primary');
+		this_button.removeClass('btn-outline-primary');
+		this_button.addClass('btn-primary');
+
+	});
+}
+
 $(document).ready(function(){
 	var on_additem_page = window.location.href.indexOf("additem") > 0;
 
@@ -142,5 +160,5 @@ $(document).ready(function(){
 	var datestr = $('div#datestr').text();
 	get_schedule_table();
 	get_todo_table();
-
+	bind_toggle_buttons();
 });

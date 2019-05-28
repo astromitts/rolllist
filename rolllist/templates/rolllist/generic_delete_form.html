@@ -1,0 +1,22 @@
+{% load static %}
+<style>
+	li{
+		list-style: none;
+		display: table-row;
+		width: 100%;
+	}
+	label{
+		width: 90px;
+		display: table-cell;
+		padding: 5px;
+	}
+	select, input: {
+		display: table-cell;
+		padding: 5px;
+	}
+</style>
+
+<form method="POST" action="{{ item.get_delete_url }}" class="ajaxme">{% csrf_token %}
+{{ message }}
+<input type="submit" class="btn btn-danger" value="confirm"/>
+</form>

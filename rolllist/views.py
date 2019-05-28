@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse
+# from django.urls import reverse
 from django.template import loader
 
 from datetime import datetime, timedelta
@@ -24,7 +25,7 @@ def day_view(request, datestr=None):
         Schedule table is rendered via ajax call to schedule_view
         To do list tables are rendered via ajax call to todo_list_view
     """
-    template = loader.get_template('rolllist/day_schedule.html')
+    template = loader.get_template('rolllist/dashboard.html')
 
     if not datestr:
         target_date = datetime.today()
@@ -120,11 +121,49 @@ def add_schedule_item_form(request, start_time_int=None, datestr=None):
 
 
 @login_required(login_url='login/')
-def delete_schedule_item(request, item_id):
+def edit_schedule_item_form(request, item_id):
+    """ Handler for edit schedule item form
+    """
+    template = loader.get_template('rolllist/generic_form.html')
+    existing_item = ScheduleItem.objects.get(id=item_id)
+
+    if request.POST:
+        data = request.POST.copy()
+        form = ScheduleItemForm(data)
+        if form.is_valid():
+            existing_item.start_time = data['start_time']
+            existing_item.end_time = data['end_time']
+            existing_item.title = data['title']
+            existing_item.location = data['location']
+            existing_item.save()
+
+            return HttpResponse()
+        else:
+            context = {'form': form}
+            return HttpResponse(template.render(context, request))
+
+    else:
+
+        form = ScheduleItemForm(instance=existing_item)
+        context = {'form': form}
+        return HttpResponse(template.render(context, request))
+
+
+@login_required(login_url='login/')
+def delete_schedule_item_handler(request, item_id):
     """ Delete schedule item of given ID """
+    if request.POST:
+        item = ScheduleItem.objects.get(pk=item_id)
+        item.delete()
+        return HttpResponse()
+
     item = ScheduleItem.objects.get(pk=item_id)
-    item.delete()
-    return HttpResponse()
+    template = loader.get_template('rolllist/generic_delete_form.html')
+    context = {
+        'item': item,
+        'message': 'Delete %s?' % item.title,
+    }
+    return HttpResponse(template.render(context, request))
 
 
 @login_required(login_url='login/')
