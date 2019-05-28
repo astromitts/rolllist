@@ -10,3 +10,11 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db-dev.sqlite3'),
     }
 }
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# Tell nose to measure coverage on the 'foo' and 'bar' apps
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=rolllist.models,rolllisy.views,rolllistuser.models',
+]
