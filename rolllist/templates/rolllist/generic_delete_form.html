@@ -18,5 +18,6 @@
 
 <form method="POST" action="{{ item.get_delete_url }}" class="ajaxme">{% csrf_token %}
 {{ message }}
+<input type="hidden" name="item_id" value="{{ item.id }}" />
 <input type="submit" class="btn btn-danger" value="confirm"/>
 </form>
