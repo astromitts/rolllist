@@ -83,6 +83,9 @@ class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
     )
     location = models.CharField(max_length=150, null=True)
 
+    def __str__(self):
+        return '%s // %s (@%s-%s)' % (self.title, self.location, self.start, self.end)
+
 
 class ScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
     """ Model for schedule items
@@ -105,8 +108,14 @@ class ScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
         RecurringScheduleItem,
         on_delete=models.CASCADE,
         null=True,
+        blank=True,
         related_name='source'
     )
+
+    def __str__(self):
+        return '%s // %s (%s@%s-%s)' % (
+            self.title, self.location, self.day, self.start, self.end
+        )
 
     def make_recurring(self):
         if not self.recurrance:

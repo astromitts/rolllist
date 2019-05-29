@@ -69,59 +69,30 @@ class DaySchedule(object):
 class DayScheduleDeux(object):
     """
         [
-            8:00 AM items: None,
-            8:30 AM items: [
-                (
-                    id
-                    title
-                    location
-                    start time id
-                    end time id
-                    start time display
-                    end time display
-                    interval count (end_time - start_time)
-                    is recurring
-                ),
-            ],
-            9:00 AM items: None
-            9:30 AM items: [
-                (
-                    id
-                    title
-                    location
-                    start time id
-                    end time id
-                    start time display
-                    end time display
-                    interval count (end_time - start_time)
-                    is recurring
-                ),
-                (
-                    id
-                    title
-                    location
-                    start time id
-                    end time id
-                    start time display
-                    end time display
-                    interval count (end_time - start_time)
-                    is recurring
-                ),
-            ],
+            (
+                item: None,
+                intervals: [1, ],
+            ),
+            (
+                item: ScheduleItem(...),
+                intervals: [2, ],
+            ),
+            (
+                item: None,
+                intervals: [3, ],
+            ),
+            (
+                item: ScheduleItem(...),
+                intervals: [3, 4, 5],
+            ),
             ...
         ]
     """
     def _organize_by_time(self, all_items):
-        time_dict = {}
-        for item in all_items:
-            if not time_dict.get(item.start_time):
-                time_dict[item.start_time] = []
-            item_data = {
-                'item': item,
-                'interval_count': item.end_time - item.start_time
-            }
-            time_dict[item.start_time].append(item_data)
-        return time_dict
+        return {item.start_time: item for item in all_items}
+
+    def _get_item_intervals(seld, item):
+        return [i for i in range(item.start_time, item.end_time)]
 
     def __init__(self, day, user):
         self.day = day
@@ -131,12 +102,18 @@ class DayScheduleDeux(object):
         items_time_dict = self._organize_by_time(self.all_items)
         self.items_by_time = {i.start_time: i for i in self.all_items}
         self.schedule = []
+        used_intervals = []
         for i, string in relevant_time_dict.items():
-            data = {
-                'start_time_display': string,
-                'int_id': i,
-                'items': None,
-            }
-            if i in items_time_dict:
-                data['items'] = items_time_dict[i]
-            self.schedule.append(data)
+            if i not in used_intervals:
+                data = {
+                    'start_time_display': string,
+                    'intervals': None,
+                    'item': None,
+                }
+                if i in items_time_dict:
+                    data['item'] = items_time_dict[i]
+                    data['intervals'] = self._get_item_intervals(items_time_dict[i])
+                    used_intervals += data['intervals']
+                else:
+                    data['interval'] = i
+                self.schedule.append(data)

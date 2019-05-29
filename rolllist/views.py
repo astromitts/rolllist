@@ -73,7 +73,7 @@ def schedule_view_new(request, datestr):
     context = {
         'datestr': datestr,
         'day': target_day,
-        'day_schedule': day_schedule,
+        'day_schedule': day_schedule.schedule,
     }
 
     return HttpResponse(template.render(context, request))

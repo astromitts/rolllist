@@ -1,28 +1,38 @@
 {% extends 'rolllist/base.html' %}
-{% load static %}
+{% load static extras %}
 {% block main_content %}
-<div class="scheduletable2">
-	{% for interval in day_schedule.schedule %}
-		{% cycle 'hour2' 'halfhour2' as rowinterval silent %}
+	{% for schedule_block in day_schedule %}
 
 		{% comment %}Row without an existing item{% endcomment %}
-		{% if not interval.items %}
-			<div class="schedulerow2 {{ rowinterval }}">
-				<div class="schedulecell2 schedulecell-sm2">{{interval.start_time_display}}</div>
-				<div class="schedulecell2 schedulecell-lg2 schedulecell-filler2"></div>
-			</div>
+		{% if not schedule_block.item %}
+			<table width="100%">
+				<tr class="{{ schedule_block.start_time_display|set_row_class}} ">
+					<td width="8%">{{ schedule_block.start_time_display }}</td>
+					<td><a href="">[ + ]</a></td>
+				</tr>
+			</table>
 		{% else %}
 
 		{% comment %}Row WITH an existing item{% endcomment %}
-			<div class="schedulerow2  {{ rowinterval }}">
-				<div class="schedulecell2 schedulecell-sm2">{{interval.start_time_display}}</div>
-				<div class="schedulecell2 schedulecell-lg2">
-					{% for item in interval.items %}
-						{{item.title}} ({{item.location}}) //
-					{% endfor %}
-				</div>
-			</div>
+			<table width="100%">
+				{% for interval_id in schedule_block.intervals %}
+					{% if forloop.first %}
+						<tr class="{{ interval_id|time_display_str|set_row_class }}">
+							<td width="8%">
+								{{ interval_id|time_display_str }}
+							</td>
+							<td>
+								<a href="{{schedule_block.item.id}}">{{ schedule_block.item.title }} ({{ schedule_block.item.location }})</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr class="{{ interval_id|time_display_str|set_row_class  }}">
+							<td width="8%">{{ interval_id|time_display_str }}</td>
+							<td>""</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+			</table>
 		{% endif %}
 	{% endfor %}
-</div>
 {% endblock %}
