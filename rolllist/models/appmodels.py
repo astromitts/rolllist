@@ -1,5 +1,7 @@
 from django.db import models
 from datetime import datetime, timedelta
+from itertools import chain
+from operator import attrgetter
 
 from rolllistuser.models import RollListUser
 from rolllist.utils import time_options_strings
@@ -20,7 +22,6 @@ class BaseModel(object):
             return newcls, True
 
 
-# TODO add a user class and hook to Day
 class Day(models.Model, BaseModel):
     """ Model to link items to a specific day """
     date = models.DateField(default=datetime.today, unique=True)
@@ -31,26 +32,20 @@ class Day(models.Model, BaseModel):
     def __str__(self):
         return '{0:%B %d %Y}'.format(self.date)
 
+    def get_schedule_items(self, user):
+        """ Function to return a full list of scheduled items for a day
+            including regular items and recurring items
+        """
+        recurring_item_set = user.recurringscheduleitem_set.all()
+        item_set = self.scheduleitem_set.all()
+        full_list = sorted(
+            chain(recurring_item_set, item_set),
+            key=attrgetter('start_time')
+        )
+        return full_list
 
-class ScheduleItem(models.Model, BaseModel):
-    """ Model for schedule items
-    """
-    user = models.ForeignKey(RollListUser, on_delete=models.CASCADE)
-    day = models.ForeignKey(Day, on_delete=models.CASCADE)
-    title = models.CharField(max_length=150)
-    start_time = models.IntegerField(
-        choices=[
-            (i, time_options_strings[i]) for i in range(0, len(time_options_strings))
-        ]
-    )
-    end_time = models.IntegerField(
-        choices=[
-            (i, time_options_strings[i]) for i in range(0, len(time_options_strings))
-        ]
-    )
-    location = models.CharField(max_length=150, null=True)
 
-    recurring = models.BooleanField(default=False)
+class ScheduleItemMixin(object):
 
     class Meta:
         ordering = ['start_time']
@@ -72,12 +67,59 @@ class ScheduleItem(models.Model, BaseModel):
     def get_delete_url(self):
         return '/deletescheduleitem/%d/' % self.id
 
-    # TODO probably need a new model for recurring items
-    @classmethod
-    def rollover_recurring_items(cls, day):
-        for item in cls.objects.filter(recurring=True).all():
-            item.day = day
-            item.save()
+
+class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
+    user = models.ForeignKey(RollListUser, on_delete=models.CASCADE)
+    title = models.CharField(max_length=150)
+    start_time = models.IntegerField(
+        choices=[
+            (i, time_options_strings[i]) for i in range(0, len(time_options_strings))
+        ]
+    )
+    end_time = models.IntegerField(
+        choices=[
+            (i, time_options_strings[i]) for i in range(0, len(time_options_strings))
+        ]
+    )
+    location = models.CharField(max_length=150, null=True)
+
+
+class ScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
+    """ Model for schedule items
+    """
+    user = models.ForeignKey(RollListUser, on_delete=models.CASCADE)
+    day = models.ForeignKey(Day, on_delete=models.CASCADE)
+    title = models.CharField(max_length=150)
+    start_time = models.IntegerField(
+        choices=[
+            (i, time_options_strings[i]) for i in range(0, len(time_options_strings))
+        ]
+    )
+    end_time = models.IntegerField(
+        choices=[
+            (i, time_options_strings[i]) for i in range(0, len(time_options_strings))
+        ]
+    )
+    location = models.CharField(max_length=150, null=True)
+    recurrance = models.ForeignKey(
+        RecurringScheduleItem,
+        on_delete=models.CASCADE,
+        null=True,
+        related_name='source'
+    )
+
+    def make_recurring(self):
+        if not self.recurrance:
+            new_recurrance = RecurringScheduleItem(
+                title=self.title,
+                location=self.location,
+                start_time=self.start_time,
+                end_time=self.end_time,
+                user=self.user
+            )
+            new_recurrance.save()
+            self.recurrance = new_recurrance
+            self.save()
 
 
 class ToDoList(models.Model, BaseModel):

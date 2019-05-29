@@ -24,6 +24,7 @@ urlpatterns = [
 
     # dashboard ajax views
     path('getschedule/<str:datestr>/', views.schedule_view, name='get_schedule'),
+    path('getschedulenew/<str:datestr>/', views.schedule_view_new, name='get_schedule_new'),
     path('gettodolist/<str:datestr>/', views.todo_list_view, name='get_todo'),
 
     # schedule item handlers

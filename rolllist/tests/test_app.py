@@ -1,30 +1,10 @@
 from bs4 import BeautifulSoup
 
-from django.test import TestCase
 from django.urls import reverse
 
-from project.settings import NON_STAFF_PERMS
-from rolllistuser.helpers import TestGroup, TestUser
+from project.helpers import TestBase
 from rolllist.utils import get_relevant_time_id
-from rolllist.models.appmodels import Day, ScheduleItem, ToDoList, ToDoItem
-
-
-class TestBase(TestCase):
-    """ Base class for running app tests that need a user set up """
-
-    def setUp(self):
-        user_group = TestGroup(
-            group_name='public_users',
-            permission_codes=NON_STAFF_PERMS,
-        )
-
-        self.user = TestUser('tester', 'asdf1234')
-        self.user.set_group(user_group.group)
-        self.client.login(username=self.user.username, password=self.user.password)
-
-        day, created = Day.get_or_create()
-        self.day = day
-        self.day_url_str = '{0:%Y%m%d}'.format(self.day.date)
+from rolllist.models.appmodels import ScheduleItem, ToDoList, ToDoItem
 
 
 class TestViewsCase(TestBase):
@@ -118,7 +98,6 @@ class TestViewsCase(TestBase):
         schedule_table = self.client.get(reverse('get_schedule', kwargs={'datestr': self.day_url_str}))
         schedule_contents = BeautifulSoup(schedule_table.content, features='html.parser')
         schedule_rows = schedule_contents.find_all('div',  {'class': 'schedulerow'})
-        total_rows = len(schedule_rows)
         row_count = 1
         for row in schedule_rows:
             time_start = row.find('div', {'class': 'schedulecell-sm'}).text
@@ -131,8 +110,8 @@ class TestViewsCase(TestBase):
                 edit_link = links[1]
                 self.assertTrue('/deletescheduleitemform/' in delete_link['href'])
                 self.assertTrue('/editscheduleitem/' in edit_link['href'])
-                self.assertTrue('%s (%s)' %
-                    (
+                self.assertTrue(
+                    '%s (%s)' % (
                         schedule_dict[time_start]['title'],
                         schedule_dict[time_start]['location']
                     )

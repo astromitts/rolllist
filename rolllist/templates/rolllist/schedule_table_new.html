@@ -1,0 +1,28 @@
+{% extends 'rolllist/base.html' %}
+{% load static %}
+{% block main_content %}
+<div class="scheduletable2">
+	{% for interval in day_schedule.schedule %}
+		{% cycle 'hour2' 'halfhour2' as rowinterval silent %}
+
+		{% comment %}Row without an existing item{% endcomment %}
+		{% if not interval.items %}
+			<div class="schedulerow2 {{ rowinterval }}">
+				<div class="schedulecell2 schedulecell-sm2">{{interval.start_time_display}}</div>
+				<div class="schedulecell2 schedulecell-lg2 schedulecell-filler2"></div>
+			</div>
+		{% else %}
+
+		{% comment %}Row WITH an existing item{% endcomment %}
+			<div class="schedulerow2  {{ rowinterval }}">
+				<div class="schedulecell2 schedulecell-sm2">{{interval.start_time_display}}</div>
+				<div class="schedulecell2 schedulecell-lg2">
+					{% for item in interval.items %}
+						{{item.title}} ({{item.location}}) //
+					{% endfor %}
+				</div>
+			</div>
+		{% endif %}
+	{% endfor %}
+</div>
+{% endblock %}

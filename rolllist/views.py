@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 from .forms import ScheduleItemForm, ToDoItemForm, ToDoItem
 from .models.appmodels import Day, ScheduleItem, ToDoList
 from rolllistuser.models import RollListUser
-from .utils import DaySchedule, relevant_time_dict
+from .utils import DaySchedule, DayScheduleDeux, relevant_time_dict
 
 
 def get_user(request):
@@ -51,6 +51,24 @@ def schedule_view(request, datestr):
     target_date = datetime.strptime(datestr, "%Y%m%d").date()
     target_day, target_day_created = Day.get_or_create(date=target_date)
     day_schedule = DaySchedule(target_day, relevant_time_dict, get_user(request))
+
+    context = {
+        'datestr': datestr,
+        'day': target_day,
+        'day_schedule': day_schedule,
+    }
+
+    return HttpResponse(template.render(context, request))
+
+
+@login_required(login_url='login/')
+def schedule_view_new(request, datestr):
+    """ View providing the time interval schedule for a given day
+    """
+    template = loader.get_template('rolllist/schedule_table_new.html')
+    target_date = datetime.strptime(datestr, "%Y%m%d").date()
+    target_day, target_day_created = Day.get_or_create(date=target_date)
+    day_schedule = DayScheduleDeux(target_day, get_user(request))
 
     context = {
         'datestr': datestr,
@@ -104,6 +122,8 @@ def add_schedule_item_form(request, start_time_int=None, datestr=None):
             }
             new_item = ScheduleItem(**save_data)
             new_item.save()
+            if data['make_recurring'] == 'on':
+                new_item.make_recurring()
             return HttpResponse()
         else:
             context = {'form': form}
