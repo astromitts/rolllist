@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from rolllistuser.models import RollListUser
 from rolllist.utils import time_options_strings
@@ -92,6 +92,17 @@ class ToDoList(models.Model, BaseModel):
 
     def __str__(self):
         return 'list for day %s' % self.day
+
+    def rollover_items(self):
+        previous_day_date = self.day.date - timedelta(days=1)
+        source_day = Day.objects.get(date=previous_day_date)
+        source_list, created = ToDoList.get_or_create(
+            day=source_day,
+            user=self.user
+        )
+        for item in source_list.todoitem_set.filter(completed=False).all():
+            new_item = ToDoItem(title=item.title, to_do_list=self)
+            new_item.save()
 
 
 class ToDoItem(models.Model, BaseModel):
