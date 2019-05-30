@@ -27,8 +27,8 @@
 		    <ul class="nav navbar-nav navbar-nav--static-left">
 		      <li>
 		        <a class="navbar-brand" href="{% url 'logout_handler' %}">Log out</a>
-		        <a class="navbar-brand" href="{% url 'day_view' datestr=target_previous_date %}">< Prev</a>
-		        <a class="navbar-brand" href="{% url 'day_view' datestr=target_next_day %}">Next ></a>
+		        <a class="navbar-brand daytoggle" href="{% url 'day_view' datestr=target_previous_date %}#schedulecontainer">< Prev</a>
+		        <a class="navbar-brand daytoggle" href="{% url 'day_view' datestr=target_next_day %}#schedulecontainer">Next ></a>
 		      </li>
 		    </ul>
 	    {% endif %}

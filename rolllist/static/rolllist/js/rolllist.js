@@ -133,21 +133,63 @@ function get_todo_table(){
 	})
 }
 
+function get_tab_location(current_href){
+	var current_location = current_href.split('#')[1];
+	if (current_location == undefined) {
+		current_location = 'schedulecontainer'
+	}
+	return current_location;
+}
+
+function update_href(current_href, new_location){
+	if (current_href.indexOf('#') < 0){
+		var new_href = current_href + '#' + new_location; 
+	} else {
+		var current_location = get_tab_location(current_href);
+		var new_href = current_href.replace(current_location, new_location); 
+	}
+	return new_href;
+}
+
+
+function update_nav_with_tab_location(new_location){
+	$('a.daytoggle').each(function(){
+		var current_href = $(this).attr('href');
+		var new_href = update_href(current_href, new_location);
+		 $(this).attr('href', new_href);
+	});
+}
+
+function update_window_with_tab_location(new_location){
+	var current_href = this.window.location.href;
+	var new_href = update_href(current_href, new_location);
+	this.window.location.href = new_href;
+}
+
+function switch_target_container(target_id) {
+
+	var this_button = $('button#toggle-' + target_id);
+	var target_id = this_button.attr('id').replace('toggle-','');
+	var target_div = $('#' + target_id);
+
+	$('.toggle-target').hide();
+	target_div.show();
+
+	$('button.toggle-btn').addClass('btn-outline-primary');
+	$('button.toggle-btn').removeClass('btn-primary');
+	this_button.removeClass('btn-outline-primary');
+	this_button.addClass('btn-primary');
+	update_window_with_tab_location(target_id);
+	update_nav_with_tab_location(target_id);
+}
+
 function bind_toggle_buttons(){
-	$('#todocontainter').hide();
+	var current_location = get_tab_location(window.location.href);
+	switch_target_container(current_location);
+
 	$('button.toggle-btn').click(function(){
-		var this_button = $(this);
-		var target_id = this_button.attr('id').replace('toggle-','');
-		var target_div = $('#' + target_id);
-
-		$('.toggle-target').hide();
-		target_div.show();
-
-		$('button.toggle-btn').addClass('btn-outline-primary');
-		$('button.toggle-btn').removeClass('btn-primary');
-		this_button.removeClass('btn-outline-primary');
-		this_button.addClass('btn-primary');
-
+		var target_id = $(this).attr('id').replace('toggle-','');
+		switch_target_container(target_id);
 	});
 }
 
