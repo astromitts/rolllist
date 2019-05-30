@@ -2,7 +2,7 @@
 	<div class="col">
 		<div class="title">To-do:</div>
 		<table class="todolist">
-			{% for item in todo_list.todoitem_set.all %}
+			{% for item in todo_list.get_items %}
 				<tr class="dashed">
 					{% if item.completed %}
 						<td>

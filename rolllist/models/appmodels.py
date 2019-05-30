@@ -157,14 +157,26 @@ class ToDoList(models.Model, BaseModel):
             source_item.rolled_over = True
             source_item.save()
 
+    def get_items(self):
+        return self.todoitem_set.order_by('-days_incomplete', '-priority', 'id').all()
+
 
 class ToDoItem(models.Model, BaseModel):
     """ Model for to do items """
+    priority_choices = [
+        (1, 'low'),
+        (2, 'medium'),
+        (3, 'high'),
+    ]
     to_do_list = models.ForeignKey(ToDoList, on_delete=models.CASCADE)
     title = models.CharField(max_length=150)
     completed = models.BooleanField(default=False)
     rolled_over = models.BooleanField(default=False)  # TODO: implement
     days_incomplete = models.IntegerField(default=1)
+    priority = models.IntegerField(default=1, choices=priority_choices)
 
     def __str__(self):
         return '%s (%s)' % (self.title, self.to_do_list)
+
+    class Meta:
+        ordering = ['-priority', '-days_incomplete', 'id']

@@ -25,4 +25,4 @@ class ScheduleItemForm(ModelForm):
 class ToDoItemForm(ModelForm):
     class Meta:
         model = ToDoItem
-        fields = ['title']
+        fields = ['title', 'priority']

@@ -189,7 +189,8 @@ def add_to_do_item_form(request, list_id=None):
         if form.is_valid:
             save_data = {
                 'to_do_list': to_do_list,
-                'title': request.POST['title']
+                'title': request.POST['title'],
+                'priority': request.POST['priority']
             }
             new_item = ToDoItem(**save_data)
             new_item.save()
