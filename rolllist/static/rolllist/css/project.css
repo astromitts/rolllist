@@ -1,6 +1,17 @@
 /* Global & nav styles */
-.container{
-	padding-top: 6px;
+.main{
+	padding-top: 65px;
+	padding-bottom: 75px;
+}
+.bottomnav{
+	margin: auto;
+	width: auto;
+	display: inline-block;
+}
+
+.bottomnav a{
+	padding-left: 50px;
+	padding-right: 50px;
 }
 .hiddentext{
 	color: #FFFFFF;
@@ -15,6 +26,17 @@
 .daynavnext{
 	float: right;
 	padding-right: 10px;
+}
+
+div.togglenav-left{
+	display: inline-block;
+	width: auto;
+	float: left;
+}
+div.togglenav-right{
+	display: inline-block;
+	width: auto;
+	float: right;
 }
 
 /* Schedule table styles */

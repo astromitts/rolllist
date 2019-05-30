@@ -97,7 +97,7 @@ class TestViewsCase(TestBase):
         schedule_items, schedule_dict = self._add_schedule_items()
         schedule_table = self.client.get(reverse('get_schedule', kwargs={'datestr': self.day_url_str}))
         schedule_contents = BeautifulSoup(schedule_table.content, features='html.parser')
-        schedule_rows = schedule_contents.find_all('div',  {'class': 'schedulerow'})
+        schedule_rows = schedule_contents.find_all('div', {'class': 'schedulerow'})
         row_count = 1
         for row in schedule_rows:
             time_start = row.find('div', {'class': 'schedulecell-sm'}).text

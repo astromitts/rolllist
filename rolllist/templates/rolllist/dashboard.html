@@ -15,9 +15,15 @@
 	<div id="datestr" style="display: none;">{{ datestr }}</div>
 
 	{% comment %} content containers {% endcomment %}
-	<div class="row mx-auto" style="width: 100%">
-		<button type="button" class="btn btn-primary toggle-btn" id="toggle-schedulecontainer">Schedule</button>
-		<button type="button" class="btn btn-outline-primary toggle-btn" id="toggle-todocontainter">To Do</button>
+	<div class="row">
+		<div class="col">
+			<div class="togglenav-left">
+				<button type="button" class="btn btn-primary toggle-btn" id="toggle-schedulecontainer">Schedule</button>
+			</div>
+			<div class="togglenav-right">
+				<button type="button" class="btn btn-outline-primary toggle-btn" id="toggle-todocontainter">To Do</button>
+			</div>
+		</div>
 	</div>
 	<div class="row">
 	    <div class="col">
@@ -29,5 +35,22 @@
 
 	<span id="todocontainter" class="toggle-target">
 	</span>
-	
+
+{% endblock %}
+
+{% block footer %}
+	<div class="container">
+		<footer class="page-footer navbar-dark bg-dark fixed-bottom">
+			{% if user_logged_in %}
+				<div class="row">
+					<span class="bottomnav">
+						<div class="col">
+					        <a class="navbar-brand daytoggle" href="{% url 'day_view' datestr=target_previous_date %}#schedulecontainer">< Prev</a>
+					        <a class="navbar-brand daytoggle" href="{% url 'day_view' datestr=target_next_day %}#schedulecontainer">Next ></a>
+						</div>
+					</span>
+				</div>
+			   {% endif %}
+		</footer>
+	</div>
 {% endblock %}
