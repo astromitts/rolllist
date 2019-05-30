@@ -105,18 +105,26 @@ function get_schedule_table(){
 		},
 	})
 }
+function handle_todo_action(action_url){
+	$.ajax({
+		url: action_url,
+		type: 'GET',
+		success: function(data){
+			get_todo_table();
+		},
+	});
 
+}
 function bind_todo_generic_handlers(){
+	$('input.todo-generic').click(function(event){
+		event.preventDefault();
+		var action_url = $(this).attr('id');
+		handle_todo_action(action_url);
+	});
 	$('a.todo-generic').click(function(event){
 		event.preventDefault();
-		var action = $(this).attr('href');
-		$.ajax({
-			url: action,
-			type: 'GET',
-			success: function(data){
-				get_todo_table();
-			},
-		})
+		var action_url = $(this).attr('href');
+		handle_todo_action(action_url);
 	});
 }
 

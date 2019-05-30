@@ -1,39 +1,49 @@
 <div class="row">
 	<div class="col">
-		<span class="title">To-do:</span>
-		<span>
-			<a href="{% url 'add_todo_item' list_id=todo_list.pk %}" class="openmodaltodo">+ item</a> | 
-			<a href="{% url 'rollover_todo' datestr=datestr %}" class="todo-generic">Rollover</a>
-		</span>
-		<table border=1>
+		<div class="title">To-do:</div>
+		<table class="todolist">
 			{% for item in todo_list.todoitem_set.all %}
-				<tr>
+				<tr class="dashed">
 					{% if item.completed %}
-						<td><a href="{% url 'revert_todo_item' item_id=item.id %}" class="todo-generic">revert</a></td>
-						<td><span style="text-decoration: line-through;">{{item.title}}</span></td>
+						<td>
+							<input type="checkbox" id="{% url 'revert_todo_item' item_id=item.id %}" class="todo-generic" checked="checked">
+						</td>
+						<td colspan="2"><span style="text-decoration: line-through;">{{item.title}}</span></td>
 					{% else %}
-						<td><a href="{% url 'complete_todo_item' item_id=item.id %}" class="todo-generic">complete</a></td>
+						<td>
+
+							<input type="checkbox" id="{% url 'complete_todo_item' item_id=item.id %}" class="todo-generic">
+						</td>
 						<td>{{item.title}}</td>
+						<td>
+							{% if item.days_incomplete > 1 %}
+							( {{item.days_incomplete}} days)
+							{% endif %}
+						</td>
 					{% endif %}
 					<td><a href="{% url 'delete_todo_item' item_id=item.id %}" class="todo-generic">[-]</a></td>
 				</tr>
 			{% endfor %}
 		</table>
+		<div>
+			<a href="{% url 'add_todo_item' list_id=todo_list.pk %}" class="openmodaltodo">+ item</a> | 
+			<a href="{% url 'rollover_todo' datestr=datestr %}" class="todo-generic">Rollover</a>
+		</div>
 	</div>
 </div>
 
 {% if yesterday_to_do_list.todoitem_set.count > 0 %}
-	<div cass="row">
+	<div class="row">
 		<div class="col">
-			<span class="title">Yesterday:</span>
-			<table border=1>
+			<div class="title">Yesterday:</div>
+			<table class="todolist">
 				{% for item in yesterday_to_do_list.todoitem_set.all %}
-					<tr>
+					<tr class="dashed">
 						{% if item.completed %}
-							<td>Complete</td>
+							<td><input type="checkbox" checked="checked" disabled="disabled"></td>
 							<td>{{item.title}}</td>
 						{% else %}
-							<td>Incomplete</td>
+							<td><input type="checkbox" disabled="disabled"></td>
 							<td><span style="font-weight: bold;">{{item.title}}</span></td>
 						{% endif %}
 					</tr>

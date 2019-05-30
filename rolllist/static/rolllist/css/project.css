@@ -1,4 +1,4 @@
-/* Global styles */
+/* Global & nav styles */
 .container{
 	padding-top: 6px;
 }
@@ -17,28 +17,21 @@
 	padding-right: 10px;
 }
 
-/* schedule table styles */
+/* Schedule table styles */
 .schedulecontainer{
 	border: 1px solid;
 }
-.hour{
+.dashed{
 	border-bottom: 1px dotted;
 }
-.halfhour{
+.solid{
 	border-bottom: 1px solid;
 }
 
-/* schedule table styles */
 td.timecell{
 	border-right: 1px solid;
 	width: 20%;
 	font-size: .7em;
-}
-tr.hour2{
-	border-bottom: 1px dotted;
-}
-tr.halfhour2{
-	border-bottom: 1px solid;
 }
 div.scheduleditem{
 	width: 100%;
@@ -90,7 +83,16 @@ div.scheduleditemend{
 	
 }
 
-/* Modal styles */
+/* Todo table styles */
+
+table.todolist{
+	width: 100%;
+}
+.title{
+	margin-top: 10px;
+	font-weight: bold;
+}
+/* Modal / Popup styles */
 #modal {
 	position: fixed;
 	bottom: 0;

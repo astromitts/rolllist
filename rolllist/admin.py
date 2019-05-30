@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models.appmodels import (
+from rolllist.models.appmodels import (
     Day,
     ScheduleItem,
     RecurringScheduleItem,

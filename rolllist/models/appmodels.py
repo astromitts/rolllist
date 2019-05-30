@@ -133,7 +133,6 @@ class ToDoList(models.Model, BaseModel):
     """
     user = models.ForeignKey(RollListUser, on_delete=models.CASCADE)
     day = models.ForeignKey(Day, on_delete=models.CASCADE)
-    rolled_over = models.BooleanField(default=False)  # TODO: implement
 
     class Meta:
         unique_together = ('user', 'day',)
@@ -148,9 +147,15 @@ class ToDoList(models.Model, BaseModel):
             day=source_day,
             user=self.user
         )
-        for item in source_list.todoitem_set.filter(completed=False).all():
-            new_item = ToDoItem(title=item.title, to_do_list=self)
+        for source_item in source_list.todoitem_set.filter(completed=False, rolled_over=False).all():
+            new_item = ToDoItem(
+                title=source_item.title,
+                to_do_list=self,
+                days_incomplete=source_item.days_incomplete + 1
+            )
             new_item.save()
+            source_item.rolled_over = True
+            source_item.save()
 
 
 class ToDoItem(models.Model, BaseModel):
@@ -158,6 +163,8 @@ class ToDoItem(models.Model, BaseModel):
     to_do_list = models.ForeignKey(ToDoList, on_delete=models.CASCADE)
     title = models.CharField(max_length=150)
     completed = models.BooleanField(default=False)
+    rolled_over = models.BooleanField(default=False)  # TODO: implement
+    days_incomplete = models.IntegerField(default=1)
 
     def __str__(self):
         return '%s (%s)' % (self.title, self.to_do_list)
