@@ -37,10 +37,12 @@ function bind_modal_open_schedule(datestr){
 			url: target_url,
 			success: function(data){
 				$('div#modalcontent').html(data);
+				var start_init = $('input#id_start_time_init').val();
+				var end_init = $('input#id_end_time_init').val();
 
-				$('#id_start_time').val(start_val);
-				$('#id_end_time').val(parseInt(start_val) + 1);
-				
+				$('select#id_end_time').val(end_init);
+				$('select#id_start_time').val(start_init);
+
 				show_modal_and_overlay();
 				bind_ajax_form_submit($('form.ajaxme'), target_url, get_schedule_table, datestr);
 			},

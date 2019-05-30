@@ -99,6 +99,8 @@ def add_schedule_item_form(request, start_time_int=None, datestr=None):
 
     if request.POST:
         data = request.POST.copy()
+        data['start_time_init'] = data['start_time']
+        data['end_time_init'] = data['end_time']
         target_day = Day.objects.get(date=datetime.strptime(datestr, "%Y%m%d").date())
         form = ScheduleItemForm(data)
         if form.is_valid():
@@ -124,8 +126,8 @@ def add_schedule_item_form(request, start_time_int=None, datestr=None):
     else:
         init_values = {}
         if start_time_int:
-            init_values['start_time'] = relevant_time_dict[start_time_int]
-            init_values['end_time'] = relevant_time_dict[start_time_int + 1]
+            init_values['start_time_init'] = start_time_int
+            init_values['end_time_init'] = start_time_int + 1
 
         form = ScheduleItemForm(initial=init_values)
         context = {'form': form}
