@@ -91,7 +91,7 @@ class DayScheduleDeux(object):
     def _organize_by_time(self, all_items):
         return {item.start_time: item for item in all_items}
 
-    def _get_item_intervals(seld, item):
+    def _get_item_intervals(self, item):
         return [i for i in range(item.start_time, item.end_time)]
 
     def __init__(self, day, user):
@@ -112,6 +112,7 @@ class DayScheduleDeux(object):
                 }
                 if i in items_time_dict:
                     data['item'] = items_time_dict[i]
+
                     data['intervals'] = self._get_item_intervals(items_time_dict[i])
                     used_intervals += data['intervals']
                 else:

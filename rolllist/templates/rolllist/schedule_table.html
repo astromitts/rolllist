@@ -1,35 +1,47 @@
-<div class="scheduletable">
-	{% for interval in day_schedule.time_intervals %}
-		{% cycle 'hour' 'halfhour' as rowinterval silent %}
-
+{% load static extras %}
+	{% for schedule_block in day_schedule %}
 		{% comment %}Row without an existing item{% endcomment %}
-		{% if not interval.items %}
-			<div class="schedulerow {{ rowinterval }}">
-				<div class="schedulecell schedulecell-vsm">
-					{% if interval.next_index %}
-					<a href="{% url 'add_item' start_time_int=interval.index datestr=datestr %}" class="openmodalschedule" id="{{interval.index}}">[+]</a>
-					{% else %}
-						<span class="hiddentext">[+]</span>
-					{% endif %}
-				</div>
-				<div class="schedulecell schedulecell-sm">{{interval.start_string}}</div>
-				<div class="schedulecell schedulecell-lg schedulecell-filler"></div>
-			</div>
+		{% if not schedule_block.item %}
+			<table width="100%">
+				<tr class="{{ schedule_block.start_time_display|set_row_class}} ">
+					<td class="timecell">{{ schedule_block.start_time_display }}</td>
+					<td><a href="{% url 'add_item' start_time_int=schedule_block.interval datestr=datestr %}" class="openmodalschedule" >[ + ]</a></td>
+				</tr>
+			</table>
 		{% else %}
 
 		{% comment %}Row WITH an existing item{% endcomment %}
-			{% with item=interval.items.first %}
-				<div class="schedulerow  {{ rowinterval }}">
-					<div class="schedulecell schedulecell-vsm">
-						<a href="{% url 'delete_item_form' item_id=item.id %}" class="openmodalschedule" id="{{interval.index}}">[+]</a>
-					</div>
-					<div class="schedulecell schedulecell-sm">{{interval.start_string}}</div>
-					<div class="schedulecell schedulecell-lg">
-					<a href="{% url 'edit_item' item_id=item.id %}" class="openmodalschedule" id="{{interval.index}}">
-						{{item.title}} ({{item.location}})</a>
-					</div>
-				</div>
-			{% endwith %}
+			<table width="100%">
+				{% for interval_id in schedule_block.intervals %}
+					<tr class="{{ interval_id|time_display_str|set_row_class }}">
+						<td class="timecell">
+							{{ interval_id|time_display_str }}
+						</td>
+						<td>
+							{% if forloop.first %}
+								{% if forloop.last %}
+									<div class="scheduleditem scheduleditemstart scheduleditemend">
+								{% else %}
+									<div class="scheduleditem scheduleditemstart">
+								{% endif %}
+									<div class="scheduledetails">
+										<div class="editlink">
+											<a href="{{schedule_block.item.id}}">{{ schedule_block.item.title }} ({{ schedule_block.item.location }})</a>
+										</div>
+										<div class="deletelink">
+											<a href="{% url 'delete_item_form' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class=" openmodalschedule" id="{{ interval_id }}">[X]</a>
+										</div>
+									</div>
+								</div>
+							{% elif forloop.last %}
+								<div class="scheduleditem scheduleditemend">&nbsp;</div>
+							{% else %}
+								<div class="scheduleditem scheduleditemmid">&nbsp;</div>
+								
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
 		{% endif %}
 	{% endfor %}
-</div>

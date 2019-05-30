@@ -63,10 +63,6 @@ class ScheduleItemMixin(object):
         """ Front end helper to display human version of end time interval """
         return time_options_strings[self.end_time]
 
-    @property
-    def get_delete_url(self):
-        return '/deletescheduleitem/%d/' % self.id
-
 
 class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
     user = models.ForeignKey(RollListUser, on_delete=models.CASCADE)
@@ -86,6 +82,10 @@ class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
     def __str__(self):
         return '%s // %s (@%s-%s)' % (self.title, self.location, self.start, self.end)
 
+    @property
+    def get_delete_url(self):
+        return '/deletescheduleitemform/%d/1/' % self.id
+
 
 class ScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
     """ Model for schedule items
@@ -104,18 +104,15 @@ class ScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
         ]
     )
     location = models.CharField(max_length=150, null=True)
-    recurrance = models.ForeignKey(
-        RecurringScheduleItem,
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-        related_name='source'
-    )
 
     def __str__(self):
         return '%s // %s (%s@%s-%s)' % (
             self.title, self.location, self.day, self.start, self.end
         )
+
+    @property
+    def get_delete_url(self):
+        return '/deletescheduleitemform/%d/0/' % self.id
 
     def make_recurring(self):
         if not self.recurrance:

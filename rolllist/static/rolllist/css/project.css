@@ -21,43 +21,73 @@
 .schedulecontainer{
 	border: 1px solid;
 }
-.scheduletable{
-	padding-left: 6px;
-	display: table;
-	border-collapse: collapse;
-	width: 100%;
-}
-.schedulerow{
-	display: table-row;
-}
-.schedulecell{
-	display: table-cell;
-}
 .hour{
 	border-bottom: 1px dotted;
 }
 .halfhour{
 	border-bottom: 1px solid;
 }
-.schedulecell-vsm{
-	border-left: solid 1px;
-	border-right: solid 1px;
-	width: 4%; /* 1 of them */
-}
-.schedulecell-sm{
-	width: 20%; /* 1 of them */
-	border-right: solid 1px;
-}
-.schedulecell-lg{
-	width: 64%; /* 1 of them */
-	border-right: solid 1px;
-}
-.schedulerow-filler{
-	border-right: 0px;
-}
 
-.title{
+/* schedule table styles */
+td.timecell{
+	border-right: 1px solid;
+	width: 20%;
+	font-size: .7em;
+}
+tr.hour2{
+	border-bottom: 1px dotted;
+}
+tr.halfhour2{
+	border-bottom: 1px solid;
+}
+div.scheduleditem{
+	width: 100%;
+	background-color: #ffffe6;
+	display: inline-block;
+}
+div.scheduledetails{
+	text-align: center;
+	width: 100%;
+	margin: 0;
+}
+div.editlink{
+	display: inline;
+}
+div.editlink a{
 	font-weight: bold;
+	font-size: .7em;
+	color: #000;
+	padding-left: 10px;
+}
+div.deletelink{
+	display: inline;
+	float: right;
+	padding-right: 5px;
+}
+div.deletelink a{
+	font-weight: bold;
+	font-size: .7em;
+	color: #000;
+}
+div.scheduleditemstart{
+	border-top: 1px solid;
+	border-left: 1px solid;
+	border-right: 1px solid;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+
+}
+div.scheduleditemmid{
+	border-left: 1px solid;
+	border-right: 1px solid;
+}
+div.scheduleditemend{
+	border-bottom: : 1px solid;
+	border-left: 1px solid;
+	border-right: 1px solid;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	
 }
 
 /* Modal styles */
