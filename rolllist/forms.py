@@ -28,10 +28,18 @@ class ScheduleItemForm(ModelForm):
 
     class Meta:
         model = ScheduleItem
-        fields = ['start_time', 'end_time', 'title', 'location', 'make_recurring', 'start_time_init', 'end_time_init']
+        fields = [
+            'start_time',
+            'end_time',
+            'title',
+            'location',
+            'make_recurring',
+            'start_time_init',
+            'end_time_init',
+        ]
 
 
 class ToDoItemForm(ModelForm):
     class Meta:
         model = ToDoItem
-        fields = ['title', 'priority']
+        fields = ['title', 'priority', ]

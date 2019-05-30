@@ -7,9 +7,14 @@ from django.template import loader
 from datetime import datetime, timedelta
 
 from .forms import ScheduleItemForm, ToDoItemForm, ToDoItem
-from .models.appmodels import Day, ScheduleItem, RecurringScheduleItem, ToDoList
+from .models.appmodels import (
+    Day,
+    ScheduleItem,
+    RecurringScheduleItem,
+    ToDoList
+)
 from rolllistuser.models import RollListUser
-from .utils import DayScheduleDeux, relevant_time_dict
+from .utils import DayScheduleDeux
 
 
 def get_user(request):
@@ -80,8 +85,14 @@ def todo_list_view(request, datestr):
     previous_day_date = target_day.date - timedelta(days=1)
     previous_day, previous_created = Day.get_or_create(date=previous_day_date)
 
-    todo_list, created = ToDoList.get_or_create(day=target_day, user=get_user(request))
-    yesterday_to_do_list, created = ToDoList.get_or_create(day=previous_day, user=get_user(request))
+    todo_list, created = ToDoList.get_or_create(
+        day=target_day,
+        user=get_user(request)
+    )
+    yesterday_to_do_list, created = ToDoList.get_or_create(
+        day=previous_day,
+        user=get_user(request)
+    )
 
     context = {
         'datestr': datestr,
@@ -101,7 +112,9 @@ def add_schedule_item_form(request, start_time_int=None, datestr=None):
         data = request.POST.copy()
         data['start_time_init'] = data['start_time']
         data['end_time_init'] = data['end_time']
-        target_day = Day.objects.get(date=datetime.strptime(datestr, "%Y%m%d").date())
+        target_day = Day.objects.get(
+            date=datetime.strptime(datestr, "%Y%m%d").date()
+        )
         form = ScheduleItemForm(data)
         if form.is_valid():
             save_data = {
@@ -210,7 +223,9 @@ def add_to_do_item_form(request, list_id=None):
 def rollover_todo(request, datestr):
     """ Handles copying incomplete items from previous day to day of given datestr
     """
-    target_day = Day.objects.get(date=datetime.strptime(datestr, "%Y%m%d").date())
+    target_day = Day.objects.get(
+        date=datetime.strptime(datestr, "%Y%m%d").date()
+    )
     source_list, created = ToDoList.get_or_create(
         day=target_day,
         user=request.user.rolllistuser
