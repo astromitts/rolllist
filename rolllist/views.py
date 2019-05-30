@@ -17,6 +17,14 @@ def get_user(request):
     return RollListUser.objects.get(user=user)
 
 
+def get_item(item_id, recurring):
+    if recurring == 1:
+        item = RecurringScheduleItem.objects.get(pk=item_id)
+    else:
+        item = ScheduleItem.objects.get(pk=item_id)
+    return item
+
+
 @login_required(login_url='login/')
 def day_view(request, datestr=None):
     """ Dashboard type view
@@ -125,11 +133,11 @@ def add_schedule_item_form(request, start_time_int=None, datestr=None):
 
 
 @login_required(login_url='login/')
-def edit_schedule_item_form(request, item_id):
+def edit_schedule_item_form(request, item_id, recurring):
     """ Handler for edit schedule item form
     """
     template = loader.get_template('rolllist/generic_form.html')
-    existing_item = ScheduleItem.objects.get(id=item_id)
+    existing_item = get_item(item_id, recurring)
 
     if request.POST:
         data = request.POST.copy()
@@ -156,10 +164,7 @@ def edit_schedule_item_form(request, item_id):
 @login_required(login_url='login/')
 def delete_schedule_item_handler(request, item_id, recurring):
     """ Delete schedule item of given ID """
-    if recurring == 1:
-        item = RecurringScheduleItem.objects.get(pk=item_id)
-    else:
-        item = ScheduleItem.objects.get(pk=item_id)
+    item = get_item(item_id, recurring)
 
     if request.POST:
         item.delete()
