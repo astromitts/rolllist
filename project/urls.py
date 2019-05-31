@@ -31,6 +31,12 @@ urlpatterns = [
     path('addscheduleitem/<str:datestr>/<int:start_time_int>/', views.add_schedule_item_form, name='add_item'),
     path('deletescheduleitemform/<int:item_id>/<int:recurring>/', views.delete_schedule_item_handler, name='delete_item_form'),
 
+    # schedule notes handlers
+    path('getnotes/<str:datestr>/', views.note_view, name='get_notes'),
+    # path('editnote/<int:note_id>/', views.edit_schedule_item_form, name='edit_item'),
+    path('addnote/<str:datestr>/', views.add_note_form, name='add_note'),
+    # path('deletenoteform/<int:note_id>/', views.delete_schedule_item_handler, name='delete_item_form'),
+
     # to do list item handlers
     path('addtodoitem/<int:list_id>/', views.add_to_do_item_form, name='add_todo_item'),
     path('rollovertodo/<str:datestr>/', views.rollover_todo, name='rollover_todo'),

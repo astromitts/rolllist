@@ -5,7 +5,7 @@ from django.forms import (
     CharField,
     HiddenInput
 )
-from .models.appmodels import ScheduleItem, ToDoItem
+from .models.appmodels import ScheduleItem, ToDoItem, Note
 from .utils import relevant_time_dict
 
 
@@ -43,3 +43,9 @@ class ToDoItemForm(ModelForm):
     class Meta:
         model = ToDoItem
         fields = ['title', 'priority', ]
+
+
+class NoteForm(ModelForm):
+    class Meta:
+        model = Note
+        fields = ['content']

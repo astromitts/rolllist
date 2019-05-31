@@ -44,6 +44,16 @@ class Day(models.Model, BaseModel):
         )
         return full_list
 
+    @classmethod
+    def get_from_str(cls, datestr):
+        target_date = datetime.strptime(datestr, "%Y%m%d").date()
+        target_day, created = cls.get_or_create(date=target_date)
+        return target_day, created
+
+    @property
+    def display_string(self):
+        return '{0:%Y%m%d}'.format(self.date)
+
 
 class ScheduleItemMixin(object):
 
@@ -180,3 +190,9 @@ class ToDoItem(models.Model, BaseModel):
 
     class Meta:
         ordering = ['-priority', '-days_incomplete', 'id']
+
+
+class Note(models.Model, BaseModel):
+    day = models.ForeignKey(Day, on_delete=models.CASCADE)
+    user = models.ForeignKey(RollListUser, on_delete=models.CASCADE)
+    content = models.TextField(max_length=500)

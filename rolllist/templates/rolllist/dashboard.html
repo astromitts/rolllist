@@ -12,6 +12,7 @@
 	{% comment %} hidden field for loading other views via date id {% endcomment %}
 	<div id="get_schedule" style="display: none;">{% url 'get_schedule' datestr=datestr %}</div>
 	<div id="get_todo" style="display: none;">{% url 'get_todo' datestr=datestr %}</div>
+	<div id="get_notes" style="display: none;">{% url 'get_notes' datestr=datestr %}</div>
 	<div id="datestr" style="display: none;">{{ datestr }}</div>
 
 	{% comment %} content containers {% endcomment %}
@@ -19,6 +20,9 @@
 		<div class="col">
 			<div class="togglenav-left">
 				<button type="button" class="btn btn-primary toggle-btn" id="toggle-schedulecontainer">Schedule</button>
+			</div>
+			<div class="togglenav-right">
+				<button type="button" class="btn btn-outline-primary toggle-btn" id="toggle-notescontainer">Notes</button>
 			</div>
 			<div class="togglenav-right">
 				<button type="button" class="btn btn-outline-primary toggle-btn" id="toggle-todocontainter">To Do</button>
@@ -34,6 +38,9 @@
 	</div>
 
 	<span id="todocontainter" class="toggle-target">
+	</span>
+
+	<span id="notescontainer" class="toggle-target">
 	</span>
 
 {% endblock %}

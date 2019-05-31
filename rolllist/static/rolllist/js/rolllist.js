@@ -107,6 +107,7 @@ function get_schedule_table(){
 		},
 	})
 }
+
 function handle_todo_action(action_url){
 	$.ajax({
 		url: action_url,
@@ -138,6 +139,37 @@ function get_todo_table(){
 			$('span#todocontainter').html(data);
 			bind_modal_open_todo();
 			bind_todo_generic_handlers()
+			bind_modal_close();
+		},
+	})
+}
+
+function bind_notes_generic_handlers(){
+	$('a.openmodalnotes').click(function(event){
+		event.preventDefault();
+		var target_url = $(this).attr('href');
+		$.ajax({
+			type: 'GET',
+			url: target_url,
+			success: function(data){
+				$('div#modalcontent').html(data);
+				show_modal_and_overlay();
+				bind_ajax_form_submit($('form.ajaxme'), target_url, get_todo_table, datestr);
+			},
+			error: function(data){
+				alert("there was an error");
+			}
+		});
+	});
+}
+
+function get_notes_table(){
+	$.ajax({
+		url: $('div#get_notes').text(),
+		type: 'GET',
+		success: function(data){
+			$('span#notescontainer').html(data);
+			bind_notes_generic_handlers();
 			bind_modal_close();
 		},
 	})
@@ -179,11 +211,10 @@ function update_window_with_tab_location(new_location){
 function switch_target_container(target_id) {
 
 	var this_button = $('button#toggle-' + target_id);
-	var target_id = this_button.attr('id').replace('toggle-','');
-	var target_div = $('#' + target_id);
+	var target_container = $('#' + target_id);
 
 	$('.toggle-target').hide();
-	target_div.show();
+	target_container.show();
 
 	$('button.toggle-btn').addClass('btn-outline-primary');
 	$('button.toggle-btn').removeClass('btn-primary');
@@ -204,13 +235,9 @@ function bind_toggle_buttons(){
 }
 
 $(document).ready(function(){
-	var on_additem_page = window.location.href.indexOf("additem") > 0;
-
-	if (on_additem_page) {
-		set_dropdown_times();
-	}
 	var datestr = $('div#datestr').text();
 	get_schedule_table();
 	get_todo_table();
+	get_notes_table();
 	bind_toggle_buttons();
 });

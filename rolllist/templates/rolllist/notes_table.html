@@ -1,0 +1,21 @@
+<div class="row">
+	<div class="col">
+		<div class="title">Notes:</div>
+		<table class="noteslist">
+			{% for note in notes %}
+				<tr class="dashed">
+					<td>
+						<table>
+							<tr><td><a href="">edit</a></td></tr>
+							<tr><td><a href="">delete</a></td></tr>
+						</table>
+					</td>
+					<td>{{ note.content }} </td>
+				</tr>
+			{% endfor %}
+		</table>
+		<div>
+			<a href="{% url 'add_note' datestr=datestr %}" class="openmodalnote notes-generic">+ note</a>
+		</div>
+	</div>
+</div>

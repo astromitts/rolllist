@@ -6,12 +6,14 @@ from django.template import loader
 
 from datetime import datetime, timedelta
 
-from .forms import ScheduleItemForm, ToDoItemForm, ToDoItem
+from .forms import ScheduleItemForm, ToDoItemForm, NoteForm
 from .models.appmodels import (
     Day,
     ScheduleItem,
     RecurringScheduleItem,
-    ToDoList
+    ToDoList,
+    Note,
+    ToDoItem
 )
 from rolllistuser.models import RollListUser
 from .utils import DayScheduleDeux
@@ -41,15 +43,12 @@ def day_view(request, datestr=None):
     template = loader.get_template('rolllist/dashboard.html')
 
     if not datestr:
-        target_date = datetime.today()
-        datestr = '{0:%Y%m%d}'.format(target_date)
+        target_day, created = Day.get_or_create(date=datetime.today())
     else:
-        target_date = datetime.strptime(datestr, "%Y%m%d").date()
-
-    target_day, target_day_created = Day.get_or_create(date=target_date)
+        target_day, created = Day.get_from_str(datestr)
 
     context = {
-        'datestr': datestr,
+        'datestr': target_day.display_string,
         'day': target_day
     }
 
@@ -69,6 +68,24 @@ def schedule_view(request, datestr):
         'datestr': datestr,
         'day': target_day,
         'day_schedule': day_schedule.schedule,
+    }
+
+    return HttpResponse(template.render(context, request))
+
+
+@login_required(login_url='login/')
+def note_view(request, datestr):
+    """ View providing notes for a given day
+    """
+    template = loader.get_template('rolllist/notes_table.html')
+    target_date = datetime.strptime(datestr, "%Y%m%d").date()
+    target_day, target_day_created = Day.get_or_create(date=target_date)
+    notes = Note.objects.filter(day=target_day, user=get_user(request)).all()
+
+    context = {
+        'datestr': datestr,
+        'day': target_day,
+        'notes': notes,
     }
 
     return HttpResponse(template.render(context, request))
@@ -258,3 +275,24 @@ def revert_todo_item(request, item_id):
     item.completed = False
     item.save()
     return HttpResponse()
+
+
+@login_required(login_url='login/')
+def add_note_form(request, datestr=None):
+    """ Handler for add to do item form
+    """
+    template = loader.get_template('rolllist/generic_form.html')
+    if request.POST:
+        form = NoteForm(request.POST)
+        if form.is_valid:
+            day, created = Day.get_from_str(datestr)
+            new_item = NoteForm(content=request.POST['content'])
+            new_item.save()
+            return HttpResponse()
+        else:
+            context = {'form': form}
+            return HttpResponse(template.render(context, request))
+    else:
+        form = NoteForm()
+        context = {'form': form}
+        return HttpResponse(template.render(context, request))
