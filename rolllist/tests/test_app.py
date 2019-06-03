@@ -7,7 +7,7 @@ from rolllist.utils import get_relevant_time_id
 from rolllist.models.appmodels import ScheduleItem, ToDoList, ToDoItem
 
 
-class TestViewsCase(TestBase):
+class TestViews(TestBase):
     """ Test Cases that use the django test client to go to specific views
         and verify their content based on known data
 

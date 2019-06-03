@@ -5,7 +5,7 @@
 			<table width="100%">
 				<tr class="{{ schedule_block.start_time_display|set_row_class}} ">
 					<td class="timecell">{{ schedule_block.start_time_display }}</td>
-					<td><a href="{% url 'add_item' start_time_int=schedule_block.interval datestr=datestr %}" class="openmodalnote" id="{{interval_id}}">[ + ]</a></td>
+					<td><a href="{% url 'add_item' start_time_int=schedule_block.interval datestr=datestr %}" class="openmodalschedule" id="{{interval_id}}">[ + ]</a></td>
 				</tr>
 			</table>
 		{% else %}

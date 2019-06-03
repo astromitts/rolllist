@@ -1,3 +1,5 @@
+/* OVERLAY & MODAL HANDLERS */
+
 function show_modal_and_overlay(){
 	$('div#modal').css('display', 'inline-block');
 	$('div#backgroundcover').show();
@@ -7,6 +9,13 @@ function hide_modal_and_overlay(){
 	$('div#modal').hide();
 	$('div#modalcontent').html();
 	$('div#backgroundcover').hide();
+}
+
+function bind_modal_close(){
+	$('a.closemodal').click(function(event){
+		event.preventDefault();
+		hide_modal_and_overlay();
+	});
 }
 
 function bind_ajax_form_submit(form, action, reload_function){
@@ -28,6 +37,9 @@ function bind_ajax_form_submit(form, action, reload_function){
 	});
 }
 
+
+
+/* SCHEDULE VIEW HANDLERS */
 function bind_modal_open_schedule(datestr){
 	$('a.openmodalschedule').click(function(event){
 		event.preventDefault();
@@ -55,6 +67,36 @@ function bind_modal_open_schedule(datestr){
 }
 
 
+function bind_schedule_generic_handlers(){
+	// Bind ajax workflow to schedule action
+	$('a.schedulegeneric').click(function(event){
+		event.preventDefault();
+		var action = $(this).attr('href');
+		$.ajax({
+			url: action,
+			type: 'GET',
+			success: function(data){
+				get_schedule_table();
+			},
+		})
+	});
+}
+
+function get_schedule_table(){
+	// Load or refresh the schedule table div contents from ajax call
+	$.ajax({
+		url: $('div#get_schedule').text(),
+		type: 'GET',
+		success: function(data){
+			$('div#schedulecontainer').html(data);
+			bind_modal_open_schedule();
+			bind_schedule_generic_handlers();
+			bind_modal_close();
+		},
+	})
+}
+
+/* TO DO VIEW HANDLERS */
 
 function bind_modal_open_todo(datestr){
 	$('a.openmodaltodo').click(function(event){
@@ -73,40 +115,6 @@ function bind_modal_open_todo(datestr){
 			}
 		});
 	});
-}
-
-function bind_modal_close(){
-	$('a.closemodal').click(function(event){
-		event.preventDefault();
-		hide_modal_and_overlay();
-	});
-}
-
-function bind_schedule_generic_handlers(){
-	$('a.schedule-generic').click(function(event){
-		event.preventDefault();
-		var action = $(this).attr('href');
-		$.ajax({
-			url: action,
-			type: 'GET',
-			success: function(data){
-				get_schedule_table();
-			},
-		})
-	});
-}
-
-function get_schedule_table(){
-	$.ajax({
-		url: $('div#get_schedule').text(),
-		type: 'GET',
-		success: function(data){
-			$('div#schedulecontainer').html(data);
-			bind_modal_open_schedule();
-			bind_schedule_generic_handlers();
-			bind_modal_close();
-		},
-	})
 }
 
 function handle_todo_action(action_url){
@@ -144,6 +152,9 @@ function get_todo_table(){
 		},
 	})
 }
+
+
+/* NOTES VIEW HANDLERS */
 
 function bind_notes_form_handlers(){
 	$('a.notes-generic').click(function(event){
@@ -195,6 +206,9 @@ function update_href(current_href, new_location){
 }
 
 
+
+/* NAVIGATION HANDLERS */
+
 function update_nav_with_tab_location(new_location){
 	$('a.daytoggle').each(function(){
 		var current_href = $(this).attr('href');
@@ -235,6 +249,9 @@ function bind_toggle_buttons(){
 	});
 }
 
+
+
+/* DOC HANDLER */
 $(document).ready(function(){
 	var datestr = $('div#datestr').text();
 	get_schedule_table();

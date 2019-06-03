@@ -187,7 +187,9 @@ def edit_schedule_item_form(request, item_id, recurring):
             return HttpResponse(template.render(context, request))
 
     else:
-
+        init_values = {}
+        init_values['start_time_init'] = existing_item.start_time
+        init_values['end_time_init'] = existing_item.end_time
         form = ScheduleItemForm(instance=existing_item)
         context = {'form': form}
         return HttpResponse(template.render(context, request))
