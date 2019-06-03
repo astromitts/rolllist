@@ -4,13 +4,13 @@
 		<table class="noteslist">
 			{% for note in notes %}
 				<tr class="dashed">
-					<td>
-						<table>
-							<tr><td><a href="{% url 'edit_note' note_id=note.id %}" class="openmodaleditnote notes-generic">edit</a></td></tr>
+					<td class="dashed notelinks">
+						<table class="notelinks">
+							<tr class="dashed"><td><a href="{% url 'edit_note' note_id=note.id %}" class="openmodaleditnote notes-generic">edit</a></td></tr>
 							<tr><td><a href="{% url 'delete_note' note_id=note.id %}" class="openmodaldeletenote notes-generic">delete</a></td></tr>
 						</table>
 					</td>
-					<td>{{ note.content }} </td>
+					<td><div class="notecontent">{{ note.content }}</div></td>
 				</tr>
 			{% endfor %}
 		</table>

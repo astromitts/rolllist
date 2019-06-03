@@ -46,6 +46,11 @@ div.togglenav-right{
 .dashed{
 	border-bottom: 1px dotted;
 }
+
+td.dashed{
+	border-right: 1px dotted;
+	border-left: 1px dotted;
+}
 .solid{
 	border-bottom: 1px solid;
 }
@@ -114,6 +119,23 @@ table.todolist{
 	margin-top: 10px;
 	font-weight: bold;
 }
+
+.notecontent{
+	padding-left: 10px;
+}
+/* Notes table styles */
+table.noteslist{
+	width: 100%;
+	border-top: dotted 1px;
+	border-right: dotted 1px;
+}
+table.notelinks{
+	width: 100%;
+}
+td.notelinks{
+	width: 60px;
+}
+
 /* Modal / Popup styles */
 #modal {
 	position: fixed;
