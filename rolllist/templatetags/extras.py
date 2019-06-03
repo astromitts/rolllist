@@ -8,8 +8,8 @@ register = template.Library()
 @register.filter
 def set_row_class(timestr):
     if ':30' in timestr:
-        return 'dashed'
-    return 'solid'
+        return 'solid'
+    return 'dashed'
 
 
 @register.filter
