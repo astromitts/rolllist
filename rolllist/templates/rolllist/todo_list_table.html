@@ -14,8 +14,8 @@
 
 							<input type="checkbox" id="{% url 'complete_todo_item' item_id=item.id %}" class="todo-generic">
 						</td>
-						<td>{{item.title}}</td>
-						<td>
+						<td class="todotitle" id="todotitle-{{item.id}}">{{item.title}}</td>
+						<td class="tododays" id="tododays-{{item.id}}">
 							{% if item.days_incomplete > 1 %}
 							( {{item.days_incomplete}} days)
 							{% endif %}
@@ -26,7 +26,7 @@
 			{% endfor %}
 		</table>
 		<div>
-			<a href="{% url 'add_todo_item' list_id=todo_list.pk %}" class="openmodaltodo">+ item</a> | 
+			<a href="{% url 'add_todo_item' list_id=todo_list.pk %}" class="openmodaltodo">+ item</a> |
 			<a href="{% url 'rollover_todo' datestr=datestr %}" class="todo-generic">Rollover</a>
 		</div>
 	</div>

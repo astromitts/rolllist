@@ -1,17 +1,21 @@
 /* OVERLAY & MODAL HANDLERS */
 
 function show_modal_and_overlay(){
+	// Display the gray overlay and the modal container
 	$('div#modal').css('display', 'inline-block');
 	$('div#backgroundcover').show();
 }
 
 function hide_modal_and_overlay(){
+	// Hide all overlay and modal components and blank out the modal contents
 	$('div#modal').hide();
 	$('div#modalcontent').html();
 	$('div#backgroundcover').hide();
+	window.scrollTo(0, 0);
 }
 
 function bind_modal_close(){
+	// bind the hide functions to the close element of the modal
 	$('a.closemodal').click(function(event){
 		event.preventDefault();
 		hide_modal_and_overlay();
@@ -19,6 +23,7 @@ function bind_modal_close(){
 }
 
 function bind_ajax_form_submit(form, action, reload_function){
+	// bind a form submit to the ajax submit and refresh function
 	form.submit(function(event){
 		event.preventDefault();
 		$.ajax({
@@ -41,6 +46,7 @@ function bind_ajax_form_submit(form, action, reload_function){
 
 /* SCHEDULE VIEW HANDLERS */
 function bind_modal_open_schedule(datestr){
+	// Handle opening the modal for the schedule view functions
 	$('a.openmodalschedule').click(function(event){
 		event.preventDefault();
 		var target_url = $(this).attr('href');
@@ -68,7 +74,7 @@ function bind_modal_open_schedule(datestr){
 
 
 function bind_schedule_generic_handlers(){
-	// Bind ajax workflow to schedule action
+	// Bind ajax workflow to schedule actions
 	$('a.schedulegeneric').click(function(event){
 		event.preventDefault();
 		var action = $(this).attr('href');
@@ -99,6 +105,7 @@ function get_schedule_table(){
 /* TO DO VIEW HANDLERS */
 
 function bind_modal_open_todo(datestr){
+	// Handle the modal opening function for the to-do view
 	$('a.openmodaltodo').click(function(event){
 		event.preventDefault();
 		var target_url = $(this).attr('href');
@@ -118,6 +125,7 @@ function bind_modal_open_todo(datestr){
 }
 
 function handle_todo_action(action_url){
+	// Handle refreshing the to-do container
 	$.ajax({
 		url: action_url,
 		type: 'GET',
@@ -128,6 +136,7 @@ function handle_todo_action(action_url){
 
 }
 function bind_todo_generic_handlers(){
+	// Bind generic todo handler to action links for 
 	$('input.todo-generic').click(function(event){
 		event.preventDefault();
 		var action_url = $(this).attr('id');
@@ -141,6 +150,7 @@ function bind_todo_generic_handlers(){
 }
 
 function get_todo_table(){
+	// load & refresh the to-do list view
 	$.ajax({
 		url: $('div#get_todo').text(),
 		type: 'GET',
@@ -157,6 +167,7 @@ function get_todo_table(){
 /* NOTES VIEW HANDLERS */
 
 function bind_notes_form_handlers(){
+	// handle ajax form show & submit for notes form
 	$('a.notes-generic').click(function(event){
 		event.preventDefault();
 		var target_url = $(this).attr('href');
@@ -176,6 +187,7 @@ function bind_notes_form_handlers(){
 }
 
 function get_notes_table(){
+	// load & refresh the notes view
 	$.ajax({
 		url: $('div#get_notes').text(),
 		type: 'GET',
@@ -187,7 +199,12 @@ function get_notes_table(){
 	})
 }
 
+
+
+/* NAVIGATION HANDLERS */
+
 function get_tab_location(current_href){
+	// figure out the current tab by the URL anchor
 	var current_location = current_href.split('#')[1];
 	if (current_location == undefined) {
 		current_location = 'schedulecontainer'
@@ -196,6 +213,7 @@ function get_tab_location(current_href){
 }
 
 function update_href(current_href, new_location){
+	// Figure out what the window URL should be with a new tab's anchor
 	if (current_href.indexOf('#') < 0){
 		var new_href = current_href + '#' + new_location; 
 	} else {
@@ -205,11 +223,8 @@ function update_href(current_href, new_location){
 	return new_href;
 }
 
-
-
-/* NAVIGATION HANDLERS */
-
 function update_nav_with_tab_location(new_location){
+	// Update the HREF of nav links with anchor for new location
 	$('a.daytoggle').each(function(){
 		var current_href = $(this).attr('href');
 		var new_href = update_href(current_href, new_location);
@@ -218,13 +233,15 @@ function update_nav_with_tab_location(new_location){
 }
 
 function update_window_with_tab_location(new_location){
+	// Update the URL of the window with anchor for new location
 	var current_href = this.window.location.href;
 	var new_href = update_href(current_href, new_location);
 	this.window.location.href = new_href;
 }
 
 function switch_target_container(target_id) {
-
+	// Show the view for a selected button and hide others
+	// Call functions to update window and nav links
 	var this_button = $('button#toggle-' + target_id);
 	var target_container = $('#' + target_id);
 
@@ -240,6 +257,7 @@ function switch_target_container(target_id) {
 }
 
 function bind_toggle_buttons(){
+	// bind navigation functions to the location buttons
 	var current_location = get_tab_location(window.location.href);
 	switch_target_container(current_location);
 
