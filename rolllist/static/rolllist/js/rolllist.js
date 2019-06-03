@@ -5,6 +5,7 @@ function show_modal_and_overlay(){
 
 function hide_modal_and_overlay(){
 	$('div#modal').hide();
+	$('div#modalcontent').html();
 	$('div#backgroundcover').hide();
 }
 
@@ -144,8 +145,8 @@ function get_todo_table(){
 	})
 }
 
-function bind_notes_generic_handlers(){
-	$('a.openmodalnotes').click(function(event){
+function bind_notes_form_handlers(){
+	$('a.notes-generic').click(function(event){
 		event.preventDefault();
 		var target_url = $(this).attr('href');
 		$.ajax({
@@ -154,7 +155,7 @@ function bind_notes_generic_handlers(){
 			success: function(data){
 				$('div#modalcontent').html(data);
 				show_modal_and_overlay();
-				bind_ajax_form_submit($('form.ajaxme'), target_url, get_todo_table, datestr);
+				bind_ajax_form_submit($('form.ajaxme'), target_url, get_notes_table, datestr);
 			},
 			error: function(data){
 				alert("there was an error");
@@ -169,7 +170,7 @@ function get_notes_table(){
 		type: 'GET',
 		success: function(data){
 			$('span#notescontainer').html(data);
-			bind_notes_generic_handlers();
+			bind_notes_form_handlers();
 			bind_modal_close();
 		},
 	})

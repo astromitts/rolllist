@@ -278,15 +278,53 @@ def revert_todo_item(request, item_id):
 
 
 @login_required(login_url='login/')
+def delete_note_form(request, note_id=None):
+    """ Delete note item of given ID """
+    note = Note.objects.get(pk=note_id)
+
+    if request.POST:
+        note.delete()
+        return HttpResponse()
+
+    template = loader.get_template('rolllist/generic_delete_form.html')
+    context = {
+        'item': note,
+        'message': 'Delete %s?' % note.content,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+@login_required(login_url='login/')
+def edit_note_form(request, note_id=None):
+    """ Handler for edit note form
+    """
+    template = loader.get_template('rolllist/generic_form.html')
+    note = Note.objects.get(pk=note_id)
+    if request.POST:
+        form = NoteForm(request.POST)
+        if form.is_valid:
+            note.content = request.POST['content']
+            note.save()
+            return HttpResponse()
+        else:
+            context = {'form': form}
+            return HttpResponse(template.render(context, request))
+    else:
+        form = NoteForm(instance=note)
+        context = {'form': form}
+        return HttpResponse(template.render(context, request))
+
+
+@login_required(login_url='login/')
 def add_note_form(request, datestr=None):
-    """ Handler for add to do item form
+    """ Handler for add note form
     """
     template = loader.get_template('rolllist/generic_form.html')
     if request.POST:
         form = NoteForm(request.POST)
         if form.is_valid:
             day, created = Day.get_from_str(datestr)
-            new_item = NoteForm(content=request.POST['content'])
+            new_item = Note(content=request.POST['content'], day=day, user=get_user(request))
             new_item.save()
             return HttpResponse()
         else:
