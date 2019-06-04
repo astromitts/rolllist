@@ -22,3 +22,13 @@ def is_recurring_item(item):
     if isinstance(item, RecurringScheduleItem):
         return 1
     return 0
+
+
+@register.filter
+def format_timestamp_date(timestamp):
+    return '{0:%m-%d-%Y}'.format(timestamp)
+
+
+@register.filter
+def format_timestamp_time(timestamp):
+    return '{0:%I:%M %p}'.format(timestamp)
