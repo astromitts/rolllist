@@ -51,6 +51,10 @@ td.dashed{
 	border-right: 1px dotted;
 	border-left: 1px dotted;
 }
+
+td.dashed-right{
+	border-right: 1px dotted;
+}
 .solid{
 	border-bottom: 1px solid;
 }
@@ -136,6 +140,37 @@ td.notelinks{
 	width: 60px;
 }
 
+/* All notes styles */
+div.all-note{
+	margin-bottom: 20px;
+	width: 100%;
+}
+table.all-note{
+	width: 100%;
+}
+table.all-note-timestamps{
+	width: 100%;
+	height: 100%;
+}
+td.all-note-timestamps{
+	width: 40%;
+}
+td.all-note{
+	text-align: left;
+	width: auto;
+}
+td.all-note div{
+	padding: 10px;
+}
+tr.all-note{
+	border-bottom: 1px solid;
+	border-top: 1px solid;
+}
+
+/* All notes styles */
+div.all-notes-cell{
+	display: table-cell;
+}
 /* Modal / Popup styles */
 #modal {
 	position: fixed;

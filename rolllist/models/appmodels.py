@@ -44,6 +44,10 @@ class Day(models.Model, BaseModel):
         )
         return full_list
 
+    @property
+    def to_str(self):
+        return self.__str__
+
     @classmethod
     def get_from_str(cls, datestr):
         target_date = datetime.strptime(datestr, "%Y%m%d").date()
@@ -196,3 +200,15 @@ class Note(models.Model, BaseModel):
     day = models.ForeignKey(Day, on_delete=models.CASCADE)
     user = models.ForeignKey(RollListUser, on_delete=models.CASCADE)
     content = models.TextField(max_length=500)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    @classmethod
+    def get_all_for_user_by_day(cls, user):
+        all_notes = cls.objects.filter(user=user).order_by('day', 'updated_at').all()
+        notes_by_date = {}
+        for note in all_notes:
+            if note.day not in notes_by_date.keys():
+                notes_by_date[note.day] = []
+            notes_by_date[note.day].append(note)
+        return notes_by_date

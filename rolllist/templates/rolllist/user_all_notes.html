@@ -1,0 +1,29 @@
+{% extends 'rolllist/base.html' %}
+{% load static %}
+{% block main_content %}
+	<h2>Notes</h2>
+	{% for day, notes in all_notes.items %}
+		<div class="row">
+			<div class="col">
+				<div class="all-note">
+					<table class="all-note">
+						<tr class="title note-title">
+							<td colspan="100%">{{ day.to_str }}</td>
+						</tr>
+						{% for note in notes %}
+							<tr class="all-note">
+								<td class="all-note-timestamps dashed-right">
+									<table class="all-note-timestamps">
+										<tr class="dashed"><td>created at: </td><td>{{note.created_at}}</td></tr>
+										<tr><td>updated at: </td><td>{{note.updated_at}}</td></tr>
+									</table>
+								</td>
+								<td class="all-note"><div>{{note.content}}</div></td>
+							</tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}

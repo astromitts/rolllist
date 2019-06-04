@@ -336,3 +336,14 @@ def add_note_form(request, datestr=None):
         form = NoteForm()
         context = {'form': form}
         return HttpResponse(template.render(context, request))
+
+
+@login_required(login_url='login/')
+def view_all_notes(request):
+    user = get_user(request)
+    template = loader.get_template('rolllist/user_all_notes.html')
+    notes = Note.get_all_for_user_by_day(user=user)
+    context = {
+        'all_notes': notes
+    }
+    return HttpResponse(template.render(context, request))
