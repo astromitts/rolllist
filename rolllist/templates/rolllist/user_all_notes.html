@@ -6,29 +6,32 @@
 		{% for day, notes in all_notes.items %}
 			<div class="row">
 				<div class="col">
-					<div class="all-note">
-						<table class="all-note">
+					<div class="all-note-day">
+						<table class="all-note-day">
 							<tr class="title note-title">
 								<td colspan="100%">{{ day.to_str }}</td>
 							</tr>
 							{% for note in notes %}
-								<tr class="all-note">
-									<td class="all-note-timestamps dashed-right">
-										<table class="all-note-timestamps">
-											<tr><td class="title">created at: </td></tr>
-											<tr class="dashed"><td>
-												{{note.created_at|format_timestamp_date}}<br />
-												{{note.created_at|format_timestamp_time}}
-											</td></tr>
-											
-											<tr><td class="title">updated at: </td></tr>
-											<tr><td>
-												{{note.updated_at|format_timestamp_date}}<br />
-												{{note.updated_at|format_timestamp_time}}
-											</td></tr>
+								<tr class="all-note-note dashed">
+									<td>
+										<table class="all-note-note">
+											<tr class="dashed">
+												<td class="">created at: 
+													{{note.created_at|format_timestamp_date}} {{note.created_at|format_timestamp_time}}
+												</td>
+												<td class="">updated at: 
+													{{note.updated_at|format_timestamp_date}}
+													{{note.updated_at|format_timestamp_time}}
+												</td>
+											</tr>
+											<tr>
+												<td class="all-note" colspan="100%">
+													<div>{{note.content}}</div>
+												</td>
+											</tr>
 										</table>
 									</td>
-									<td class="all-note"><div>{{note.content}}</div></td>
+									
 								</tr>
 							{% endfor %}
 						</table>
