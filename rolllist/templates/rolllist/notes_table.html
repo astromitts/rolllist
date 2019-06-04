@@ -6,7 +6,7 @@
 				<tr class="dashed">
 					<td class="dashed notelinks">
 						<table class="notelinks">
-							<tr class="dashed"><td><a href="{% url 'edit_note' note_id=note.id %}" class="openmodaleditnote notes-generic">edit</a></td></tr>
+							<tr class="dashed"><td><a href="{% url 'edit_note' note_id=note.id %}">edit</a></td></tr>
 							<tr><td><a href="{% url 'delete_note' note_id=note.id %}" class="openmodaldeletenote notes-generic">delete</a></td></tr>
 						</table>
 					</td>
@@ -15,7 +15,7 @@
 			{% endfor %}
 		</table>
 		<div>
-			<a href="{% url 'add_note' datestr=datestr %}" class="openmodalnote notes-generic">+ note</a>
+			<a href="{% url 'add_note' datestr=datestr %}">+ note</a>
 		</div>
 	</div>
 </div>

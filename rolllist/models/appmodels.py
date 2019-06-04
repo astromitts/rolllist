@@ -45,6 +45,10 @@ class Day(models.Model, BaseModel):
         return full_list
 
     @property
+    def to_url_str(self):
+        return "{0:%Y%m%d}".format(self.date)
+
+    @property
     def to_str(self):
         return self.__str__
 

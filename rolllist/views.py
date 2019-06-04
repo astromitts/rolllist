@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse
+from django.shortcuts import redirect
 # from django.urls import reverse
 from django.template import loader
 
@@ -300,14 +301,14 @@ def delete_note_form(request, note_id=None):
 def edit_note_form(request, note_id=None):
     """ Handler for edit note form
     """
-    template = loader.get_template('rolllist/generic_form.html')
+    template = loader.get_template('rolllist/styled_form.html')
     note = Note.objects.get(pk=note_id)
     if request.POST:
         form = NoteForm(request.POST)
         if form.is_valid:
             note.content = request.POST['content']
             note.save()
-            return HttpResponse()
+            return redirect('/%s/#notescontainer' % note.day.to_url_str)
         else:
             context = {'form': form}
             return HttpResponse(template.render(context, request))
@@ -321,14 +322,14 @@ def edit_note_form(request, note_id=None):
 def add_note_form(request, datestr=None):
     """ Handler for add note form
     """
-    template = loader.get_template('rolllist/generic_form.html')
+    template = loader.get_template('rolllist/styled_form.html')
     if request.POST:
         form = NoteForm(request.POST)
         if form.is_valid:
             day, created = Day.get_from_str(datestr)
             new_item = Note(content=request.POST['content'], day=day, user=get_user(request))
             new_item.save()
-            return HttpResponse()
+            return redirect('/%s/#notescontainer' % datestr)
         else:
             context = {'form': form}
             return HttpResponse(template.render(context, request))
