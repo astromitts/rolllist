@@ -144,15 +144,25 @@ td.notelinks{
 div.all-note-day{
 	padding-bottom: 20px;
 }
-table.all-note-day{
-	width: 100%;
+div.all-note{
+	padding: 7px;
+	border: solid 1px;
+	background-color: #ffffe6;
 }
-table.all-note-note{
-	width: 100%;
+div.all-note-timestamp{
+	margin-top: 5px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	border-bottom: dotted 1px;
+	font-size: .7em;
 }
-table.all-note-timestamps{
-	width: 100%;
-	height: 100%;
+div.all-note-content{
+	border-top: none;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+a.all-note-edit{
+	float: right;
 }
 
 /* Modal / Popup styles */

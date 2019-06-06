@@ -298,7 +298,7 @@ def delete_note_form(request, note_id=None):
 
 
 @login_required(login_url='login/')
-def edit_note_form(request, note_id=None):
+def edit_note_form(request, note_id=None, src=None):
     """ Handler for edit note form
     """
     template = loader.get_template('rolllist/styled_form.html')
@@ -308,7 +308,10 @@ def edit_note_form(request, note_id=None):
         if form.is_valid:
             note.content = request.POST['content']
             note.save()
-            return redirect('/%s/#notescontainer' % note.day.to_url_str)
+            if not src:
+                return redirect('/%s/#notescontainer' % note.day.to_url_str)
+            else:
+                return redirect('/%s/' % src)
         else:
             context = {'form': form}
             return HttpResponse(template.render(context, request))
@@ -319,7 +322,7 @@ def edit_note_form(request, note_id=None):
 
 
 @login_required(login_url='login/')
-def add_note_form(request, datestr=None):
+def add_note_form(request, datestr=None, src=None):
     """ Handler for add note form
     """
     template = loader.get_template('rolllist/styled_form.html')
@@ -327,9 +330,12 @@ def add_note_form(request, datestr=None):
         form = NoteForm(request.POST)
         if form.is_valid:
             day, created = Day.get_from_str(datestr)
-            new_item = Note(content=request.POST['content'], day=day, user=get_user(request))
-            new_item.save()
-            return redirect('/%s/#notescontainer' % datestr)
+            note = Note(content=request.POST['content'], day=day, user=get_user(request))
+            note.save()
+            if not src:
+                return redirect('/%s/#notescontainer' % note.day.to_url_str)
+            else:
+                return redirect('/%s/' % src)
         else:
             context = {'form': form}
             return HttpResponse(template.render(context, request))

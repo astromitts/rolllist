@@ -25,10 +25,5 @@ def is_recurring_item(item):
 
 
 @register.filter
-def format_timestamp_date(timestamp):
-    return '{0:%m-%d-%Y}'.format(timestamp)
-
-
-@register.filter
-def format_timestamp_time(timestamp):
-    return '{0:%I:%M %p}'.format(timestamp)
+def format_timestamp(timestamp):
+    return '{0:%m-%d-%Y %I:%M %p}'.format(timestamp)

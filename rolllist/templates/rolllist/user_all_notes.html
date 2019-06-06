@@ -7,34 +7,16 @@
 			<div class="row">
 				<div class="col">
 					<div class="all-note-day">
-						<table class="all-note-day">
-							<tr class="title note-title">
-								<td colspan="100%">{{ day.to_str }}</td>
-							</tr>
+						{{ day.to_str }} <a href="{% url 'add_note_src' datestr=day.to_url_str src='viewnotes' %}">Add note</a>
 							{% for note in notes %}
-								<tr class="all-note-note dashed">
-									<td>
-										<table class="all-note-note">
-											<tr class="dashed">
-												<td class="">created at: 
-													{{note.created_at|format_timestamp_date}} {{note.created_at|format_timestamp_time}}
-												</td>
-												<td class="">updated at: 
-													{{note.updated_at|format_timestamp_date}}
-													{{note.updated_at|format_timestamp_time}}
-												</td>
-											</tr>
-											<tr>
-												<td class="all-note" colspan="100%">
-													<div>{{note.content}}</div>
-												</td>
-											</tr>
-										</table>
-									</td>
-									
-								</tr>
+								<div class="all-note all-note-timestamp">
+									updated at: {{note.updated_at|format_timestamp }}
+									<a class="all-note-edit" href="{% url 'edit_note_src' note_id=note.id src='viewnotes' %}">edit</a>
+								</div>	
+								<div class="all-note all-note-content">
+									{{note.content}}
+								</div>
 							{% endfor %}
-						</table>
 					</div>
 				</div>
 			</div>

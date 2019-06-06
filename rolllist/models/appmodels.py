@@ -209,7 +209,7 @@ class Note(models.Model, BaseModel):
 
     @classmethod
     def get_all_for_user_by_day(cls, user):
-        all_notes = cls.objects.filter(user=user).order_by('day', 'updated_at').all()
+        all_notes = cls.objects.filter(user=user).order_by('-day', '-updated_at').all()
         notes_by_date = {}
         for note in all_notes:
             if note.day not in notes_by_date.keys():

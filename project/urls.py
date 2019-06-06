@@ -32,6 +32,8 @@ urlpatterns = [
     path('getnotes/<str:datestr>/', views.note_view, name='get_notes'),
     path('editnote/<int:note_id>/', views.edit_note_form, name='edit_note'),
     path('addnote/<str:datestr>/', views.add_note_form, name='add_note'),
+    path('editnote/<int:note_id>/<str:src>/', views.edit_note_form, name='edit_note_src'),
+    path('addnote/<str:datestr>/<str:src>/', views.add_note_form, name='add_note_src'),
     path('deletenoteform/<int:note_id>/', views.delete_note_form, name='delete_note'),
     # to do list item handlers
     path('addtodoitem/<int:list_id>/', views.add_to_do_item_form, name='add_todo_item'),
