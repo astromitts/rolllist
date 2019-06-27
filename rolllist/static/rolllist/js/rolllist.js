@@ -104,6 +104,8 @@ function get_schedule_table(){
 	})
 }
 
+
+// ##############  START display style of the schedule table ##########	
 function fully_collapse_schedule_table(){
 	// fully hide the schedule table
 	$('div#schedule').hide();
@@ -161,6 +163,9 @@ function init_schedule_display(){
 	selected = $('button.schedule-control-selected');
 	toggle_schedule_display(selected);
 }
+
+
+// ##############  END display style of the schedule table ##########
 
 /* TO DO VIEW HANDLERS */
 
@@ -260,80 +265,10 @@ function get_notes_table(){
 }
 
 
-
-/* NAVIGATION HANDLERS */
-
-function get_tab_location(current_href){
-	// figure out the current tab by the URL anchor
-	var current_location = current_href.split('#')[1];
-	if (current_location == undefined) {
-		current_location = 'schedulecontainer'
-	}
-	return current_location;
-}
-
-function update_href(current_href, new_location){
-	// Figure out what the window URL should be with a new tab's anchor
-	if (current_href.indexOf('#') < 0){
-		var new_href = current_href + '#' + new_location; 
-	} else {
-		var current_location = get_tab_location(current_href);
-		var new_href = current_href.replace(current_location, new_location); 
-	}
-	return new_href;
-}
-
-function update_nav_with_tab_location(new_location){
-	// Update the HREF of nav links with anchor for new location
-	$('a.daytoggle').each(function(){
-		var current_href = $(this).attr('href');
-		var new_href = update_href(current_href, new_location);
-		 $(this).attr('href', new_href);
-	});
-}
-
-function update_window_with_tab_location(new_location){
-	// Update the URL of the window with anchor for new location
-	var current_href = this.window.location.href;
-	var new_href = update_href(current_href, new_location);
-	this.window.location.href = new_href;
-}
-
-function switch_target_container(target_id) {
-	// Show the view for a selected button and hide others
-	// Call functions to update window and nav links
-	var this_button = $('button#toggle-' + target_id);
-	var target_container = $('#' + target_id);
-
-	$('.toggle-target').hide();
-	target_container.show();
-
-	$('button.toggle-btn').addClass('btn-outline-primary');
-	$('button.toggle-btn').removeClass('btn-primary');
-	this_button.removeClass('btn-outline-primary');
-	this_button.addClass('btn-primary');
-	update_window_with_tab_location(target_id);
-	update_nav_with_tab_location(target_id);
-}
-
-function bind_toggle_buttons(){
-	// bind navigation functions to the location buttons
-	var current_location = get_tab_location(window.location.href);
-	switch_target_container(current_location);
-
-	$('button.toggle-btn').click(function(){
-		var target_id = $(this).attr('id').replace('toggle-','');
-		switch_target_container(target_id);
-	});
-}
-
-
-
 /* DOC HANDLER */
 $(document).ready(function(){
 	var datestr = $('div#datestr').text();
 	get_schedule_table();
 	get_todo_table();
 	get_notes_table();
-	bind_toggle_buttons();
 });
