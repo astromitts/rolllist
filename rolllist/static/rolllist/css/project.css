@@ -38,6 +38,9 @@ div.togglenav-right{
 	width: auto;
 	float: right;
 }
+.text-centered{
+	text-align: center;
+}
 
 /* Schedule table styles */
 .schedulecontainer{
