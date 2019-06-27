@@ -107,15 +107,10 @@ def todo_list_view(request, datestr):
         day=target_day,
         user=get_user(request)
     )
-    yesterday_to_do_list, created = ToDoList.get_or_create(
-        day=previous_day,
-        user=get_user(request)
-    )
 
     context = {
         'datestr': datestr,
-        'todo_list': todo_list,
-        'yesterday_to_do_list': yesterday_to_do_list,
+        'todo_list': todo_list
     }
     return HttpResponse(template.render(context, request))
 

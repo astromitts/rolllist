@@ -31,24 +31,3 @@
 		</div>
 	</div>
 </div>
-
-{% if yesterday_to_do_list.todoitem_set.count > 0 %}
-	<div class="row">
-		<div class="col">
-			<div class="title">Yesterday:</div>
-			<table class="todolist">
-				{% for item in yesterday_to_do_list.todoitem_set.all %}
-					<tr class="dashed">
-						{% if item.completed %}
-							<td><input type="checkbox" checked="checked" disabled="disabled"></td>
-							<td>{{item.title}}</td>
-						{% else %}
-							<td><input type="checkbox" disabled="disabled"></td>
-							<td><span style="font-weight: bold;">{{item.title}}</span></td>
-						{% endif %}
-					</tr>
-				{% endfor %}
-			</table>
-		</div>
-	</div>
-{% endif %}
