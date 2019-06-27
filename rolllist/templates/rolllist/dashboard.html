@@ -32,6 +32,11 @@
 	<div class="row">
 	    <div class="col">
 			<span class="title">Here is your schedule for {{day}}.</span>
+			<div id="schedule-controls">
+				<button class="btn btn-xs btn-outline-info schedule-control" id="schedule-hide">hidden</button>
+				<button class="btn btn-xs btn-outline-info schedule-control" id="schedule-expand">expanded</button>
+				<button class="btn btn-xs btn-info schedule-control schedule-control-selected" id="schedule-collapse">collapsed</button>
+			</div>
 			<div id="schedulecontainer" class="schedulecontainer toggle-target">
 			</div>
 	    </div>

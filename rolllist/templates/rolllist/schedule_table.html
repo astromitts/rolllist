@@ -1,8 +1,10 @@
 {% load static extras %}
+
+<div id="schedule">
 	{% for schedule_block in day_schedule %}
 		{% comment %}Row without an existing item{% endcomment %}
 		{% if not schedule_block.item %}
-			<table width="100%">
+			<table width="100%"class="schedule schedule-open">
 				<tr class="{{ schedule_block.start_time_display|set_row_class}} ">
 					<td class="timecell">{{ schedule_block.start_time_display }}</td>
 					<td><a href="{% url 'add_item' start_time_int=schedule_block.interval datestr=datestr %}" class="openmodalschedule" id="{{interval_id}}">[ + ]</a></td>
@@ -11,7 +13,7 @@
 		{% else %}
 
 		{% comment %}Row WITH an existing item{% endcomment %}
-			<table width="100%">
+			<table width="100%" class="schedule schedule-scheduled">
 				{% for interval_id in schedule_block.intervals %}
 					<tr class="{{ interval_id|time_display_str|set_row_class }}">
 						<td class="timecell">
@@ -45,3 +47,4 @@
 			</table>
 		{% endif %}
 	{% endfor %}
+</div>
