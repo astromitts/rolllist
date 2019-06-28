@@ -20,19 +20,19 @@
 	    <div class="col">
 			<div class="title text--centered">{{day}}</div>
 			<div id="schedule-controls" class="text--centered">
-				<button class="btn btn-xs btn-outline-info schedule-control" id="schedule-hide">hidden</button>
-				<button class="btn btn-xs btn-outline-info schedule-control" id="schedule-expand">expanded</button>
-				<button class="btn btn-xs btn-info schedule-control schedule-control-selected" id="schedule-collapse">collapsed</button>
+				<button class="btn btn-xs btn-outline-info js-schedule-control" id="js-schedule-hide">hidden</button>
+				<button class="btn btn-xs btn-outline-info js-schedule-control" id="js-schedule-expand">expanded</button>
+				<button class="btn btn-xs btn-info js-schedule-control js-schedule-control-selected" id="js-schedule-collapse">collapsed</button>
 			</div>
-			<div id="schedulecontainer" class="schedulecontainer toggle-target">
+			<div id="schedulecontainer" class="schedulecontainer">
 			</div>
 	    </div>
 	</div>
 
-	<span id="todocontainter" class="toggle-target">
+	<span id="todocontainter">
 	</span>
 
-	<span id="notescontainer" class="toggle-target">
+	<span id="notescontainer">
 	</span>
 
 {% endblock %}

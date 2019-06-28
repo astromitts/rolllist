@@ -1,3 +1,4 @@
 Pipfile
 Pipfile.lock
 *.sqlite3
+.sass-cache/

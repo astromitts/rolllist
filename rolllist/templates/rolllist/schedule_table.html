@@ -1,45 +1,44 @@
 {% load static extras %}
 
-<div id="schedule">
+<div id="js-scheduletable" class="scheduleblock">
 	{% for schedule_block in day_schedule %}
 		{% comment %}Row without an existing item{% endcomment %}
 		{% if not schedule_block.item %}
-			<table width="100%"class="schedule schedule-open">
-				<tr class="{{ schedule_block.start_time_display|set_row_class}} ">
-					<td class="timecell">{{ schedule_block.start_time_display }}</td>
+			<table width="100%"class="js-scheduletable-open">
+				<tr class="scheduleblock-{{ schedule_block.start_time_display|set_row_class}} ">
+					<td class="scheduleblock-timecell">{{ schedule_block.start_time_display }}</td>
 					<td><a href="{% url 'add_item' start_time_int=schedule_block.interval datestr=datestr %}" class="openmodalschedule" id="{{interval_id}}">[ + ]</a></td>
 				</tr>
 			</table>
 		{% else %}
 
 		{% comment %}Row WITH an existing item{% endcomment %}
-			<table width="100%" class="schedule schedule-scheduled">
+			<table width="100%" class="js-scheduletable-scheduled">
 				{% for interval_id in schedule_block.intervals %}
-					<tr class="{{ interval_id|time_display_str|set_row_class }}">
-						<td class="timecell">
+					<tr class="scheduleblock-{{ interval_id|time_display_str|set_row_class }}">
+						<td class="scheduleblock-timecell">
 							{{ interval_id|time_display_str }}
 						</td>
 						<td>
 							{% if forloop.first %}
 								{% if forloop.last %}
-									<div class="scheduleditem scheduleditemstart scheduleditemend">
+									<div class="scheduleditem scheduleditem-start scheduleditem-end">
 								{% else %}
-									<div class="scheduleditem scheduleditemstart">
+									<div class="scheduleditem scheduleditem-start">
 								{% endif %}
-									<div class="scheduledetails">
-										<div class="scheduletable-link__edit">
+									<div class="text--centered zero-margin full-width">
+										<div class="scheduletable-link scheduletable-link__edit">
 											<a href="{% url 'edit_item' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule" id="{{interval_id}}">{{ schedule_block.item.title }} ({{ schedule_block.item.location }})</a>
 										</div>
-										<div class="scheduletable-link__delete">
+										<div class="scheduletable-link scheduletable-link__delete">
 											<a href="{% url 'delete_item_form' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule" id="{{ interval_id }}">[-]</a>
 										</div>
 									</div>
 								</div>
 							{% elif forloop.last %}
-								<div class="scheduleditem scheduleditemend">&nbsp;</div>
+								<div class="scheduleditem scheduleditem-end">&nbsp;</div>
 							{% else %}
-								<div class="scheduleditem scheduleditemmid">&nbsp;</div>
-
+								<div class="scheduleditem scheduleditem-middle">&nbsp;</div>
 							{% endif %}
 						</td>
 					</tr>

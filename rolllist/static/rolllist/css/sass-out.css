@@ -5,6 +5,12 @@
 .text--centered {
   text-align: center; }
 
+.zero-margin {
+  margin: 0; }
+
+full-width {
+  width: 100%; }
+
 .navbar-nav--static-left {
   flex-wrap: unset; }
   .navbar-nav--static-left li {
@@ -29,20 +35,50 @@
   float: right;
   padding-right: 10px; }
 
-.scheduletable-link__edit {
-  display: inline; }
-  .scheduletable-link__edit a {
-    font-weight: bold;
-    font-size: .7em;
-    color: #000;
-    padding-left: 10px; }
-.scheduletable-link__delete {
+.scheduletable-link {
   display: inline;
-  float: right;
-  padding-right: 5px; }
-  .scheduletable-link__delete a {
-    font-weight: bold;
-    font-size: .7em;
-    color: #000; }
+  font-weight: bold;
+  font-size: .7em;
+  color: #000; }
+  .scheduletable-link__edit a {
+    padding-left: 10px; }
+  .scheduletable-link__delete {
+    float: right;
+    padding-right: 5px; }
+    .scheduletable-link__delete a {
+      color: #000; }
+
+.scheduleblock-timecell {
+  border-right: 1px solid;
+  width: 20%;
+  font-size: .7em; }
+.scheduleblock-dashed {
+  border-bottom: 1px dotted;
+  border-right: 1px solid;
+  border-left: 1px solid; }
+.scheduleblock-solid {
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+  border-left: 1px solid; }
+
+.scheduleditem {
+  width: 100%;
+  background-color: #ffffe6;
+  display: inline-block; }
+  .scheduleditem-start {
+    border-top: 1px solid;
+    border-left: 1px solid;
+    border-right: 1px solid;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px; }
+  .scheduleditem-middle {
+    border-left: 1px solid;
+    border-right: 1px solid; }
+  .scheduleditem-end {
+    border-bottom: 1px solid;
+    border-left: 1px solid;
+    border-right: 1px solid;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px; }
 
 /*# sourceMappingURL=sass-out.css.map */

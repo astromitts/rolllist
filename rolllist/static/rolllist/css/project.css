@@ -2,12 +2,7 @@
 
 
 /* Schedule table styles */
-.schedulecontainer{
-	border: 1px solid;
-}
-.dashed{
-	border-bottom: 1px dotted;
-}
+
 
 td.dashed{
 	border-right: 1px dotted;
@@ -16,46 +11,6 @@ td.dashed{
 
 td.dashed-right{
 	border-right: 1px dotted;
-}
-.solid{
-	border-bottom: 1px solid;
-}
-
-td.timecell{
-	border-right: 1px solid;
-	width: 20%;
-	font-size: .7em;
-}
-div.scheduleditem{
-	width: 100%;
-	background-color: #ffffe6;
-	display: inline-block;
-}
-div.scheduledetails{
-	text-align: center;
-	width: 100%;
-	margin: 0;
-}
-
-div.scheduleditemstart{
-	border-top: 1px solid;
-	border-left: 1px solid;
-	border-right: 1px solid;
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
-
-}
-div.scheduleditemmid{
-	border-left: 1px solid;
-	border-right: 1px solid;
-}
-div.scheduleditemend{
-	border-bottom: : 1px solid;
-	border-left: 1px solid;
-	border-right: 1px solid;
-	border-bottom-left-radius: 10px;
-	border-bottom-right-radius: 10px;
-	
 }
 
 /* Todo table styles */
