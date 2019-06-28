@@ -2,19 +2,20 @@
 {% load static extras %}
 {% block main_content %}
 	<h2>Notes</h2>
+	 <a href="{% url 'add_note_src' datestr=today.to_url_str src='viewnotes' %}">Add note</a>
 	{% if all_notes %}
 		{% for day, notes in all_notes.items %}
 			<div class="row">
 				<div class="col">
 					<div class="all-note-day">
-						{{ day.to_str }} <a href="{% url 'add_note_src' datestr=day.to_url_str src='viewnotes' %}">Add note</a>
+						{{ day.to_str }}
 							{% for note in notes %}
 								<div class="all-note all-note-timestamp">
 									updated at: {{note.updated_at|format_timestamp }}
 									<a class="all-note-edit" href="{% url 'edit_note_src' note_id=note.id src='viewnotes' %}">edit</a>
-								</div>	
+								</div>
 								<div class="all-note all-note-content">
-									{{note.content}}
+									{{note.content|safe}}
 								</div>
 							{% endfor %}
 					</div>

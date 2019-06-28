@@ -10,7 +10,7 @@
 							<tr><td><a href="{% url 'delete_note' note_id=note.id %}" class="openmodaldeletenote notes-generic">delete</a></td></tr>
 						</table>
 					</td>
-					<td><div class="notecontent">{{ note.content }}</div></td>
+					<td><div class="notecontent">{{ note.content|safe }}</div></td>
 				</tr>
 			{% endfor %}
 		</table>

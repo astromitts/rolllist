@@ -7,7 +7,6 @@ from rolllistuser import views as userviews
 
 
 urlpatterns = [
-
     # admin
     path('admin/', admin.site.urls),
 

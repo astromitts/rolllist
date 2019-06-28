@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_nose',
+    'django_wysiwyg',
+    'tinymce',
     'rolllist',
     'rolllistuser',
 ]
@@ -104,6 +106,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+DJANGO_WYSIWYG_FLAVOR = "tinymce"
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -123,6 +127,10 @@ NON_STAFF_PERMS = [
     'change_todoitem',
     'delete_todoitem',
     'view_todoitem',
+    'add_note',
+    'change_note',
+    'delete_note',
+    'view_note',
     'add_scheduleitem',
     'change_scheduleitem',
     'delete_scheduleitem',

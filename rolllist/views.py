@@ -296,7 +296,7 @@ def delete_note_form(request, note_id=None):
 def edit_note_form(request, note_id=None, src=None):
     """ Handler for edit note form
     """
-    template = loader.get_template('rolllist/styled_form.html')
+    template = loader.get_template('rolllist/note_form.html')
     note = Note.objects.get(pk=note_id)
     if request.POST:
         form = NoteForm(request.POST)
@@ -320,7 +320,7 @@ def edit_note_form(request, note_id=None, src=None):
 def add_note_form(request, datestr=None, src=None):
     """ Handler for add note form
     """
-    template = loader.get_template('rolllist/styled_form.html')
+    template = loader.get_template('rolllist/note_form.html')
     if request.POST:
         form = NoteForm(request.POST)
         if form.is_valid:
@@ -345,7 +345,9 @@ def view_all_notes(request):
     user = get_user(request)
     template = loader.get_template('rolllist/user_all_notes.html')
     notes = Note.get_all_for_user_by_day(user=user)
+    today_day, created = Day.get_or_create(date=datetime.today())
     context = {
-        'all_notes': notes
+        'all_notes': notes,
+        'today': today_day
     }
     return HttpResponse(template.render(context, request))

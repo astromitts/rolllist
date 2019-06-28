@@ -1,0 +1,33 @@
+{% extends 'rolllist/base.html' %}
+{% load static %}
+{% block extra_head %}
+	{% load wysiwyg %}
+	{% wysiwyg_setup %}
+{% endblock %}
+
+{% block main_content %}
+<style>
+	li{
+		list-style: none;
+		display: table-row;
+		width: 100%;
+	}
+	label{
+		width: 90px;
+		display: table-cell;
+		padding: 5px;
+	}
+	select, input: {
+		display: table-cell;
+		padding: 5px;
+	}
+</style>
+
+<form method="POST" action="" class="ajaxme">{% csrf_token %}
+<textarea id="content" name="content"></textarea>
+
+{% wysiwyg_editor "content" %}
+<br />
+<input type="submit" value="submit"/>
+</form>
+{% endblock %}
