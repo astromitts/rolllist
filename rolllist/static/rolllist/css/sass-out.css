@@ -35,6 +35,9 @@ full-width {
   float: right;
   padding-right: 10px; }
 
+#schedulecontainer {
+  border: 1px solid; }
+
 .scheduletable-link {
   display: inline;
   font-weight: bold;
