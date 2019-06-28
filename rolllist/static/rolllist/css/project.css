@@ -1,4 +1,17 @@
 /* Global & nav styles */
+
+ul.navbar-nav--static-left {
+	flex-wrap: unset;
+}
+ul.navbar-nav--static-left li {
+	float: left;
+	display: inline;
+	color: #FFFFFF;
+}
+
+ul.navbar-nav--static-left a {
+	color: #FFFFFF;
+}
 .main{
 	padding-top: 65px;
 	padding-bottom: 75px;

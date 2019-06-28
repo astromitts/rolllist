@@ -26,7 +26,17 @@
 	    {% if user_logged_in %}
 		    <ul class="nav navbar-nav navbar-nav--static-left">
 		      <li>
-		        <a class="navbar-brand" href="{% url 'view_all_notes' %}">Notes</a>
+		        <a class="" href="{% url 'logout_handler' %}">Log out</a>
+		      </li>
+		    </ul>
+		{% else %}
+			<ul class="nav navbar-nav navbar-nav--static-left">
+
+		      <li>
+		        <a class="" href="{% url 'login_handler' %}">Log in</a>&nbsp;|
+		      </li>
+		      <li>
+		        &nbsp;<a class="" href="{% url 'create_user_handler' %}">Register</a>
 		      </li>
 		    </ul>
 	    {% endif %}
