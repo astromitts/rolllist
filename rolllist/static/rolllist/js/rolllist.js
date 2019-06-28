@@ -67,7 +67,7 @@ function update_href(current_href, new_location){
 
 function update_nav_with_tab_location(new_location){
 	// Update the HREF of nav links with anchor for new location
-	$('a.daytoggle').each(function(){
+	$('a.js-nav-control').each(function(){
 		var current_href = $(this).attr('href');
 		var new_href = update_href(current_href, new_location);
 		$(this).attr('href', new_href);
