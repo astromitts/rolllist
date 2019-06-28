@@ -1,0 +1,72 @@
+$white: #FFFFFF;
+
+.main{
+	padding-top: 65px;
+	padding-bottom: 75px;
+}
+
+.text {
+	&--centered {
+		text-align: center;
+	}
+}
+
+.navbar-nav{
+	&--static-left {
+		flex-wrap: unset;
+		li {
+			float: left;
+			display: inline;
+			color: $white;
+			a {
+				color: $white;
+			}
+		}
+	}
+}
+
+.bottomnav{
+	margin: auto;
+	width: auto;
+	display: inline-block;
+	a {
+		padding-left: 50px;
+		padding-right: 50px;
+	}
+}
+
+.daytoggle{
+	&__prev{
+		float: left;
+		padding-left: 10px;
+	}
+	&__next{
+		float: right;
+		padding-right: 10px;
+	}
+}
+
+.scheduletable {
+	&-link{
+		&__edit {
+			display: inline;
+			a {
+				font-weight: bold;
+				font-size: .7em;
+				color: #000;
+				padding-left: 10px;
+			}
+		}
+		&__delete {
+			display: inline;
+			float: right;
+			padding-right: 5px;
+			a{
+				font-weight: bold;
+				font-size: .7em;
+				color: #000;
+			}
+		}
+	}
+}
+

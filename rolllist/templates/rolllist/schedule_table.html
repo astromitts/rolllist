@@ -27,10 +27,10 @@
 									<div class="scheduleditem scheduleditemstart">
 								{% endif %}
 									<div class="scheduledetails">
-										<div class="editlink">
+										<div class="scheduletable-link__edit">
 											<a href="{% url 'edit_item' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule" id="{{interval_id}}">{{ schedule_block.item.title }} ({{ schedule_block.item.location }})</a>
 										</div>
-										<div class="deletelink">
+										<div class="scheduletable-link__delete">
 											<a href="{% url 'delete_item_form' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule" id="{{ interval_id }}">[-]</a>
 										</div>
 									</div>

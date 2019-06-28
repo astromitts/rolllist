@@ -1,0 +1,48 @@
+.main {
+  padding-top: 65px;
+  padding-bottom: 75px; }
+
+.text--centered {
+  text-align: center; }
+
+.navbar-nav--static-left {
+  flex-wrap: unset; }
+  .navbar-nav--static-left li {
+    float: left;
+    display: inline;
+    color: #FFFFFF; }
+    .navbar-nav--static-left li a {
+      color: #FFFFFF; }
+
+.bottomnav {
+  margin: auto;
+  width: auto;
+  display: inline-block; }
+  .bottomnav a {
+    padding-left: 50px;
+    padding-right: 50px; }
+
+.daytoggle__prev {
+  float: left;
+  padding-left: 10px; }
+.daytoggle__next {
+  float: right;
+  padding-right: 10px; }
+
+.scheduletable-link__edit {
+  display: inline; }
+  .scheduletable-link__edit a {
+    font-weight: bold;
+    font-size: .7em;
+    color: #000;
+    padding-left: 10px; }
+.scheduletable-link__delete {
+  display: inline;
+  float: right;
+  padding-right: 5px; }
+  .scheduletable-link__delete a {
+    font-weight: bold;
+    font-size: .7em;
+    color: #000; }
+
+/*# sourceMappingURL=sass-out.css.map */
