@@ -15,7 +15,8 @@
 			{% endfor %}
 		</table>
 		<div>
-			<a href="{% url 'add_note' datestr=datestr %}">+ note</a>
+			<a href="{% url 'add_note' datestr=datestr %}">+ note</a>&nbsp;|&nbsp;
+			<a href="{% url 'view_all_notes' %}">all notes</a>
 		</div>
 	</div>
 </div>
