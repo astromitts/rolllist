@@ -18,22 +18,22 @@
 	{% comment %} content containers {% endcomment %}
 	<div class="row">
 	    <div class="col">
-			<div class="title text--centered">{{day}}</div>
+			<div class="text-title text--centered">{{day}}</div>
 			<div id="schedule-controls" class="text--centered">
 				<button class="btn btn-xs btn-outline-info js-schedule-control" id="js-schedule-hide">hidden</button>
 				<button class="btn btn-xs btn-outline-info js-schedule-control" id="js-schedule-expand">expanded</button>
 				<button class="btn btn-xs btn-info js-schedule-control js-schedule-control-selected" id="js-schedule-collapse">collapsed</button>
 			</div>
-			<div id="schedulecontainer">
+			<div id="schedulecontainer" class="dashcontainer">
 			</div>
 	    </div>
 	</div>
 
-	<span id="todocontainter">
-	</span>
+	<div id="todocontainter" class="dashcontainer--padded">
+	</div>
 
-	<span id="notescontainer">
-	</span>
+	<div id="notescontainer" class="dashcontainer--padded">
+	</div>
 
 {% endblock %}
 

@@ -1,16 +1,16 @@
 <div class="row">
 	<div class="col">
 		<div class="title">Notes:</div>
-		<table class="noteslist">
+		<table class="notescontainer-main">
 			{% for note in notes %}
-				<tr class="dashed">
-					<td class="dashed notelinks">
-						<table class="notelinks">
-							<tr class="dashed"><td><a href="{% url 'edit_note' note_id=note.id %}">edit</a></td></tr>
-							<tr><td><a href="{% url 'delete_note' note_id=note.id %}" class="openmodaldeletenote notes-generic">delete</a></td></tr>
+				<tr>
+					<td class="notescontainer-links">
+						<table>
+							<tr><td><a href="{% url 'edit_note' note_id=note.id %}">edit</a></td></tr>
+							<tr><td><a href="{% url 'delete_note' note_id=note.id %}" class="js-openmodal-deletenote notes-generic">delete</a></td></tr>
 						</table>
 					</td>
-					<td><div class="notecontent">{{ note.content|safe }}</div></td>
+					<td><div class="notescontainer-content">{{ note.content|safe }}</div></td>
 				</tr>
 			{% endfor %}
 		</table>

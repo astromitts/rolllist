@@ -205,7 +205,7 @@ function get_schedule_table(){
 
 function bind_modal_open_todo(datestr){
 	// Handle the modal opening function for the to-do view
-	$('a.openmodaltodo').click(function(event){
+	$('a.js-openmodal-todo').click(function(event){
 		event.preventDefault();
 		var target_url = $(this).attr('href');
 		$.ajax({
@@ -236,12 +236,12 @@ function handle_todo_action(action_url){
 }
 function bind_todo_generic_handlers(){
 	// Bind generic todo handler to action links for 
-	$('input.todo-generic').click(function(event){
+	$('input.js-todo-generic').click(function(event){
 		event.preventDefault();
 		var action_url = $(this).attr('id');
 		handle_todo_action(action_url);
 	});
-	$('a.todo-generic').click(function(event){
+	$('a.js-todo-generic').click(function(event){
 		event.preventDefault();
 		var action_url = $(this).attr('href');
 		handle_todo_action(action_url);
@@ -254,7 +254,7 @@ function get_todo_table(){
 		url: $('div#get_todo').text(),
 		type: 'GET',
 		success: function(data){
-			$('span#todocontainter').html(data);
+			$('div#todocontainter').html(data);
 			bind_modal_open_todo();
 			bind_todo_generic_handlers()
 			bind_modal_close();
@@ -291,7 +291,7 @@ function get_notes_table(){
 		url: $('div#get_notes').text(),
 		type: 'GET',
 		success: function(data){
-			$('span#notescontainer').html(data);
+			$('div#notescontainer').html(data);
 			bind_notes_form_handlers();
 			bind_modal_close();
 		},

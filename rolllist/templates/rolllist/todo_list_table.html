@@ -1,33 +1,36 @@
 <div class="row">
 	<div class="col">
-		<div class="title">To-do:</div>
-		<table class="todolist">
+		<div class="text-title">To-do:</div>
+		<table>
 			{% for item in todo_list.get_items %}
-				<tr class="dashed">
-					{% if item.completed %}
+				{% if item.completed %}
+					<tr>
 						<td>
-							<input type="checkbox" id="{% url 'revert_todo_item' item_id=item.id %}" class="todo-generic" checked="checked">
+							<input type="checkbox" id="{% url 'revert_todo_item' item_id=item.id %}" class="js-todo-generic" checked="checked">
 						</td>
-						<td colspan="2"><span style="text-decoration: line-through;">{{item.title}}</span></td>
-					{% else %}
+						<td colspan="2"><span class="text--striked">{{item.title}}</span></td>
+						<td><a href="{% url 'delete_todo_item' item_id=item.id %}" class="js-todo-generic">[-]</a></td>
+					</tr>
+				{% else %}
+					<tr>
 						<td>
 
-							<input type="checkbox" id="{% url 'complete_todo_item' item_id=item.id %}" class="todo-generic">
+							<input type="checkbox" id="{% url 'complete_todo_item' item_id=item.id %}" class="js-todo-generic">
 						</td>
-						<td class="todotitle" id="todotitle-{{item.id}}">{{item.title}}</td>
-						<td class="tododays" id="tododays-{{item.id}}">
+						<td id="todotitle-{{item.id}}">{{item.title}}</td>
+						<td id="tododays-{{item.id}}">
 							{% if item.days_incomplete > 1 %}
 							( {{item.days_incomplete}} days)
 							{% endif %}
 						</td>
-					{% endif %}
-					<td><a href="{% url 'delete_todo_item' item_id=item.id %}" class="todo-generic">[-]</a></td>
-				</tr>
+						<td><a href="{% url 'delete_todo_item' item_id=item.id %}" class="js-todo-generic">[-]</a></td>
+					</tr>
+				{% endif %}
 			{% endfor %}
 		</table>
 		<div>
-			<a href="{% url 'add_todo_item' list_id=todo_list.pk %}" class="openmodaltodo">+ item</a> |
-			<a href="{% url 'rollover_todo' datestr=datestr %}" class="todo-generic">Rollover</a>
+			<a href="{% url 'add_todo_item' list_id=todo_list.pk %}" class="js-openmodal-todo">+ item</a> |
+			<a href="{% url 'rollover_todo' datestr=datestr %}" class="js-todo-generic">Rollover</a>
 		</div>
 	</div>
 </div>

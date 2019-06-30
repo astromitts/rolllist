@@ -10,6 +10,12 @@ $yellow: #ffffe6;
 	&--centered {
 		text-align: center;
 	}
+	&--striked {
+		text-decoration: line-through;
+	}
+	&-title {
+		font-weight: bold;
+	}
 }
 
 .zero-margin {
@@ -55,70 +61,137 @@ full-width {
 	}
 }
 
+.dashcontainer {
+	&--padded {
+		margin-top: 10px;
+	}
+}
+
 #schedulecontainer {
 	border: 1px solid;
-}
 
-.scheduletable {
-	&-link{
-		display: inline;
-		font-weight: bold;
-		font-size: .7em;
-		color: #000;
-		&__edit {
-			a {
-				padding-left: 10px;
+	.scheduletable {
+		&-link{
+			display: inline;
+			font-weight: bold;
+			font-size: .7em;
+			color: #000;
+			&__edit {
+				a {
+					padding-left: 10px;
+				}
+			}
+			&__delete {
+				float: right;
+				padding-right: 5px;
+				a{
+					color: #000;
+				}
 			}
 		}
-		&__delete {
-			float: right;
-			padding-right: 5px;
-			a{
-				color: #000;
+	}
+
+	.scheduleblock {
+		&-timecell {
+			border-right: 1px solid;
+			width: 20%;
+			font-size: .7em;
+		}
+		&-dashed {
+			border-bottom: 1px dotted;
+			border-right: 1px solid;
+			border-left: 1px solid;
+		}
+		&-solid {
+			border-bottom: 1px solid;
+			border-right: 1px solid;
+			border-left: 1px solid;
+		}
+	}
+	.scheduleditem {
+		width: 100%;
+		background-color: $yellow;
+		display: inline-block;
+		&-start {
+			border-top: 1px solid;
+			border-left: 1px solid;
+			border-right: 1px solid;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+		}
+		&-middle {
+			border-left: 1px solid;
+			border-right: 1px solid;
+		}
+		&-end {
+			border-bottom: 1px solid;
+			border-left: 1px solid;
+			border-right: 1px solid;
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+		}
+	}
+
+}
+
+#todocontainter {
+	table {
+		width: 100%;
+		tr {
+			border: 1px dotted;
+		}
+	}
+}
+
+#notescontainer {
+	table.notescontainer-main {
+		width: 100%;
+		border-top: dotted 1px;
+		border-right: dotted 1px;
+		tr {
+			border: 1px dotted;
+		}
+		td.notescontainer-links {
+			border-right: 1px dotted;
+			table {
+				width: 100%;
+				td {
+					width: 60px;
+				}
 			}
 		}
 	}
 }
 
-.scheduleblock {
-	&-timecell {
-		border-right: 1px solid;
-		width: 20%;
-		font-size: .7em;
+#modal {
+	position: fixed;
+	bottom: 45px;
+	right: 0;
+	z-index: 100;
+	width:100%;  
+	height: auto;
+	background-color: #F8F9F9;
+	border: 2px solid;
+	input, select {
+		border: solid 1px;
 	}
-	&-dashed {
-		border-bottom: 1px dotted;
-		border-right: 1px solid;
-		border-left: 1px solid;
+	li {
+		list-style: none;
 	}
-	&-solid {
-		border-bottom: 1px solid;
-		border-right: 1px solid;
-		border-left: 1px solid;
+	.closemodal{
+		float: right;
+		padding-right: 5px;
+	}
+
+	#modalcontent{
+		padding: 10px;
 	}
 }
-
-.scheduleditem {
+#backgroundcover{
+	position: absolute;
 	width: 100%;
-	background-color: $yellow;
-	display: inline-block;
-	&-start {
-		border-top: 1px solid;
-		border-left: 1px solid;
-		border-right: 1px solid;
-		border-top-left-radius: 10px;
-		border-top-right-radius: 10px;
-	}
-	&-middle {
-		border-left: 1px solid;
-		border-right: 1px solid;
-	}
-	&-end {
-		border-bottom: 1px solid;
-		border-left: 1px solid;
-		border-right: 1px solid;
-		border-bottom-left-radius: 10px;
-		border-bottom-right-radius: 10px;
-	}
+	height: 100%;
+	background-color: #000;
+	opacity: 0.5;
+	z-index: 100;
 }
-

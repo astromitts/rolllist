@@ -4,6 +4,10 @@
 
 .text--centered {
   text-align: center; }
+.text--striked {
+  text-decoration: line-through; }
+.text-title {
+  font-weight: bold; }
 
 .zero-margin {
   margin: 0; }
@@ -35,53 +39,98 @@ full-width {
   float: right;
   padding-right: 10px; }
 
+.dashcontainer--padded {
+  margin-top: 10px; }
+
 #schedulecontainer {
   border: 1px solid; }
+  #schedulecontainer .scheduletable-link {
+    display: inline;
+    font-weight: bold;
+    font-size: .7em;
+    color: #000; }
+    #schedulecontainer .scheduletable-link__edit a {
+      padding-left: 10px; }
+    #schedulecontainer .scheduletable-link__delete {
+      float: right;
+      padding-right: 5px; }
+      #schedulecontainer .scheduletable-link__delete a {
+        color: #000; }
+  #schedulecontainer .scheduleblock-timecell {
+    border-right: 1px solid;
+    width: 20%;
+    font-size: .7em; }
+  #schedulecontainer .scheduleblock-dashed {
+    border-bottom: 1px dotted;
+    border-right: 1px solid;
+    border-left: 1px solid; }
+  #schedulecontainer .scheduleblock-solid {
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+    border-left: 1px solid; }
+  #schedulecontainer .scheduleditem {
+    width: 100%;
+    background-color: #ffffe6;
+    display: inline-block; }
+    #schedulecontainer .scheduleditem-start {
+      border-top: 1px solid;
+      border-left: 1px solid;
+      border-right: 1px solid;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px; }
+    #schedulecontainer .scheduleditem-middle {
+      border-left: 1px solid;
+      border-right: 1px solid; }
+    #schedulecontainer .scheduleditem-end {
+      border-bottom: 1px solid;
+      border-left: 1px solid;
+      border-right: 1px solid;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px; }
 
-.scheduletable-link {
-  display: inline;
-  font-weight: bold;
-  font-size: .7em;
-  color: #000; }
-  .scheduletable-link__edit a {
-    padding-left: 10px; }
-  .scheduletable-link__delete {
+#todocontainter table {
+  width: 100%; }
+  #todocontainter table tr {
+    border: 1px dotted; }
+
+#notescontainer table.notescontainer-main {
+  width: 100%;
+  border-top: dotted 1px;
+  border-right: dotted 1px; }
+  #notescontainer table.notescontainer-main tr {
+    border: 1px dotted; }
+  #notescontainer table.notescontainer-main td.notescontainer-links {
+    border-right: 1px dotted; }
+    #notescontainer table.notescontainer-main td.notescontainer-links table {
+      width: 100%; }
+      #notescontainer table.notescontainer-main td.notescontainer-links table td {
+        width: 60px; }
+
+#modal {
+  position: fixed;
+  bottom: 45px;
+  right: 0;
+  z-index: 100;
+  width: 100%;
+  height: auto;
+  background-color: #F8F9F9;
+  border: 2px solid; }
+  #modal input, #modal select {
+    border: solid 1px; }
+  #modal li {
+    list-style: none; }
+  #modal .closemodal {
     float: right;
     padding-right: 5px; }
-    .scheduletable-link__delete a {
-      color: #000; }
+  #modal #modalcontent {
+    padding: 10px; }
 
-.scheduleblock-timecell {
-  border-right: 1px solid;
-  width: 20%;
-  font-size: .7em; }
-.scheduleblock-dashed {
-  border-bottom: 1px dotted;
-  border-right: 1px solid;
-  border-left: 1px solid; }
-.scheduleblock-solid {
-  border-bottom: 1px solid;
-  border-right: 1px solid;
-  border-left: 1px solid; }
-
-.scheduleditem {
+#backgroundcover {
+  position: absolute;
   width: 100%;
-  background-color: #ffffe6;
-  display: inline-block; }
-  .scheduleditem-start {
-    border-top: 1px solid;
-    border-left: 1px solid;
-    border-right: 1px solid;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px; }
-  .scheduleditem-middle {
-    border-left: 1px solid;
-    border-right: 1px solid; }
-  .scheduleditem-end {
-    border-bottom: 1px solid;
-    border-left: 1px solid;
-    border-right: 1px solid;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px; }
+  height: 100%;
+  background-color: #000;
+  opacity: 0.5;
+  z-index: 100; }
 
 /*# sourceMappingURL=sass-out.css.map */

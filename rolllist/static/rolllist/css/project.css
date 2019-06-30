@@ -4,39 +4,21 @@
 /* Schedule table styles */
 
 
-td.dashed{
-	border-right: 1px dotted;
-	border-left: 1px dotted;
-}
-
-td.dashed-right{
-	border-right: 1px dotted;
-}
-
 /* Todo table styles */
 
-table.todolist{
-	width: 100%;
-}
-.title{
-	margin-top: 10px;
-	font-weight: bold;
-}
 
 .notecontent{
 	padding-left: 10px;
 }
 /* Notes table styles */
 table.noteslist{
-	width: 100%;
-	border-top: dotted 1px;
-	border-right: dotted 1px;
+	
 }
 table.notelinks{
-	width: 100%;
+
 }
 td.notelinks{
-	width: 60px;
+	
 }
 
 /* All notes styles */
@@ -65,34 +47,3 @@ a.all-note-edit{
 }
 
 /* Modal / Popup styles */
-#modal {
-	position: fixed;
-	bottom: 45px;
-	right: 0;
-	z-index: 100;
-	width:100%;  
-	height: auto;
-	background-color: #F8F9F9;
-	border: 2px solid;
-}
-#backgroundcover{
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	background-color: #000;
-	opacity: 0.5;
-	z-index: 100;
-}
-.closemodal{
-	float: right;
-	padding-right: 5px;
-}
-#modal input, #modal select{
-	border: solid 1px;
-}
-#modal li{
-	list-style: none;
-}
-#modalcontent{
-	padding: 10px;
-}
