@@ -15,11 +15,12 @@ h3 {
   font-size: 1em;
   vertical-align: middle; }
 
-.inline-link, #schedulecontainer .scheduletable-link__edit a, #schedulecontainer .scheduletable-link__delete a, .allnotescontainer .note a {
-  color: black;
+.inline-link, a, #schedulecontainer .scheduletable-link__edit a, #schedulecontainer .scheduletable-link__delete a, .allnotescontainer .note a {
+  color: #000000;
   text-decoration: underline; }
-  .inline-link:hover, #schedulecontainer .scheduletable-link__edit a:hover, #schedulecontainer .scheduletable-link__delete a:hover, .allnotescontainer .note a:hover {
-    text-decoration: none; }
+  .inline-link:hover, a:hover, #schedulecontainer .scheduletable-link__edit a:hover, #schedulecontainer .scheduletable-link__delete a:hover, .allnotescontainer .note a:hover {
+    text-decoration: none;
+    color: #6BABEF; }
 
 .text--centered {
   text-align: center; }

@@ -1,16 +1,22 @@
-$white: #FFFFFF;
-$yellow: #FFFFE6;
-$button-gray: #A6A6A6;
-$modal-gray: #F8F9F9;
 $main-font-size: 1em;
 $small-font-size: .7em;
 $large-font-size: 1.2em;
+
+$white: #FFFFFF;
+$yellow: #FFFFE6;
+$black: #000000;
+$hover-blue: #6BABEF;
+
+$button-gray: #A6A6A6;
+$modal-gray: #F8F9F9;
+
 $medium-border-color: #B2B3B3;
 $dark-border-color: #969898;
+
 $schedule-main-color: #FFFFFF;
 $schedule-bottom-color: #F1EFEC;
-$note-gradient-color: #F1EFEC;
 
+$note-gradient-color: #F1EFEC;
 
 $dashed-border: dashed 1px $medium-border-color;
 $solid-border: solid 1px $medium-border-color;
@@ -39,12 +45,14 @@ h3 {
 }
 
 .inline-link {
-	color: black;
+	color: $black;
 	text-decoration: underline;
 	&:hover {
 		text-decoration: none;
+		color: $hover-blue;
 	}
 }
+a { @extend .inline-link; }
 
 .text {
 	&--centered {
