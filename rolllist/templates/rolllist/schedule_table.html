@@ -31,7 +31,8 @@
 											<a href="{% url 'edit_item' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule" id="{{interval_id}}">{{ schedule_block.item.title }} ({{ schedule_block.item.location }})</a>
 										</div>
 										<div class="scheduletable-link scheduletable-link__delete">
-											<a href="{% url 'delete_item_form' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule" id="{{ interval_id }}">[-]</a>
+											<a href="{% url 'edit_item' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule" id="{{interval_id}}">edit</a>&nbsp;|&nbsp;
+											<a href="{% url 'delete_item_form' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule" id="{{ interval_id }}">delete</a>
 										</div>
 									</div>
 								</div>

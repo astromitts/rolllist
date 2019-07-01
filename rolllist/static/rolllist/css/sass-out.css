@@ -1,3 +1,12 @@
+.round-grey-box, #todocontainter .todocontainer, .notescontainer-table {
+  display: table;
+  width: 100%;
+  border: dashed 1px #B2B3B3;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background-image: linear-gradient(to bottom, #FFFFFF, #F1EFEC);
+  padding: 8px; }
+
 body {
   font-size: 0.9em; }
 
@@ -48,6 +57,10 @@ full-width {
 .spacer_10 {
   display: block;
   padding: 10px; }
+
+.spacer_5 {
+  display: block;
+  padding: 5px; }
 
 button.schedule-toggle {
   border-radius: 3px;
@@ -104,8 +117,8 @@ button.schedule-toggle {
     font-size: 0.7em; }
   #schedulecontainer .scheduleblock-dashed {
     border-bottom: dashed 1px #B2B3B3;
-    border-right: dashed 1px #B2B3B3;
-    border-left: dashed 1px #B2B3B3; }
+    border-right: solid 1px #B2B3B3;
+    border-left: solid 1px #B2B3B3; }
   #schedulecontainer .scheduleblock-solid {
     border-bottom: solid 1px #B2B3B3;
     border-right: solid 1px #B2B3B3;
@@ -137,15 +150,12 @@ button.schedule-toggle {
   width: 100%; }
   #todocontainter table tr {
     border-bottom: dotted 1px #B2B3B3; }
+    #todocontainter table tr:last-of-type {
+      border-bottom: none; }
+#todocontainter .todocontainer {
+  padding: 5px; }
 
 .notescontainer-table {
-  display: table;
-  width: 100%;
-  border: dashed 1px #B2B3B3;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  background-image: linear-gradient(to bottom, #FFFFFF, #F1EFEC);
-  padding: 8px;
   padding-left: 15px; }
 .notescontainer-row {
   display: table-row; }

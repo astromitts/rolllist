@@ -22,6 +22,15 @@ $dashed-border: dashed 1px $medium-border-color;
 $solid-border: solid 1px $medium-border-color;
 $dotted-border: dotted 1px $medium-border-color;
 
+.round-grey-box {
+	display: table;
+	width: 100%;
+	border: $dashed-border;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	background-image: linear-gradient(to bottom, $white, $note-gradient-color);
+	padding: 8px;
+}
 
 body{
 	font-size: $main-font-size;
@@ -93,6 +102,11 @@ full-width {
 	padding: 10px;
 }
 
+.spacer_5 {
+	display: block;
+	padding: 5px;
+}
+
 button.schedule-toggle {
 	border-radius: 3px;
 	background-image: linear-gradient(to bottom, $white, $button-gray);
@@ -146,7 +160,6 @@ button.schedule-toggle {
 }
 
 #schedulecontainer {
-
 	.scheduletable {
 		&-link{
 			display: inline;
@@ -156,7 +169,6 @@ button.schedule-toggle {
 			&__edit {
 				a {
 					padding-left: 10px;
-
 				}
 			}
 			&__delete {
@@ -176,8 +188,8 @@ button.schedule-toggle {
 		}
 		&-dashed {
 			border-bottom: $dashed-border;
-			border-right: $dashed-border;
-			border-left: $dashed-border;
+			border-right: $solid-border;
+			border-left: $solid-border;
 		}
 		&-solid {
 			border-bottom: $solid-border;
@@ -219,19 +231,20 @@ button.schedule-toggle {
 		width: 100%;
 		tr {
 			border-bottom: $dotted-border;
+			&:last-of-type {
+				border-bottom: none;
+			}
 		}
+	}
+	.todocontainer {
+		@extend .round-grey-box;
+		padding: 5px;
 	}
 }
 
 .notescontainer {
 	&-table {
-		display: table;
-		width: 100%;
-		border: $dashed-border;
-		border-radius: 10px;
-		margin-bottom: 10px;
-		background-image: linear-gradient(to bottom, $white, $note-gradient-color);
-		padding: 8px;
+		@extend .round-grey-box;
 		padding-left: 15px;
 	}
 	&-row {
