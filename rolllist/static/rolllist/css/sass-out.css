@@ -106,6 +106,27 @@ full-width {
       #notescontainer table.notescontainer-main td.notescontainer-links table td {
         width: 60px; }
 
+.allnotescontainer {
+  margin-bottom: 20px; }
+  .allnotescontainer--top {
+    padding: 10px;
+    border: solid 1px;
+    background-color: #ffffe6;
+    margin-top: 5px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: dotted 1px;
+    font-size: .7em; }
+  .allnotescontainer--bottom {
+    padding: 10px;
+    border: solid 1px;
+    background-color: #ffffe6;
+    border-top: none;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px; }
+  .allnotescontainer a {
+    float: right; }
+
 #modal {
   position: fixed;
   bottom: 45px;

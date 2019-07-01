@@ -7,14 +7,14 @@
 		{% for day, notes in all_notes.items %}
 			<div class="row">
 				<div class="col">
-					<div class="all-note-day">
+					<div class="allnotescontainer">
 						{{ day.to_str }}
 							{% for note in notes %}
-								<div class="all-note all-note-timestamp">
+								<div class="allnotescontainer--top">
 									updated at: {{note.updated_at|format_timestamp }}
-									<a class="all-note-edit" href="{% url 'edit_note_src' note_id=note.id src='viewnotes' %}">edit</a>
+									<a href="{% url 'edit_note_src' note_id=note.id src='viewnotes' %}">edit</a>
 								</div>
-								<div class="all-note all-note-content">
+								<div class="allnotescontainer--bottom">
 									{{note.content|safe}}
 								</div>
 							{% endfor %}
