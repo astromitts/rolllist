@@ -101,7 +101,6 @@ button.schedule-toggle {
 #schedulecontainer .scheduletable-link {
   display: inline;
   font-weight: bold;
-  font-size: 0.7em;
   color: #000; }
   #schedulecontainer .scheduletable-link__edit a {
     padding-left: 10px; }
@@ -113,8 +112,7 @@ button.schedule-toggle {
   border-bottom: solid 1px #B2B3B3; }
   #schedulecontainer .scheduleblock-timecell {
     border-right: solid 1px #B2B3B3;
-    width: 20%;
-    font-size: 0.7em; }
+    width: 20%; }
   #schedulecontainer .scheduleblock-dashed {
     border-bottom: dashed 1px #B2B3B3;
     border-right: solid 1px #B2B3B3;

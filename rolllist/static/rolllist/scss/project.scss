@@ -1,5 +1,4 @@
 $main-font-size: .9em;
-$small-font-size: .7em;
 $large-font-size: 1.3em;
 
 $white: #FFFFFF;
@@ -164,7 +163,6 @@ button.schedule-toggle {
 		&-link{
 			display: inline;
 			font-weight: bold;
-			font-size: $small-font-size;
 			color: #000;
 			&__edit {
 				a {
@@ -184,7 +182,6 @@ button.schedule-toggle {
 		&-timecell {
 			border-right: $solid-border;
 			width: 20%;
-			font-size: $small-font-size;
 		}
 		&-dashed {
 			border-bottom: $dashed-border;
