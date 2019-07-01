@@ -1,26 +1,33 @@
 body {
-  font-size: 1em; }
+  font-size: 0.9em; }
 
 .main {
   padding-top: 65px;
   padding-bottom: 75px; }
 
+h1 {
+  font-weight: bold;
+  font-size: 1.3em;
+  vertical-align: middle; }
+
 h2 {
   font-weight: bold;
-  font-size: 1.2em;
+  font-size: 0.9em;
   vertical-align: middle; }
 
-h3 {
-  font-weight: bold;
-  font-size: 1em;
-  vertical-align: middle; }
-
-.inline-link, a, #schedulecontainer .scheduletable-link__edit a, #schedulecontainer .scheduletable-link__delete a, .allnotescontainer .note a {
+a {
   color: #000000;
-  text-decoration: underline; }
-  .inline-link:hover, a:hover, #schedulecontainer .scheduletable-link__edit a:hover, #schedulecontainer .scheduletable-link__delete a:hover, .allnotescontainer .note a:hover {
+  text-decoration: none; }
+  a:hover {
     text-decoration: none;
     color: #6BABEF; }
+  a .button {
+    text-decoration: none; }
+  a button {
+    border-radius: 3px;
+    background-image: linear-gradient(to bottom, #FFFFFF, #A6A6A6);
+    font-weight: bold;
+    text-decoration: none; }
 
 .text--centered {
   text-align: center; }
@@ -37,6 +44,16 @@ h3 {
 
 full-width {
   width: 100%; }
+
+.spacer_10 {
+  display: block;
+  padding: 10px; }
+
+button.schedule-toggle {
+  border-radius: 3px;
+  background-image: linear-gradient(to bottom, #FFFFFF, #A6A6A6);
+  font-weight: bold;
+  width: 3em; }
 
 .navbar-nav--static-left {
   flex-wrap: unset; }
@@ -67,12 +84,6 @@ full-width {
 
 .dashcontainer--padded {
   margin-top: 10px; }
-
-#schedule-controls button {
-  border-radius: 3px;
-  width: 3em;
-  background-image: linear-gradient(to bottom, #FFFFFF, #A6A6A6);
-  font-weight: bold; }
 
 #schedulecontainer .scheduletable-link {
   display: inline;

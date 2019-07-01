@@ -29,8 +29,12 @@
 			{% endfor %}
 		</table>
 		<div>
-			<a href="{% url 'add_todo_item' list_id=todo_list.pk %}" class="js-openmodal-todo">+ item</a> |
-			<a href="{% url 'rollover_todo' datestr=datestr %}" class="js-todo-generic">Rollover</a>
+			<a href="{% url 'add_todo_item' list_id=todo_list.pk %}" class="js-openmodal-todo button">
+			<button>+ Item</button>
+			</a>
+			<a href="{% url 'rollover_todo' datestr=datestr %}" class="js-todo-generic button">
+				<button>Rollover</button>
+			</a>
 		</div>
 	</div>
 </div>

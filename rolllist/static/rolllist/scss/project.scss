@@ -1,6 +1,6 @@
-$main-font-size: 1em;
+$main-font-size: .9em;
 $small-font-size: .7em;
-$large-font-size: 1.2em;
+$large-font-size: 1.3em;
 
 $white: #FFFFFF;
 $yellow: #FFFFE6;
@@ -32,27 +32,35 @@ body{
 	padding-bottom: 75px;
 }
 
-h2 {
+h1 {
 	font-weight: bold;
 	font-size: $large-font-size;
 	vertical-align: middle;
 }
 
-h3 {
+h2 {
 	font-weight: bold;
 	font-size: $main-font-size;
 	vertical-align: middle;
 }
 
-.inline-link {
+a { 
 	color: $black;
-	text-decoration: underline;
+	text-decoration: none;
 	&:hover {
 		text-decoration: none;
 		color: $hover-blue;
 	}
+	.button {
+		text-decoration: none;
+	}
+	button {
+		border-radius: 3px;
+		background-image: linear-gradient(to bottom, $white, $button-gray);
+		font-weight: bold;
+		text-decoration: none;
+	}
 }
-a { @extend .inline-link; }
 
 .text {
 	&--centered {
@@ -78,6 +86,18 @@ a { @extend .inline-link; }
 
 full-width {
 	width: 100%;
+}
+
+.spacer_10 {
+	display: block;
+	padding: 10px;
+}
+
+button.schedule-toggle {
+	border-radius: 3px;
+	background-image: linear-gradient(to bottom, $white, $button-gray);
+	font-weight: bold;
+	width: 3em;
 }
 
 .navbar-nav{
@@ -125,14 +145,6 @@ full-width {
 	}
 }
 
-#schedule-controls {
-	button {
-		border-radius: 3px;
-		width: 3em;
-		background-image: linear-gradient(to bottom, $white, $button-gray);
-		font-weight: bold;
-	}
-}
 #schedulecontainer {
 
 	.scheduletable {
@@ -143,7 +155,6 @@ full-width {
 			color: #000;
 			&__edit {
 				a {
-					@extend .inline-link;
 					padding-left: 10px;
 
 				}
@@ -151,7 +162,6 @@ full-width {
 			&__delete {
 				float: right;
 				padding-right: 5px;
-				a{@extend .inline-link;}
 			}
 		}
 	}
@@ -256,7 +266,6 @@ full-width {
 			background-image: linear-gradient(to bottom, $white, $note-gradient-color);
 		}
 		a {
-			@extend .inline-link;
 			float: right;
 		}
 	}
