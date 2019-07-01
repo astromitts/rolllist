@@ -308,11 +308,14 @@ def edit_note_form(request, note_id=None, src=None):
             else:
                 return redirect('/%s/' % src)
         else:
-            context = {'form': form}
+            context = {
+                'form': form,
+                'prefill_content': request.POST['content']
+            }
             return HttpResponse(template.render(context, request))
     else:
         form = NoteForm(instance=note)
-        context = {'form': form}
+        context = {'form': form, 'prefill_content': note.content}
         return HttpResponse(template.render(context, request))
 
 

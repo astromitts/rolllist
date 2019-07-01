@@ -24,7 +24,7 @@
 </style>
 
 <form method="POST" action="" class="ajaxme">{% csrf_token %}
-<textarea id="content" name="content"></textarea>
+<textarea id="content" name="content">{% if prefill_content %}{{prefill_content}}{% endif %}</textarea>
 
 {% wysiwyg_editor "content" %}
 <br />
