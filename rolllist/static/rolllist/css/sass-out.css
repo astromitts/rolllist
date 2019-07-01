@@ -15,6 +15,12 @@ h3 {
   font-size: 1em;
   vertical-align: middle; }
 
+.inline-link, #schedulecontainer .scheduletable-link__edit a, #schedulecontainer .scheduletable-link__delete a, .allnotescontainer .note a {
+  color: black;
+  text-decoration: underline; }
+  .inline-link:hover, #schedulecontainer .scheduletable-link__edit a:hover, #schedulecontainer .scheduletable-link__delete a:hover, .allnotescontainer .note a:hover {
+    text-decoration: none; }
+
 .text--centered {
   text-align: center; }
 .text--striked {
@@ -67,88 +73,94 @@ full-width {
   background-image: linear-gradient(to bottom, #FFFFFF, #A6A6A6);
   font-weight: bold; }
 
-#schedulecontainer {
-  border: 1px solid; }
-  #schedulecontainer .scheduletable-link {
-    display: inline;
-    font-weight: bold;
-    font-size: 0.7em;
-    color: #000; }
-    #schedulecontainer .scheduletable-link__edit a {
-      padding-left: 10px; }
-    #schedulecontainer .scheduletable-link__delete {
-      float: right;
-      padding-right: 5px; }
-      #schedulecontainer .scheduletable-link__delete a {
-        color: #000; }
+#schedulecontainer .scheduletable-link {
+  display: inline;
+  font-weight: bold;
+  font-size: 0.7em;
+  color: #000; }
+  #schedulecontainer .scheduletable-link__edit a {
+    padding-left: 10px; }
+  #schedulecontainer .scheduletable-link__delete {
+    float: right;
+    padding-right: 5px; }
+#schedulecontainer .scheduleblock {
+  border-top: solid 1px #B2B3B3;
+  border-bottom: solid 1px #B2B3B3; }
   #schedulecontainer .scheduleblock-timecell {
-    border-right: 1px solid;
+    border-right: solid 1px #B2B3B3;
     width: 20%;
     font-size: 0.7em; }
   #schedulecontainer .scheduleblock-dashed {
-    border-bottom: 1px dotted;
-    border-right: 1px solid;
-    border-left: 1px solid; }
+    border-bottom: dashed 1px #B2B3B3;
+    border-right: dashed 1px #B2B3B3;
+    border-left: dashed 1px #B2B3B3; }
   #schedulecontainer .scheduleblock-solid {
-    border-bottom: 1px solid;
-    border-right: 1px solid;
-    border-left: 1px solid; }
-  #schedulecontainer .scheduleditem {
-    width: 100%;
-    background-color: #FFFFE6;
-    display: inline-block; }
-    #schedulecontainer .scheduleditem-start {
-      border-top: 1px solid;
-      border-left: 1px solid;
-      border-right: 1px solid;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px; }
-    #schedulecontainer .scheduleditem-middle {
-      border-left: 1px solid;
-      border-right: 1px solid; }
-    #schedulecontainer .scheduleditem-end {
-      border-bottom: 1px solid;
-      border-left: 1px solid;
-      border-right: 1px solid;
-      border-bottom-left-radius: 10px;
-      border-bottom-right-radius: 10px; }
+    border-bottom: solid 1px #B2B3B3;
+    border-right: solid 1px #B2B3B3;
+    border-left: solid 1px #B2B3B3; }
+#schedulecontainer .scheduleditem {
+  width: 100%;
+  display: inline-block; }
+  #schedulecontainer .scheduleditem-start {
+    background-color: #FFFFFF;
+    border-top: solid 1px #B2B3B3;
+    border-left: solid 1px #B2B3B3;
+    border-right: solid 1px #B2B3B3;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-image: linear-gradient(to top, #FFFFFF, #FFFFFF, #F1EFEC); }
+  #schedulecontainer .scheduleditem-middle {
+    border-left: solid 1px #B2B3B3;
+    border-right: solid 1px #B2B3B3;
+    background-color: #FFFFFF; }
+  #schedulecontainer .scheduleditem-end {
+    border-bottom: solid 1px #B2B3B3;
+    border-left: solid 1px #B2B3B3;
+    border-right: solid 1px #B2B3B3;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-image: linear-gradient(to bottom, #FFFFFF, #FFFFFF, #F1EFEC); }
 
 #todocontainter table {
   width: 100%; }
   #todocontainter table tr {
-    border: 1px dotted; }
+    border-bottom: dotted 1px #B2B3B3; }
 
-#notescontainer table.notescontainer-main {
+.notescontainer-table {
+  display: table;
   width: 100%;
-  border-top: dotted 1px;
-  border-right: dotted 1px; }
-  #notescontainer table.notescontainer-main tr {
-    border: 1px dotted; }
-  #notescontainer table.notescontainer-main td.notescontainer-links {
-    border-right: 1px dotted; }
-    #notescontainer table.notescontainer-main td.notescontainer-links table {
-      width: 100%; }
-      #notescontainer table.notescontainer-main td.notescontainer-links table td {
-        width: 60px; }
+  border: dashed 1px #B2B3B3;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background-image: linear-gradient(to bottom, #FFFFFF, #F1EFEC);
+  padding: 8px;
+  padding-left: 15px; }
+.notescontainer-row {
+  display: table-row; }
+  .notescontainer-row .links {
+    display: table-cell; }
+  .notescontainer-row .content {
+    display: table-cell;
+    width: 80%; }
 
 .allnotescontainer {
   margin-bottom: 20px; }
-  .allnotescontainer--top {
+  .allnotescontainer .note--top {
     padding: 10px;
-    border: solid 1px;
-    background-color: #FFFFE6;
+    background-color: #FFFFFF;
+    border: dashed 1px #B2B3B3;
     margin-top: 5px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    border-bottom: dotted 1px; }
-  .allnotescontainer--bottom {
+    border-bottom: dashed 1px #B2B3B3; }
+  .allnotescontainer .note--bottom {
     padding: 10px;
-    border: solid 1px;
-    background-color: #FFFFE6;
+    border: dashed 1px #B2B3B3;
     border-top: none;
     border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px; }
-  .allnotescontainer a {
+    border-bottom-right-radius: 10px;
+    background-image: linear-gradient(to bottom, #FFFFFF, #F1EFEC); }
+  .allnotescontainer .note a {
     float: right; }
 
 #modal {

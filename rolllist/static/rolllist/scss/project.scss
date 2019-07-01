@@ -5,6 +5,17 @@ $modal-gray: #F8F9F9;
 $main-font-size: 1em;
 $small-font-size: .7em;
 $large-font-size: 1.2em;
+$medium-border-color: #B2B3B3;
+$dark-border-color: #969898;
+$schedule-main-color: #FFFFFF;
+$schedule-bottom-color: #F1EFEC;
+$note-gradient-color: #F1EFEC;
+
+
+$dashed-border: dashed 1px $medium-border-color;
+$solid-border: solid 1px $medium-border-color;
+$dotted-border: dotted 1px $medium-border-color;
+
 
 body{
 	font-size: $main-font-size;
@@ -25,6 +36,14 @@ h3 {
 	font-weight: bold;
 	font-size: $main-font-size;
 	vertical-align: middle;
+}
+
+.inline-link {
+	color: black;
+	text-decoration: underline;
+	&:hover {
+		text-decoration: none;
+	}
 }
 
 .text {
@@ -107,7 +126,6 @@ full-width {
 	}
 }
 #schedulecontainer {
-	border: 1px solid;
 
 	.scheduletable {
 		&-link{
@@ -117,57 +135,62 @@ full-width {
 			color: #000;
 			&__edit {
 				a {
+					@extend .inline-link;
 					padding-left: 10px;
+
 				}
 			}
 			&__delete {
 				float: right;
 				padding-right: 5px;
-				a{
-					color: #000;
-				}
+				a{@extend .inline-link;}
 			}
 		}
 	}
 
 	.scheduleblock {
+		border-top: $solid-border;
+		border-bottom: $solid-border;
 		&-timecell {
-			border-right: 1px solid;
+			border-right: $solid-border;
 			width: 20%;
 			font-size: $small-font-size;
 		}
 		&-dashed {
-			border-bottom: 1px dotted;
-			border-right: 1px solid;
-			border-left: 1px solid;
+			border-bottom: $dashed-border;
+			border-right: $dashed-border;
+			border-left: $dashed-border;
 		}
 		&-solid {
-			border-bottom: 1px solid;
-			border-right: 1px solid;
-			border-left: 1px solid;
+			border-bottom: $solid-border;
+			border-right: $solid-border;
+			border-left: $solid-border;
 		}
 	}
 	.scheduleditem {
 		width: 100%;
-		background-color: $yellow;
 		display: inline-block;
 		&-start {
-			border-top: 1px solid;
-			border-left: 1px solid;
-			border-right: 1px solid;
+			background-color: $schedule-main-color;
+			border-top: $solid-border;
+			border-left: $solid-border;
+			border-right: $solid-border;
 			border-top-left-radius: 10px;
 			border-top-right-radius: 10px;
+			background-image: linear-gradient(to top, $schedule-main-color, $schedule-main-color, $schedule-bottom-color);
 		}
 		&-middle {
-			border-left: 1px solid;
-			border-right: 1px solid;
+			border-left: $solid-border;
+			border-right: $solid-border;
+			background-color: $schedule-main-color;
 		}
 		&-end {
-			border-bottom: 1px solid;
-			border-left: 1px solid;
-			border-right: 1px solid;
+			border-bottom: $solid-border;
+			border-left: $solid-border;
+			border-right: $solid-border;
 			border-bottom-left-radius: 10px;
 			border-bottom-right-radius: 10px;
+			background-image: linear-gradient(to bottom, $schedule-main-color, $schedule-main-color, $schedule-bottom-color);
 		}
 	}
 
@@ -177,51 +200,57 @@ full-width {
 	table {
 		width: 100%;
 		tr {
-			border: 1px dotted;
+			border-bottom: $dotted-border;
 		}
 	}
 }
 
-#notescontainer {
-	table.notescontainer-main {
+.notescontainer {
+	&-table {
+		display: table;
 		width: 100%;
-		border-top: dotted 1px;
-		border-right: dotted 1px;
-		tr {
-			border: 1px dotted;
+		border: $dashed-border;
+		border-radius: 10px;
+		margin-bottom: 10px;
+		background-image: linear-gradient(to bottom, $white, $note-gradient-color);
+		padding: 8px;
+		padding-left: 15px;
+	}
+	&-row {
+		display: table-row;
+		.links {
+			display: table-cell;
 		}
-		td.notescontainer-links {
-			border-right: 1px dotted;
-			table {
-				width: 100%;
-				td {
-					width: 60px;
-				}
-			}
+		.content {
+			display: table-cell;
+			width: 80%;
 		}
 	}
 }
 .allnotescontainer{
 	margin-bottom: 20px;
-	&--top {
-		padding: 10px;
-		border: solid 1px;
-		background-color: $yellow;
-		margin-top: 5px;
-		border-top-left-radius: 10px;
-		border-top-right-radius: 10px;
-		border-bottom: dotted 1px;
-	}
-	&--bottom {
-		padding: 10px;
-		border: solid 1px;
-		background-color: $yellow;
-		border-top: none;
-		border-bottom-left-radius: 10px;
-		border-bottom-right-radius: 10px;
-	}
-	a {
-		float: right;
+	.note {
+		&--top {
+			padding: 10px;
+			background-color: $white;
+			border: $dashed-border;
+			margin-top: 5px;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+			border-bottom: $dashed-border;
+		}
+		&--bottom {
+			padding: 10px;
+			border: $dashed-border;
+			border-top: none;
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+			background-image: linear-gradient(to bottom, $white, $note-gradient-color);
+		}
+		a {
+			@extend .inline-link;
+			float: right;
+		}
 	}
 }
 

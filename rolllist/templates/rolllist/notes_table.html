@@ -1,19 +1,17 @@
 <div class="row">
-	<div class="col">
+	<div class="col notescontainer">
 		<h2>Notes:</h2>
-		<table class="notescontainer-main">
 			{% for note in notes %}
-				<tr>
-					<td class="notescontainer-links">
-						<table>
-							<tr><td><a href="{% url 'edit_note' note_id=note.id %}">edit</a></td></tr>
-							<tr><td><a href="{% url 'delete_note' note_id=note.id %}" class="js-openmodal-deletenote notes-generic">delete</a></td></tr>
-						</table>
-					</td>
-					<td><div class="notescontainer-content">{{ note.content|safe }}</div></td>
-				</tr>
+				<div class="notescontainer-table">
+					<div class="notescontainer-row">
+						<div class="content">{{ note.content|safe }}</div>
+						<div class="links">
+							<a href="{% url 'edit_note' note_id=note.id %}">edit</a>&nbsp;|&nbsp;
+							<a href="{% url 'delete_note' note_id=note.id %}" class="js-openmodal-deletenote notes-generic">delete</a>
+						</div>
+					</div>
+				</div>
 			{% endfor %}
-		</table>
 		<div>
 			<a href="{% url 'add_note' datestr=datestr %}">+ note</a>&nbsp;|&nbsp;
 			<a href="{% url 'view_all_notes' %}">all notes</a>

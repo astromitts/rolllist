@@ -12,7 +12,7 @@
 }
 /* Notes table styles */
 table.noteslist{
-	
+	display: table;
 }
 table.notelinks{
 
