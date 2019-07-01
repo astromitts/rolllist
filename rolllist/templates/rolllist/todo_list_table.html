@@ -9,7 +9,7 @@
 							<td>
 								<input type="checkbox" id="{% url 'revert_todo_item' item_id=item.id %}" class="js-todo-generic" checked="checked">
 							</td>
-							<td colspan="3"><span class="text--striked">{{item.title}}</span></td>
+							<td><span class="text--striked">{{item.title}}</span></td>
 						</tr>
 					{% else %}
 						<tr>
@@ -17,13 +17,11 @@
 
 								<input type="checkbox" id="{% url 'complete_todo_item' item_id=item.id %}" class="js-todo-generic">
 							</td>
-							<td id="todotitle-{{item.id}}">{{item.title}}</td>
-							<td id="tododays-{{item.id}}">
+							<td id="todotitle-{{item.id}}">{{item.title}}
 								{% if item.days_incomplete > 1 %}
 								( {{item.days_incomplete}} days)
 								{% endif %}
-							</td>
-							<td><a href="{% url 'delete_todo_item' item_id=item.id %}" class="js-todo-generic">delete</a></td>
+								<a href="{% url 'delete_todo_item' item_id=item.id %}" class="js-todo-generic float--right"><button>delete</button></a></td>
 						</tr>
 					{% endif %}
 				{% endfor %}

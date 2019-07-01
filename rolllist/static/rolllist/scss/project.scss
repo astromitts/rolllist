@@ -14,9 +14,9 @@ $medium-border-color: #B2B3B3;
 $dark-border-color: #969898;
 
 $schedule-main-color: #FFFFFF;
-$schedule-bottom-color: #F1EFEC;
+$schedule-bottom-color: #FFFFFF;
 
-$note-gradient-color: #F1EFEC;
+$note-gradient-color: #eff6fd;
 
 $dashed-border: dashed 1px $medium-border-color;
 $solid-border: solid 1px $medium-border-color;
@@ -114,6 +114,10 @@ full-width {
 	padding: 5px;
 }
 
+.float--right {
+	float: right;
+}
+
 button.schedule-toggle {
 	border-radius: 3px;
 	background-image: linear-gradient(to bottom, $white, $button-gray);
@@ -183,23 +187,20 @@ button.schedule-toggle {
 			}
 		}
 	}
+	.schedulecontainer{
+		@extend .round-grey-box;
+	}
 
 	.scheduleblock {
-		border-top: $solid-border;
-		border-bottom: $solid-border;
 		&-timecell {
 			border-right: $solid-border;
 			width: 20%;
 		}
 		&-dashed {
 			border-bottom: $dashed-border;
-			border-right: $solid-border;
-			border-left: $solid-border;
 		}
 		&-solid {
 			border-bottom: $solid-border;
-			border-right: $solid-border;
-			border-left: $solid-border;
 		}
 	}
 	.scheduleditem {
