@@ -37,13 +37,18 @@ a {
     background-image: linear-gradient(to bottom, #FFFFFF, #A6A6A6);
     font-weight: bold;
     text-decoration: none; }
+    a button .small {
+      font-size: 0.7em;
+      margin-left: 10px; }
 
 .text--centered {
   text-align: center; }
 .text--striked {
   text-decoration: line-through; }
-.text-bold {
+.text--bold {
   font-weight: bold; }
+.text--normal {
+  font-weight: normal; }
 
 .content--float-left {
   float: left; }

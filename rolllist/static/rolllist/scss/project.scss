@@ -1,5 +1,6 @@
 $main-font-size: .9em;
 $large-font-size: 1.3em;
+$small-font-size: .7em;
 
 $white: #FFFFFF;
 $yellow: #FFFFE6;
@@ -67,6 +68,10 @@ a {
 		background-image: linear-gradient(to bottom, $white, $button-gray);
 		font-weight: bold;
 		text-decoration: none;
+		.small {
+			font-size: $small-font-size;
+			margin-left: 10px;
+		}
 	}
 }
 
@@ -77,8 +82,11 @@ a {
 	&--striked {
 		text-decoration: line-through;
 	}
-	&-bold {
+	&--bold {
 		font-weight: bold;
+	}
+	&--normal {
+		font-weight: normal;
 	}
 }
 

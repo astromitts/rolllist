@@ -195,6 +195,19 @@ function bind_schedule_generic_handlers(){
 	});
 }
 
+function bind_show_hide_edit_links(){
+	$('a.js-schedule-links-toggle').click(function(event){
+		event.preventDefault();
+		var links_div = $('div#js-schedule-links-toggle-' + $(this).attr('id'));
+		if (links_div.is(":visible")) {
+			links_div.hide();
+		} else {
+			links_div.show();
+		}
+
+	});
+}
+
 function get_schedule_table(){
 	// Load or refresh the schedule table div contents from ajax call
 	$.ajax({
@@ -206,6 +219,7 @@ function get_schedule_table(){
 			bind_schedule_generic_handlers();
 			bind_modal_close();
 			bind_schedule_controls();
+			bind_show_hide_edit_links();
 			init_schedule_display();
 		},
 	})
