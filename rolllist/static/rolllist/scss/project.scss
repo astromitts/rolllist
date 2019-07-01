@@ -1,9 +1,30 @@
 $white: #FFFFFF;
-$yellow: #ffffe6;
+$yellow: #FFFFE6;
+$button-gray: #A6A6A6;
+$modal-gray: #F8F9F9;
+$main-font-size: 1em;
+$small-font-size: .7em;
+$large-font-size: 1.2em;
+
+body{
+	font-size: $main-font-size;
+}
 
 .main{
 	padding-top: 65px;
 	padding-bottom: 75px;
+}
+
+h2 {
+	font-weight: bold;
+	font-size: $large-font-size;
+	vertical-align: middle;
+}
+
+h3 {
+	font-weight: bold;
+	font-size: $main-font-size;
+	vertical-align: middle;
 }
 
 .text {
@@ -13,8 +34,14 @@ $yellow: #ffffe6;
 	&--striked {
 		text-decoration: line-through;
 	}
-	&-title {
+	&-bold {
 		font-weight: bold;
+	}
+}
+
+.content {
+	&--float-left {
+		float: left;
 	}
 }
 
@@ -61,12 +88,24 @@ full-width {
 	}
 }
 
+.date-title {
+	margin-left: 10px;
+}
+
 .dashcontainer {
 	&--padded {
 		margin-top: 10px;
 	}
 }
 
+#schedule-controls {
+	button {
+		border-radius: 3px;
+		width: 3em;
+		background-image: linear-gradient(to bottom, $white, $button-gray);
+		font-weight: bold;
+	}
+}
 #schedulecontainer {
 	border: 1px solid;
 
@@ -74,7 +113,7 @@ full-width {
 		&-link{
 			display: inline;
 			font-weight: bold;
-			font-size: .7em;
+			font-size: $small-font-size;
 			color: #000;
 			&__edit {
 				a {
@@ -95,7 +134,7 @@ full-width {
 		&-timecell {
 			border-right: 1px solid;
 			width: 20%;
-			font-size: .7em;
+			font-size: $small-font-size;
 		}
 		&-dashed {
 			border-bottom: 1px dotted;
@@ -172,7 +211,6 @@ full-width {
 		border-top-left-radius: 10px;
 		border-top-right-radius: 10px;
 		border-bottom: dotted 1px;
-		font-size: .7em;
 	}
 	&--bottom {
 		padding: 10px;
@@ -194,7 +232,7 @@ full-width {
 	z-index: 100;
 	width:100%;  
 	height: auto;
-	background-color: #F8F9F9;
+	background-color: $modal-gray;
 	border: 2px solid;
 	input, select {
 		border: solid 1px;
@@ -219,3 +257,5 @@ full-width {
 	opacity: 0.5;
 	z-index: 100;
 }
+
+.js-schedule-control { display: none; }

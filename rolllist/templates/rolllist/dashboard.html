@@ -18,23 +18,27 @@
 	{% comment %} content containers {% endcomment %}
 	<div class="row">
 	    <div class="col">
-			<div class="text-title text--centered">{{day}}</div>
-			<div id="schedule-controls" class="text--centered">
-				<button class="btn btn-xs btn-outline-info js-schedule-control" id="js-schedule-hide">hidden</button>
-				<button class="btn btn-xs btn-outline-info js-schedule-control" id="js-schedule-expand">expanded</button>
-				<button class="btn btn-xs btn-info js-schedule-control js-schedule-control-selected" id="js-schedule-collapse">collapsed</button>
+			<div id="schedule-controls" class="content--float-left">
+				<button class="js-schedule-control" id="js-schedule-hide">-</button>
+				<button class="js-schedule-control"  id="js-schedule-expand">++</button>
+				<button class="js-schedule-control js-schedule-control-selected" id="js-schedule-collapse">+</button>
 			</div>
-			<div id="schedulecontainer" class="dashcontainer">
-			</div>
+			<div class="content--float-left text-title date-title"><h2>{{day}}</h2></div>
+		</div>
+	</div>
+	<div class="row">
+	    <div class="col">
+			<div id="schedulecontainer" class="dashcontainer--padded"></div>
+			<div id="todocontainter" class="dashcontainer--padded"></div>
+			<div id="notescontainer" class="dashcontainer--padded"></div>
 	    </div>
 	</div>
 
-	<div id="todocontainter" class="dashcontainer--padded">
-	</div>
 
-	<div id="notescontainer" class="dashcontainer--padded">
-	</div>
+{% endblock %}
 
+{% block extra_js %}
+  	<script src="{% static 'rolllist/js/dashboard.js' %}"></script>
 {% endblock %}
 
 {% block footer %}

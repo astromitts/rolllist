@@ -1,13 +1,29 @@
+body {
+  font-size: 1em; }
+
 .main {
   padding-top: 65px;
   padding-bottom: 75px; }
+
+h2 {
+  font-weight: bold;
+  font-size: 1.2em;
+  vertical-align: middle; }
+
+h3 {
+  font-weight: bold;
+  font-size: 1em;
+  vertical-align: middle; }
 
 .text--centered {
   text-align: center; }
 .text--striked {
   text-decoration: line-through; }
-.text-title {
+.text-bold {
   font-weight: bold; }
+
+.content--float-left {
+  float: left; }
 
 .zero-margin {
   margin: 0; }
@@ -39,15 +55,24 @@ full-width {
   float: right;
   padding-right: 10px; }
 
+.date-title {
+  margin-left: 10px; }
+
 .dashcontainer--padded {
   margin-top: 10px; }
+
+#schedule-controls button {
+  border-radius: 3px;
+  width: 3em;
+  background-image: linear-gradient(to bottom, #FFFFFF, #A6A6A6);
+  font-weight: bold; }
 
 #schedulecontainer {
   border: 1px solid; }
   #schedulecontainer .scheduletable-link {
     display: inline;
     font-weight: bold;
-    font-size: .7em;
+    font-size: 0.7em;
     color: #000; }
     #schedulecontainer .scheduletable-link__edit a {
       padding-left: 10px; }
@@ -59,7 +84,7 @@ full-width {
   #schedulecontainer .scheduleblock-timecell {
     border-right: 1px solid;
     width: 20%;
-    font-size: .7em; }
+    font-size: 0.7em; }
   #schedulecontainer .scheduleblock-dashed {
     border-bottom: 1px dotted;
     border-right: 1px solid;
@@ -70,7 +95,7 @@ full-width {
     border-left: 1px solid; }
   #schedulecontainer .scheduleditem {
     width: 100%;
-    background-color: #ffffe6;
+    background-color: #FFFFE6;
     display: inline-block; }
     #schedulecontainer .scheduleditem-start {
       border-top: 1px solid;
@@ -111,16 +136,15 @@ full-width {
   .allnotescontainer--top {
     padding: 10px;
     border: solid 1px;
-    background-color: #ffffe6;
+    background-color: #FFFFE6;
     margin-top: 5px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    border-bottom: dotted 1px;
-    font-size: .7em; }
+    border-bottom: dotted 1px; }
   .allnotescontainer--bottom {
     padding: 10px;
     border: solid 1px;
-    background-color: #ffffe6;
+    background-color: #FFFFE6;
     border-top: none;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px; }
@@ -153,5 +177,8 @@ full-width {
   background-color: #000;
   opacity: 0.5;
   z-index: 100; }
+
+.js-schedule-control {
+  display: none; }
 
 /*# sourceMappingURL=sass-out.css.map */
