@@ -101,16 +101,16 @@ function expand_schedule_table(){
 	// show the full schedule table
 	$('table.js-scheduletable-open').show();
 	$('table.js-scheduletable-scheduled').show();
-	$('button#js-schedule-hide').show();
+	// $('button#js-schedule-hide').show();
 	$('button#js-schedule-expand').hide();
-	$('button#js-schedule-collapse').hide();
+	$('button#js-schedule-collapse').show();
 }
 
 function collapse_schedule_table(){
 	// show only scheduled items of the schedule table
 	$('table.js-scheduletable-open').hide();
 	$('table.js-scheduletable-scheduled').show();
-	$('button#js-schedule-hide').hide();
+	// $('button#js-schedule-hide').hide();
 	$('button#js-schedule-expand').show();
 	$('button#js-schedule-collapse').hide();
 }
