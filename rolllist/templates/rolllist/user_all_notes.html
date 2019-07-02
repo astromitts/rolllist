@@ -1,8 +1,12 @@
 {% extends 'rolllist/base.html' %}
 {% load static extras %}
 {% block main_content %}
-	<h1>Notes</h1>
-	 <a href="{% url 'add_note_src' datestr=today.to_url_str src='viewnotes' %}"><button>Add note</button></a>
+	<div class="row">
+		<div class="col">
+			<h1 class="float--left">Notes</h1>
+		 	<a href="{% url 'add_note_src' datestr=today.to_url_str src='viewnotes' %}" class="float--left"><button>Add note</button></a>
+		 </div>
+	</div>
 	 <div class="spacer_10"></div>
 	{% if all_notes %}
 		{% for day, notes in all_notes.items %}

@@ -1,11 +1,11 @@
-.round-grey-box, #schedulecontainer .schedulecontainer, #todocontainter .todocontainer, .notescontainer-table {
+.round-dashed-box, #schedulecontainer .schedulecontainer, #todocontainter .todocontainer, .notescontainer-table {
   display: table;
   width: 100%;
   border: dashed 1px #B2B3B3;
   border-radius: 10px;
   margin-bottom: 10px;
-  background-image: linear-gradient(to bottom, #FFFFFF, #eff6fd);
-  padding: 8px; }
+  padding: 8px;
+  background-color: #FFFFF0; }
 
 body {
   font-size: 0.9em; }
@@ -33,13 +33,13 @@ a {
   a .button {
     text-decoration: none; }
   a button {
+    font-size: 0.8em;
     border-radius: 3px;
     background-image: linear-gradient(to bottom, #FFFFFF, #A6A6A6);
     font-weight: bold;
     text-decoration: none; }
     a button .small {
-      font-size: 0.7em;
-      margin-left: 10px; }
+      font-size: 0.6em; }
 
 .text--centered {
   text-align: center; }
@@ -50,8 +50,12 @@ a {
 .text--normal {
   font-weight: normal; }
 
-.content--float-left {
-  float: left; }
+.float--left {
+  float: left;
+  margin-left: 5px; }
+.float--right {
+  float: right;
+  margin-right: 5px; }
 
 .zero-margin {
   margin: 0; }
@@ -66,9 +70,6 @@ full-width {
 .spacer_5 {
   display: block;
   padding: 5px; }
-
-.float--right {
-  float: right; }
 
 button.schedule-toggle {
   border-radius: 3px;
@@ -115,6 +116,8 @@ button.schedule-toggle {
   #schedulecontainer .scheduletable-link__delete {
     float: right;
     padding-right: 5px; }
+#schedulecontainer .schedulecontainer {
+  background-color: #FFFFFF; }
 #schedulecontainer .scheduleblock-timecell {
   border-right: solid 1px #B2B3B3;
   width: 25%; }
@@ -126,24 +129,23 @@ button.schedule-toggle {
   width: 100%;
   display: inline-block; }
   #schedulecontainer .scheduleditem-start {
-    background-color: #FFFFFF;
+    background-color: #FFFFF0;
     border-top: solid 1px #B2B3B3;
     border-left: solid 1px #B2B3B3;
     border-right: solid 1px #B2B3B3;
     border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    background-image: linear-gradient(to top, #FFFFFF, #FFFFFF, #FFFFFF); }
+    border-top-right-radius: 10px; }
   #schedulecontainer .scheduleditem-middle {
     border-left: solid 1px #B2B3B3;
     border-right: solid 1px #B2B3B3;
-    background-color: #FFFFFF; }
+    background-color: #FFFFF0; }
   #schedulecontainer .scheduleditem-end {
     border-bottom: solid 1px #B2B3B3;
     border-left: solid 1px #B2B3B3;
     border-right: solid 1px #B2B3B3;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    background-image: linear-gradient(to bottom, #FFFFFF, #FFFFFF, #FFFFFF); }
+    background-color: #FFFFF0; }
 
 #todocontainter table {
   width: 100%; }
@@ -168,7 +170,7 @@ button.schedule-toggle {
   margin-bottom: 20px; }
   .allnotescontainer .note--top {
     padding: 10px;
-    background-color: #FFFFFF;
+    background-color: #FFFFF0;
     border: dashed 1px #B2B3B3;
     margin-top: 5px;
     border-top-left-radius: 10px;
@@ -176,11 +178,11 @@ button.schedule-toggle {
     border-bottom: dashed 1px #B2B3B3; }
   .allnotescontainer .note--bottom {
     padding: 10px;
+    background-color: #FFFFF0;
     border: dashed 1px #B2B3B3;
     border-top: none;
     border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    background-image: linear-gradient(to bottom, #FFFFFF, #eff6fd); }
+    border-bottom-right-radius: 10px; }
   .allnotescontainer .note a {
     float: right; }
 

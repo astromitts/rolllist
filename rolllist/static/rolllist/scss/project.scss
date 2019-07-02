@@ -1,11 +1,12 @@
 $main-font-size: .9em;
 $large-font-size: 1.3em;
-$small-font-size: .7em;
+$medium-font-size: .8em;
+$small-font-size: .6em;
 
 $white: #FFFFFF;
-$yellow: #FFFFE6;
+$main-block-color: #FFFFF0;
 $black: #000000;
-$hover-blue: #6BABEF;
+$hover-color: #6BABEF;
 
 $button-gray: #A6A6A6;
 $modal-gray: #F8F9F9;
@@ -13,23 +14,18 @@ $modal-gray: #F8F9F9;
 $medium-border-color: #B2B3B3;
 $dark-border-color: #969898;
 
-$schedule-main-color: #FFFFFF;
-$schedule-bottom-color: #FFFFFF;
-
-$note-gradient-color: #eff6fd;
-
 $dashed-border: dashed 1px $medium-border-color;
 $solid-border: solid 1px $medium-border-color;
 $dotted-border: dotted 1px $medium-border-color;
 
-.round-grey-box {
+.round-dashed-box {
 	display: table;
 	width: 100%;
 	border: $dashed-border;
 	border-radius: 10px;
 	margin-bottom: 10px;
-	background-image: linear-gradient(to bottom, $white, $note-gradient-color);
 	padding: 8px;
+	background-color: $main-block-color;
 }
 
 body{
@@ -58,19 +54,19 @@ a {
 	text-decoration: none;
 	&:hover {
 		text-decoration: none;
-		color: $hover-blue;
+		color: $hover-color;
 	}
 	.button {
 		text-decoration: none;
 	}
 	button {
+		font-size: $medium-font-size;
 		border-radius: 3px;
 		background-image: linear-gradient(to bottom, $white, $button-gray);
 		font-weight: bold;
 		text-decoration: none;
 		.small {
 			font-size: $small-font-size;
-			margin-left: 10px;
 		}
 	}
 }
@@ -90,9 +86,14 @@ a {
 	}
 }
 
-.content {
-	&--float-left {
+.float {
+	&--left {
 		float: left;
+		margin-left: 5px;
+	}
+	&--right {
+		float: right;
+		margin-right: 5px;
 	}
 }
 
@@ -114,9 +115,6 @@ full-width {
 	padding: 5px;
 }
 
-.float--right {
-	float: right;
-}
 
 button.schedule-toggle {
 	border-radius: 3px;
@@ -188,7 +186,8 @@ button.schedule-toggle {
 		}
 	}
 	.schedulecontainer{
-		@extend .round-grey-box;
+		@extend .round-dashed-box;
+		background-color: $white;
 	}
 
 	.scheduleblock {
@@ -207,18 +206,17 @@ button.schedule-toggle {
 		width: 100%;
 		display: inline-block;
 		&-start {
-			background-color: $schedule-main-color;
+			background-color: $main-block-color;
 			border-top: $solid-border;
 			border-left: $solid-border;
 			border-right: $solid-border;
 			border-top-left-radius: 10px;
 			border-top-right-radius: 10px;
-			background-image: linear-gradient(to top, $schedule-main-color, $schedule-main-color, $schedule-bottom-color);
 		}
 		&-middle {
 			border-left: $solid-border;
 			border-right: $solid-border;
-			background-color: $schedule-main-color;
+			background-color: $main-block-color;
 		}
 		&-end {
 			border-bottom: $solid-border;
@@ -226,7 +224,7 @@ button.schedule-toggle {
 			border-right: $solid-border;
 			border-bottom-left-radius: 10px;
 			border-bottom-right-radius: 10px;
-			background-image: linear-gradient(to bottom, $schedule-main-color, $schedule-main-color, $schedule-bottom-color);
+			background-color: $main-block-color;
 		}
 	}
 
@@ -243,14 +241,14 @@ button.schedule-toggle {
 		}
 	}
 	.todocontainer {
-		@extend .round-grey-box;
+		@extend .round-dashed-box;
 		padding: 5px;
 	}
 }
 
 .notescontainer {
 	&-table {
-		@extend .round-grey-box;
+		@extend .round-dashed-box;
 		padding-left: 15px;
 	}
 	&-row {
@@ -269,7 +267,7 @@ button.schedule-toggle {
 	.note {
 		&--top {
 			padding: 10px;
-			background-color: $white;
+			background-color: $main-block-color;
 			border: $dashed-border;
 			margin-top: 5px;
 			border-top-left-radius: 10px;
@@ -278,11 +276,11 @@ button.schedule-toggle {
 		}
 		&--bottom {
 			padding: 10px;
+			background-color: $main-block-color;
 			border: $dashed-border;
 			border-top: none;
 			border-bottom-left-radius: 10px;
 			border-bottom-right-radius: 10px;
-			background-image: linear-gradient(to bottom, $white, $note-gradient-color);
 		}
 		a {
 			float: right;

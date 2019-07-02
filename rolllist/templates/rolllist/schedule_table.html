@@ -27,9 +27,11 @@
 									{% else %}
 										<div class="scheduleditem scheduleditem-start">
 									{% endif %}
-										<div class="text--centered text--bold zero-margin full-width">
+										<div class="text--centered zero-margin full-width">
 											<div>
-												{{ schedule_block.item.title }} ({{ schedule_block.item.location }})<a href="" class="js-schedule-links-toggle float--right" id="{{ schedule_block.item.id }}"><button class="small">...</button></a>
+												{{ schedule_block.item.title }} ({{ schedule_block.item.location }})<a href="" class="js-schedule-links-toggle  float--right" id="{{ schedule_block.item.id }}">
+													<button class="small">...</button>
+												</a>
 											</div>
 											<div id="js-schedule-links-toggle-{{ schedule_block.item.id }}" class="text--normal" style="display: none;">
 												<a href="{% url 'edit_item' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule" id="{{interval_id}}">edit</a>&nbsp;|&nbsp;
