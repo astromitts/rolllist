@@ -138,6 +138,18 @@ class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
         item.is_active = False
         item.save()
 
+    def delete_current_and_future(self, day):
+        # first, set past instances to non-recurring to retain history
+        # then delete any instances that are today or later
+        scheduled_events = ScheduleItem.objects.filter(recurrance=self).all()
+        for event in scheduled_events:
+            if event.day.date < day.date:
+                event.recurrance = None
+                event.save()
+            elif event.day.date >= day.date:
+                event.delete()
+        self.delete()
+
 
 class ScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
     """ Model for schedule items

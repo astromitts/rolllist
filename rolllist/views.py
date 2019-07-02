@@ -213,6 +213,30 @@ def delete_schedule_item_handler(request, item_id, recurring):
 
 
 @login_required(login_url='login/')
+def manage_recurring_items(request):
+    user = get_user(request)
+    recurring_items = RecurringScheduleItem.objects.filter(user=user)
+    template = loader.get_template('rolllist/user_manage_recurring_items.html')
+    context = {
+        'recurring_items': recurring_items
+    }
+    return HttpResponse(template.render(context, request))
+
+
+@login_required(login_url='login/')
+def edit_recurring_item_handler(request):
+    pass
+
+
+@login_required(login_url='login/')
+def delete_recurring_item_handler(request, item_id):
+    target_day, created = Day.get_or_create(date=datetime.today())
+    target_item = RecurringScheduleItem.objects.get(pk=item_id)
+    target_item.delete_current_and_future(target_day)
+    return HttpResponse()
+
+
+@login_required(login_url='login/')
 def add_to_do_item_form(request, list_id=None):
     """ Handler for add to do item form
     """

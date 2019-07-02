@@ -1,4 +1,4 @@
-.round-dashed-box, #schedulecontainer .schedulecontainer, #todocontainter .todocontainer, .notescontainer-table {
+.round-dashed-box, .content--astable, #schedulecontainer .schedulecontainer, #todocontainter .todocontainer, .notescontainer-table {
   display: table;
   width: 100%;
   border: dashed 1px #B2B3B3;
@@ -49,6 +49,17 @@ a {
   font-weight: bold; }
 .text--normal {
   font-weight: normal; }
+
+.content--astable {
+  display: table;
+  table-layout: fixed;
+  width: 100%; }
+  .content--astable .row {
+    display: table-row; }
+  .content--astable .cell {
+    display: table-cell;
+    border-right: dotted 1px #B2B3B3;
+    padding: 5px; }
 
 .float--left {
   float: left;
@@ -146,6 +157,10 @@ button.schedule-toggle {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     background-color: #FFFFF0; }
+
+#managerecurringschedulecontainer td, #managerecurringschedulecontainer th {
+  border: dotted 1px #B2B3B3;
+  padding: 5px; }
 
 #todocontainter table {
   width: 100%; }

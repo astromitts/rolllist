@@ -86,6 +86,23 @@ a {
 	}
 }
 
+.content {
+	&--astable {
+		@extend .round-dashed-box;
+		display: table;
+		table-layout: fixed;
+		width: 100%;
+		.row {
+			display: table-row;
+		}
+		.cell {
+			display: table-cell;
+			border-right: $dotted-border;
+			padding: 5px;
+		}
+	}
+}
+
 .float {
 	&--left {
 		float: left;
@@ -228,6 +245,13 @@ button.schedule-toggle {
 		}
 	}
 
+}
+
+#managerecurringschedulecontainer {
+	td, th {
+		border: $dotted-border;
+		padding: 5px;
+	}
 }
 
 #todocontainter {
