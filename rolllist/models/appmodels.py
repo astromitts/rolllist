@@ -1,6 +1,5 @@
 from django.db import models
 from datetime import datetime, timedelta
-from itertools import chain
 from operator import attrgetter
 
 from rolllistuser.models import RollListUser
@@ -36,13 +35,28 @@ class Day(models.Model, BaseModel):
         """ Function to return a full list of scheduled items for a day
             including regular items and recurring items
         """
+        # check if item instances have been created for recurring items
+        # if not, create them
         recurring_item_set = user.recurringscheduleitem_set.all()
-        item_set = self.scheduleitem_set.all()
+        for item in recurring_item_set:
+            schedule_item_exists = ScheduleItem.objects.filter(
+                day=self, recurrance=item
+            ).exists()
+            if not schedule_item_exists:
+                item.set_for_day(day=self)
+
+        # once recurrances are created, select all active items for the day
+        item_set = self.scheduleitem_set.filter(is_active=True).all()
         full_list = sorted(
-            chain(recurring_item_set, item_set),
+            item_set,
             key=attrgetter('start_time')
         )
         return full_list
+
+    def set_recurring_items(self, user):
+        recurring_item_set = user.recurringscheduleitem_set.all()
+        for item in recurring_item_set:
+            item.set_for_day(day=self)
 
     @property
     def to_url_str(self):
@@ -104,6 +118,26 @@ class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
     def get_delete_url(self):
         return '/deletescheduleitemform/%d/1/' % self.id
 
+    def set_for_day(self, day):
+        schedule_item = ScheduleItem(
+            user=self.user,
+            day=day,
+            title=self.title,
+            start_time=self.start_time,
+            end_time=self.end_time,
+            location=self.location,
+            recurrance=self
+        )
+        schedule_item.save()
+
+    def delete_for_day(self, day):
+        item = ScheduleItem.objects.get(
+            day=day,
+            recurrance=self
+        )
+        item.is_active = False
+        item.save()
+
 
 class ScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
     """ Model for schedule items
@@ -123,6 +157,11 @@ class ScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
     )
     location = models.CharField(max_length=150, null=True)
 
+    # these two fields are used to determine if an item has been rolled over from the
+    # recurrance table and has not been deleted byt he user
+    is_active = models.BooleanField(default=True)
+    recurrance = models.ForeignKey(RecurringScheduleItem, null=True, blank=True, on_delete=models.CASCADE)
+
     def __str__(self):
         return '%s // %s (%s@%s-%s)' % (
             self.title, self.location, self.day, self.start, self.end
@@ -133,17 +172,16 @@ class ScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
         return '/deletescheduleitemform/%d/0/' % self.id
 
     def make_recurring(self):
-        if not self.recurrance:
-            new_recurrance = RecurringScheduleItem(
-                title=self.title,
-                location=self.location,
-                start_time=self.start_time,
-                end_time=self.end_time,
-                user=self.user
-            )
-            new_recurrance.save()
-            self.recurrance = new_recurrance
-            self.save()
+        new_recurrance = RecurringScheduleItem(
+            title=self.title,
+            location=self.location,
+            start_time=self.start_time,
+            end_time=self.end_time,
+            user=self.user
+        )
+        new_recurrance.save()
+        self.recurrance = new_recurrance
+        self.save()
 
 
 class ToDoList(models.Model, BaseModel):

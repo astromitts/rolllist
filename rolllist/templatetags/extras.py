@@ -1,6 +1,5 @@
 from django import template
 from rolllist.utils import relevant_time_dict
-from rolllist.models.appmodels import RecurringScheduleItem
 
 register = template.Library()
 
@@ -19,7 +18,7 @@ def time_display_str(int_id):
 
 @register.filter
 def is_recurring_item(item):
-    if isinstance(item, RecurringScheduleItem):
+    if item.recurrance:
         return 1
     return 0
 

@@ -26,10 +26,7 @@ def get_user(request):
 
 
 def get_item(item_id, recurring):
-    if recurring == 1:
-        item = RecurringScheduleItem.objects.get(pk=item_id)
-    else:
-        item = ScheduleItem.objects.get(pk=item_id)
+    item = ScheduleItem.objects.get(pk=item_id)
     return item
 
 
@@ -63,6 +60,7 @@ def schedule_view(request, datestr):
     template = loader.get_template('rolllist/schedule_table.html')
     target_date = datetime.strptime(datestr, "%Y%m%d").date()
     target_day, target_day_created = Day.get_or_create(date=target_date)
+
     day_schedule = DayScheduleDeux(target_day, get_user(request))
 
     context = {
@@ -137,11 +135,13 @@ def add_schedule_item_form(request, start_time_int=None, datestr=None):
                 'location': data['location'],
                 'user': get_user(request),
             }
+            save_data['day'] = target_day
+            # save it for today no matter what
+            new_item = ScheduleItem(**save_data)
+
+            # if they requested recurring, set it as recurring
             if data.get('make_recurring', 'off') == 'on':
-                new_item = RecurringScheduleItem(**save_data)
-            else:
-                save_data['day'] = target_day
-                new_item = ScheduleItem(**save_data)
+                new_item.make_recurring()
 
             new_item.save()
             return HttpResponse()
@@ -197,7 +197,11 @@ def delete_schedule_item_handler(request, item_id, recurring):
     item = get_item(item_id, recurring)
 
     if request.POST:
-        item.delete()
+        if recurring:
+            item.is_active = False
+            item.save()
+        else:
+            item.delete()
         return HttpResponse()
 
     template = loader.get_template('rolllist/generic_delete_form.html')
