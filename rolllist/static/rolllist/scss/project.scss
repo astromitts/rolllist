@@ -89,17 +89,27 @@ a {
 
 .content {
 	&--astable {
-		@extend .round-dashed-box;
 		display: table;
+		border-collapse: collapse;
 		table-layout: fixed;
 		width: 100%;
 		.row {
 			display: table-row;
+			border-bottom: $dotted-border;
+			&:last-of-type {
+				border-bottom: none;
+			}
 		}
 		.cell {
 			display: table-cell;
 			border-right: $dotted-border;
 			padding: 5px;
+			&:last-of-type {
+				border-right: none;
+			}
+			&--xsm {
+				width: 3%;
+			}
 		}
 	}
 }
@@ -245,10 +255,16 @@ button.schedule-toggle {
 			background-color: $main-block-color;
 		}
 	}
+	img.icon {
+		&--recurrance {
+			margin-top: 3px;
+		}
+	}
 
 }
 
 #managerecurringschedulecontainer {
+	@extend .round-dashed-box;
 	td, th {
 		border: $dotted-border;
 		padding: 5px;
@@ -268,6 +284,12 @@ button.schedule-toggle {
 	.todocontainer {
 		@extend .round-dashed-box;
 		padding: 5px;
+	}
+
+	img.icon {
+		&--recurrance {
+			margin-right: 5px;
+		}
 	}
 }
 

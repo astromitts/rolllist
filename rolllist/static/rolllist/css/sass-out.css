@@ -1,4 +1,4 @@
-.round-dashed-box, .content--astable, #schedulecontainer .schedulecontainer, #todocontainter .todocontainer, .notescontainer-table {
+.round-dashed-box, #schedulecontainer .schedulecontainer, #managerecurringschedulecontainer, #todocontainter .todocontainer, .notescontainer-table {
   display: table;
   width: 100%;
   border: dashed 1px #B2B3B3;
@@ -52,14 +52,22 @@ a {
 
 .content--astable {
   display: table;
+  border-collapse: collapse;
   table-layout: fixed;
   width: 100%; }
   .content--astable .row {
-    display: table-row; }
+    display: table-row;
+    border-bottom: dotted 1px #B2B3B3; }
+    .content--astable .row:last-of-type {
+      border-bottom: none; }
   .content--astable .cell {
     display: table-cell;
     border-right: dotted 1px #B2B3B3;
     padding: 5px; }
+    .content--astable .cell:last-of-type {
+      border-right: none; }
+    .content--astable .cell--xsm {
+      width: 3%; }
 
 .float--left {
   float: left;
@@ -157,6 +165,8 @@ button.schedule-toggle {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     background-color: #FFFFF0; }
+#schedulecontainer img.icon--recurrance {
+  margin-top: 3px; }
 
 #managerecurringschedulecontainer td, #managerecurringschedulecontainer th {
   border: dotted 1px #B2B3B3;
@@ -170,6 +180,8 @@ button.schedule-toggle {
       border-bottom: none; }
 #todocontainter .todocontainer {
   padding: 5px; }
+#todocontainter img.icon--recurrance {
+  margin-right: 5px; }
 
 .notescontainer-table {
   padding-left: 15px; }
