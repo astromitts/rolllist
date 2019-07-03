@@ -133,7 +133,7 @@ button.schedule-toggle {
   border-right: solid 1px #B2B3B3;
   width: 25%; }
 #schedulecontainer .scheduleblock-dashed {
-  border-bottom: dashed 1px #B2B3B3; }
+  border-bottom: dotted 1px #B2B3B3; }
 #schedulecontainer .scheduleblock-solid {
   border-bottom: solid 1px #B2B3B3; }
 #schedulecontainer .scheduleditem {
