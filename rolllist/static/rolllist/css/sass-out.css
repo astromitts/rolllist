@@ -41,12 +41,18 @@ a {
     a button .small {
       font-size: 0.6em; }
 
+.text--inline-centered {
+  display: inline-block;
+  margin: 0 auto; }
 .text--centered {
   text-align: center; }
 .text--striked {
   text-decoration: line-through; }
 .text--bold {
   font-weight: bold; }
+.text--mild {
+  font-weight: normal;
+  font-color: #A6A6A6 !important; }
 .text--normal {
   font-weight: normal; }
 
@@ -68,6 +74,14 @@ a {
       border-right: none; }
     .content--astable .cell--xsm {
       width: 3%; }
+      @media screen and (max-width: 420px) {
+        .content--astable .cell--xsm {
+          width: 9%; } }
+    .content--astable .cell--md {
+      width: 7%; }
+      @media screen and (max-width: 420px) {
+        .content--astable .cell--md {
+          width: 20%; } }
 
 .float--left {
   float: left;
@@ -112,13 +126,9 @@ button.schedule-toggle {
   .bottomnav a {
     padding-left: 50px;
     padding-right: 50px; }
-
-.daytoggle__prev {
-  float: left;
-  padding-left: 10px; }
-.daytoggle__next {
-  float: right;
-  padding-right: 10px; }
+  .bottomnav .content--astable .row, .bottomnav .content--astable .cell {
+    border: none;
+    text-align: center; }
 
 .date-title {
   margin-left: 10px; }
@@ -139,7 +149,10 @@ button.schedule-toggle {
   background-color: #FFFFFF; }
 #schedulecontainer .scheduleblock-timecell {
   border-right: solid 1px #B2B3B3;
-  width: 25%; }
+  width: 10%; }
+  @media screen and (max-width: 420px) {
+    #schedulecontainer .scheduleblock-timecell {
+      width: 25%; } }
 #schedulecontainer .scheduleblock-dashed {
   border-bottom: dotted 1px #B2B3B3; }
 #schedulecontainer .scheduleblock-solid {

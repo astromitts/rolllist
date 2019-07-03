@@ -55,10 +55,18 @@
 			{% if user_logged_in %}
 				<div class="row">
 					<span class="bottomnav">
-						<div class="col">
-					        <a class="navbar-brand daytoggle daytoggle_prev js-nav-control" href="{% url 'day_view' datestr=target_previous_date %}#js-schedule-collapse">< Prev</a>
-							<img src="{% static 'images/iconic/png/calendar-3x-w.png' %}" id="datepicker" />
-					        <a class="navbar-brand daytoggle daytoggle_next js-nav-control" href="{% url 'day_view' datestr=target_next_day %}#js-schedule-collapse">Next ></a>
+							<div class="content--astable">
+								<div class="row">
+									<div class="cell">
+								        <a class="navbar-brand daytoggle daytoggle_prev js-nav-control" href="{% url 'day_view' datestr=target_previous_date %}#js-schedule-collapse">< Prev</a>
+								    </div>
+								    <div class="cell">
+										<img class="zero-margin" src="{% static 'images/iconic/png/calendar-3x-w.png' %}" id="datepicker" />
+									</div>
+								    <div class="cell">
+								        <a class="navbar-brand daytoggle daytoggle_next js-nav-control" href="{% url 'day_view' datestr=target_next_day %}#js-schedule-collapse">Next ></a>
+								    </div>
+								</div>
 						</div>
 					</span>
 				</div>

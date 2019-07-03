@@ -1,3 +1,5 @@
+$break-small: 420px;
+
 $main-font-size: .9em;
 $large-font-size: 1.3em;
 $medium-font-size: .8em;
@@ -73,6 +75,10 @@ a {
 }
 
 .text {
+	&--inline-centered {
+	  	display:inline-block;
+  		margin:0 auto;
+	}
 	&--centered {
 		text-align: center;
 	}
@@ -81,6 +87,10 @@ a {
 	}
 	&--bold {
 		font-weight: bold;
+	}
+	&--mild {
+		font-weight: normal;
+		font-color: $button-gray !important;;
 	}
 	&--normal {
 		font-weight: normal;
@@ -109,6 +119,15 @@ a {
 			}
 			&--xsm {
 				width: 3%;
+				@media screen and (max-width: $break-small) {
+					width: 9%;
+				}
+			}
+			&--md {
+				width: 7%;
+				@media screen and (max-width: $break-small) {
+					width: 20%;
+				}
 			}
 		}
 	}
@@ -173,17 +192,16 @@ button.schedule-toggle {
 		padding-left: 50px;
 		padding-right: 50px;
 	}
+	.content--astable {
+		.row, .cell {
+			border: none;
+			text-align: center;
+		}
+	}
 }
 
 .daytoggle{
-	&__prev{
-		float: left;
-		padding-left: 10px;
-	}
-	&__next{
-		float: right;
-		padding-right: 10px;
-	}
+
 }
 
 .date-title {
@@ -221,7 +239,10 @@ button.schedule-toggle {
 	.scheduleblock {
 		&-timecell {
 			border-right: $solid-border;
-			width: 25%;
+			width: 10%;
+			@media screen and (max-width: $break-small) {
+				width: 25%;
+			}
 		}
 		&-dashed {
 			border-bottom: $dotted-border;

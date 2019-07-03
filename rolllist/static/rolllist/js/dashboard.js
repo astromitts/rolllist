@@ -244,9 +244,6 @@ function get_todo_table(){
 			bind_modal_open_todo();
 			bind_todo_generic_handlers()
 			bind_modal_close();
-			if ($(window).width() < 420 ) {
-				$('.cell--xsm').css('width', '9%');
-			}
 		},
 	})
 }
