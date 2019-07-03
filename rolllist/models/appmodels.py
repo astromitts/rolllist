@@ -29,7 +29,7 @@ class Day(models.Model, BaseModel):
         ordering = ['date']
 
     def __str__(self):
-        return '{0:%B %d %Y}'.format(self.date)
+        return '{0:%A, %B %d %Y}'.format(self.date)
 
     def get_schedule_items(self, user):
         """ Function to return a full list of scheduled items for a day
