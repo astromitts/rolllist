@@ -75,10 +75,6 @@ a {
 }
 
 .text {
-	&--inline-centered {
-	  	display:inline-block;
-  		margin:0 auto;
-	}
 	&--centered {
 		text-align: center;
 	}
@@ -90,10 +86,13 @@ a {
 	}
 	&--mild {
 		font-weight: normal;
-		font-color: $button-gray !important;;
+		color: $button-gray !important;;
 	}
 	&--normal {
 		font-weight: normal;
+	}
+	&--white {
+		color: $white;
 	}
 }
 

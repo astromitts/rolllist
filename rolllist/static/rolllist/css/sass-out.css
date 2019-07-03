@@ -41,9 +41,6 @@ a {
     a button .small {
       font-size: 0.6em; }
 
-.text--inline-centered {
-  display: inline-block;
-  margin: 0 auto; }
 .text--centered {
   text-align: center; }
 .text--striked {
@@ -52,9 +49,11 @@ a {
   font-weight: bold; }
 .text--mild {
   font-weight: normal;
-  font-color: #A6A6A6 !important; }
+  color: #A6A6A6 !important; }
 .text--normal {
   font-weight: normal; }
+.text--white {
+  color: #FFFFFF; }
 
 .content--astable {
   display: table;
