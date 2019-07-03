@@ -305,12 +305,17 @@ $(document).ready(function(){
 		}).on('changeDate', function(ev) {
         	var selected = $( "#datepicker" ).datepicker('getDate');
         	var day = pad2(selected.getDate());
-        	var month = pad2(selected.getMonth());
+        	var month = pad2(selected.getMonth() + 1);
         	var year = selected.getFullYear();
         	var current_date = $('div#datestr').text();
         	var new_date = year.toString() + month.toString() + day.toString();
         	var full_current_location = location.href;
-        	var full_target_location = full_current_location.replace(current_date, new_date)
+        	if (full_current_location.indexOf(current_date) > 1) {
+        		var full_target_location = full_current_location.replace(current_date, new_date);
+        	} else {
+        		var origin = window.location.origin;
+        		var full_target_location = origin + '/' + new_date + '/#' + get_anchor();
+        	}
         	location.href = full_target_location;
     	});
 	});
