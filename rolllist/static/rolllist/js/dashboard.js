@@ -1,49 +1,3 @@
-/* OVERLAY & MODAL HANDLERS */
-
-function show_modal_and_overlay(){
-	// Display the gray overlay and the modal container
-	$('div#modal').css('display', 'inline-block');
-	$('div#backgroundcover').show();
-}
-
-function hide_modal_and_overlay(){
-	// Hide all overlay and modal components and blank out the modal contents
-	$('div#modal').hide();
-	$('div#modalcontent').html();
-	$('div#backgroundcover').hide();
-	window.scrollTo(0, 0);
-}
-
-function bind_modal_close(){
-	// bind the hide functions to the close element of the modal
-	$('a.closemodal').click(function(event){
-		event.preventDefault();
-		hide_modal_and_overlay();
-	});
-}
-
-function bind_ajax_form_submit(form, action, reload_function){
-	// bind a form submit to the ajax submit and refresh function
-	form.submit(function(event){
-		event.preventDefault();
-		$.ajax({
-			type: 'POST',
-			url: action,
-			data: $(this).serialize(),
-			success: function(data){
-				reload_function(datestr);
-				hide_modal_and_overlay();
-			},
-			error: function(data){
-				hide_modal_and_overlay();
-				alert("there was an error");
-			}
-		});
-	});
-}
-
-
-
 /* NAVIGATION HANDLERS */
 function get_tab_location(current_href){
 	// figure out the current tab by the URL anchor
@@ -170,7 +124,7 @@ function bind_modal_open_schedule(datestr){
 				$('select#id_start_time').val(start_init);
 
 				show_modal_and_overlay();
-				bind_ajax_form_submit($('form.ajaxme'), target_url, get_schedule_table, datestr);
+				bind_ajax_form_submit($('form.ajaxme'), target_url, get_schedule_table);
 			},
 			error: function(data){
 				alert("there was an error");

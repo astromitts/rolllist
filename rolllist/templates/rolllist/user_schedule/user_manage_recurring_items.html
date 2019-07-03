@@ -16,13 +16,8 @@
 					<div class="cell cell--large">{{ item.title }} @{{item.location}}</div>
 					<div class="cell">{{ item.start }}-{{ item.end }}</div>
 					<div class="cell">
-						{% comment %}
-							<a class="js-edit" href="{% url 'edit_recurring_item' item_id=item.id %}"><button>edit</button></a>
-						{% endcomment %}
-						edit (coming soon)
-					</div>
-					<div class="cell">
 						<a class="js-delete" href="{% url 'delete_recurring_item' item_id=item.id %}"><button>delete</button></a>
+						<a class="js-edit" href="{% url 'edit_recurring_item' item_id=item.id %}"><button>edit</button></a>
 					</div>
 				</div>
 			</div>
@@ -31,5 +26,6 @@
 {% endblock %}
 
 {% block extra_js %}
+  	<script src="{% static 'rolllist/js/modal-handler.js' %}"></script>
   	<script src="{% static 'rolllist/js/manage-recurring.js' %}"></script>
 {% endblock %}

@@ -114,10 +114,6 @@ class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
     def __str__(self):
         return '%s // %s (@%s-%s)' % (self.title, self.location, self.start, self.end)
 
-    @property
-    def get_delete_url(self):
-        return '/deletescheduleitemform/%d/1/' % self.id
-
     def set_for_day(self, day):
         schedule_item = ScheduleItem(
             user=self.user,
@@ -149,6 +145,22 @@ class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
             elif event.day.date >= day.date:
                 event.delete()
         self.delete()
+
+    def update_current_and_future(self, day, update_vars=None):
+        # first, set past instances to non-recurring to retain history
+        # then delete any instances that are today or later
+        if not update_vars:
+            update_vars = {}
+
+        scheduled_events = ScheduleItem.objects.filter(recurrance=self).all()
+        for event in scheduled_events:
+            if event.day.date >= day.date:
+                for key, val in update_vars.items():
+                    setattr(event, key, val)
+                    event.save()
+        for key, val in update_vars.items():
+            setattr(self, key, val)
+            self.save()
 
 
 class ScheduleItem(models.Model, ScheduleItemMixin, BaseModel):

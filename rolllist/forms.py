@@ -5,7 +5,7 @@ from django.forms import (
     CharField,
     HiddenInput
 )
-from .models.appmodels import ScheduleItem, ToDoItem, Note
+from .models.appmodels import RecurringScheduleItem, ScheduleItem, ToDoItem, Note
 from .utils import relevant_time_dict
 
 
@@ -34,6 +34,30 @@ class ScheduleItemForm(ModelForm):
             'title',
             'location',
             'make_recurring',
+            'start_time_init',
+            'end_time_init',
+        ]
+
+
+class RecurringScheduleItemForm(ModelForm):
+    start_time = ChoiceField(
+        choices=[(i, string) for i, string in relevant_time_dict.items()]
+    )
+
+    end_time = ChoiceField(
+        choices=[(i, string) for i, string in relevant_time_dict.items()]
+    )
+
+    start_time_init = CharField(widget=HiddenInput(), required=False)
+    end_time_init = CharField(widget=HiddenInput(), required=False)
+
+    class Meta:
+        model = RecurringScheduleItem
+        fields = [
+            'start_time',
+            'end_time',
+            'title',
+            'location',
             'start_time_init',
             'end_time_init',
         ]

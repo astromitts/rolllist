@@ -8,7 +8,7 @@
 				<table width="100%"class="js-scheduletable-open">
 					<tr class="scheduleblock-{{ schedule_block.start_time_display|set_row_class}} ">
 						<td class="scheduleblock-timecell">{{ schedule_block.start_time_display }}</td>
-						<td><a href="{% url 'add_item' start_time_int=schedule_block.interval datestr=datestr %}" class="openmodalschedule" id="{{interval_id}}"><button class="small">+</button></a></td>
+						<td><a href="{% url 'add_item' start_time_int=schedule_block.interval datestr=datestr %}" class="openmodalschedule" id="{{interval_id}}">add item</a></td>
 					</tr>
 				</table>
 			{% else %}
@@ -30,12 +30,17 @@
 										<div class="text--centered zero-margin full-width">
 											<div>
 												{{ schedule_block.item.title }} ({{ schedule_block.item.location }})<a href="" class="js-schedule-links-toggle  float--right" id="{{ schedule_block.item.id }}">
-													<button class="small">...</button>
+													[...]
 												</a>
 											</div>
 											<div id="js-schedule-links-toggle-{{ schedule_block.item.id }}" class="text--normal" style="display: none;">
-												<a href="{% url 'edit_item' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule" id="{{interval_id}}">edit</a>&nbsp;|&nbsp;
 												<a href="{% url 'delete_item_form' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule" id="{{ interval_id }}">delete</a>
+												&nbsp;|&nbsp;
+												{% if schedule_block.item.recurrance %}
+													<a href="{% url 'manage_recurring_items' %}">manage recurring items</a>
+												{% else %}
+													<a href="{% url 'edit_item' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule" id="{{interval_id}}">edit</a>
+												{% endif %}
 											</div>
 										</div>
 									</div>

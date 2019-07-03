@@ -7,7 +7,13 @@ from django.template import loader
 
 from datetime import datetime, timedelta
 
-from .forms import ScheduleItemForm, ToDoItemForm, NoteForm
+from .forms import (
+    RecurringScheduleItemForm,
+    ScheduleItemForm,
+    ToDoItemForm,
+    NoteForm
+)
+
 from .models.appmodels import (
     Day,
     ScheduleItem,
@@ -224,16 +230,53 @@ def manage_recurring_items(request):
 
 
 @login_required(login_url='login/')
-def edit_recurring_item_handler(request):
-    pass
+def delete_recurring_item_handler(request, item_id):
+    target_item = RecurringScheduleItem.objects.get(pk=item_id)
+    if request.POST:
+        target_day, created = Day.get_or_create(date=datetime.today())
+        target_item.delete_current_and_future(target_day)
+        return HttpResponse()
+    template = loader.get_template('rolllist/forms_generic/generic_delete_form.html')
+    context = {
+        'item': target_item,
+        'message': (
+            'Deleting this recurring event will delete it from your schedule '
+            'for today and all future dates. Confirm?'
+        ),
+        'submit_text': 'Confirm'
+    }
+    return HttpResponse(template.render(context, request))
 
 
 @login_required(login_url='login/')
-def delete_recurring_item_handler(request, item_id):
-    target_day, created = Day.get_or_create(date=datetime.today())
+def edit_recurring_item_handler(request, item_id):
+    template = loader.get_template('rolllist/forms_generic/generic_form.html')
     target_item = RecurringScheduleItem.objects.get(pk=item_id)
-    target_item.delete_current_and_future(target_day)
-    return HttpResponse()
+    if request.POST:
+        data = request.POST.copy()
+        form = RecurringScheduleItemForm(data)
+        if form.is_valid():
+            target_day, created = Day.get_or_create(date=datetime.today())
+            update_vars = {
+                'start_time': data['start_time'],
+                'end_time': data['end_time'],
+                'title': data['title'],
+                'location': data['location'],
+            }
+            target_item.update_current_and_future(target_day, update_vars)
+
+            return HttpResponse()
+        else:
+            context = {'form': form}
+            return HttpResponse(target_item.render(context, request))
+
+    else:
+        init_values = {}
+        init_values['start_time_init'] = target_item.start_time
+        init_values['end_time_init'] = target_item.end_time
+        form = RecurringScheduleItemForm(instance=target_item, initial=init_values)
+        context = {'form': form}
+        return HttpResponse(template.render(context, request))
 
 
 @login_required(login_url='login/')
