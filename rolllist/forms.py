@@ -3,7 +3,7 @@ from django.forms import (
     ChoiceField,
     BooleanField,
     CharField,
-    HiddenInput
+    HiddenInput,
 )
 from .models.appmodels import RecurringScheduleItem, ScheduleItem, ToDoItem, Note
 from .utils import relevant_time_dict

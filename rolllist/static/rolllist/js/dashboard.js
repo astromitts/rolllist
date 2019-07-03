@@ -8,6 +8,14 @@ function get_tab_location(current_href){
 	return current_location;
 }
 
+function get_anchor(){
+	var anchor = this.window.location.href.split('#')[1];
+	if (anchor == 'undefined' || anchor == undefined) {
+		anchor = 'js-schedule-collapse';
+	}
+	return anchor;
+}
+
 function update_href(current_href, new_location){
 	// Figure out what the window URL should be with a new tab's anchor
 	if (current_href.indexOf('#') < 0){
@@ -279,6 +287,11 @@ function get_notes_table(){
 	})
 }
 
+function pad2(n) {
+  z = '0';
+  n = n + '';
+  return n.length >= 2 ? n : new Array(2 - n.length + 1).join(z) + n;
+}
 
 /* DOC HANDLER */
 $(document).ready(function(){
@@ -286,4 +299,22 @@ $(document).ready(function(){
 	get_schedule_table();
 	get_todo_table();
 	get_notes_table();
+	$(function () {
+		$( "#datepicker" ).datepicker({
+			format: "YYYYMMDD",
+			showOn: "button",
+			buttonImage: "{% static 'images/iconic/png/calendar-3x-w.png' %}",
+			buttonImageOnly: true
+		}).on('changeDate', function(ev) {
+        	var selected = $( "#datepicker" ).datepicker('getDate');
+        	var day = pad2(selected.getDate());
+        	var month = pad2(selected.getMonth());
+        	var year = selected.getFullYear();
+        	var current_date = $('div#datestr').text();
+        	var new_date = year.toString() + month.toString() + day.toString();
+        	var full_current_location = location.href;
+        	var full_target_location = full_current_location.replace(current_date, new_date)
+        	location.href = full_target_location;
+    	});
+	});
 });

@@ -37,10 +37,16 @@
 
 
 {% endblock %}
+{% block extra_head %}
+
+  <link href="{% static 'rolllist/vendor/bootstrap-datepicker-1.9.0-dist/css/bootstrap-datepicker.css' %}" rel="stylesheet">
+{% endblock %}
 
 {% block extra_js %}
+  	<script src="{% static 'rolllist/vendor/bootstrap-datepicker-1.9.0-dist/js/bootstrap-datepicker.min.js' %}"></script>
   	<script src="{% static 'rolllist/js/modal-handler.js' %}"></script>
   	<script src="{% static 'rolllist/js/dashboard.js' %}"></script>
+
 {% endblock %}
 
 {% block footer %}
@@ -51,6 +57,7 @@
 					<span class="bottomnav">
 						<div class="col">
 					        <a class="navbar-brand daytoggle daytoggle_prev js-nav-control" href="{% url 'day_view' datestr=target_previous_date %}#js-schedule-collapse">< Prev</a>
+							<img src="{% static 'images/iconic/png/calendar-3x-w.png' %}" id="datepicker" />
 					        <a class="navbar-brand daytoggle daytoggle_next js-nav-control" href="{% url 'day_view' datestr=target_next_day %}#js-schedule-collapse">Next ></a>
 						</div>
 					</span>
