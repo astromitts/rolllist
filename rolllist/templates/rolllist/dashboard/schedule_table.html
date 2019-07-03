@@ -8,7 +8,7 @@
 				<table width="100%"class="js-scheduletable-open">
 					<tr class="scheduleblock-{{ schedule_block.start_time_display|set_row_class}} ">
 						<td class="scheduleblock-timecell">{{ schedule_block.start_time_display }}</td>
-						<td><a href="{% url 'add_item' start_time_int=schedule_block.interval datestr=datestr %}" class="openmodalschedule" id="{{interval_id}}">add item</a></td>
+						<td><a href="{% url 'add_item' start_time_int=schedule_block.interval datestr=datestr %}" class="openmodalschedule float--right" id="{{interval_id}}">add item</a></td>
 					</tr>
 				</table>
 			{% else %}

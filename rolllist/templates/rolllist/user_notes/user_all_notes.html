@@ -18,7 +18,7 @@
 								<div class="note">
 									<div class="note--top">
 										updated at: {{note.updated_at|format_timestamp }}
-										<a href="{% url 'edit_note_src' note_id=note.id src='viewnotes' %}"><button>edit</button></a>
+										<a href="{% url 'edit_note_src' note_id=note.id src='viewnotes' %}">edit</a>
 									</div>
 									<div class="note--bottom">
 										{{note.content|safe}}

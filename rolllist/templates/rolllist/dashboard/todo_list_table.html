@@ -21,7 +21,7 @@
 								{% if item.days_incomplete > 1 %}
 								( {{item.days_incomplete}} days)
 								{% endif %}
-								<a href="{% url 'delete_todo_item' item_id=item.id %}" class="js-todo-generic float--right"><button>delete</button></a></td>
+								<a href="{% url 'delete_todo_item' item_id=item.id %}" class="js-todo-generic float--right">delete</a></td>
 						</tr>
 					{% endif %}
 				{% endfor %}
