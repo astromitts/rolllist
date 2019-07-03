@@ -38,7 +38,7 @@ def day_view(request, datestr=None):
         Schedule table is rendered via ajax call to schedule_view
         To do list tables are rendered via ajax call to todo_list_view
     """
-    template = loader.get_template('rolllist/dashboard.html')
+    template = loader.get_template('rolllist/dashboard/dashboard.html')
 
     if not datestr:
         target_day, created = Day.get_or_create(date=datetime.today())
@@ -57,7 +57,7 @@ def day_view(request, datestr=None):
 def schedule_view(request, datestr):
     """ View providing the time interval schedule for a given day
     """
-    template = loader.get_template('rolllist/schedule_table.html')
+    template = loader.get_template('rolllist/dashboard/schedule_table.html')
     target_date = datetime.strptime(datestr, "%Y%m%d").date()
     target_day, target_day_created = Day.get_or_create(date=target_date)
 
@@ -76,7 +76,7 @@ def schedule_view(request, datestr):
 def note_view(request, datestr):
     """ View providing notes for a given day
     """
-    template = loader.get_template('rolllist/notes_table.html')
+    template = loader.get_template('rolllist/dashboard/notes_table.html')
     target_date = datetime.strptime(datestr, "%Y%m%d").date()
     target_day, target_day_created = Day.get_or_create(date=target_date)
     notes = Note.objects.filter(day=target_day, user=get_user(request)).all()
@@ -94,7 +94,7 @@ def note_view(request, datestr):
 def todo_list_view(request, datestr):
     """ View providing the to do lists for a given day
     """
-    template = loader.get_template('rolllist/todo_list_table.html')
+    template = loader.get_template('rolllist/dashboard/todo_list_table.html')
     target_date = datetime.strptime(datestr, "%Y%m%d").date()
     target_day, target_day_created = Day.get_or_create(date=target_date)
 
@@ -117,7 +117,7 @@ def todo_list_view(request, datestr):
 def add_schedule_item_form(request, start_time_int=None, datestr=None):
     """ Handler for add schedule item form
     """
-    template = loader.get_template('rolllist/generic_form.html')
+    template = loader.get_template('rolllist/forms_generic/generic_form.html')
 
     if request.POST:
         data = request.POST.copy()
@@ -164,7 +164,7 @@ def add_schedule_item_form(request, start_time_int=None, datestr=None):
 def edit_schedule_item_form(request, item_id, recurring):
     """ Handler for edit schedule item form
     """
-    template = loader.get_template('rolllist/generic_form.html')
+    template = loader.get_template('rolllist/forms_generic/generic_form.html')
     existing_item = get_item(item_id, recurring)
 
     if request.POST:
@@ -204,7 +204,7 @@ def delete_schedule_item_handler(request, item_id, recurring):
             item.delete()
         return HttpResponse()
 
-    template = loader.get_template('rolllist/generic_delete_form.html')
+    template = loader.get_template('rolllist/forms_generic/generic_delete_form.html')
     context = {
         'item': item,
         'message': 'Delete %s?' % item.title,
@@ -216,7 +216,7 @@ def delete_schedule_item_handler(request, item_id, recurring):
 def manage_recurring_items(request):
     user = get_user(request)
     recurring_items = RecurringScheduleItem.objects.filter(user=user)
-    template = loader.get_template('rolllist/user_manage_recurring_items.html')
+    template = loader.get_template('rolllist/user_schedule/user_manage_recurring_items.html')
     context = {
         'recurring_items': recurring_items
     }
@@ -240,7 +240,7 @@ def delete_recurring_item_handler(request, item_id):
 def add_to_do_item_form(request, list_id=None):
     """ Handler for add to do item form
     """
-    template = loader.get_template('rolllist/generic_form.html')
+    template = loader.get_template('rolllist/forms_generic/generic_form.html')
     if request.POST:
         form = ToDoItemForm(request.POST)
         to_do_list = ToDoList.objects.get(pk=list_id)
@@ -312,7 +312,7 @@ def delete_note_form(request, note_id=None):
         note.delete()
         return HttpResponse()
 
-    template = loader.get_template('rolllist/generic_delete_form.html')
+    template = loader.get_template('rolllist/user_notes/generic_delete_form.html')
     context = {
         'item': note,
         'message': 'Delete %s?' % note.content,
@@ -324,7 +324,7 @@ def delete_note_form(request, note_id=None):
 def edit_note_form(request, note_id=None, src=None):
     """ Handler for edit note form
     """
-    template = loader.get_template('rolllist/note_form.html')
+    template = loader.get_template('rolllist/user_notes/note_form.html')
     note = Note.objects.get(pk=note_id)
     if request.POST:
         form = NoteForm(request.POST)
@@ -351,7 +351,7 @@ def edit_note_form(request, note_id=None, src=None):
 def add_note_form(request, datestr=None, src=None):
     """ Handler for add note form
     """
-    template = loader.get_template('rolllist/note_form.html')
+    template = loader.get_template('rolllist/user_notes/note_form.html')
     if request.POST:
         form = NoteForm(request.POST)
         if form.is_valid:
@@ -374,7 +374,7 @@ def add_note_form(request, datestr=None, src=None):
 @login_required(login_url='login/')
 def view_all_notes(request):
     user = get_user(request)
-    template = loader.get_template('rolllist/user_all_notes.html')
+    template = loader.get_template('rolllist/user_notes/user_all_notes.html')
     notes = Note.get_all_for_user_by_day(user=user)
     today_day, created = Day.get_or_create(date=datetime.today())
     context = {

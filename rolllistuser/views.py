@@ -9,13 +9,13 @@ from rolllistuser.forms import CreateUserForm, LoginUserForm
 
 
 def create_init_view(request):
-    template = loader.get_template('rolllist/user_init.html')
+    template = loader.get_template('rolllist/session/user_init.html')
     context = {'create_form': CreateUserForm, 'login_form': LoginUserForm}
     return HttpResponse(template.render(context, request))
 
 
 def login_handler(request):
-    template = loader.get_template('rolllist/login.html')
+    template = loader.get_template('rolllist/session/login.html')
     if request.user.is_authenticated:
         return redirect(reverse('dashboard'))
     if request.POST:
