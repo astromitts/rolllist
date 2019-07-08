@@ -100,6 +100,8 @@ class ScheduleItemMixin(object):
 class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
     user = models.ForeignKey(RollListUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=150)
+    # todo: lock down created date so going backwards on the scroll doesn't create
+    # new instances for past days
     start_time = models.IntegerField(
         choices=[
             (i, time_options_strings[i]) for i in range(0, len(time_options_strings))
