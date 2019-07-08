@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from operator import attrgetter
 
 from rolllistuser.models import RollListUser
-from rolllist.utils import time_options_strings
+from rolllist.utils import time_options_strings, weekday_strings_abbr
 
 
 class BaseModel(object):
@@ -24,6 +24,11 @@ class BaseModel(object):
 class Day(models.Model, BaseModel):
     """ Model to link items to a specific day """
     date = models.DateField(default=datetime.today, unique=True)
+    _day_of_week = models.IntegerField()
+
+    def save(self, *args, **kwargs):
+        self._day_of_week = self.date.weekday()
+        super(Day, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ['date']
@@ -111,20 +116,40 @@ class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
     )
     location = models.CharField(max_length=150, null=True)
 
+    recurrance_0 = models.BooleanField(default=False, help_text="Monday")
+    recurrance_1 = models.BooleanField(default=False, help_text="Tuesday")
+    recurrance_2 = models.BooleanField(default=False, help_text="Wednesday")
+    recurrance_3 = models.BooleanField(default=False, help_text="Thursday")
+    recurrance_4 = models.BooleanField(default=False, help_text="Friday")
+    recurrance_5 = models.BooleanField(default=False, help_text="Saturday")
+    recurrance_6 = models.BooleanField(default=False, help_text="Sunday")
+
     def __str__(self):
         return '%s // %s (@%s-%s)' % (self.title, self.location, self.start, self.end)
 
+    @property
+    def day_of_week_display(self):
+        displays = []
+        for idx, display in enumerate(weekday_strings_abbr):
+            day_recurrance_flag = 'recurrance_%s' % idx
+            has_day = getattr(self, day_recurrance_flag)
+            if has_day:
+                displays.append(display)
+        return ", ".join(displays)
+
     def set_for_day(self, day):
-        schedule_item = ScheduleItem(
-            user=self.user,
-            day=day,
-            title=self.title,
-            start_time=self.start_time,
-            end_time=self.end_time,
-            location=self.location,
-            recurrance=self
-        )
-        schedule_item.save()
+        day_recurrance_flag = 'recurrance_%s' % day.date.weekday()
+        if getattr(self, day_recurrance_flag):
+            schedule_item = ScheduleItem(
+                user=self.user,
+                day=day,
+                title=self.title,
+                start_time=self.start_time,
+                end_time=self.end_time,
+                location=self.location,
+                recurrance=self
+            )
+            schedule_item.save()
 
     def delete_for_day(self, day):
         item = ScheduleItem.objects.get(
@@ -195,13 +220,20 @@ class ScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
     def get_delete_url(self):
         return '/deletescheduleitemform/%d/0/' % self.id
 
-    def make_recurring(self):
+    def make_recurring(self, requested_recurrances):
         new_recurrance = RecurringScheduleItem(
             title=self.title,
             location=self.location,
             start_time=self.start_time,
             end_time=self.end_time,
-            user=self.user
+            user=self.user,
+            recurrance_0=0 in requested_recurrances,
+            recurrance_1=1 in requested_recurrances,
+            recurrance_2=2 in requested_recurrances,
+            recurrance_3=3 in requested_recurrances,
+            recurrance_4=4 in requested_recurrances,
+            recurrance_5=5 in requested_recurrances,
+            recurrance_6=6 in requested_recurrances,
         )
         new_recurrance.save()
         self.recurrance = new_recurrance

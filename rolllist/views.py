@@ -23,7 +23,7 @@ from .models.appmodels import (
     ToDoItem
 )
 from rolllistuser.models import RollListUser
-from .utils import DayScheduleDeux
+from .utils import DayScheduleDeux, _requested_recurrances
 
 
 def get_user(request):
@@ -146,8 +146,9 @@ def add_schedule_item_form(request, start_time_int=None, datestr=None):
             new_item = ScheduleItem(**save_data)
 
             # if they requested recurring, set it as recurring
-            if data.get('make_recurring', 'off') == 'on':
-                new_item.make_recurring()
+            requested_recurrances = _requested_recurrances(data)
+            if requested_recurrances:
+                new_item.make_recurring(requested_recurrances)
 
             new_item.save()
             return HttpResponse()

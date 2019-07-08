@@ -24,6 +24,25 @@ relevant_time_dict = {
 }
 relevant_keys = [i for i in relevant_time_dict.keys()]
 
+weekday_strings = [
+    "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+]
+
+weekday_strings_abbr = [
+    "M", "T", "W", "Th", "F", "Sa", "Su"
+]
+
+weekday_display_order = [0, 1, 2, 3, 4, 5, 6]
+
+
+def _requested_recurrances(data):
+    recurrances = []
+    for i in range(0, 7):
+        field_name = 'make_recurring_%s' % i
+        if data.get(field_name, 'off') == 'on':
+            recurrances.append(i)
+    return recurrances
+
 
 def get_relevant_time_id(search_time):
     for _id, _val in relevant_time_dict.items():
