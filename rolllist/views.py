@@ -212,9 +212,13 @@ def delete_schedule_item_handler(request, item_id, recurring):
         return HttpResponse()
 
     template = loader.get_template('rolllist/forms_generic/generic_delete_form.html')
+    if recurring:
+        msg = "'%s' is a recurring event - Delete it for today only?" % item.title
+    else:
+        msg = 'Delete %s?' % item.title
     context = {
         'item': item,
-        'message': 'Delete %s?' % item.title,
+        'message': msg,
     }
     return HttpResponse(template.render(context, request))
 
@@ -262,8 +266,16 @@ def edit_recurring_item_handler(request, item_id):
                 'start_time': data['start_time'],
                 'end_time': data['end_time'],
                 'title': data['title'],
-                'location': data['location'],
+                'location': data['location']
             }
+            for i in range(0, 7):
+                flag_name = 'recurrance_%s' % i
+                set_value = data.get(flag_name, 'off') == 'on'
+                if set_value:
+                    update_vars[flag_name] = True
+                else:
+                    update_vars[flag_name] = False
+
             target_item.update_current_and_future(target_day, update_vars)
 
             return HttpResponse()

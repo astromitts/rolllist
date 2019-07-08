@@ -44,11 +44,7 @@ class Day(models.Model, BaseModel):
         # if not, create them
         recurring_item_set = user.recurringscheduleitem_set.all()
         for item in recurring_item_set:
-            schedule_item_exists = ScheduleItem.objects.filter(
-                day=self, recurrance=item
-            ).exists()
-            if not schedule_item_exists:
-                item.set_for_day(day=self)
+            item.set_for_day(day=self)
 
         # once recurrances are created, select all active items for the day
         item_set = self.scheduleitem_set.filter(is_active=True).all()
@@ -116,13 +112,13 @@ class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
     )
     location = models.CharField(max_length=150, null=True)
 
-    recurrance_0 = models.BooleanField(default=False, help_text="Monday")
-    recurrance_1 = models.BooleanField(default=False, help_text="Tuesday")
-    recurrance_2 = models.BooleanField(default=False, help_text="Wednesday")
-    recurrance_3 = models.BooleanField(default=False, help_text="Thursday")
-    recurrance_4 = models.BooleanField(default=False, help_text="Friday")
-    recurrance_5 = models.BooleanField(default=False, help_text="Saturday")
-    recurrance_6 = models.BooleanField(default=False, help_text="Sunday")
+    recurrance_0 = models.BooleanField("Monday", default=False)
+    recurrance_1 = models.BooleanField("Tuesday", default=False)
+    recurrance_2 = models.BooleanField("Wednesday", default=False)
+    recurrance_3 = models.BooleanField("Thursday", default=False)
+    recurrance_4 = models.BooleanField("Friday", default=False)
+    recurrance_5 = models.BooleanField("Saturday", default=False)
+    recurrance_6 = models.BooleanField("Sunday", default=False)
 
     def __str__(self):
         return '%s // %s (@%s-%s)' % (self.title, self.location, self.start, self.end)
@@ -138,20 +134,30 @@ class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
         return ", ".join(displays)
 
     def set_for_day(self, day):
+        # check if there should be a schedule item generated for today
         day_recurrance_flag = 'recurrance_%s' % day.date.weekday()
+        item_qs = ScheduleItem.objects.filter(day=day, recurrance=self)
+        item_exists = item_qs.exists()
         if getattr(self, day_recurrance_flag):
-            schedule_item = ScheduleItem(
-                user=self.user,
-                day=day,
-                title=self.title,
-                start_time=self.start_time,
-                end_time=self.end_time,
-                location=self.location,
-                recurrance=self
-            )
-            schedule_item.save()
+            if not item_exists:
+                schedule_item = ScheduleItem(
+                    user=self.user,
+                    day=day,
+                    title=self.title,
+                    start_time=self.start_time,
+                    end_time=self.end_time,
+                    location=self.location,
+                    recurrance=self
+                )
+                schedule_item.save()
+        else:
+            # if the item was created by scrolling on the dashboard but the recurrance
+            # for this week day is no longer true, delete the item
+            if item_exists:
+                item_qs.delete()
 
     def delete_for_day(self, day):
+        # delete an instance of a recurring item's child item for a specific day
         item = ScheduleItem.objects.get(
             day=day,
             recurrance=self
