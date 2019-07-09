@@ -55,13 +55,6 @@ class Day(models.Model, BaseModel):
         )
         return full_list
 
-    def set_recurring_items(self, user):
-        """ TODO: Is this in use?
-        """
-        recurring_item_set = user.recurringscheduleitem_set.all()
-        for item in recurring_item_set:
-            item.set_for_day(day=self)
-
     @property
     def to_url_str(self):
         """ Return the Day's date in the format needed for URLs
@@ -172,7 +165,7 @@ class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
         else:
             # if the item was created by scrolling on the dashboard but the recurrance
             # for this week day is no longer true, delete the item
-            if item_exists:
+            if item_exists and not getattr(self, day_recurrance_flag):
                 item_qs.delete()
 
     def delete_for_day(self, day):
@@ -287,7 +280,7 @@ class ScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
         )
         new_recurrance.save()
         self.recurrance = new_recurrance
-        self.save()
+        return self, new_recurrance
 
 
 class ToDoList(models.Model, BaseModel):

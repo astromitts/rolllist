@@ -65,7 +65,7 @@ def create_handler(request):
             context = {'create_form': form, 'errors': errors}
             return HttpResponse(template.render(context, request))
 
-    template = loader.get_template('rolllist/create.html')
+    template = loader.get_template('rolllist/session/create.html')
     form = CreateUserForm()
     context = {'create_form': form}
     return HttpResponse(template.render(context, request))

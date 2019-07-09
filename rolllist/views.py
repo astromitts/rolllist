@@ -123,7 +123,7 @@ def todo_list_view(request, datestr):
 def add_schedule_item_form(request, start_time_int=None, datestr=None):
     """ Handler for add schedule item form
     """
-    template = loader.get_template('rolllist/forms/generic_form.html')
+    template = loader.get_template('rolllist/forms/schedule_item_form.html')
 
     if request.POST:
         data = request.POST.copy()
@@ -148,7 +148,7 @@ def add_schedule_item_form(request, start_time_int=None, datestr=None):
             # if they requested recurring, set it as recurring
             requested_recurrances = _requested_recurrances(data)
             if requested_recurrances:
-                new_item.make_recurring(requested_recurrances)
+                new_item, recurring_item = new_item.make_recurring(requested_recurrances)
 
             new_item.save()
             return HttpResponse()
@@ -171,7 +171,7 @@ def add_schedule_item_form(request, start_time_int=None, datestr=None):
 def edit_schedule_item_form(request, item_id, recurring):
     """ Handler for edit schedule item form
     """
-    template = loader.get_template('rolllist/forms/generic_form.html')
+    template = loader.get_template('rolllist/forms/schedule_item_form.html')
     existing_item = get_item(item_id, recurring)
 
     if request.POST:
@@ -182,6 +182,12 @@ def edit_schedule_item_form(request, item_id, recurring):
             existing_item.end_time = data['end_time']
             existing_item.title = data['title']
             existing_item.location = data['location']
+
+            # if they requested recurring, set it as recurring
+            requested_recurrances = _requested_recurrances(data)
+            if requested_recurrances:
+                existing_item, recurring_item = existing_item.make_recurring(requested_recurrances)
+
             existing_item.save()
 
             return HttpResponse()
@@ -259,7 +265,7 @@ def delete_recurring_item_handler(request, item_id):
 @login_required(login_url='login/')
 def edit_recurring_item_handler(request, item_id):
     """ Handler for editing a RecurringScheduleItem """
-    template = loader.get_template('rolllist/forms/generic_form.html')
+    template = loader.get_template('rolllist/forms/schedule_item_form.html')
     target_item = RecurringScheduleItem.objects.get(pk=item_id)
     if request.POST:
         data = request.POST.copy()
