@@ -225,6 +225,8 @@ def delete_schedule_item_handler(request, item_id, recurring):
 
 @login_required(login_url='login/')
 def manage_recurring_items(request):
+    """ Main dashboard-like view for managing all recurring item instances
+    """
     user = get_user(request)
     recurring_items = RecurringScheduleItem.objects.filter(user=user)
     template = loader.get_template('rolllist/user_schedule/user_manage_recurring_items.html')
@@ -236,6 +238,7 @@ def manage_recurring_items(request):
 
 @login_required(login_url='login/')
 def delete_recurring_item_handler(request, item_id):
+    """ Handler for deleting a RecurringScheduleItem """
     target_item = RecurringScheduleItem.objects.get(pk=item_id)
     if request.POST:
         target_day, created = Day.get_or_create(date=datetime.today())
@@ -255,6 +258,7 @@ def delete_recurring_item_handler(request, item_id):
 
 @login_required(login_url='login/')
 def edit_recurring_item_handler(request, item_id):
+    """ Handler for editing a RecurringScheduleItem """
     template = loader.get_template('rolllist/forms_generic/generic_form.html')
     target_item = RecurringScheduleItem.objects.get(pk=item_id)
     if request.POST:
@@ -429,6 +433,7 @@ def add_note_form(request, datestr=None, src=None):
 
 @login_required(login_url='login/')
 def view_all_notes(request):
+    """ View for listing all of a User's notes """
     user = get_user(request)
     template = loader.get_template('rolllist/user_notes/user_all_notes.html')
     notes = Note.get_all_for_user_by_day(user=user)
