@@ -229,7 +229,7 @@ def manage_recurring_items(request):
     recurring_items = RecurringScheduleItem.objects.filter(user=user)
     template = loader.get_template('rolllist/user_schedule/user_manage_recurring_items.html')
     context = {
-        'recurring_items': recurring_items
+        'recurring_items': recurring_items.all()
     }
     return HttpResponse(template.render(context, request))
 
