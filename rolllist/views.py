@@ -123,7 +123,7 @@ def todo_list_view(request, datestr):
 def add_schedule_item_form(request, start_time_int=None, datestr=None):
     """ Handler for add schedule item form
     """
-    template = loader.get_template('rolllist/forms_generic/generic_form.html')
+    template = loader.get_template('rolllist/forms/generic_form.html')
 
     if request.POST:
         data = request.POST.copy()
@@ -171,7 +171,7 @@ def add_schedule_item_form(request, start_time_int=None, datestr=None):
 def edit_schedule_item_form(request, item_id, recurring):
     """ Handler for edit schedule item form
     """
-    template = loader.get_template('rolllist/forms_generic/generic_form.html')
+    template = loader.get_template('rolllist/forms/generic_form.html')
     existing_item = get_item(item_id, recurring)
 
     if request.POST:
@@ -211,7 +211,7 @@ def delete_schedule_item_handler(request, item_id, recurring):
             item.delete()
         return HttpResponse()
 
-    template = loader.get_template('rolllist/forms_generic/generic_delete_form.html')
+    template = loader.get_template('rolllist/forms/generic_delete_form.html')
     if recurring:
         msg = "'%s' is a recurring event - Delete it for today only?" % item.title
     else:
@@ -244,7 +244,7 @@ def delete_recurring_item_handler(request, item_id):
         target_day, created = Day.get_or_create(date=datetime.today())
         target_item.delete_current_and_future(target_day)
         return HttpResponse()
-    template = loader.get_template('rolllist/forms_generic/generic_delete_form.html')
+    template = loader.get_template('rolllist/forms/generic_delete_form.html')
     context = {
         'item': target_item,
         'message': (
@@ -259,7 +259,7 @@ def delete_recurring_item_handler(request, item_id):
 @login_required(login_url='login/')
 def edit_recurring_item_handler(request, item_id):
     """ Handler for editing a RecurringScheduleItem """
-    template = loader.get_template('rolllist/forms_generic/generic_form.html')
+    template = loader.get_template('rolllist/forms/generic_form.html')
     target_item = RecurringScheduleItem.objects.get(pk=item_id)
     if request.POST:
         data = request.POST.copy()
@@ -300,7 +300,7 @@ def edit_recurring_item_handler(request, item_id):
 def add_to_do_item_form(request, list_id=None):
     """ Handler for add to do item form
     """
-    template = loader.get_template('rolllist/forms_generic/generic_form.html')
+    template = loader.get_template('rolllist/forms/generic_form.html')
     if request.POST:
         form = ToDoItemForm(request.POST)
         to_do_list = ToDoList.objects.get(pk=list_id)
