@@ -5,7 +5,10 @@ from project.helpers import TestBaseWithScheduleData
 from rolllist.utils import get_relevant_time_id
 
 from rolllist.models.appmodels import (
-    ToDoList, Note, ScheduleItem, RecurringScheduleItem
+    ToDoList,
+    Note,
+    ScheduleItem,
+    RecurringScheduleItem
 )
 
 
@@ -52,21 +55,21 @@ class TestScheduleItemForms(TestBaseWithScheduleData):
         """ Verify the edit schedule item workflow
         """
         schedule_items, schedule_dict = self._add_schedule_items()
-        item_to_change = schedule_items.pop()
+        source_item_to_change = schedule_items.pop()
+        item_to_change = source_item_to_change.recurrance
         change_data = {
-            'title': 'recurring escape',
+            'title': 'Change Me',
             'start_time': item_to_change.start_time,
             'end_time': item_to_change.end_time,
-            'location': 'NY'
+            'location': 'NY',
+            'recurrance_0': True,
         }
         self.client.post(
-            reverse('edit_item', kwargs={'item_id': item_to_change.id, 'recurring': '1'}),
+            reverse('edit_recurring_item', kwargs={'item_id': item_to_change.id}),
             change_data
         )
-        schedule_table = self.client.get(reverse('get_schedule', kwargs={'datestr': self.day_url_str}))
-        schedule_contents = BeautifulSoup(schedule_table.content, features='html.parser')
-        for item in schedule_items:
-            self.assertTrue(change_data['title'] in schedule_contents.text)
+        recurring_item = RecurringScheduleItem.objects.get(pk=item_to_change.id)
+        self.assertEqual(recurring_item.title, change_data['title'])
 
     def test_delete_schedule_item(self):
         """ Verify the delete schedule item workflow
@@ -94,8 +97,8 @@ class TestScheduleItemForms(TestBaseWithScheduleData):
                 'item_id': item_to_delete.id
             }
         )
-        item = ScheduleItem.objects.get(recurrance=item_to_delete.recurrance)
-        self.assertFalse(item.is_active)
+        item = ScheduleItem.objects.filter(recurrance=item_to_delete.recurrance)
+        self.assertFalse(item.exists())
 
 
 class TestToDoForms(TestBaseWithScheduleData):

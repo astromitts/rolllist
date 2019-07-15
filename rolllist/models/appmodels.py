@@ -213,7 +213,8 @@ class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
         if not update_vars:
             update_vars = {}
 
-        scheduled_events = ScheduleItem.objects.filter(recurrance=self).all()
+        scheduled_events = self.scheduleitem_set.all()
+
         for event in scheduled_events:
             if event.day.date >= day.date:
                 for key, val in update_vars.items():
