@@ -16,7 +16,7 @@ class TestDashboardViews(TestBaseWithScheduleData):
 
     def test_dashboard_loads(self):
         response = self.client.get(reverse('dashboard'))
-        self.assertTrue('your schedule for' in str(response.content))
+        self.assertEqual(response.status_code, 200)
 
     def test_schedule_table(self):
         """ Verify the appearance of scheduled items in the schedule table view
@@ -59,12 +59,13 @@ class TestDashboardViews(TestBaseWithScheduleData):
         todo_titles = [item.title for item in todo_items]
         todo_response = self.client.get(reverse('get_todo', kwargs={'datestr': self.day_url_str}))
         todo_content = BeautifulSoup(todo_response.content, features='html.parser')
-        rows = todo_content.find_all('td', {'class': 'todotitle'})
+        rows = todo_content.find_all('div', {'class': 'helper_todoitem'})
         # there should be exactly one row per item
         # the contents of the rows should contain the item titles
         self.assertEqual(len(rows), len(todo_items))
         for row in rows:
-            self.assertTrue(row.text in todo_titles)
+            title = row.find('span', {'class': 'helper_todoitem--title'})
+            self.assertTrue(title.text.strip() in todo_titles)
 
     def test_todo_table_rollover(self):
         """ Verify the appearance of the to do list table
@@ -78,7 +79,7 @@ class TestDashboardViews(TestBaseWithScheduleData):
 
         todo_response = self.client.get(reverse('get_todo', kwargs={'datestr': self.day_url_str}))
         todo_content = BeautifulSoup(todo_response.content, features='html.parser')
-        todo_titles = [node.text for node in todo_content.find_all('td', {'class': 'todotitle'})]
+        todo_titles = [node.text for node in todo_content.find_all('span', {'class': 'helper_todoitem--title'})]
 
         # there should be exactly one row per item
         # the contents of the rows should contain the item titles
@@ -93,6 +94,6 @@ class TestDashboardViews(TestBaseWithScheduleData):
         test_notes = self._add_notes()
         note_view = self.client.get(reverse('get_notes', kwargs={'datestr': self.day_url_str}))
         notes_content = BeautifulSoup(note_view.content, features='html.parser')
-        rendered_notes = [node.text for node in notes_content.find_all('div', {'class': 'notecontent'})]
+        rendered_notes = [node.text for node in notes_content.find_all('div', {'class': 'helper_notescontent'})]
         for note in test_notes:
             self.assertTrue(note.content in rendered_notes)

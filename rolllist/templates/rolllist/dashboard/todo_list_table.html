@@ -6,7 +6,7 @@
 					<div class="content--astable">
 				{% for item in todo_list.get_items %}
 					{% if item.completed %}
-						<div class="row">
+						<div class="row helper_todoitem">
 							<div class="cell cell--xsm">
 								<input type="checkbox" id="{% url 'revert_todo_item' item_id=item.id %}" class="js-todo-generic" checked="checked">
 							</div>
@@ -17,7 +17,7 @@
 								{% endif %}
 							</div>
 							<div class="cell"><span class="text--mild">
-								{{item.title}}
+								<span class="helper_todoitem--title">{{item.title}}</span>
 								{% if item.days_incomplete > 1 %}
 									( {{item.days_incomplete}} days)
 								{% endif %}</span>
@@ -25,7 +25,7 @@
 							<div class="cell cell--md">&nbsp;</div>
 						</div>
 					{% else %}
-						<div class="row">
+						<div class="row helper_todoitem">
 							<div class="cell cell--xsm">
 
 								<input type="checkbox" id="{% url 'complete_todo_item' item_id=item.id %}" class="js-todo-generic">
@@ -38,7 +38,7 @@
 							</div>
 							<div class="cell" id="todotitle-{{item.id}}">
 								<span class="text--bold">
-								{{item.title}}
+								<span class="helper_todoitem--title">{{item.title}}</span>
 								{% if item.days_incomplete > 1 %}
 								( {{item.days_incomplete}} days)
 								{% endif %}

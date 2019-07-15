@@ -12,13 +12,15 @@ class ScheduleItemTestBase(TestBase):
 
     def setUp(self):
         super(ScheduleItemTestBase, self).setUp()
+        self._get_next_monday()
         self.expected_intervals = {}
         self.item_to_recur = RecurringScheduleItem(
             user=self.user.user.rolllistuser,
             title='Recurring item',
             start_time=get_relevant_time_id('9:00 AM'),
             end_time=get_relevant_time_id('10:30 AM'),
-            location='The Internet'
+            location='The Internet',
+            recurrance_0=True,
         )
         self.item_to_recur.save()
         self.expected_intervals[self.item_to_recur] = [
@@ -64,8 +66,17 @@ class ScheduleItemTestBase(TestBase):
 class TestDayModel(ScheduleItemTestBase):
 
     def test_get_schedule_items(self):
+        """ Verify that scheduled items for a day are returned in recurrance_instances
+            This includes recurring and non-recurring items
+        """
         schedule_items = self.day.get_schedule_items(self.user.user.rolllistuser)
-        self.assertTrue(self.item_to_recur in schedule_items)
+        recurrance_instances = []
+        for item in schedule_items:
+            recurrance_instances.append(item.recurrance)
+
+        self.assertTrue(self.item_to_recur in recurrance_instances)
+        self.assertFalse(self.item_once in recurrance_instances)
+        self.assertFalse(self.item_once_2 in recurrance_instances)
         self.assertTrue(self.item_once in schedule_items)
         self.assertTrue(self.item_once_2 in schedule_items)
 
@@ -80,7 +91,6 @@ class TestDayScheduleDeux(ScheduleItemTestBase):
         used_intervals = []
         for model_object, intervals in self.expected_intervals.items():
             used_intervals += intervals
-
         for schedule_block in day_schedule.schedule:
             if schedule_block.get('interval'):
                 interval_id = schedule_block['interval']
@@ -89,6 +99,8 @@ class TestDayScheduleDeux(ScheduleItemTestBase):
 
             if interval_id in used_intervals:
                 item = schedule_block['item']
+                if item.recurrance:
+                    item = item.recurrance
                 expected_data = {
                     'intervals': self.expected_intervals[item],
                 }

@@ -5,7 +5,7 @@ from project.helpers import TestBaseWithScheduleData
 from rolllist.utils import get_relevant_time_id
 
 from rolllist.models.appmodels import (
-    ToDoList,
+    ToDoList, Note, ScheduleItem, RecurringScheduleItem
 )
 
 
@@ -79,13 +79,8 @@ class TestScheduleItemForms(TestBaseWithScheduleData):
                 'item_id': item_to_delete.id
             }
         )
-        schedule_table = self.client.get(reverse('get_schedule', kwargs={'datestr': self.day_url_str}))
-        schedule_contents = BeautifulSoup(schedule_table.content, features='html.parser')
-        for item in schedule_items:
-            if item == item_to_delete:
-                self.assertFalse(item.title in schedule_contents.text)
-            else:
-                self.assertTrue(item.title in schedule_contents.text)
+        item_qs = ScheduleItem.objects.filter(id=item_to_delete.id)
+        self.assertFalse(item_qs.exists())
 
     def test_delete_recurring_schedule_item(self):
         """ Verify the delete schedule item workflow
@@ -99,13 +94,8 @@ class TestScheduleItemForms(TestBaseWithScheduleData):
                 'item_id': item_to_delete.id
             }
         )
-        schedule_table = self.client.get(reverse('get_schedule', kwargs={'datestr': self.day_url_str}))
-        schedule_contents = BeautifulSoup(schedule_table.content, features='html.parser')
-        for item in schedule_items:
-            if item == item_to_delete:
-                self.assertFalse(item.title in schedule_contents.text)
-            else:
-                self.assertTrue(item.title in schedule_contents.text)
+        item = ScheduleItem.objects.get(recurrance=item_to_delete.recurrance)
+        self.assertFalse(item.is_active)
 
 
 class TestToDoForms(TestBaseWithScheduleData):
@@ -148,6 +138,7 @@ class TestNoteForms(TestBaseWithScheduleData):
 
     def test_add_note(self):
         self._add_notes()
+        init_note_count = Note.objects.all().count()
         test_content = (
             'Sometimes we lose sight of what really matters in life. '
             'There is something to be said for a gourmet brie and '
@@ -161,27 +152,27 @@ class TestNoteForms(TestBaseWithScheduleData):
                 'content': test_content
             }
         )
-        self.assertEqual(post_view.status_code, 200)
-        note_view = self.client.get(reverse('get_notes', kwargs={'datestr': self.day_url_str}))
-        notes_content = BeautifulSoup(note_view.content, features='html.parser')
-        rendered_notes = [node.text for node in notes_content.find_all('div', {'class': 'notecontent'})]
-        self.assertTrue(test_content in rendered_notes)
+        self.assertEqual(post_view.status_code, 302)
+        result_notes = Note.objects.all()
+        self.assertEqual(result_notes.count(), init_note_count + 1)
+        self.assertTrue(test_content in [n.content for n in result_notes])
 
     def test_delete_note(self):
         test_notes = self._add_notes()
+        init_note_count = Note.objects.all().count()
         note_to_delete = test_notes[0]
         post_view = self.client.post(
             reverse('delete_note', kwargs={'note_id': note_to_delete.id}),
             {'item_id': note_to_delete.id}
         )
         self.assertEqual(post_view.status_code, 200)
-        note_view = self.client.get(reverse('get_notes', kwargs={'datestr': self.day_url_str}))
-        notes_content = BeautifulSoup(note_view.content, features='html.parser')
-        rendered_notes = [node.text for node in notes_content.find_all('div', {'class': 'notecontent'})]
-        self.assertFalse(note_to_delete.content in rendered_notes)
+        result_notes = Note.objects.all()
+        self.assertEqual(result_notes.count(), init_note_count - 1)
+        self.assertFalse(note_to_delete in result_notes)
 
     def test_edit_note(self):
         test_notes = self._add_notes()
+        init_note_count = Note.objects.all().count()
         note_to_edit = test_notes[0]
         test_content = (
             'Sometimes we lose sight of what really matters in life. '
@@ -195,9 +186,7 @@ class TestNoteForms(TestBaseWithScheduleData):
             reverse('edit_note', kwargs={'note_id': note_to_edit.id}),
             {'content': test_content}
         )
-        self.assertEqual(post_view.status_code, 200)
-        note_view = self.client.get(reverse('get_notes', kwargs={'datestr': self.day_url_str}))
-        notes_content = BeautifulSoup(note_view.content, features='html.parser')
-        rendered_notes = [node.text for node in notes_content.find_all('div', {'class': 'notecontent'})]
-        self.assertFalse(note_to_edit.content in rendered_notes)
-        self.assertTrue(test_content in rendered_notes)
+        self.assertEqual(post_view.status_code, 302)
+        result_notes = Note.objects.all()
+        self.assertEqual(result_notes.count(), init_note_count)
+        self.assertTrue(test_content in [n.content for n in result_notes])

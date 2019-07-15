@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import redirect
 # from django.urls import reverse
@@ -414,6 +415,7 @@ def add_note_form(request, datestr=None, src=None):
             day, created = Day.get_from_str(datestr)
             note = Note(content=request.POST['content'], day=day, user=get_user(request))
             note.save()
+            messages.success(request, 'Note added: %d' % note.id)
             if not src:
                 return redirect('/%s/#notescontainer' % note.day.to_url_str)
             else:

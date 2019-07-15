@@ -4,6 +4,7 @@ from django.test import TestCase
 from project.settings import NON_STAFF_PERMS
 
 from rolllist.utils import get_relevant_time_id
+import datetime
 from rolllistuser.helpers import TestGroup, TestUser
 from rolllist.models.appmodels import (
     Day,
@@ -28,9 +29,18 @@ class TestBase(TestCase):
         self.user.set_group(user_group.group)
         self.client.login(username=self.user.username, password=self.user.password)
 
-        day, created = Day.get_or_create()
+        day, created = Day.get_or_create(date=self._get_next_monday())
         self.day = day
         self.day_url_str = '{0:%Y%m%d}'.format(self.day.date)
+
+    def _get_next_monday(self):
+        """ helper function to get the next ocurring monday as a date object """
+        today = datetime.date.today()
+        weekday_int = today.weekday()
+        if weekday_int == 0:
+            return today
+        next_mon = today + timedelta(7 - weekday_int)
+        return next_mon
 
 
 class TestBaseWithScheduleData(TestCase):
@@ -142,11 +152,12 @@ class TestBaseWithScheduleData(TestCase):
         ]
 
         recurring_item_data = {
-                'start_time': get_relevant_time_id('3:00 PM'),
-                'end_time': get_relevant_time_id('3:30 PM'),
-                'title': 'Recurring thing',
-                'location': 'asdf',
-                'user': self.user.user.rolllistuser,
+            'start_time': '3:00 PM',
+            'end_time': '3:30 PM',
+            'title': 'Recurring thing',
+            'location': 'asdf',
+            'day': self.day,
+            'user': self.user.user.rolllistuser,
         }
 
         schedule_items = []
@@ -157,13 +168,17 @@ class TestBaseWithScheduleData(TestCase):
             save_data = schedule
             save_data['start_time'] = get_relevant_time_id(schedule['start_time'])
             save_data['end_time'] = get_relevant_time_id(schedule['end_time'])
-            new_schedule_item = ScheduleItem(**schedule)
+            new_schedule_item = ScheduleItem(**save_data)
             new_schedule_item.save()
             schedule_items.append(new_schedule_item)
 
-        recurring_item = RecurringScheduleItem(**recurring_item_data)
-        recurring_item.save()
-        schedule_items.append(recurring_item)
+        save_data = recurring_item_data
+        save_data['start_time'] = get_relevant_time_id(recurring_item_data['start_time'])
+        save_data['end_time'] = get_relevant_time_id(recurring_item_data['end_time'])
+        new_schedule_item = ScheduleItem(**save_data)
+        new_schedule_item.save()
+        new_schedule_item.make_recurring([0])
+        schedule_items.append(new_schedule_item)
 
         return schedule_items, schedule_dict
 

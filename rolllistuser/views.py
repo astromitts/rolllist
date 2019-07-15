@@ -61,11 +61,11 @@ def create_handler(request):
                 errors = form.errors
             else:
                 errors = ['invalid request, try again']
-            template = loader.get_template('rolllist/create.html')
+            template = loader.get_template('rolllist/session/create.html')
             context = {'create_form': form, 'errors': errors}
             return HttpResponse(template.render(context, request))
 
-    template = loader.get_template('rolllist/create.html')
+    template = loader.get_template('rolllist/session/create.html')
     form = CreateUserForm()
     context = {'create_form': form}
     return HttpResponse(template.render(context, request))

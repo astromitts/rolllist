@@ -4,7 +4,7 @@
 			{% for note in notes %}
 				<div class="notescontainer-table">
 					<div class="notescontainer-row">
-						<div class="content">{{ note.content|safe }}</div>
+						<div class="content helper_notescontent">{{ note.content|safe }}</div>
 						<div class="links">
 							<a href="{% url 'edit_note' note_id=note.id %}">edit</a>&nbsp;|&nbsp;
 							<a href="{% url 'delete_note' note_id=note.id %}" class="js-openmodal-deletenote notes-generic">delete</a>
