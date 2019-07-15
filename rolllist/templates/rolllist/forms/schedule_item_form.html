@@ -1,0 +1,25 @@
+<form method="POST" action="" class="ajaxme">{% csrf_token %}
+{{form.start_time_init}}
+{{form.end_time_init}}
+<table>
+	<tr>
+		<td>Start time: {{form.start_time}}</td>
+		<td>End time: {{form.end_time}}</td>
+	</tr>
+	<tr>
+		<td>Title: {{form.title}}</td>
+		<td>Location: {{ form.location }}</td>
+	</tr>
+	<tr><td colspan='2'>Set as recurring:</td></tr>
+	<tr>
+		<td colspan='2'>{{form.recurrance_0}} Monday {{form.recurrance_1}} Tuesday {{form.recurrance_2}} Wednesday</td>
+	</tr>
+	<tr>
+		<td colspan='2'>{{form.recurrance_3}} Thursday {{form.recurrance_4}} Friday</td>
+	</tr>
+	<tr>
+		<td colspan='2'>{{form.recurrance_5}} Saturday {{form.recurrance_6}} Sunday</td>
+	</tr>
+</table>
+<input type="submit" value="submit"/>
+</form>

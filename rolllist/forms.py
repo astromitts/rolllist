@@ -18,37 +18,37 @@ class ScheduleItemForm(ModelForm):
         choices=[(i, string) for i, string in relevant_time_dict.items()]
     )
 
-    make_recurring_0 = BooleanField(
+    recurrance_0 = BooleanField(
         label='Monday',
         required=False,
     )
 
-    make_recurring_1 = BooleanField(
+    recurrance_1 = BooleanField(
         label='Tuesday',
         required=False,
     )
 
-    make_recurring_2 = BooleanField(
+    recurrance_2 = BooleanField(
         label='Wednesday',
         required=False,
     )
 
-    make_recurring_3 = BooleanField(
+    recurrance_3 = BooleanField(
         label='Thursday',
         required=False,
     )
 
-    make_recurring_4 = BooleanField(
+    recurrance_4 = BooleanField(
         label='Friday',
         required=False,
     )
 
-    make_recurring_5 = BooleanField(
+    recurrance_5 = BooleanField(
         label='Saturday',
         required=False,
     )
 
-    make_recurring_6 = BooleanField(
+    recurrance_6 = BooleanField(
         label='Sunday',
         required=False,
     )
@@ -65,13 +65,13 @@ class ScheduleItemForm(ModelForm):
             'location',
             'start_time_init',
             'end_time_init',
-            'make_recurring_0',
-            'make_recurring_1',
-            'make_recurring_2',
-            'make_recurring_3',
-            'make_recurring_4',
-            'make_recurring_5',
-            'make_recurring_6',
+            'recurrance_0',
+            'recurrance_1',
+            'recurrance_2',
+            'recurrance_3',
+            'recurrance_4',
+            'recurrance_5',
+            'recurrance_6',
         ]
 
 
