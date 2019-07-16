@@ -399,7 +399,7 @@ def edit_note_form(request, note_id=None, src=None):
             note.content = request.POST['content']
             note.save()
             if not src:
-                return redirect('/%s/#notescontainer' % note.day.to_url_str)
+                return redirect('/%s/#js-schedule-collapse' % note.day.to_url_str)
             else:
                 return redirect('/%s/' % src)
         else:
