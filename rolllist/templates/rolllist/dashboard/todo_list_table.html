@@ -13,7 +13,7 @@
 
 							<div class="cell cell--sm">
 								<img src="{% static 'images/iconic/png/loop-circular-2x-g.png' %}" class="icon--recurrance">
-								<span class="text--mild">({{item.days_incomplete}})</span>
+								<span class="text--mild">({{item.rollover_count}})</span>
 							</div>
 							<div class="cell">
 								<span class="text--mild">
@@ -32,7 +32,7 @@
 							<div class="cell cell--sm">
 								{% if item.days_incomplete > 1 %}
 									<img src="{% static 'images/iconic/png/loop-circular-2x.png' %}" class="icon--recurrance">
-									({{item.days_incomplete}})
+									({{item.rollover_count}})
 								{% else %}
 									<img src="{% static 'images/iconic/png/loop-circular-2x-g.png' %}" class="icon--recurrance">
 								{% endif %}

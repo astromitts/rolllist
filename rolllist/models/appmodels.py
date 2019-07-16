@@ -294,7 +294,7 @@ class ToDoList(models.Model, BaseModel):
         unique_together = ('user', 'day',)
 
     def __str__(self):
-        return 'list for day %s' % self.day
+        return '%s, list for day %s' % (self.user, self.day)
 
     def rollover_items(self):
         """ Fetch the to-do list items from yesterday (relative to the to-do list date)
@@ -340,6 +340,10 @@ class ToDoItem(models.Model, BaseModel):
 
     def __str__(self):
         return '%s (%s)' % (self.title, self.to_do_list)
+
+    @property
+    def rollover_count(self):
+        return self.days_incomplete - 1
 
     class Meta:
         ordering = ['-priority', '-days_incomplete', 'id']
