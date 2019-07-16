@@ -11,4 +11,4 @@ DATABASES = {
     }
 }
 
-ALLOWED_HOSTS = ['rolllist.herokuapp.com', ]
+ALLOWED_HOSTS = ['rolllist.herokuapp.com', 'www.rollist.app', 'rollist.app']
