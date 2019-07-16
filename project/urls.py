@@ -40,6 +40,7 @@ urlpatterns = [
     # to do list item handlers
     path('addtodoitem/<int:list_id>/', views.add_to_do_item_form, name='add_todo_item'),
     path('rollovertodo/<str:datestr>/', views.rollover_todo, name='rollover_todo'),
+    path('edittodoitem/<int:item_id>/', views.edit_to_do_item_form, name='edit_todo_item'),
     path('deletetodoitem/<int:item_id>/', views.delete_todo_item, name='delete_todo_item'),
     path('completetodoitem/<int:item_id>/', views.complete_todo_item, name='complete_todo_item'),
     path('reverttodoitem/<int:item_id>/', views.revert_todo_item, name='revert_todo_item'),

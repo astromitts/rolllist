@@ -330,6 +330,28 @@ def add_to_do_item_form(request, list_id=None):
 
 
 @login_required(login_url='login/')
+def edit_to_do_item_form(request, item_id=None):
+    """ Handler for edit to do item form
+    """
+    template = loader.get_template('rolllist/forms/generic_form.html')
+    to_do_item = ToDoItem.objects.get(pk=item_id)
+    if request.POST:
+        form = ToDoItemForm(request.POST)
+        if form.is_valid:
+            to_do_item.title = request.POST['title']
+            to_do_item.priority = request.POST['priority']
+            to_do_item.save()
+            return HttpResponse()
+        else:
+            context = {'form': form}
+            return HttpResponse(template.render(context, request))
+    else:
+        form = ToDoItemForm(instance=to_do_item)
+        context = {'form': form}
+        return HttpResponse(template.render(context, request))
+
+
+@login_required(login_url='login/')
 def rollover_todo(request, datestr):
     """ Handles copying incomplete items from previous day to day of given datestr
     """
@@ -348,8 +370,17 @@ def rollover_todo(request, datestr):
 def delete_todo_item(request, item_id):
     """ Delete to do item of given ID """
     item = ToDoItem.objects.get(pk=item_id)
-    item.delete()
-    return HttpResponse()
+
+    if request.POST:
+        item.delete()
+        return HttpResponse()
+
+    template = loader.get_template('rolllist/forms/generic_delete_form.html')
+    context = {
+        'item': item,
+        'message': "Delete '%s'?" % item.title,
+    }
+    return HttpResponse(template.render(context, request))
 
 
 @login_required(login_url='login/')
@@ -379,7 +410,7 @@ def delete_note_form(request, note_id=None):
         note.delete()
         return HttpResponse()
 
-    template = loader.get_template('rolllist/user_notes/generic_delete_form.html')
+    template = loader.get_template('rolllist/forms/generic_delete_form.html')
     context = {
         'item': note,
         'message': 'Delete %s?' % note.content,

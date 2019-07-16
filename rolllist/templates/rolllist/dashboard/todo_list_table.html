@@ -43,7 +43,10 @@
 								</span>
 							</div>
 							<div class="cell cell--md">
-								<a href="{% url 'delete_todo_item' item_id=item.id %}" class="js-todo-generic float--right">delete</a>
+								<span class=" float--right">
+									<a href="{% url 'edit_todo_item' item_id=item.id %}" class="js-openmodal-todo">edit</a> | 
+									<a href="{% url 'delete_todo_item' item_id=item.id %}" class="js-openmodal-todo">delete</a>
+								</span>
 							</div>
 						</div>
 					{% endif %}
