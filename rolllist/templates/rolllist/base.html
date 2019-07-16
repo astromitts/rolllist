@@ -27,7 +27,11 @@
 	    {% if user_logged_in %}
 		    <ul class="nav navbar-nav navbar-nav--static-left">
 		      <li>
-		        <a class="" href="{% url 'logout_handler' %}">Log out</a>
+		        <a class="" href="{% url 'logout_handler' %}">Log out</a>&nbsp;|
+		      </li>
+		      <li>
+		        &nbsp;<a class="" href="{% url 'about' %}">About</a>
+		      </li>
 		      </li>
 		    </ul>
 		{% else %}

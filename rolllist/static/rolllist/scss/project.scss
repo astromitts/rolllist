@@ -13,6 +13,7 @@ $link-color: #0E6BCE;
 
 $button-gray: #A6A6A6;
 $modal-gray: #F8F9F9;
+$header-gray: #797979;
 
 $medium-border-color: #B2B3B3;
 $dark-border-color: #969898;
@@ -44,12 +45,13 @@ h1 {
 	font-weight: bold;
 	font-size: $large-font-size;
 	vertical-align: middle;
+	color: $black;
 }
 
 h2 {
-	font-weight: bold;
-	font-size: $main-font-size;
+	font-size: $large-font-size;
 	vertical-align: middle;
+	color: $header-gray;
 }
 
 a { 
@@ -135,6 +137,9 @@ a {
 				}
 			}
 		}
+	}
+	&_blurb {
+		padding-bottom: 1.5em;
 	}
 }
 

@@ -17,12 +17,13 @@ body {
 h1 {
   font-weight: bold;
   font-size: 1.3em;
-  vertical-align: middle; }
+  vertical-align: middle;
+  color: #000000; }
 
 h2 {
-  font-weight: bold;
-  font-size: 0.9em;
-  vertical-align: middle; }
+  font-size: 1.3em;
+  vertical-align: middle;
+  color: #797979; }
 
 a {
   color: #0E6BCE;
@@ -86,6 +87,8 @@ a {
       @media screen and (max-width: 420px) {
         .content--astable .cell--md {
           width: 30%; } }
+.content_blurb {
+  padding-bottom: 1.5em; }
 
 .float--left {
   float: left;

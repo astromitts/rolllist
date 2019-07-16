@@ -37,7 +37,6 @@ def get_item(item_id, recurring):
     return item
 
 
-@login_required(login_url='login/')
 def day_view(request, datestr=None):
     """ Dashboard type view
         Provides static elements for presentation and set up for ajax calls
@@ -45,17 +44,21 @@ def day_view(request, datestr=None):
         Schedule table is rendered via ajax call to schedule_view
         To do list tables are rendered via ajax call to todo_list_view
     """
-    template = loader.get_template('rolllist/dashboard/dashboard.html')
+    if request.user.is_authenticated:
+        template = loader.get_template('rolllist/dashboard/dashboard.html')
 
-    if not datestr:
-        target_day, created = Day.get_or_create(date=datetime.today())
+        if not datestr:
+            target_day, created = Day.get_or_create(date=datetime.today())
+        else:
+            target_day, created = Day.get_from_str(datestr)
+
+        context = {
+            'datestr': target_day.display_string,
+            'day': target_day
+        }
     else:
-        target_day, created = Day.get_from_str(datestr)
-
-    context = {
-        'datestr': target_day.display_string,
-        'day': target_day
-    }
+        template = loader.get_template('rolllist/about.html')
+        context = {}
 
     return HttpResponse(template.render(context, request))
 

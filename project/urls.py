@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
+from django.views.generic import TemplateView
 from rolllist import views
 from rolllistuser import views as userviews
 
@@ -12,6 +13,7 @@ urlpatterns = [
 
     # user handlers
     path('user/', userviews.create_init_view, name='user_init'),
+    path('about/', TemplateView.as_view(template_name='rolllist/about.html'), name='about'),
     path('login/', userviews.login_handler, name='login_handler'),
     path('logout/', userviews.logout_handler, name='logout_handler'),
     path('user/create/', userviews.create_handler, name='create_user_handler'),
