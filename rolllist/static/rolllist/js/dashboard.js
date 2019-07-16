@@ -1,5 +1,6 @@
 /* DISPLAY HANDLERS */
 function get_anchor(){
+	// function to get the persisted display setting, otherwise default to collapsed
 	var anchor = Cookies.get('_rollist-anchor');
 	if (anchor == 'undefined' || anchor == undefined) {
 		anchor = 'js-schedule-collapse';
