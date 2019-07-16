@@ -1,62 +1,10 @@
-/* NAVIGATION HANDLERS */
-function get_tab_location(current_href){
-	// figure out the current tab by the URL anchor
-	var current_location = current_href.split('#')[1];
-	if (current_location == 'undefined' || current_location == undefined) {
-		current_location = 'js-schedule-collapse'
-	}
-	return current_location;
-}
-
+/* DISPLAY HANDLERS */
 function get_anchor(){
-	var anchor = this.window.location.href.split('#')[1];
+	var anchor = Cookies.get('_rollist-anchor');
 	if (anchor == 'undefined' || anchor == undefined) {
 		anchor = 'js-schedule-collapse';
 	}
 	return anchor;
-}
-
-function update_href(current_href, new_location){
-	// Figure out what the window URL should be with a new tab's anchor
-	if (current_href.indexOf('#') < 0){
-		var new_href = current_href + '#' + new_location; 
-	} else {
-		var current_location = current_href.split('#')[1];
-		if (current_location == 'undefined' || current_location == undefined) {
-			var new_href = current_href.replace('undefined', new_location); 
-		} else {
-			var current_location = get_tab_location(current_href);
-			var new_href = current_href.replace(current_location, new_location); 
-		}
-	}
-	return new_href;
-}
-
-function update_nav_with_tab_location(new_location){
-	// Update the HREF of nav links with anchor for new location
-	$('button.js-nav-control').each(function(){
-		var current_href = $(this).attr('href');
-		var new_href = update_href(current_href, new_location);
-		$(this).attr('href', new_href);
-	});
-}
-
-function update_window_with_tab_location(new_location){
-	// Update the URL of the window with anchor for new location
-	var current_href = this.window.location.href;
-	var new_href = update_href(current_href, new_location);
-	this.window.location.href = new_href;
-}
-
-// ##############  START display style of the schedule table ##########	
-
-function hide_schedule_table(){
-	// fully hide the schedule table
-	$('table.js-scheduletable-open').hide();
-	$('table.js-scheduletable-scheduled').hide();
-	$('button#js-schedule-hide').hide();
-	$('button#js-schedule-expand').hide();
-	$('button#js-schedule-collapse').show();
 }
 
 function expand_schedule_table(){
@@ -84,15 +32,12 @@ function toggle_schedule_display(selected){
 	});
 	selected.addClass('js-schedule-control-selected');
 
-	if (action == 'js-schedule-hide') {
-		hide_schedule_table();
-	} else if (action == 'js-schedule-expand') {
+	if (action == 'js-schedule-expand') {
 		expand_schedule_table();
 	} else if (action == 'js-schedule-collapse') { 
 		collapse_schedule_table();
 	}
-	update_window_with_tab_location(action);
-	update_nav_with_tab_location(action);
+	Cookies.set('_rollist-anchor', action);
 }
 
 function bind_schedule_controls(){
@@ -105,8 +50,9 @@ function bind_schedule_controls(){
 
 function init_schedule_display(){
 	// on schedule table load set schedule display to default or pre-selected val
-	anchored_location = get_tab_location(this.window.location.href);
-	selected = $('button#' + anchored_location);
+	init_location = get_anchor();
+	Cookies.set('_rollist-anchor', init_location);
+	selected = $('button#' + init_location);
 	toggle_schedule_display(selected);
 }
 
@@ -314,7 +260,7 @@ $(document).ready(function(){
         		var full_target_location = full_current_location.replace(current_date, new_date);
         	} else {
         		var origin = window.location.origin;
-        		var full_target_location = origin + '/' + new_date + '/#' + get_anchor();
+        		var full_target_location = origin + '/' + new_date;
         	}
         	location.href = full_target_location;
     	});

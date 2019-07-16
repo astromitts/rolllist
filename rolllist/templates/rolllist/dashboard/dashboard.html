@@ -44,6 +44,7 @@
 
 {% block extra_js %}
   	<script src="{% static 'rolllist/vendor/bootstrap-datepicker-1.9.0-dist/js/bootstrap-datepicker.min.js' %}"></script>
+  	<script src="{% static 'rolllist/vendor/jquery/js.cookie.js' %}"></script>
   	<script src="{% static 'rolllist/js/modal-handler.js' %}"></script>
   	<script src="{% static 'rolllist/js/dashboard.js' %}"></script>
 
@@ -58,10 +59,10 @@
 							<div class="content--astable">
 								<div class="row">
 									<div class="cell">
-								        <a class="navbar-brand daytoggle daytoggle_prev js-nav-control" href="{% url 'day_view' datestr=target_previous_date %}#js-schedule-collapse">< Prev</a>
+								        <a class="navbar-brand daytoggle daytoggle_prev" href="{% url 'day_view' datestr=target_previous_date %}">< Prev</a>
 								    </div>
 								    <div class="cell">
-								        <a class="navbar-brand daytoggle daytoggle_next js-nav-control" href="{% url 'day_view' datestr=target_next_day %}#js-schedule-collapse">Next ></a>
+								        <a class="navbar-brand daytoggle daytoggle_next" href="{% url 'day_view' datestr=target_next_day %}">Next ></a>
 								    </div>
 								    <div class="cell text--white">&nbsp;|&nbsp;</div>
 								    <div class="cell">
