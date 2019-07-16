@@ -76,6 +76,11 @@ a {
       @media screen and (max-width: 420px) {
         .content--astable .cell--xsm {
           width: 9%; } }
+    .content--astable .cell--sm {
+      width: 6%; }
+      @media screen and (max-width: 420px) {
+        .content--astable .cell--sm {
+          width: 19%; } }
     .content--astable .cell--md {
       width: 7%; }
       @media screen and (max-width: 420px) {

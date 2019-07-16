@@ -122,6 +122,12 @@ a {
 					width: 9%;
 				}
 			}
+			&--sm {
+				width: 6%;
+				@media screen and (max-width: $break-small) {
+					width: 19%;
+				}
+			}
 			&--md {
 				width: 7%;
 				@media screen and (max-width: $break-small) {

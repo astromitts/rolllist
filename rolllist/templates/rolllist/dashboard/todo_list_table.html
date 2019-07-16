@@ -11,16 +11,14 @@
 								<input type="checkbox" id="{% url 'revert_todo_item' item_id=item.id %}" class="js-todo-generic" checked="checked">
 							</div>
 
-							<div class="cell cell--xsm">
-								{% if item.days_incomplete > 1 %}
-									<img src="{% static 'images/iconic/png/loop-circular-2x-g.png' %}" class="icon--recurrance">
-								{% endif %}
+							<div class="cell cell--sm">
+								<img src="{% static 'images/iconic/png/loop-circular-2x-g.png' %}" class="icon--recurrance">
+								<span class="text--mild">({{item.days_incomplete}})</span>
 							</div>
-							<div class="cell"><span class="text--mild">
-								<span class="helper_todoitem--title">{{item.title}}</span>
-								{% if item.days_incomplete > 1 %}
-									( {{item.days_incomplete}} days)
-								{% endif %}</span>
+							<div class="cell">
+								<span class="text--mild">
+									<span class="helper_todoitem--title">{{item.title}}</span>
+								</span>
 							</div>
 							<div class="cell cell--md">&nbsp;</div>
 						</div>
@@ -31,17 +29,17 @@
 								<input type="checkbox" id="{% url 'complete_todo_item' item_id=item.id %}" class="js-todo-generic">
 							</div>
 
-							<div class="cell cell--xsm">
+							<div class="cell cell--sm">
 								{% if item.days_incomplete > 1 %}
 									<img src="{% static 'images/iconic/png/loop-circular-2x.png' %}" class="icon--recurrance">
+									({{item.days_incomplete}})
+								{% else %}
+									<img src="{% static 'images/iconic/png/loop-circular-2x-g.png' %}" class="icon--recurrance">
 								{% endif %}
 							</div>
 							<div class="cell" id="todotitle-{{item.id}}">
 								<span class="text--bold">
-								<span class="helper_todoitem--title">{{item.title}}</span>
-								{% if item.days_incomplete > 1 %}
-								( {{item.days_incomplete}} days)
-								{% endif %}
+									<span class="helper_todoitem--title">{{item.title}}</span>
 								</span>
 							</div>
 							<div class="cell cell--md">
