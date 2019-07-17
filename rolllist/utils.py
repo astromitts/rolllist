@@ -19,9 +19,11 @@ for i in range(1, 12):
 # TODO move this to a user preferences
 earliest_time_index = time_options_strings.index('8:00 AM')
 latest_time_index = time_options_strings.index('6:30 PM')
+
 relevant_time_dict = {
     i: time_options_strings[i] for i in range(earliest_time_index, latest_time_index + 1)
 }
+
 relevant_keys = [i for i in relevant_time_dict.keys()]
 
 weekday_strings = [
@@ -64,27 +66,6 @@ class TimeInterval(object):
             self.next_index = index + 1
 
 
-class DaySchedule(object):
-    """ Helper object for organizing scheduled items by time interval
-    """
-    def __init__(self, day, relevant_time_dict, user):
-        self.day = day
-        self.time_intervals = []
-
-        for i, string in relevant_time_dict.items():
-            this_interval = TimeInterval(
-                i,
-                time_options_strings[i],
-                time_options_strings[i + 1]
-            )
-
-            this_interval.items = day.scheduleitem_set.filter(
-                models.Q(start_time=i) |
-                (models.Q(start_time__lt=i) & models.Q(end_time__gt=i))
-            ).filter(user=user).all()
-            self.time_intervals.append(this_interval)
-
-
 class DayScheduleDeux(object):
     """
         [
@@ -122,7 +103,13 @@ class DayScheduleDeux(object):
         self.items_by_time = {i.start_time: i for i in self.all_items}
         self.schedule = []
         used_intervals = []
-        for i, string in relevant_time_dict.items():
+        self.relevant_time_dict = {
+            i: time_options_strings[i] for i in range(user.schedule_start_time, user.schedule_end_time + 1)
+        }
+
+        self.relevant_keys = [i for i in self.relevant_time_dict.keys()]
+
+        for i, string in self.relevant_time_dict.items():
             if i not in used_intervals:
                 data = {
                     'start_time_display': string,
