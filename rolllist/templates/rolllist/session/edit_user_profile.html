@@ -1,0 +1,26 @@
+{% extends 'rolllist/base.html' %}
+{% load static %}
+{% block main_content %}
+	<div class="row">
+		<div class="col content--centered">
+			<form method="POST" action="{% url 'user_profile' %}">{% csrf_token %}
+				<table class="dashed">
+					<tr>
+						<td>email:</td><td width="100%">{{form.email}}</td>
+					</tr>
+					<tr>
+						<td>schedule&nbsp;start&nbsp;time:</td><td>{{form.schedule_start_time}}</td>
+					</tr>
+					<tr>
+						<td>schedule&nbsp;end&nbsp;time:</td><td>{{form.schedule_end_time}}</td>
+					</tr>
+					<tr>
+						<td colspan="100"><input type="submit" class="button float--right" value="update" /></td>
+					</tr>
+				</table>
+			</form>
+			<div class="spacer_10"></div>
+			<a href="{% url 'logout_handler' %}"><button class="button">Log out</button></a>
+		</div>
+	</div>
+{% endblock %}

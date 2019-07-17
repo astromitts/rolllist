@@ -12,7 +12,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # user handlers
-    path('user/', userviews.create_init_view, name='user_init'),
+    path('user/', userviews.user_profile, name='user_profile'),
     path('about/', TemplateView.as_view(template_name='rolllist/about.html'), name='about'),
     path('login/', userviews.login_handler, name='login_handler'),
     path('logout/', userviews.logout_handler, name='logout_handler'),

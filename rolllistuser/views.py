@@ -1,11 +1,13 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
+from django.contrib import messages
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import redirect
 from django.urls import reverse
 
-from rolllistuser.forms import CreateUserForm, LoginUserForm
+from rolllistuser.forms import CreateUserForm, LoginUserForm, EditUserProfileForm
 
 
 def create_init_view(request):
@@ -68,4 +70,33 @@ def create_handler(request):
     template = loader.get_template('rolllist/session/create.html')
     form = CreateUserForm()
     context = {'create_form': form}
+    return HttpResponse(template.render(context, request))
+
+
+@login_required(login_url='login/')
+def user_profile(request):
+    user = request.user
+    template = loader.get_template('rolllist/session/edit_user_profile.html')
+    if request.POST:
+        data = request.POST.copy()
+        form = EditUserProfileForm(data)
+        if form.is_valid:
+            user.rolllistuser.schedule_start_time = data['schedule_start_time']
+            user.rolllistuser.schedule_end_time = data['schedule_end_time']
+            user.rolllistuser.save()
+            user.email = data['email']
+            user.save()
+            messages.success(request, 'Updated user information.')
+        else:
+            messages.warning(request, 'Error updating user information, please try again.')
+
+    else:
+        init_data = {
+            'email': user.email,
+            'schedule_start_time': user.rolllistuser.schedule_start_time,
+            'schedule_end_time': user.rolllistuser.schedule_end_time
+        }
+        form = EditUserProfileForm(initial=init_data)
+
+    context = {'user': user, 'form': form}
     return HttpResponse(template.render(context, request))

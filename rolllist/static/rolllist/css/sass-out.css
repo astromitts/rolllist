@@ -25,6 +25,11 @@ h2 {
   vertical-align: middle;
   color: #797979; }
 
+.alert {
+  width: 70%;
+  margin-left: 15%;
+  margin-right: 15%; }
+
 a {
   color: #0E6BCE;
   text-decoration: none; }
@@ -56,6 +61,10 @@ a {
 .text--white {
   color: #FFFFFF; }
 
+.content--centered {
+  width: 70%;
+  margin-left: 15%;
+  margin-right: 15%; }
 .content--astable {
   display: table;
   border-collapse: collapse;
@@ -89,6 +98,13 @@ a {
           width: 30%; } }
 .content_blurb {
   padding-bottom: 1.5em; }
+
+table.dashed {
+  border-collapse: collapse;
+  border-spacing: 2px; }
+  table.dashed td {
+    border: dashed 1px #B2B3B3;
+    padding: .3em; }
 
 .float--left {
   float: left;

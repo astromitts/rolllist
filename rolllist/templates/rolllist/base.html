@@ -27,10 +27,7 @@
 	    {% if user_logged_in %}
 		    <ul class="nav navbar-nav navbar-nav--static-left">
 		      <li>
-		        <a class="" href="{% url 'logout_handler' %}">Log out</a>&nbsp;|
-		      </li>
-		      <li>
-		        &nbsp;<a class="" href="{% url 'about' %}">About</a>
+		        <a class="" href="{% url 'user_profile' %}"><img width="15px" height="15px" src="{% static 'images/iconic/png/person-4x-w.png' %}"></a>
 		      </li>
 		      </li>
 		    </ul>
@@ -49,7 +46,12 @@
 	</nav>
 	<div id="backgroundcover" style="display: none;"></div>
 	<div class="container main">
-  	{% block main_content %}{% endblock %}
+		{% if messages %}
+			{% for message in messages %}
+			  <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+			{% endfor %}
+		{% endif %}
+  		{% block main_content %}{% endblock %}
 	</div>
 	{% block footer %}{% endblock %}
 	<script
