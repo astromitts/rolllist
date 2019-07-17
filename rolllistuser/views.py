@@ -124,7 +124,7 @@ def user_profile(request):
                 user.save()
                 if reset_password:
                     user.set_password(data['new_password1'])
-                    update_session_auth_hash(request, request.user)
+                    login(request, user)
                 messages.success(request, 'Updated user information.')
             else:
                 form = EditUserProfileForm(data)
