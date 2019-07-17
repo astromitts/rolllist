@@ -42,18 +42,21 @@ class Day(models.Model, BaseModel):
         """
         # check if item instances have been created for recurring items
         # if not, create them
-        recurring_item_set = user.recurringscheduleitem_set.all()
+        recurring_item_set = user.recurringscheduleitem_set.filter().all()
         for item in recurring_item_set:
             # this creates ScheduleItem instances as needed for RecurringScheduleItems
             item.set_for_day(day=self)
 
         # once recurrances are created, select all active items for the day
-        item_set = self.scheduleitem_set.filter(is_active=True).all()
+        item_set = self.scheduleitem_set.filter(is_active=True, all_day=False).all()
         full_list = sorted(
             item_set,
             key=attrgetter('start_time')
         )
         return full_list
+
+    def get_all_day_items(self, user):
+        return self.scheduleitem_set.filter(is_active=True, all_day=True).all()
 
     @property
     def to_url_str(self):
@@ -113,6 +116,7 @@ class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
         ]
     )
     location = models.CharField(max_length=150, null=True)
+    all_day = models.BooleanField(default=False)
     created = models.DateField(default=datetime.today)
     recurrance_0 = models.BooleanField("Monday", default=False)
     recurrance_1 = models.BooleanField("Tuesday", default=False)
@@ -158,6 +162,7 @@ class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
                 title=self.title,
                 start_time=self.start_time,
                 end_time=self.end_time,
+                all_day=self.all_day,
                 location=self.location,
                 recurrance=self
             )
@@ -241,6 +246,7 @@ class ScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
             (i, time_options_strings[i]) for i in range(0, len(time_options_strings))
         ]
     )
+    all_day = models.BooleanField(default=False)
     location = models.CharField(max_length=150, null=True)
 
     # these two fields are used to determine if an item has been rolled over from the
@@ -270,6 +276,7 @@ class ScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
             location=self.location,
             start_time=self.start_time,
             end_time=self.end_time,
+            all_day=self.all_day,
             user=self.user,
             recurrance_0=0 in requested_recurrances,
             recurrance_1=1 in requested_recurrances,

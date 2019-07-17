@@ -24,7 +24,11 @@ from .models.appmodels import (
     ToDoItem
 )
 from rolllistuser.models import RollListUser
-from .utils import DayScheduleDeux, _requested_recurrances
+from .utils import (
+    DayScheduleDeux,
+    _requested_recurrances,
+    time_options_strings
+)
 
 
 def get_user(request):
@@ -72,11 +76,13 @@ def schedule_view(request, datestr):
     target_day, target_day_created = Day.get_or_create(date=target_date)
 
     day_schedule = DayScheduleDeux(target_day, get_user(request))
+    all_day_items = target_day.get_all_day_items(get_user(request))
 
     context = {
         'datestr': datestr,
         'day': target_day,
         'day_schedule': day_schedule.schedule,
+        'all_day_items': all_day_items
     }
 
     return HttpResponse(template.render(context, request))
@@ -131,17 +137,24 @@ def add_schedule_item_form(request, start_time_int=None, datestr=None):
 
     if request.POST:
         data = request.POST.copy()
-        data['start_time_init'] = data['start_time']
-        data['end_time_init'] = data['end_time']
+        if data.get('all_day', '') == 'on':
+            data['start_time'] = time_options_strings.index('8:00 AM')
+            data['end_time'] = time_options_strings.index('8:00 AM')
+
+        data['start_time_init'] = data.get('start_time')
+        data['end_time_init'] = data.get('end_time')
+
         target_day = Day.objects.get(
             date=datetime.strptime(datestr, "%Y%m%d").date()
         )
         form = ScheduleItemForm(data)
+
         if form.is_valid():
             save_data = {
                 'start_time': data['start_time'],
                 'end_time': data['end_time'],
                 'title': data['title'],
+                'all_day': data.get('all_day', '') == 'on',
                 'location': data['location'],
                 'user': get_user(request),
             }
@@ -180,12 +193,17 @@ def edit_schedule_item_form(request, item_id, recurring):
 
     if request.POST:
         data = request.POST.copy()
+        if data.get('all_day', '') == 'on':
+            data['start_time'] = time_options_strings.index('8:00 AM')
+            data['end_time'] = time_options_strings.index('8:00 AM')
+
         form = ScheduleItemForm(data)
         if form.is_valid():
             existing_item.start_time = data['start_time']
             existing_item.end_time = data['end_time']
             existing_item.title = data['title']
             existing_item.location = data['location']
+            existing_item.all_day = data.get('all_day', '') == 'on'
 
             # if they requested recurring, set it as recurring
             requested_recurrances = _requested_recurrances(data)
@@ -273,6 +291,11 @@ def edit_recurring_item_handler(request, item_id):
     target_item = RecurringScheduleItem.objects.get(pk=item_id)
     if request.POST:
         data = request.POST.copy()
+
+        if data.get('all_day', '') == 'on':
+            data['start_time'] = time_options_strings.index('8:00 AM')
+            data['end_time'] = time_options_strings.index('8:00 AM')
+
         form = RecurringScheduleItemForm(data)
         if form.is_valid():
             target_day, created = Day.get_or_create(date=datetime.today())
@@ -280,6 +303,7 @@ def edit_recurring_item_handler(request, item_id):
                 'start_time': data['start_time'],
                 'end_time': data['end_time'],
                 'title': data['title'],
+                'all_day': data.get('all_day', '') == 'on',
                 'location': data['location']
             }
             for i in range(0, 7):
@@ -295,7 +319,7 @@ def edit_recurring_item_handler(request, item_id):
             return HttpResponse()
         else:
             context = {'form': form}
-            return HttpResponse(target_item.render(context, request))
+            return HttpResponse(template.render(context, request))
 
     else:
         init_values = {}

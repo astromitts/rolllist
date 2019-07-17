@@ -1,6 +1,19 @@
 {% load static extras %}
 
 <div class="schedulecontainer">
+		{% for item in all_day_items %}
+			<div class="js-scheduletable-scheduled round-dashed-box">
+				<span class="text">All day: {{item.title}} ({{item.location}})</span>
+				<span class="float--right">
+					<a href="{% url 'delete_item_form' item_id=item.id recurring=item|is_recurring_item %}" class="openmodalschedule" id="-1">delete</a>&nbsp;|&nbsp;
+					{% if item.recurrance %}
+						<a href="{% url 'manage_recurring_items' %}">manage recurring items</a>
+					{% else %}
+						<a href="{% url 'edit_item' item_id=item.id recurring=item|is_recurring_item %}" class="openmodalschedule" id="-1">edit</a>
+					{% endif %}
+				</span>
+			</div>
+		{% endfor %}
 	<div id="js-scheduletable" class="scheduleblock">
 		{% for schedule_block in day_schedule %}
 			{% comment %}Row without an existing item{% endcomment %}

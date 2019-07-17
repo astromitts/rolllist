@@ -10,6 +10,10 @@ from .utils import relevant_time_dict
 
 
 class ScheduleItemForm(ModelForm):
+    all_day = BooleanField(
+        required=False,
+    )
+
     start_time = ChoiceField(
         choices=[(i, string) for i, string in relevant_time_dict.items()]
     )
@@ -59,6 +63,7 @@ class ScheduleItemForm(ModelForm):
     class Meta:
         model = ScheduleItem
         fields = [
+            'all_day',
             'start_time',
             'end_time',
             'title',
@@ -76,6 +81,10 @@ class ScheduleItemForm(ModelForm):
 
 
 class RecurringScheduleItemForm(ModelForm):
+    all_day = BooleanField(
+        required=False,
+    )
+
     start_time = ChoiceField(
         choices=[(i, string) for i, string in relevant_time_dict.items()]
     )
@@ -90,6 +99,7 @@ class RecurringScheduleItemForm(ModelForm):
     class Meta:
         model = RecurringScheduleItem
         fields = [
+            'all_day',
             'start_time',
             'end_time',
             'title',

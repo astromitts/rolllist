@@ -1,5 +1,3 @@
-from django.db import models
-
 time_options_strings = []
 
 time_options_strings.append('12:00 AM')
@@ -88,8 +86,8 @@ class DayScheduleDeux(object):
             ...
         ]
     """
-    def _organize_by_time(self, all_items):
-        return {item.start_time: item for item in all_items}
+    def _organize_by_time(self, scheduled_items):
+        return {item.start_time: item for item in scheduled_items}
 
     def _get_item_intervals(self, item):
         return [i for i in range(item.start_time, item.end_time)]
@@ -98,9 +96,9 @@ class DayScheduleDeux(object):
         self.day = day
         self.time_intervals = []
 
-        self.all_items = day.get_schedule_items(user)
-        items_time_dict = self._organize_by_time(self.all_items)
-        self.items_by_time = {i.start_time: i for i in self.all_items}
+        self.scheduled_items = day.get_schedule_items(user)
+        items_time_dict = self._organize_by_time(self.scheduled_items)
+        self.items_by_time = {i.start_time: i for i in self.scheduled_items}
         self.schedule = []
         used_intervals = []
         self.relevant_time_dict = {

@@ -15,7 +15,10 @@
 				</div>
 				<div class="content--astable">
 				<div class="row">
-					<div class="cell">{{ item.start }}-{{ item.end }}</div>
+					<div class="cell">
+						{% if item.all_day %} ALL DAY {% else %}{{ item.start }}-{{ item.end }}{% endif %}
+
+					</div>
 					<div class="cell">{{ item.day_of_week_display }}</div>
 					<div class="cell">
 						<a class="js-delete" href="{% url 'delete_recurring_item' item_id=item.id %}">delete</a>

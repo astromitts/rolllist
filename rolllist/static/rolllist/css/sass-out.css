@@ -209,6 +209,11 @@ button.schedule-toggle {
     background-color: #FFFFF0; }
 #schedulecontainer img.icon--recurrance {
   margin-top: 3px; }
+#schedulecontainer .round-dashed-box, #schedulecontainer .schedulecontainer, #schedulecontainer #managerecurringschedulecontainer, #schedulecontainer #todocontainter .todocontainer, #todocontainter #schedulecontainer .todocontainer, #schedulecontainer .notescontainer-table {
+  padding-bottom: 3px;
+  padding-top: 3px; }
+  #schedulecontainer .round-dashed-box .text, #schedulecontainer .schedulecontainer .text, #schedulecontainer #managerecurringschedulecontainer .text, #schedulecontainer #todocontainter .todocontainer .text, #todocontainter #schedulecontainer .todocontainer .text, #schedulecontainer .notescontainer-table .text {
+    padding-left: 20px; }
 
 #managerecurringschedulecontainer td, #managerecurringschedulecontainer th {
   border: dotted 1px #B2B3B3;

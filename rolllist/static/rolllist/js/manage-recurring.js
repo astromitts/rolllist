@@ -38,12 +38,32 @@ function bind_edit_item(){
 				$('select#id_start_time').val(start_init);
 
 				show_modal_and_overlay();
+				bind_all_day_toggle();
 				bind_ajax_form_submit($('form.ajaxme'), target_url, refresh);
 			},
 			error: function(data){
 				alert("there was an error");
 			}
 		});
+	});
+}
+
+function bind_all_day_toggle(){
+	var init_checked = $('input#id_all_day').attr('checked') == "checked";
+
+	if (init_checked) {
+    	$('select#id_start_time').prop("disabled", true);
+    	$('select#id_end_time').prop("disabled", true);
+	}
+
+	$('input#id_all_day').change(function() {
+	    if(this.checked) {
+	    	$('select#id_start_time').prop("disabled", true);
+	    	$('select#id_end_time').prop("disabled", true);
+	    } else {
+	    	$('select#id_start_time').prop("disabled", false);
+	    	$('select#id_end_time').prop("disabled", false);
+	    }
 	});
 }
 

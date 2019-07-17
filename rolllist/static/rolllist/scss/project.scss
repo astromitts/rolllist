@@ -60,7 +60,7 @@ h2 {
 	margin-right: 15%;
 }
 
-a { 
+a {
 	color: $link-color;
 	text-decoration: none;
 	&:hover {
@@ -321,7 +321,13 @@ button.schedule-toggle {
 			margin-top: 3px;
 		}
 	}
-
+	.round-dashed-box {
+		padding-bottom: 3px;
+		padding-top: 3px;
+		.text {
+			padding-left: 20px;
+		}
+	}
 }
 
 #managerecurringschedulecontainer {
@@ -401,7 +407,7 @@ button.schedule-toggle {
 	bottom: 45px;
 	right: 0;
 	z-index: 100;
-	width:100%;  
+	width:100%;
 	height: auto;
 	background-color: $modal-gray;
 	border: 2px solid;
