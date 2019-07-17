@@ -162,7 +162,8 @@ button.schedule-toggle {
 #user_profile-links ul {
   padding: 0; }
 #user_profile-links li {
-  list-style: none; }
+  list-style: none;
+  margin-bottom: 10px; }
 
 #schedulecontainer .scheduletable-link {
   display: inline;
