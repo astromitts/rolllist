@@ -55,12 +55,21 @@ class EditUserProfileForm(Form):
             'email',
             'schedule_start_time',
             'schedule_end_time',
-            'new_password1',
-            'new_password2',
             'password'
         ]
         widgets = {
-            'new_password1': PasswordInput(),
-            'new_password2': PasswordInput(),
             'password': PasswordInput(),
+        }
+
+
+class ChangePasswordUserForm(Form):
+    new_password = CharField(widget=PasswordInput(), required=True)
+    verify_password = CharField(widget=PasswordInput(), required=True)
+    password = CharField(widget=PasswordInput(), required=True)
+
+    class Meta:
+        widgets = {
+            'password': PasswordInput(),
+            'new_password': PasswordInput(),
+            'verify_password': PasswordInput(),
         }

@@ -39,3 +39,6 @@ class TestUser(object):
 
     def set_group(self, group):
         self.user.groups.add(group)
+
+    def login(self, client):
+        client.login(username=self.username, password=self.password)

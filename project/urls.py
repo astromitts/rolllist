@@ -13,6 +13,7 @@ urlpatterns = [
 
     # user handlers
     path('user/', userviews.user_profile, name='user_profile'),
+    path('user/changepassword/', userviews.change_password, name='user_change_password'),
     path('about/', TemplateView.as_view(template_name='rolllist/about.html'), name='about'),
     path('login/', userviews.login_handler, name='login_handler'),
     path('logout/', userviews.logout_handler, name='logout_handler'),

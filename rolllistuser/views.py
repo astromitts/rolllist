@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth import login, logout, update_session_auth_hash
+from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.db import IntegrityError
 from django.http import HttpResponse
@@ -8,7 +8,12 @@ from django.template import loader
 from django.shortcuts import redirect
 from django.urls import reverse
 
-from rolllistuser.forms import CreateUserForm, LoginUserForm, EditUserProfileForm
+from rolllistuser.forms import (
+    CreateUserForm,
+    LoginUserForm,
+    EditUserProfileForm,
+    ChangePasswordUserForm
+)
 
 
 def create_init_view(request):
@@ -105,31 +110,13 @@ def user_profile(request):
         form = EditUserProfileForm(data)
         password_valid = data.get('password') and user.check_password(data['password'])
         if form.is_valid and password_valid:
-            errors = False
-            reset_password = False
-            if data.get('new_password1'):
-                if data.get('new_password1') != data.get('new_password2'):
-                    messages.error(request, 'New password and verify password must match.')
-                    errors = True
-                if not errors:
-                    reset_password = True
-
-            if not errors:
-
-                user.rolllistuser.schedule_start_time = data['schedule_start_time']
-                user.rolllistuser.schedule_end_time = data['schedule_end_time']
-                user.rolllistuser.save()
-                user.email = data['email']
-                user.username = data['email']
-                user.save()
-                if reset_password:
-                    user.set_password(data['new_password1'])
-                    login(request, user)
-                messages.success(request, 'Updated user information.')
-            else:
-                form = EditUserProfileForm(data)
-                context = {'user': user, 'form': form}
-                return HttpResponse(template.render(context, request))
+            user.rolllistuser.schedule_start_time = data['schedule_start_time']
+            user.rolllistuser.schedule_end_time = data['schedule_end_time']
+            user.rolllistuser.save()
+            user.email = data['email']
+            user.username = data['email']
+            user.save()
+            messages.success(request, 'Updated user information.')
         elif not password_valid:
             messages.error(
                 request,
@@ -155,3 +142,41 @@ def user_profile(request):
 
     context = {'user': user, 'form': form}
     return HttpResponse(template.render(context, request))
+
+
+@login_required(login_url='login/')
+def change_password(request):
+    user = request.user
+    template = loader.get_template('rolllist/session/reset_password.html')
+    messages.warning(request, 'You will need to login in again with your new password once it is reset.')
+    if request.POST:
+        data = request.POST.copy()
+        form = ChangePasswordUserForm(data)
+        password_valid = data.get('password') and user.check_password(data['password'])
+        if form.is_valid and password_valid:
+            if data['new_password'] == data['verify_password']:
+                user.set_password(data['new_password'])
+                user.save()
+                messages.success(request, 'Password reset, please log in again.')
+                logout(request)
+                return redirect(reverse('login_handler'))
+            else:
+                messages.error(request, 'New password fields must match.')
+        elif not password_valid:
+            messages.error(
+                request,
+                'Current correct password required to make user profile changes.'
+            )
+        else:
+            messages.warning(
+                request,
+                'An unkown error occurred while updating user information, please try again.'
+            )
+
+        form = ChangePasswordUserForm(data)
+        context = {'user': user, 'form': form}
+        return HttpResponse(template.render(context, request))
+    else:
+        form = ChangePasswordUserForm()
+        context = {'user': user, 'form': form}
+        return HttpResponse(template.render(context, request))
