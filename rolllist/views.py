@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib import messages
+# from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import redirect
 # from django.urls import reverse
@@ -74,7 +74,6 @@ def schedule_view(request, datestr):
     template = loader.get_template('rolllist/dashboard/schedule_table.html')
     target_date = datetime.strptime(datestr, "%Y%m%d").date()
     target_day, target_day_created = Day.get_or_create(date=target_date)
-
     day_schedule = DayScheduleDeux(target_day, get_user(request))
     all_day_items = target_day.get_all_day_items(get_user(request))
 
@@ -483,7 +482,6 @@ def add_note_form(request, datestr=None, src=None):
             day, created = Day.get_from_str(datestr)
             note = Note(content=request.POST['content'], day=day, user=get_user(request))
             note.save()
-            messages.success(request, 'Note added: %d' % note.id)
             if not src:
                 return redirect('/%s/#notescontainer' % note.day.to_url_str)
             else:

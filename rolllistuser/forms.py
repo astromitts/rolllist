@@ -3,7 +3,8 @@ from django.forms import (
     Form,
     PasswordInput,
     EmailField,
-    ChoiceField
+    ChoiceField,
+    CharField,
 )
 from django.contrib.auth.models import User
 from rolllist.utils import time_options_strings
@@ -21,11 +22,14 @@ class LoginUserForm(ModelForm):
 
 class CreateUserForm(ModelForm):
 
+    verify_password = CharField(widget=PasswordInput())
+
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
+        fields = ['email', 'password', 'verify_password']
         widgets = {
             'password': PasswordInput(),
+            'verify_password': PasswordInput(),
         }
 
 
@@ -42,9 +46,21 @@ class EditUserProfileForm(Form):
         ]
     )
 
+    new_password1 = CharField(widget=PasswordInput(), required=False)
+    new_password2 = CharField(widget=PasswordInput(), required=False)
+    password = CharField(widget=PasswordInput())
+
     class Meta:
         fields = [
             'email',
             'schedule_start_time',
-            'schedule_end_time'
+            'schedule_end_time',
+            'new_password1',
+            'new_password2',
+            'password'
         ]
+        widgets = {
+            'new_password1': PasswordInput(),
+            'new_password2': PasswordInput(),
+            'password': PasswordInput(),
+        }

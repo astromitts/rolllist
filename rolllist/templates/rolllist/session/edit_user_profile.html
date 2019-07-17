@@ -25,11 +25,20 @@
 						<td>schedule&nbsp;end&nbsp;time:</td><td>{{form.schedule_end_time}}</td>
 					</tr>
 					<tr>
+						<td>current&nbsp;password:</td><td>{{form.password}} (required to make any user profile changes)</td>
+					</tr>
+					<tr>
+						<td>new&nbsp;password:</td><td>{{form.new_password1}}</td>
+					</tr>
+					<tr>
+						<td>verify&nbsp;new&nbsp;password:</td><td>{{form.new_password2}}</td>
+					</tr>
+					<tr>
 						<td colspan="100"><input type="submit" class="button float--right" value="update" /></td>
 					</tr>
 				</table>
 			</form>
-			
+
 		</div>
 	</div>
 {% endblock %}

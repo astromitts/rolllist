@@ -26,3 +26,15 @@ def is_recurring_item(item):
 @register.filter
 def format_timestamp(timestamp):
     return '{0:%m-%d-%Y %I:%M %p}'.format(timestamp)
+
+
+@register.filter
+def set_alert_class(alert_tag):
+    default = 'primary'
+    alert_classes = {
+        'success': 'success',
+        'error': 'danger',
+        'warning': 'warning',
+        'info': 'info'
+    }
+    return alert_classes.get(alert_tag, default)

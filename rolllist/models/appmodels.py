@@ -48,7 +48,7 @@ class Day(models.Model, BaseModel):
             item.set_for_day(day=self)
 
         # once recurrances are created, select all active items for the day
-        item_set = self.scheduleitem_set.filter(is_active=True, all_day=False).all()
+        item_set = self.scheduleitem_set.filter(user=user, is_active=True, all_day=False).all()
         full_list = sorted(
             item_set,
             key=attrgetter('start_time')
@@ -56,7 +56,7 @@ class Day(models.Model, BaseModel):
         return full_list
 
     def get_all_day_items(self, user):
-        return self.scheduleitem_set.filter(is_active=True, all_day=True).all()
+        return self.scheduleitem_set.filter(is_active=True, all_day=True, user=user).all()
 
     @property
     def to_url_str(self):
