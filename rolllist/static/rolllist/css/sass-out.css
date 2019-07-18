@@ -29,6 +29,11 @@ h2 {
   width: 70%;
   margin-left: 15%;
   margin-right: 15%; }
+  @media screen and (max-width: 420px) {
+    .alert {
+      width: 90%;
+      margin-left: 5%;
+      margin-right: 5%; } }
 
 a {
   color: #0E6BCE;
@@ -161,9 +166,15 @@ button.schedule-toggle {
 
 #user_profile-links ul {
   padding: 0; }
+  @media screen and (max-width: 420px) {
+    #user_profile-links ul {
+      margin-left: 15px; } }
 #user_profile-links li {
   list-style: none;
   margin-bottom: 10px; }
+@media screen and (max-width: 420px) {
+  #user_profile-links button {
+    margin-left: 15px; } }
 
 #schedulecontainer .scheduletable-link {
   display: inline;

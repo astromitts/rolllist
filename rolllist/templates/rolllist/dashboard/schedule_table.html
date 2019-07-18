@@ -17,7 +17,7 @@
 										<a href="{% url 'delete_item_form' item_id=item.id recurring=item|is_recurring_item %}" class="openmodalschedule" id="-1">delete</a>
 										&nbsp;|&nbsp;
 										{% if item.recurrance %}
-											<a href="{% url 'manage_recurring_items' %}">manage recurring items</a>
+											<a href="{% url 'manage_recurring_items' %}">manage</a>
 										{% else %}
 											<a href="{% url 'edit_item' item_id=item.id recurring=item|is_recurring_item %}" class="openmodalschedule" id="-1">edit</a>
 										{% endif %}
