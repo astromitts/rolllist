@@ -8,7 +8,7 @@ from project.helpers import TestAlertsMixin
 from rolllistuser.helpers import TestGroup, TestUser
 
 
-class BaseUserTest(TestCase, TestAlertsMixin):
+class BaseUserTest(TestCase):
     """ Base class for running app tests that need an existing user set up """
 
     def setUp(self):
@@ -21,7 +21,7 @@ class BaseUserTest(TestCase, TestAlertsMixin):
         self.user.set_group(user_group.group)
 
 
-class TestRollListUser(TestCase, TestAlertsMixin):
+class TestRollListUser(TestCase):
 
     def test_user_save_signal(self):
         """ Verify a RollListUser object is created upon saving a new User """
