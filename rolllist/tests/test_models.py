@@ -4,7 +4,13 @@ from project.helpers import TestBase
 
 from django.test import TestCase
 
-from rolllist.models.appmodels import Day, ScheduleItem, RecurringScheduleItem
+from rolllist.models.appmodels import (
+    Day,
+    ScheduleItem,
+    RecurringScheduleItem,
+    ToDoList,
+    ToDoItem,
+)
 from rolllist.utils import get_relevant_time_id, relevant_time_dict, DayScheduleDeux
 
 
@@ -214,6 +220,54 @@ class TestDayScheduleDeux(ScheduleItemTestBase):
                 }
                 for key, expected in expected_data.items():
                     self.assertEqual(expected, schedule_block[key])
+
+
+class TestToDoListItems(TestBase):
+    def setUp(self):
+        super(TestToDoListItems, self).setUp()
+        self.yesterday, created = Day.get_or_create(date=datetime.date.today() - datetime.timedelta(1))
+        self.yesterday_todo_list, created = ToDoList.get_or_create(
+            day=self.yesterday,
+            user=self.user.user.rolllistuser
+        )
+
+        to_do_items = [
+            # should not rollover because it is complete
+            ('Make the bed', 1, True, False),
+            # should not rollover because it is complete
+            ('Feed the cats', 2, True, True),
+            # should rollover because it is not complete and not rolled over already
+            ('Smash the patriarchy', 3, False, False),
+            # should rollover because it is not complete and not rolled over already
+            ('Catch a Rainbow', 3, False, False),
+            # should NOT rollover because it is rolled over already - avoids dupes
+            ('Make a million dollars', 3, False, True),
+        ]
+
+        self.expected_rollover_items = [to_do_items[2], to_do_items[3]]
+
+        for item in to_do_items:
+            title = item[0]
+            priority = item[1]
+            completed = item[2]
+            rolled_over = item[3]
+            tdi = ToDoItem(
+                title=title,
+                priority=priority,
+                to_do_list=self.yesterday_todo_list,
+                completed=completed,
+                rolled_over=rolled_over
+            )
+            tdi.save()
+
+    def test_to_do_rollover(self):
+        """ Verify that only incomplete, not yet rolled over items get rolled over to today """
+        today, created = Day.get_or_create(date=datetime.date.today())
+        todo_list, created = ToDoList.get_or_create(day=today, user=self.user.user.rolllistuser)
+        created_items = todo_list.rollover_items()
+        self.assertEqual(len(created_items), len(self.expected_rollover_items))
+        for item in created_items:
+            self.assertTrue(item.title in [i[0] for i in self.expected_rollover_items])
 
 
 class TestGetOrCreate(TestCase):

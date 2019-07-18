@@ -309,6 +309,7 @@ class ToDoList(models.Model, BaseModel):
             day=source_day,
             user=self.user
         )
+        created_items = []
         for source_item in source_list.todoitem_set.filter(completed=False, rolled_over=False).all():
             new_item = ToDoItem(
                 title=source_item.title,
@@ -318,6 +319,8 @@ class ToDoList(models.Model, BaseModel):
             new_item.save()
             source_item.rolled_over = True
             source_item.save()
+            created_items.append(source_item)
+        return created_items
 
     def get_items(self):
         """ Shortcut method for getting this list's related items in the right order
