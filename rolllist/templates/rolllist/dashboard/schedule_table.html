@@ -1,20 +1,36 @@
 {% load static extras %}
 
 <div class="schedulecontainer">
-		{% for item in all_day_items %}
-			<div class="js-scheduletable-scheduled round-dashed-box">
-				<span class="text">All day: {{item.title}} ({{item.location}})</span>
-				<span class="float--right">
-					<a href="{% url 'delete_item_form' item_id=item.id recurring=item|is_recurring_item %}" class="openmodalschedule" id="-1">delete</a>&nbsp;|&nbsp;
-					{% if item.recurrance %}
-						<a href="{% url 'manage_recurring_items' %}">manage recurring items</a>
-					{% else %}
-						<a href="{% url 'edit_item' item_id=item.id recurring=item|is_recurring_item %}" class="openmodalschedule" id="-1">edit</a>
-					{% endif %}
-				</span>
-			</div>
-		{% endfor %}
 	<div id="js-scheduletable" class="scheduleblock">
+
+		{% for item in all_day_items %}
+			<table width="100%" class="js-scheduletable-scheduled">
+				<tr class="scheduleblock-solid">
+					<td class="scheduleblock-timecell">All day</td>
+					<td>
+						<div class="scheduleditem scheduleditem-start scheduleditem-end">
+							<div class="text--centered zero-margin full-width">
+								<div>
+									{% if item.recurrance %}<img src="{% static 'images/iconic/png/loop-circular-2x.png' %}" class="icon--recurrance float--left">{% endif %} {{item.title}} ({{item.location}})
+								
+									<span class="float--right">
+										<a href="{% url 'delete_item_form' item_id=item.id recurring=item|is_recurring_item %}" class="openmodalschedule" id="-1">delete</a>
+										&nbsp;|&nbsp;
+										{% if item.recurrance %}
+											<a href="{% url 'manage_recurring_items' %}">manage recurring items</a>
+										{% else %}
+											<a href="{% url 'edit_item' item_id=item.id recurring=item|is_recurring_item %}" class="openmodalschedule" id="-1">edit</a>
+										{% endif %}
+									</span>
+								</div>
+							</div>
+						</div>
+					</span>
+			
+				</tr>
+			</table>
+		{% endfor %}
+
 		{% for schedule_block in day_schedule %}
 			{% comment %}Row without an existing item{% endcomment %}
 			{% if not schedule_block.item %}
