@@ -1,3 +1,5 @@
+import datetime
+
 from project.helpers import TestBase
 
 from django.test import TestCase
@@ -61,6 +63,103 @@ class ScheduleItemTestBase(TestBase):
             get_relevant_time_id('3:00 PM'),
 
         ]
+
+    def _set_up_past_instances(self, amount=3):
+        """ Helper function to run set_for_day for a RecurringItem X amount
+            of days into the future
+        """
+        for i in range(1, amount+1):
+            date = datetime.date.today() - datetime.timedelta(i)
+            day, created = Day().get_or_create(date=date)
+            self.item_to_recur.set_for_day(day)
+
+    def _set_up_today_and_future_instances(self, amount=3):
+        """ Helper function to run set_for_day for a RecurringItem X amount
+            of days in the past
+        """
+        for i in range(0, amount+1):
+            date = datetime.date.today() + datetime.timedelta(i)
+            day, created = Day().get_or_create(date=date)
+            self.item_to_recur.set_for_day(day)
+
+
+class TestRecurringItem(ScheduleItemTestBase):
+
+    def setUp(self):
+        super(TestRecurringItem, self).setUp()
+        self.item_to_recur.recurrance_0 = True
+        self.item_to_recur.recurrance_1 = True
+        self.item_to_recur.recurrance_2 = True
+        self.item_to_recur.recurrance_3 = True
+        self.item_to_recur.recurrance_4 = True
+        self.item_to_recur.recurrance_5 = True
+        self.item_to_recur.recurrance_6 = True
+        self.item_to_recur.save()
+
+        self.init_title = self.item_to_recur.title
+        self.init_location = self.item_to_recur.location
+
+        self.today, created = Day.get_or_create(date=datetime.date.today())
+
+    def test_recurring_item_set_for_day(self):
+        """ Verify the logic that a recurring item should not generate schedule
+            instances for days that occurred in the past, relative to the day
+            the Recurring Item was created
+        """
+        self._set_up_past_instances()
+        self._set_up_today_and_future_instances()
+
+        scheduled_instances = ScheduleItem.objects.filter(recurrance=self.item_to_recur)
+
+        scheduled_instances = ScheduleItem.objects.filter(title=self.init_title)
+        self.assertIsNotNone(scheduled_instances)
+
+        for instance in scheduled_instances:
+            self.assertTrue(instance.day.date >= self.today.date)
+
+    def test_edit_recurring_item(self):
+        """ Test that editing a recurring item updates today's instance of that
+            item and future instances, but leaves past instances as-is
+        """
+        self._set_up_today_and_future_instances(7)
+        date_in_three_days = datetime.date.today() + datetime.timedelta(3)
+        day_in_three_days, created = Day().get_or_create(date=date_in_three_days)
+
+        new_title = "New Title"
+        new_location = "New Location"
+
+        self.item_to_recur.update_current_and_future(day_in_three_days, {'title': new_title, 'location': new_location})
+        scheduled_instances = ScheduleItem.objects.filter(recurrance=self.item_to_recur)
+        # flags to prevent false positive test passes
+        flag_found_past = False
+        flag_found_future = False
+        for instance in scheduled_instances:
+            if instance.day.date < day_in_three_days.date:
+                flag_found_past = True
+                self.assertEqual(instance.title, self.init_title)
+                self.assertEqual(instance.location, self.init_location)
+            else:
+                flag_found_future = True
+                self.assertEqual(instance.title, new_title)
+                self.assertEqual(instance.location, new_location)
+        self.assertTrue(flag_found_future)
+        self.assertTrue(flag_found_past)
+
+    def test_delete_recurring_item(self):
+        """ Test that deleting a recurring item deletes today's instance of that
+            item and future instances, but leaves past instances as-is
+        """
+        self._set_up_today_and_future_instances(7)
+
+        date_in_three_days = datetime.date.today() + datetime.timedelta(3)
+        day_in_three_days, created = Day().get_or_create(date=date_in_three_days)
+
+        self.item_to_recur.delete_current_and_future(day_in_three_days)
+        scheduled_instances = ScheduleItem.objects.filter(title=self.init_title)
+
+        self.assertIsNotNone(scheduled_instances)
+        for instance in scheduled_instances:
+            self.assertTrue(instance.day.date < date_in_three_days)
 
 
 class TestDayModel(ScheduleItemTestBase):

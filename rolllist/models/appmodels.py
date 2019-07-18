@@ -155,7 +155,7 @@ class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
         item_exists = item_qs.exists()
         # if the item should recurr today and if the recurrance was not
         # created after the given day and it does not already exist then create it
-        if getattr(self, day_recurrance_flag) and day.date >= self.created and not item_exists:
+        if getattr(self, day_recurrance_flag) and day.date >= self.created.date() and not item_exists:
             schedule_item = ScheduleItem(
                 user=self.user,
                 day=day,
@@ -167,11 +167,14 @@ class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
                 recurrance=self
             )
             schedule_item.save()
+            return schedule_item
         else:
             # if the item was created by scrolling on the dashboard but the recurrance
             # for this week day is no longer true, delete the item
             if item_exists and not getattr(self, day_recurrance_flag):
                 item_qs.delete()
+                return None
+            return item_qs.first()
 
     def delete_for_day(self, day):
         """ "Delete" an instance of a recurring item's child item for a
@@ -199,10 +202,14 @@ class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
         scheduled_events = ScheduleItem.objects.filter(recurrance=self).all()
         for event in scheduled_events:
             if event.day.date < day.date:
+                # unlink events that already happened in the past
                 event.recurrance = None
                 event.save()
             elif event.day.date >= day.date:
+                # delete events today and in the future that were potentially
+                # created by navigation scrolling
                 event.delete()
+        # finally, delete the recurring item instance itself
         self.delete()
 
     def update_current_and_future(self, day, update_vars=None):
