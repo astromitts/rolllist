@@ -4,10 +4,11 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 from project.settings import NON_STAFF_PERMS
+from project.helpers import TestAlertsMixin
 from rolllistuser.helpers import TestGroup, TestUser
 
 
-class BaseUserTest(TestCase):
+class BaseUserTest(TestCase, TestAlertsMixin):
     """ Base class for running app tests that need an existing user set up """
 
     def setUp(self):
@@ -20,7 +21,7 @@ class BaseUserTest(TestCase):
         self.user.set_group(user_group.group)
 
 
-class TestRollListUser(TestCase):
+class TestRollListUser(TestCase, TestAlertsMixin):
 
     def test_user_save_signal(self):
         """ Verify a RollListUser object is created upon saving a new User """
@@ -33,7 +34,7 @@ class TestRollListUser(TestCase):
         self.assertTrue(user.rolllistuser)
 
 
-class TestUserViews(BaseUserTest):
+class TestUserViews(BaseUserTest, TestAlertsMixin):
     def test_login_process(self):
         """ Verify login view behavior
         """
@@ -56,7 +57,7 @@ class TestUserViews(BaseUserTest):
         }
         response = self.client.post(login_url, login_data)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue('invalid password' in str(response.content))
+        self.assertMessageSent('Invalid password.', response)
 
     def test_login_email_error(self):
         """ Verify succesful login
@@ -68,18 +69,18 @@ class TestUserViews(BaseUserTest):
         }
         response = self.client.post(login_url, login_data)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue('invalid email' in str(response.content))
+        self.assertMessageSent('Invalid email.', response)
 
 
-class TestUserRegister(TestCase):
+class TestUserRegister(TestCase, TestAlertsMixin):
     """ Verify register vew behavior
     """
     def test_register_success(self):
         register_url = reverse('create_user_handler')
         register_data = {
-            'username': 'burgerbob',
             'email': 'bob@warfarts.com',
             'password': 'jimmypestosucks',
+            'verify_password': 'jimmypestosucks',
         }
 
         response = self.client.post(register_url, register_data)
@@ -98,20 +99,20 @@ class TestUserRegister(TestCase):
         self.assertTrue('field is required' in str(response.context))
 
     def test_dupe_user(self):
-        existing_user = TestUser('tester', 'asdf1234')  # noqa
+        existing_user = TestUser('bob@warfarts.com', 'asdf1234')  # noqa
         register_url = reverse('create_user_handler')
         register_data = {
-            'username': 'tester',
-            'email': 'bob@warfarts.com',
+            'email': existing_user.email,
             'password': 'jimmypestosucks',
+            'verify_password': 'jimmypestosucks',
         }
 
         response = self.client.post(register_url, register_data)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue('username already exists' in str(response.context))
+        self.assertMessageSent('This email address is already in use.', response)
 
 
-class TestUserProfileEdit(BaseUserTest):
+class TestUserProfileEdit(BaseUserTest, TestAlertsMixin):
     def setUp(self):
         super(TestUserProfileEdit, self).setUp()
         self.user.login(self.client)
@@ -135,8 +136,7 @@ class TestUserProfileEdit(BaseUserTest):
             }
         )
         self.assertEqual(result.status_code, 200)
-        expected_message = 'Current correct password required to make user profile changes.'
-        self.assertIn(expected_message, [m.message for m in result.context['messages']._loaded_messages])
+        self.assertMessageSent('Current correct password required to make user profile changes.', result)
         user_obj = User.objects.get(pk=1)
 
         # nothing changed....
@@ -165,7 +165,7 @@ class TestUserProfileEdit(BaseUserTest):
         self.assertEqual(user_obj.email, self.new_email)
 
 
-class TestUserChangePassword(BaseUserTest):
+class TestUserChangePassword(BaseUserTest, TestAlertsMixin):
     def setUp(self):
         super(TestUserChangePassword, self).setUp()
         self.user.login(self.client)
@@ -181,8 +181,7 @@ class TestUserChangePassword(BaseUserTest):
             }
         )
         self.assertEqual(result.status_code, 200)
-        expected_message = 'Current correct password required to make user profile changes.'
-        self.assertIn(expected_message, [m.message for m in result.context['messages']._loaded_messages])
+        self.assertMessageSent('Current correct password required to make user profile changes.', result)
 
     def test_bad_password_match(self):
         result = self.client.post(
@@ -194,8 +193,7 @@ class TestUserChangePassword(BaseUserTest):
             }
         )
         self.assertEqual(result.status_code, 200)
-        expected_message = 'New password fields must match.'
-        self.assertIn(expected_message, [m.message for m in result.context['messages']._loaded_messages])
+        self.assertMessageSent('New password fields must match.', result)
 
     def test_change_password_works(self):
         change_password_post = self.client.post(

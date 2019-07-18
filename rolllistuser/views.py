@@ -68,9 +68,7 @@ def create_handler(request):
                     'password': clean_data['password']
                 }
                 try:
-                    new_user = User.objects.create_user(
-                        **user_data
-                    )
+                    new_user = User.objects.create_user(**user_data)
                     login(request, new_user)
                     return redirect(reverse('dashboard'))
                 except IntegrityError:

@@ -11,9 +11,16 @@ from rolllist.models.appmodels import (
     ScheduleItem,
     ToDoList,
     ToDoItem,
-    RecurringScheduleItem,
     Note
 )
+
+
+class TestAlertsMixin():
+    def assertMessageSent(self, expected_message, response_object):  # noqa
+        self.assertIn(
+            expected_message,
+            [m.message for m in response_object.context['messages']._loaded_messages]
+        )
 
 
 class TestBase(TestCase):

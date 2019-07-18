@@ -155,7 +155,13 @@ class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
         item_exists = item_qs.exists()
         # if the item should recurr today and if the recurrance was not
         # created after the given day and it does not already exist then create it
-        if getattr(self, day_recurrance_flag) and day.date >= self.created.date() and not item_exists:
+        # regression hack for created sometimes being a datetime and sometimes being a date
+        if hasattr(self.created, 'date'):
+            created_date = self.created.date()
+        else:
+            created_date = self.created
+
+        if getattr(self, day_recurrance_flag) and day.date >= created_date and not item_exists:
             schedule_item = ScheduleItem(
                 user=self.user,
                 day=day,
