@@ -3,6 +3,8 @@ from datetime import datetime, date, timedelta
 
 def chronology(request, *args, **kwargs):
     """ Context data to set up previous/next day navigation links
+
+        DEPRECATED
     """
     context = {}
     target_date = date.today()
@@ -11,7 +13,7 @@ def chronology(request, *args, **kwargs):
         try:
             target_date = datetime.strptime(part, "%Y%m%d").date()
             break
-        except:
+        except Exception:
             pass
 
     context['is_today'] = target_date == date.today()

@@ -6,6 +6,9 @@ from rolllist.utils import time_options_strings
 
 
 class RollListUser(models.Model):
+    """ Model for managing application settings per user.
+        Created automatically via user_post_signal when a new User is saved
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     schedule_start_time = models.IntegerField(
         choices=[
@@ -37,7 +40,8 @@ class RollListUser(models.Model):
 
 
 def user_post_signal(sender, instance, created, **kwargs):
-    """ Handler for custom user creation logic
+    """ Handler for custom user creation logic - adds new user to the
+        public_users group  and creates a new associated RollListUser instance
     """
     if created:
         instance.groups.add(Group.objects.get(name='public_users'))
