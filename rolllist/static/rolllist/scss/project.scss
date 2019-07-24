@@ -453,9 +453,14 @@ button.schedule-toggle {
 
 .js-schedule-control { display: none; }
 
-$high-priority-color: #f1adad;
+$high-priority-color: #f59f9f;
+$high-priority-complete-color: #f9dede;
+
 $medium-priority-color: #fbc86a;
-$low-priority-color: #f5f5b4;
+$medium-priority-complete-color: #fbe0ae;
+
+$low-priority-color: #f7f77e;
+$low-priority-complete-color: #efefd9;
 
 .priority-title {
 	display: table-cell;
@@ -474,14 +479,20 @@ $low-priority-color: #f5f5b4;
     &--high {
 		background-color: $high-priority-color;
     }
+    &--high_complete {
+		background-color: $high-priority-complete-color;
+    }
     &--medium {
 		background-color: $medium-priority-color;
+    }
+    &--medium_complete {
+		background-color: $medium-priority-complete-color;
     }
     &--low {
 		background-color: $low-priority-color;
     }
+    &--low_complete {
+		background-color: $low-priority-complete-color;
+    }
 
-}
-
-.type1 {
 }

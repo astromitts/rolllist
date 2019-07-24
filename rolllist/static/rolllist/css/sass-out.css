@@ -317,10 +317,16 @@ button.schedule-toggle {
   border: 1px solid black;
   margin-bottom: -2px; }
   .list-priority-icon--high {
-    background-color: #f1adad; }
+    background-color: #f59f9f; }
+  .list-priority-icon--high_complete {
+    background-color: #f9dede; }
   .list-priority-icon--medium {
     background-color: #fbc86a; }
+  .list-priority-icon--medium_complete {
+    background-color: #fbe0ae; }
   .list-priority-icon--low {
-    background-color: #f5f5b4; }
+    background-color: #f7f77e; }
+  .list-priority-icon--low_complete {
+    background-color: #efefd9; }
 
 /*# sourceMappingURL=sass-out.css.map */
