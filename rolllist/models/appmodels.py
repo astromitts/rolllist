@@ -331,7 +331,7 @@ class ToDoList(models.Model, BaseModel):
     def get_items(self):
         """ Shortcut method for getting this list's related items in the right order
         """
-        return self.todoitem_set.order_by('-days_incomplete', '-priority', 'id').all()
+        return self.todoitem_set.order_by('-priority', '-days_incomplete', 'id').all()
 
 
 class ToDoItem(models.Model, BaseModel):
@@ -350,6 +350,11 @@ class ToDoItem(models.Model, BaseModel):
 
     def __str__(self):
         return '%s (%s)' % (self.title, self.to_do_list)
+
+    @property
+    def priority_display(self):
+        priority_tuple = self.priority_choices[self.priority - 1]
+        return priority_tuple[1]
 
     @property
     def rollover_count(self):

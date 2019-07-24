@@ -344,6 +344,7 @@ button.schedule-toggle {
 	}
 }
 
+
 #managerecurringschedulecontainer {
 	@extend .round-dashed-box;
 	td, th {
@@ -370,6 +371,7 @@ button.schedule-toggle {
 	img.icon {
 		&--recurrance {
 			margin-right: 5px;
+			margin-top: -2px;
 		}
 	}
 }
@@ -450,3 +452,36 @@ button.schedule-toggle {
 }
 
 .js-schedule-control { display: none; }
+
+$high-priority-color: #f1adad;
+$medium-priority-color: #fbc86a;
+$low-priority-color: #f5f5b4;
+
+.priority-title {
+	display: table-cell;
+	height: 100%;
+	padding-right: 4px;
+}
+
+.list-priority-icon {
+    border-radius: 50%;
+    behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+    width: .9em;
+    height: .9em;
+    display: inline-block;
+	border: 1px solid black;
+	margin-bottom: -2px;
+    &--high {
+		background-color: $high-priority-color;
+    }
+    &--medium {
+		background-color: $medium-priority-color;
+    }
+    &--low {
+		background-color: $low-priority-color;
+    }
+
+}
+
+.type1 {
+}

@@ -19,11 +19,14 @@
 								{% endif %}
 							</div>
 							<div class="cell">
-								<span class="text--mild">
-									<span class="helper_todoitem--title">{{item.title}}</span>
-								</span>
+								<div class="priority-title">
+									<div class="list-priority-icon list-priority-icon--{{item.priority_display}}"></div>
+								</div>
+								<div class="priority-title">
+									<span class="helper_todoitem--title text--mild">{{item.title}}</span>
+								</div>
 							</div>
-							<div class="cell cell--md">&nbsp;</div>
+							<div class="cell cell--md"><span class="helper_todoitem--title text--mild">complete</span></div>
 						</div>
 					{% else %}
 						<div class="row helper_todoitem">
@@ -41,9 +44,12 @@
 								{% endif %}
 							</div>
 							<div class="cell" id="todotitle-{{item.id}}">
-								<span class="text--bold">
-									<span class="helper_todoitem--title">{{item.title}}</span>
-								</span>
+								<div class="priority-title">
+									<div class="list-priority-icon list-priority-icon--{{item.priority_display}}"></div>
+								</div>
+								<div class="priority-title">
+									<span class="helper_todoitem--title text--bold">{{item.title}}</span>
+								</div>
 							</div>
 							<div class="cell cell--md">
 								<span class=" float--right">

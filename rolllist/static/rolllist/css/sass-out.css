@@ -239,7 +239,8 @@ button.schedule-toggle {
 #todocontainter .todocontainer {
   padding: 5px; }
 #todocontainter img.icon--recurrance {
-  margin-right: 5px; }
+  margin-right: 5px;
+  margin-top: -2px; }
 
 .notescontainer-table {
   padding-left: 15px; }
@@ -300,5 +301,26 @@ button.schedule-toggle {
 
 .js-schedule-control {
   display: none; }
+
+.priority-title {
+  display: table-cell;
+  height: 100%;
+  padding-right: 4px; }
+
+.list-priority-icon {
+  border-radius: 50%;
+  behavior: url(PIE.htc);
+  /* remove if you don't care about IE8 */
+  width: .9em;
+  height: .9em;
+  display: inline-block;
+  border: 1px solid black;
+  margin-bottom: -2px; }
+  .list-priority-icon--high {
+    background-color: #f1adad; }
+  .list-priority-icon--medium {
+    background-color: #fbc86a; }
+  .list-priority-icon--low {
+    background-color: #f5f5b4; }
 
 /*# sourceMappingURL=sass-out.css.map */
