@@ -132,6 +132,16 @@ full-width {
   display: block;
   padding: 5px; }
 
+#useragreement {
+  display: block;
+  padding: 20px; }
+  #useragreement p.update-date {
+    width: 100%;
+    border-bottom: dotted 1px #B2B3B3; }
+
+#signupform {
+  padding-bottom: 15px; }
+
 button.schedule-toggle {
   border-radius: 3px;
   background-image: linear-gradient(to bottom, #FFFFFF, #A6A6A6);

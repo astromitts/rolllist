@@ -198,6 +198,18 @@ full-width {
 	padding: 5px;
 }
 
+#useragreement {
+	display: block;
+	padding: 20px;
+	p.update-date {
+		width: 100%;
+		border-bottom: $dotted-border;
+	}
+}
+
+#signupform {
+	padding-bottom: 15px;
+}
 
 button.schedule-toggle {
 	border-radius: 3px;
