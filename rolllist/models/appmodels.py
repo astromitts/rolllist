@@ -116,7 +116,7 @@ class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
             (i, time_options_strings[i]) for i in range(0, len(time_options_strings))
         ]
     )
-    location = models.CharField(max_length=150, null=True)
+    location = models.CharField(max_length=150, null=True, blank=True)
     all_day = models.BooleanField(default=False)
     created = models.DateField(default=datetime.today)
     recurrance_0 = models.BooleanField("Monday", default=False)
@@ -156,7 +156,13 @@ class RecurringScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
         item_exists = item_qs.exists()
         # if the item should recurr today and if the recurrance was not
         # created after the given day and it does not already exist then create it
-        if getattr(self, day_recurrance_flag) and day.date >= self.created.date() and not item_exists:
+        # regression hack for created sometimes being a datetime and sometimes being a date
+        if hasattr(self.created, 'date'):
+            created_date = self.created.date()
+        else:
+            created_date = self.created
+
+        if getattr(self, day_recurrance_flag) and day.date >= created_date and not item_exists:
             schedule_item = ScheduleItem(
                 user=self.user,
                 day=day,
@@ -242,7 +248,7 @@ class ScheduleItem(models.Model, ScheduleItemMixin, BaseModel):
         ]
     )
     all_day = models.BooleanField(default=False)
-    location = models.CharField(max_length=150, null=True)
+    location = models.CharField(max_length=150, null=True, blank=True)
 
     # these two fields are used to determine if an item has been rolled over from the
     # recurrance table and has not been deleted byt he user
@@ -326,7 +332,7 @@ class ToDoList(models.Model, BaseModel):
     def get_items(self):
         """ Shortcut method for getting this list's related items in the right order
         """
-        return self.todoitem_set.order_by('-days_incomplete', '-priority', 'id').all()
+        return self.todoitem_set.order_by('-priority', '-days_incomplete', 'id').all()
 
 
 class ToDoItem(models.Model, BaseModel):
@@ -345,6 +351,11 @@ class ToDoItem(models.Model, BaseModel):
 
     def __str__(self):
         return '%s (%s)' % (self.title, self.to_do_list)
+
+    @property
+    def priority_display(self):
+        priority_tuple = self.priority_choices[self.priority - 1]
+        return priority_tuple[1]
 
     @property
     def rollover_count(self):

@@ -109,15 +109,19 @@ class TestToDoForms(TestBaseWithScheduleData):
         todo_items = self._add_todo_items()
         item_to_delete = todo_items[2]
 
-        self.client.get(reverse('delete_todo_item', kwargs={'item_id': item_to_delete.id}))
+        # note: if the POST data is empty then request.POST resolves to False, so just put {'source': 'test'}
+        # in the request to make sure that the code is actually executed
+        self.client.post(reverse('delete_todo_item', kwargs={'item_id': item_to_delete.id}), {'source': 'test'})
 
         todo_response = self.client.get(reverse('get_todo', kwargs={'datestr': self.day_url_str}))
         todo_content = BeautifulSoup(todo_response.content, features='html.parser')
+        todo_titles = [element.text for element in todo_content.find_all('span', {'class': 'helper_todoitem--title'})]
+
         for item in todo_items:
             if item == item_to_delete:
-                self.assertFalse(item.title in todo_content.text)
+                self.assertFalse(item.title in todo_titles)
             else:
-                self.assertTrue(item.title in todo_content.text)
+                self.assertTrue(item.title in todo_titles)
 
     def test_add_todo_item(self):
         """ Verify the delete todo item workflow

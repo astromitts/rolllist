@@ -19,7 +19,10 @@ class TestUser(object):
     def __init__(self, username, password, is_superuser=False):
         self.username = username
         self.password = password
-        self.email = '%s@example.com' % username
+        if '@' not in username:
+            self.email = '%s@example.com' % username
+        else:
+            self.email = username
         self.is_superuser = is_superuser
 
         if is_superuser:

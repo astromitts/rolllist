@@ -44,7 +44,8 @@ def user_post_signal(sender, instance, created, **kwargs):
         public_users group  and creates a new associated RollListUser instance
     """
     if created:
-        instance.groups.add(Group.objects.get(name='public_users'))
+        public_users_group, created = Group.objects.get_or_create(name='public_users')
+        instance.groups.add(public_users_group)
         rolllist_user = RollListUser(user=instance)
         rolllist_user.save()
     else:

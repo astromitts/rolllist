@@ -16,12 +16,6 @@ from rolllistuser.forms import (
 )
 
 
-def create_init_view(request):
-    template = loader.get_template('rolllist/session/user_init.html')
-    context = {'create_form': CreateUserForm, 'login_form': LoginUserForm}
-    return HttpResponse(template.render(context, request))
-
-
 def login_handler(request):
     template = loader.get_template('rolllist/session/login.html')
     if request.user.is_authenticated:
@@ -68,9 +62,7 @@ def create_handler(request):
                     'password': clean_data['password']
                 }
                 try:
-                    new_user = User.objects.create_user(
-                        **user_data
-                    )
+                    new_user = User.objects.create_user(**user_data)
                     login(request, new_user)
                     return redirect(reverse('dashboard'))
                 except IntegrityError:
@@ -93,11 +85,11 @@ def create_handler(request):
             return HttpResponse(template.render(context, request))
 
         form = CreateUserForm(data)
-        context = {'create_form': form}
+        context = {'form': form}
         return HttpResponse(template.render(context, request))
     else:
         form = CreateUserForm()
-        context = {'create_form': form}
+        context = {'form': form}
         return HttpResponse(template.render(context, request))
 
 

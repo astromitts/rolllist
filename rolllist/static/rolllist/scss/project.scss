@@ -1,4 +1,4 @@
-$break-small: 420px;
+$break-small: 425px;
 
 $main-font-size: .9em;
 $large-font-size: 1.3em;
@@ -58,6 +58,12 @@ h2 {
 	width: 70%;
 	margin-left: 15%;
 	margin-right: 15%;
+
+	@media screen and (max-width: $break-small) {
+		width: 90%;
+		margin-left: 5%;
+		margin-right: 5%;
+	}
 }
 
 a {
@@ -192,6 +198,18 @@ full-width {
 	padding: 5px;
 }
 
+#useragreement {
+	display: block;
+	padding: 20px;
+	p.update-date {
+		width: 100%;
+		border-bottom: $dotted-border;
+	}
+}
+
+#signupform {
+	padding-bottom: 15px;
+}
 
 button.schedule-toggle {
 	border-radius: 3px;
@@ -247,10 +265,18 @@ button.schedule-toggle {
 #user_profile-links {
 	ul {
 		padding: 0;
+		@media screen and (max-width: $break-small) {
+			margin-left: 15px;
+		}	
 	}
 	li {
 		list-style: none;
 		margin-bottom: 10px;
+	}
+	button {
+		@media screen and (max-width: $break-small) {
+			margin-left: 15px;
+		}	
 	}
 }
 
@@ -330,6 +356,7 @@ button.schedule-toggle {
 	}
 }
 
+
 #managerecurringschedulecontainer {
 	@extend .round-dashed-box;
 	td, th {
@@ -356,6 +383,7 @@ button.schedule-toggle {
 	img.icon {
 		&--recurrance {
 			margin-right: 5px;
+			margin-top: -2px;
 		}
 	}
 }
@@ -436,3 +464,47 @@ button.schedule-toggle {
 }
 
 .js-schedule-control { display: none; }
+
+$high-priority-color: #f59f9f;
+$high-priority-complete-color: #f9dede;
+
+$medium-priority-color: #fbc86a;
+$medium-priority-complete-color: #fbe0ae;
+
+$low-priority-color: #f7f77e;
+$low-priority-complete-color: #efefd9;
+
+.priority-title {
+	display: table-cell;
+	height: 100%;
+	padding-right: 4px;
+}
+
+.list-priority-icon {
+    border-radius: 50%;
+    behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+    width: .9em;
+    height: .9em;
+    display: inline-block;
+	border: 1px solid black;
+	margin-bottom: -2px;
+    &--high {
+		background-color: $high-priority-color;
+    }
+    &--high_complete {
+		background-color: $high-priority-complete-color;
+    }
+    &--medium {
+		background-color: $medium-priority-color;
+    }
+    &--medium_complete {
+		background-color: $medium-priority-complete-color;
+    }
+    &--low {
+		background-color: $low-priority-color;
+    }
+    &--low_complete {
+		background-color: $low-priority-complete-color;
+    }
+
+}

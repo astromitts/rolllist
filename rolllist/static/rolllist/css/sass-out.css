@@ -29,6 +29,11 @@ h2 {
   width: 70%;
   margin-left: 15%;
   margin-right: 15%; }
+  @media screen and (max-width: 425px) {
+    .alert {
+      width: 90%;
+      margin-left: 5%;
+      margin-right: 5%; } }
 
 a {
   color: #0E6BCE;
@@ -83,17 +88,17 @@ a {
       border-right: none; }
     .content--astable .cell--xsm {
       width: 3%; }
-      @media screen and (max-width: 420px) {
+      @media screen and (max-width: 425px) {
         .content--astable .cell--xsm {
           width: 9%; } }
     .content--astable .cell--sm {
       width: 6%; }
-      @media screen and (max-width: 420px) {
+      @media screen and (max-width: 425px) {
         .content--astable .cell--sm {
           width: 19%; } }
     .content--astable .cell--md {
       width: 10%; }
-      @media screen and (max-width: 420px) {
+      @media screen and (max-width: 425px) {
         .content--astable .cell--md {
           width: 30%; } }
 .content_blurb {
@@ -126,6 +131,16 @@ full-width {
 .spacer_5 {
   display: block;
   padding: 5px; }
+
+#useragreement {
+  display: block;
+  padding: 20px; }
+  #useragreement p.update-date {
+    width: 100%;
+    border-bottom: dotted 1px #B2B3B3; }
+
+#signupform {
+  padding-bottom: 15px; }
 
 button.schedule-toggle {
   border-radius: 3px;
@@ -161,9 +176,15 @@ button.schedule-toggle {
 
 #user_profile-links ul {
   padding: 0; }
+  @media screen and (max-width: 425px) {
+    #user_profile-links ul {
+      margin-left: 15px; } }
 #user_profile-links li {
   list-style: none;
   margin-bottom: 10px; }
+@media screen and (max-width: 425px) {
+  #user_profile-links button {
+    margin-left: 15px; } }
 
 #schedulecontainer .scheduletable-link {
   display: inline;
@@ -179,7 +200,7 @@ button.schedule-toggle {
 #schedulecontainer .scheduleblock-timecell {
   border-right: solid 1px #B2B3B3;
   width: 10%; }
-  @media screen and (max-width: 420px) {
+  @media screen and (max-width: 425px) {
     #schedulecontainer .scheduleblock-timecell {
       width: 25%; } }
 #schedulecontainer .scheduleblock-dashed {
@@ -228,7 +249,8 @@ button.schedule-toggle {
 #todocontainter .todocontainer {
   padding: 5px; }
 #todocontainter img.icon--recurrance {
-  margin-right: 5px; }
+  margin-right: 5px;
+  margin-top: -2px; }
 
 .notescontainer-table {
   padding-left: 15px; }
@@ -289,5 +311,32 @@ button.schedule-toggle {
 
 .js-schedule-control {
   display: none; }
+
+.priority-title {
+  display: table-cell;
+  height: 100%;
+  padding-right: 4px; }
+
+.list-priority-icon {
+  border-radius: 50%;
+  behavior: url(PIE.htc);
+  /* remove if you don't care about IE8 */
+  width: .9em;
+  height: .9em;
+  display: inline-block;
+  border: 1px solid black;
+  margin-bottom: -2px; }
+  .list-priority-icon--high {
+    background-color: #f59f9f; }
+  .list-priority-icon--high_complete {
+    background-color: #f9dede; }
+  .list-priority-icon--medium {
+    background-color: #fbc86a; }
+  .list-priority-icon--medium_complete {
+    background-color: #fbe0ae; }
+  .list-priority-icon--low {
+    background-color: #f7f77e; }
+  .list-priority-icon--low_complete {
+    background-color: #efefd9; }
 
 /*# sourceMappingURL=sass-out.css.map */

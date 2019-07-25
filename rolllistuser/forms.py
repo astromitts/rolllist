@@ -5,6 +5,7 @@ from django.forms import (
     EmailField,
     ChoiceField,
     CharField,
+    BooleanField,
 )
 from django.contrib.auth.models import User
 from rolllist.utils import time_options_strings
@@ -22,11 +23,12 @@ class LoginUserForm(ModelForm):
 
 class CreateUserForm(ModelForm):
 
+    user_agreement = BooleanField(required=True)
     verify_password = CharField(widget=PasswordInput())
 
     class Meta:
         model = User
-        fields = ['email', 'password', 'verify_password']
+        fields = ['user_agreement', 'email', 'password', 'verify_password']
         widgets = {
             'password': PasswordInput(),
             'verify_password': PasswordInput(),
