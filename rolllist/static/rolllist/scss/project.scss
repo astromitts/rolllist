@@ -419,11 +419,9 @@ button.schedule-toggle {
     display: inline-block;
     width: 100%;
 
-	img.icon {
-		&--recurrance {
-			margin-right: 0px;
-			margin-top: -2px;
-		}
+	img.kanban--icon--recurrance {
+		margin-right: -2px;
+		margin-top: -2px;
 	}
 }
 

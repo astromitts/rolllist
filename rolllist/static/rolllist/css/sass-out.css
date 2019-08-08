@@ -268,8 +268,8 @@ button.schedule-toggle {
   height: auto;
   display: inline-block;
   width: 100%; }
-  .todo-kanban_item img.icon--recurrance {
-    margin-right: 0px;
+  .todo-kanban_item img.kanban--icon--recurrance {
+    margin-right: -2px;
     margin-top: -2px; }
 
 table.todo-kanban td.action--left {

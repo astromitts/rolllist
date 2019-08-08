@@ -11,7 +11,9 @@
 						<tr>
 							<td class="action--left">
 								{% if block.previous_action %}
-									<a href="{% url 'move_kanban_item' item_id=item.id target_status=block.previous_action %}" class="js-todo-generic"><-</a>
+									<a href="{% url 'move_kanban_item' item_id=item.id target_status=block.previous_action %}" class="js-todo-generic">
+										<img src="{% static 'images/iconic/arrow-previous.png' %}" />
+									</a>
 								{% else %}
 								&nbsp;
 								{% endif %}
@@ -19,14 +21,20 @@
 							<td class="priority"><div class="list-priority-icon list-priority-icon--{{item.priority_display}}"></div></td>
 							<td class="title">
 								{% if item.rollover_count > 1 %}
-									<img src="{% static 'images/iconic/png/loop-circular-2x.png' %}" class="icon--recurrance">
-									({{item.rollover_count}})
+									<img src="{% static 'images/iconic/png/loop-circular-2x-g.png' %}" class="kanban--icon--recurrance">
+									<span class="text--mild">({{item.rollover_count}})</span>
 								{% endif %}
 								<a href="{% url 'edit_todo_item' item_id=item.id %}" class="js-openmodal-todo">{{ item.title }}</a>
 							</td>
 							<td class="action--right">
 								{% if block.next_action %}
-									<a href="{% url 'move_kanban_item' item_id=item.id target_status=block.next_action %}" class="js-todo-generic">-></a>
+									<a href="{% url 'move_kanban_item' item_id=item.id target_status=block.next_action %}" class="js-todo-generic">
+										{% if block.next_action == 'archived' %}
+										<img src="{% static 'images/iconic/arrow-archive.png' %}" />
+										{% else %}
+										<img src="{% static 'images/iconic/arrow-next.png' %}" />
+										{% endif %}
+									</a>
 								{% else %}
 								&nbsp;
 								{% endif %}
