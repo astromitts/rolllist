@@ -28,11 +28,7 @@
 									<img src="{% static 'images/iconic/png/loop-circular-2x-g.png' %}" class="kanban--icon--recurrance">
 									<span class="text--mild">({{item.rollover_count}})</span>
 								{% endif %}
-								{% if block.key == 'done' %}
-									<span class="text--mild">{{ item.title }}</span>
-								{% else %}
-									{{ item.title }}
-								{% endif %}
+								{{ item.title }}
 							</td>
 							<td class="link">
 								<a href="{% url 'edit_todo_item' item_id=item.id %}" class="js-openmodal-todo">
