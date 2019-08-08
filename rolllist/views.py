@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 # from django.urls import reverse
 from django.template import loader
+from django.utils.timezone import localdate
 
 from datetime import datetime, timedelta
 
@@ -53,7 +54,7 @@ def day_view(request, datestr=None):
         template = loader.get_template('rolllist/dashboard/dashboard.html')
 
         if not datestr:
-            target_day, created = Day.get_or_create(date=datetime.today())
+            target_day, created = Day.get_or_create(date=localdate())
         else:
             target_day, created = Day.get_from_str(datestr)
 
