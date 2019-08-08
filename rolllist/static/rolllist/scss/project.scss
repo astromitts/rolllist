@@ -22,6 +22,18 @@ $dashed-border: dashed 1px $medium-border-color;
 $solid-border: solid 1px $medium-border-color;
 $dotted-border: dotted 1px $medium-border-color;
 
+
+
+$high-priority-color: #f59f9f;
+$high-priority-mild-color: #f9dede;
+
+$medium-priority-color: #fbc86a;
+$medium-priority-mild-color: #fbe0ae;
+
+$low-priority-color: #eaf3ed;
+$low-priority-mild-color: #d9efe3;
+
+
 .round-dashed-box {
 	display: table;
 	width: 100%;
@@ -395,17 +407,6 @@ button.schedule-toggle {
 	@extend .round-dashed-box;
 	margin-right: 2px;
 	margin-left: 2px;
-	&--todo {
-
-	}
-
-	&--doing {
-
-	}
-
-	&--done {
-
-	}
 }
 
 
@@ -423,21 +424,34 @@ button.schedule-toggle {
 		margin-right: -2px;
 		margin-top: -2px;
 	}
+
+	&--high {
+		background-color: $high-priority-mild-color;
+	}
+	&--medium {
+		background-color: $medium-priority-mild-color;
+	}
+	&--low {
+		background-color: $low-priority-mild-color;
+	}
 }
 
 table.todo-kanban {
 	td.action--left {
 		width: 15%;
 	}
-	td.priority {
-		width: 15%;
+	td.link {
+		width: 2%;
 	}
 	td.title {
-		width: 55%;
 	}
 	td.action--right {
 		text-align: right;
 		width: 15%;
+	}
+	a.edit {
+		color: $black;
+		text-decoration: underline;
 	}
 }
 
@@ -518,15 +532,6 @@ table.todo-kanban {
 
 .js-schedule-control { display: none; }
 
-$high-priority-color: #f59f9f;
-$high-priority-complete-color: #f9dede;
-
-$medium-priority-color: #fbc86a;
-$medium-priority-complete-color: #fbe0ae;
-
-$low-priority-color: #f7f77e;
-$low-priority-complete-color: #efefd9;
-
 .priority-title {
 	display: table-cell;
 	height: 100%;
@@ -545,19 +550,19 @@ $low-priority-complete-color: #efefd9;
 		background-color: $high-priority-color;
     }
     &--high_complete {
-		background-color: $high-priority-complete-color;
+		background-color: $high-priority-mild-color;
     }
     &--medium {
 		background-color: $medium-priority-color;
     }
     &--medium_complete {
-		background-color: $medium-priority-complete-color;
+		background-color: $medium-priority-mild-color;
     }
     &--low {
 		background-color: $low-priority-color;
     }
     &--low_complete {
-		background-color: $low-priority-complete-color;
+		background-color: $low-priority-mild-color;
     }
 
 }

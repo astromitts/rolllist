@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.timezone import localdate
 from datetime import datetime, timedelta
 from operator import attrgetter
 
@@ -317,12 +316,14 @@ class ToDoList(models.Model, BaseModel):
             user=self.user
         )
         created_items = []
-        for source_item in source_list.todoitem_set.filter(completed=False, rolled_over=False).exclude(kanban_status='archived').all():
+        item_qs = source_list.todoitem_set.filter(completed=False, rolled_over=False).exclude(kanban_status__in=['done', 'archived'])
+        for source_item in item_qs.all():
             new_item = ToDoItem(
                 title=source_item.title,
                 to_do_list=self,
                 days_incomplete=source_item.days_incomplete + 1,
-                kanban_status=source_item.kanban_status
+                kanban_status=source_item.kanban_status,
+                priority=source_item.priority
             )
             new_item.save()
             source_item.rolled_over = True

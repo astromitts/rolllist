@@ -50,7 +50,6 @@ def day_view(request, datestr=None):
         To do list tables are rendered via ajax call to todo_list_view
     """
     if request.user.is_authenticated:
-        user = get_user(request)
         template = loader.get_template('rolllist/dashboard/dashboard.html')
 
         if not datestr:
@@ -62,10 +61,6 @@ def day_view(request, datestr=None):
             'datestr': target_day.display_string,
             'day': target_day
         }
-        if user.todo_style == 'kanban':
-            context['js_todo_source'] = 'rolllist/js/dashboard-todo-kanban.js'
-        else:
-            context['js_todo_source'] = 'rolllist/js/dashboard-todo-checklist.js'
 
     else:
         template = loader.get_template('rolllist/about.html')
@@ -153,7 +148,7 @@ def todo_list_view(request, datestr):
             {
                 'key': 'done',
                 'title': 'Done',
-                'next_action': 'archived',
+                'next_action': False,
                 'previous_action': 'doing',
                 'items': todo_items['done'],
             },

@@ -1,12 +1,12 @@
 {% load static %}
 <div class="row">
 	{% for block in todo_blocks %}
-		<div class="col todo-kanban_group todo-kanban_group--{{block.key}}">
+		<div class="col-sm todo-kanban_group">
 			<div class="todo-kanban_title">	
 				{{block.title}}:
 			</div>
 			{% for item in block.items %}
-				<div class="todo-kanban_item todo-kanban_item--{{block.key}}">
+				<div class="todo-kanban_item todo-kanban_item--{{item.priority_display}}">
 					<table class="todo-kanban">
 						<tr>
 							<td class="action--left">
@@ -18,22 +18,31 @@
 								&nbsp;
 								{% endif %}
 							</td>
-							<td class="priority"><div class="list-priority-icon list-priority-icon--{{item.priority_display}}"></div></td>
+							<td class="link">
+								<a href="{% url 'delete_todo_item' item_id=item.id %}" class="js-openmodal-todo">
+									<img src="{% static 'images/iconic/png/trash-2x.png' %}" />
+								</a>
+							</td>
 							<td class="title">
-								{% if item.rollover_count > 1 %}
+								{% if item.rollover_count > 0 %}
 									<img src="{% static 'images/iconic/png/loop-circular-2x-g.png' %}" class="kanban--icon--recurrance">
 									<span class="text--mild">({{item.rollover_count}})</span>
 								{% endif %}
-								<a href="{% url 'edit_todo_item' item_id=item.id %}" class="js-openmodal-todo">{{ item.title }}</a>
+								{% if block.key == 'done' %}
+									<span class="text--mild">{{ item.title }}</span>
+								{% else %}
+									{{ item.title }}
+								{% endif %}
+							</td>
+							<td class="link">
+								<a href="{% url 'edit_todo_item' item_id=item.id %}" class="js-openmodal-todo">
+									<img src="{% static 'images/iconic/png/pencil-2x.png' %}" />
+								</a>
 							</td>
 							<td class="action--right">
 								{% if block.next_action %}
 									<a href="{% url 'move_kanban_item' item_id=item.id target_status=block.next_action %}" class="js-todo-generic">
-										{% if block.next_action == 'archived' %}
-										<img src="{% static 'images/iconic/arrow-archive.png' %}" />
-										{% else %}
 										<img src="{% static 'images/iconic/arrow-next.png' %}" />
-										{% endif %}
 									</a>
 								{% else %}
 								&nbsp;

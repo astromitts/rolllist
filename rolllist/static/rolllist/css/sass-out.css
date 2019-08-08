@@ -271,16 +271,23 @@ button.schedule-toggle {
   .todo-kanban_item img.kanban--icon--recurrance {
     margin-right: -2px;
     margin-top: -2px; }
+  .todo-kanban_item--high {
+    background-color: #f9dede; }
+  .todo-kanban_item--medium {
+    background-color: #fbe0ae; }
+  .todo-kanban_item--low {
+    background-color: #d9efe3; }
 
 table.todo-kanban td.action--left {
   width: 15%; }
-table.todo-kanban td.priority {
-  width: 15%; }
-table.todo-kanban td.title {
-  width: 55%; }
+table.todo-kanban td.link {
+  width: 2%; }
 table.todo-kanban td.action--right {
   text-align: right;
   width: 15%; }
+table.todo-kanban a.edit {
+  color: #000000;
+  text-decoration: underline; }
 
 .notescontainer-table {
   padding-left: 15px; }
@@ -365,8 +372,8 @@ table.todo-kanban td.action--right {
   .list-priority-icon--medium_complete {
     background-color: #fbe0ae; }
   .list-priority-icon--low {
-    background-color: #f7f77e; }
+    background-color: #eaf3ed; }
   .list-priority-icon--low_complete {
-    background-color: #efefd9; }
+    background-color: #d9efe3; }
 
 /*# sourceMappingURL=sass-out.css.map */
