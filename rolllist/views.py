@@ -428,6 +428,11 @@ def rollover_todo(request, datestr):
 def move_kanban_item(request, item_id, target_status):
     item = ToDoItem.objects.get(pk=item_id)
     item.kanban_status = target_status
+    if item.kanban_status == 'done':
+        item.completed = True  # incase they switch back and forth
+    else:
+        item.completed = False
+
     item.save()
     return HttpResponse()
 
@@ -454,6 +459,7 @@ def complete_todo_item(request, item_id):
     """ Set completed status on to do item of given ID """
     item = ToDoItem.objects.get(pk=item_id)
     item.completed = True
+    item.kanban_status = 'done'  # incase they switch back and forth
     item.save()
     return HttpResponse()
 
@@ -463,6 +469,7 @@ def revert_todo_item(request, item_id):
     """ Revert completed status on to do item of given ID """
     item = ToDoItem.objects.get(pk=item_id)
     item.completed = False
+    item.kanban_status = 'doing'
     item.save()
     return HttpResponse()
 
