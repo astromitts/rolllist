@@ -4,6 +4,11 @@ from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from rolllist.utils import time_options_strings
 
+todo_style_choices = [
+    ('checkbox', 'Checkbox style'),
+    ('kanban', 'Kanban style'),
+]
+
 
 class RollListUser(models.Model):
     """ Model for managing application settings per user.
@@ -21,6 +26,10 @@ class RollListUser(models.Model):
             (i, time_options_strings[i]) for i in range(0, len(time_options_strings))
         ],
         default=time_options_strings.index('6:30 PM')
+    )
+    todo_style = models.CharField(
+        choices=todo_style_choices,
+        max_length=120
     )
 
     def __str__(self):

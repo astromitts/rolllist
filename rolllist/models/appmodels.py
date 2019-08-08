@@ -316,11 +316,12 @@ class ToDoList(models.Model, BaseModel):
             user=self.user
         )
         created_items = []
-        for source_item in source_list.todoitem_set.filter(completed=False, rolled_over=False).all():
+        for source_item in source_list.todoitem_set.filter(completed=False, rolled_over=False).exclude(kanban_status='archived').all():
             new_item = ToDoItem(
                 title=source_item.title,
                 to_do_list=self,
-                days_incomplete=source_item.days_incomplete + 1
+                days_incomplete=source_item.days_incomplete + 1,
+                kanban_status=source_item.kanban_status
             )
             new_item.save()
             source_item.rolled_over = True
@@ -328,10 +329,22 @@ class ToDoList(models.Model, BaseModel):
             created_items.append(source_item)
         return created_items
 
+    def organize_by_status(self):
+        items_by_status = {
+            'todo': [],
+            'doing': [],
+            'done': [],
+        }
+
+        for item in self.get_items():
+            items_by_status[item.kanban_status].append(item)
+
+        return items_by_status
+
     def get_items(self):
         """ Shortcut method for getting this list's related items in the right order
         """
-        return self.todoitem_set.order_by('-priority', '-days_incomplete', 'id').all()
+        return self.todoitem_set.exclude(kanban_status='archived').order_by('-priority', '-days_incomplete', 'id').all()
 
 
 class ToDoItem(models.Model, BaseModel):
@@ -344,6 +357,17 @@ class ToDoItem(models.Model, BaseModel):
     to_do_list = models.ForeignKey(ToDoList, on_delete=models.CASCADE)
     title = models.CharField(max_length=150)
     completed = models.BooleanField(default=False)
+    kanban_status = models.CharField(
+        default='todo',
+        choices=[
+            ('todo', 'To Do'),
+            ('doing', 'Doing'),
+            ('done', 'Done'),
+            ('archived', 'Archived')
+        ],
+        max_length=10,
+        db_index=True
+    )
     rolled_over = models.BooleanField(default=False)  # TODO: implement
     days_incomplete = models.IntegerField(default=1)
     priority = models.IntegerField(default=1, choices=priority_choices)

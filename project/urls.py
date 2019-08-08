@@ -47,6 +47,7 @@ urlpatterns = [
     path('deletetodoitem/<int:item_id>/', views.delete_todo_item, name='delete_todo_item'),
     path('completetodoitem/<int:item_id>/', views.complete_todo_item, name='complete_todo_item'),
     path('reverttodoitem/<int:item_id>/', views.revert_todo_item, name='revert_todo_item'),
+    path('movekanabanitem/<int:item_id>/<str:target_status>/', views.move_kanban_item, name='move_kanban_item'),
 
     # dashboard
     path('<str:datestr>/', views.day_view, name='day_view'),

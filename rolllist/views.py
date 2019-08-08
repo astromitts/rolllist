@@ -49,6 +49,7 @@ def day_view(request, datestr=None):
         To do list tables are rendered via ajax call to todo_list_view
     """
     if request.user.is_authenticated:
+        user = get_user(request)
         template = loader.get_template('rolllist/dashboard/dashboard.html')
 
         if not datestr:
@@ -60,6 +61,11 @@ def day_view(request, datestr=None):
             'datestr': target_day.display_string,
             'day': target_day
         }
+        if user.todo_style == 'kanban':
+            context['js_todo_source'] = 'rolllist/js/dashboard-todo-kanban.js'
+        else:
+            context['js_todo_source'] = 'rolllist/js/dashboard-todo-checklist.js'
+
     else:
         template = loader.get_template('rolllist/about.html')
         context = {}
@@ -109,10 +115,9 @@ def note_view(request, datestr):
 def todo_list_view(request, datestr):
     """ View providing the to do lists for a given day
     """
-    template = loader.get_template('rolllist/dashboard/todo_list_table.html')
+    user = get_user(request)
     target_date = datetime.strptime(datestr, "%Y%m%d").date()
     target_day, target_day_created = Day.get_or_create(date=target_date)
-
     previous_day_date = target_day.date - timedelta(days=1)
     previous_day, previous_created = Day.get_or_create(date=previous_day_date)
 
@@ -125,6 +130,37 @@ def todo_list_view(request, datestr):
         'datestr': datestr,
         'todo_list': todo_list
     }
+
+    if user.todo_style == 'kanban':
+        template = loader.get_template('rolllist/dashboard/todo_kanban_table.html')
+        todo_items = todo_list.organize_by_status()
+        context['todo_blocks'] = [
+            {
+                'key': 'todo',
+                'title': 'To Do',
+                'next_action': 'doing',
+                'previous_action': False,
+                'items': todo_items['todo'],
+            },
+            {
+                'key': 'doing',
+                'title': 'Doing',
+                'next_action': 'done',
+                'previous_action': 'todo',
+                'items': todo_items['doing'],
+            },
+            {
+                'key': 'done',
+                'title': 'Done',
+                'next_action': 'archived',
+                'previous_action': 'doing',
+                'items': todo_items['done'],
+            },
+        ]
+
+    else:
+        template = loader.get_template('rolllist/dashboard/todo_list_table.html')
+
     return HttpResponse(template.render(context, request))
 
 
@@ -389,6 +425,14 @@ def rollover_todo(request, datestr):
         user=request.user.rolllistuser
     )
     source_list.rollover_items()
+    return HttpResponse()
+
+
+@login_required(login_url='login/')
+def move_kanban_item(request, item_id, target_status):
+    item = ToDoItem.objects.get(pk=item_id)
+    item.kanban_status = target_status
+    item.save()
     return HttpResponse()
 
 

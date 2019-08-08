@@ -1,0 +1,54 @@
+{% load static %}
+<div class="row">
+	{% for block in todo_blocks %}
+		<div class="col todo-kanban_group todo-kanban_group--{{block.key}}">
+			<div class="todo-kanban_title">	
+				{{block.title}}:
+			</div>
+			{% for item in block.items %}
+				<div class="todo-kanban_item todo-kanban_item--{{block.key}}">
+					<table class="todo-kanban">
+						<tr>
+							<td class="action--left">
+								{% if block.previous_action %}
+									<a href="{% url 'move_kanban_item' item_id=item.id target_status=block.previous_action %}" class="js-todo-generic"><-</a>
+								{% else %}
+								&nbsp;
+								{% endif %}
+							</td>
+							<td class="priority"><div class="list-priority-icon list-priority-icon--{{item.priority_display}}"></div></td>
+							<td class="title">
+								{% if item.rollover_count > 1 %}
+									<img src="{% static 'images/iconic/png/loop-circular-2x.png' %}" class="icon--recurrance">
+									({{item.rollover_count}})
+								{% endif %}
+								<a href="{% url 'edit_todo_item' item_id=item.id %}" class="js-openmodal-todo">{{ item.title }}</a>
+							</td>
+							<td class="action--right">
+								{% if block.next_action %}
+									<a href="{% url 'move_kanban_item' item_id=item.id target_status=block.next_action %}" class="js-todo-generic">-></a>
+								{% else %}
+								&nbsp;
+								{% endif %}
+							</td>
+						</tr>
+					</table>
+				</div>
+			{% endfor %}
+		</div>
+	{% endfor %}
+
+</div>
+<div class="row">
+	<div class="col">
+		<div class="spacer_5"></div>
+		<div>
+			<a href="{% url 'add_todo_item' list_id=todo_list.pk %}" class="js-openmodal-todo button">
+			<button>+ Item</button>
+			</a>
+			<a href="{% url 'rollover_todo' datestr=datestr %}" class="js-todo-generic button">
+				<button><img src="{% static 'images/iconic/png/loop-circular-2x.png' %}" class="icon--recurrance">Rollover</button>
+			</a>
+		</div>
+	</div>
+</div>

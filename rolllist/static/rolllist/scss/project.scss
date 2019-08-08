@@ -387,6 +387,61 @@ button.schedule-toggle {
 		}
 	}
 }
+.todo-kanban_title {
+	font-weight: bold;
+}
+
+.todo-kanban_group {
+	@extend .round-dashed-box;
+	margin-right: 2px;
+	margin-left: 2px;
+	&--todo {
+
+	}
+
+	&--doing {
+
+	}
+
+	&--done {
+
+	}
+}
+
+
+.todo-kanban_item {
+	background-color: $white;
+	border: $dotted-border;
+	border-radius: 3px;
+	margin-bottom: 2px;
+	padding-left: 3px;
+	height: auto;
+    display: inline-block;
+    width: 100%;
+
+	img.icon {
+		&--recurrance {
+			margin-right: 0px;
+			margin-top: -2px;
+		}
+	}
+}
+
+table.todo-kanban {
+	td.action--left {
+		width: 15%;
+	}
+	td.priority {
+		width: 15%;
+	}
+	td.title {
+		width: 55%;
+	}
+	td.action--right {
+		text-align: right;
+		width: 15%;
+	}
+}
 
 .notescontainer {
 	&-table {

@@ -1,4 +1,4 @@
-.round-dashed-box, #schedulecontainer .schedulecontainer, #managerecurringschedulecontainer, #todocontainter .todocontainer, .notescontainer-table {
+.round-dashed-box, #schedulecontainer .schedulecontainer, #managerecurringschedulecontainer, #todocontainter .todocontainer, .todo-kanban_group, .notescontainer-table {
   display: table;
   width: 100%;
   border: dashed 1px #B2B3B3;
@@ -230,10 +230,10 @@ button.schedule-toggle {
     background-color: #FFFFF0; }
 #schedulecontainer img.icon--recurrance {
   margin-top: 3px; }
-#schedulecontainer .round-dashed-box, #schedulecontainer .schedulecontainer, #schedulecontainer #managerecurringschedulecontainer, #schedulecontainer #todocontainter .todocontainer, #todocontainter #schedulecontainer .todocontainer, #schedulecontainer .notescontainer-table {
+#schedulecontainer .round-dashed-box, #schedulecontainer .schedulecontainer, #schedulecontainer #managerecurringschedulecontainer, #schedulecontainer #todocontainter .todocontainer, #todocontainter #schedulecontainer .todocontainer, #schedulecontainer .todo-kanban_group, #schedulecontainer .notescontainer-table {
   padding-bottom: 3px;
   padding-top: 3px; }
-  #schedulecontainer .round-dashed-box .text, #schedulecontainer .schedulecontainer .text, #schedulecontainer #managerecurringschedulecontainer .text, #schedulecontainer #todocontainter .todocontainer .text, #todocontainter #schedulecontainer .todocontainer .text, #schedulecontainer .notescontainer-table .text {
+  #schedulecontainer .round-dashed-box .text, #schedulecontainer .schedulecontainer .text, #schedulecontainer #managerecurringschedulecontainer .text, #schedulecontainer #todocontainter .todocontainer .text, #todocontainter #schedulecontainer .todocontainer .text, #schedulecontainer .todo-kanban_group .text, #schedulecontainer .notescontainer-table .text {
     padding-left: 20px; }
 
 #managerecurringschedulecontainer td, #managerecurringschedulecontainer th {
@@ -251,6 +251,36 @@ button.schedule-toggle {
 #todocontainter img.icon--recurrance {
   margin-right: 5px;
   margin-top: -2px; }
+
+.todo-kanban_title {
+  font-weight: bold; }
+
+.todo-kanban_group {
+  margin-right: 2px;
+  margin-left: 2px; }
+
+.todo-kanban_item {
+  background-color: #FFFFFF;
+  border: dotted 1px #B2B3B3;
+  border-radius: 3px;
+  margin-bottom: 2px;
+  padding-left: 3px;
+  height: auto;
+  display: inline-block;
+  width: 100%; }
+  .todo-kanban_item img.icon--recurrance {
+    margin-right: 0px;
+    margin-top: -2px; }
+
+table.todo-kanban td.action--left {
+  width: 15%; }
+table.todo-kanban td.priority {
+  width: 15%; }
+table.todo-kanban td.title {
+  width: 55%; }
+table.todo-kanban td.action--right {
+  text-align: right;
+  width: 15%; }
 
 .notescontainer-table {
   padding-left: 15px; }

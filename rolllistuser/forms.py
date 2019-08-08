@@ -8,6 +8,7 @@ from django.forms import (
     BooleanField,
 )
 from django.contrib.auth.models import User
+from rolllistuser.models import todo_style_choices
 from rolllist.utils import time_options_strings
 
 
@@ -48,6 +49,8 @@ class EditUserProfileForm(Form):
         ]
     )
 
+    todo_style = ChoiceField(choices=todo_style_choices)
+
     new_password1 = CharField(widget=PasswordInput(), required=False)
     new_password2 = CharField(widget=PasswordInput(), required=False)
     password = CharField(widget=PasswordInput())
@@ -57,6 +60,7 @@ class EditUserProfileForm(Form):
             'email',
             'schedule_start_time',
             'schedule_end_time',
+            'todo_style',
             'password'
         ]
         widgets = {

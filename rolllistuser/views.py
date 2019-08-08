@@ -104,6 +104,7 @@ def user_profile(request):
         if form.is_valid and password_valid:
             user.rolllistuser.schedule_start_time = data['schedule_start_time']
             user.rolllistuser.schedule_end_time = data['schedule_end_time']
+            user.rolllistuser.todo_style = data['todo_style']
             user.rolllistuser.save()
             user.email = data['email']
             user.username = data['email']
@@ -128,7 +129,8 @@ def user_profile(request):
         init_data = {
             'email': user.email,
             'schedule_start_time': user.rolllistuser.schedule_start_time,
-            'schedule_end_time': user.rolllistuser.schedule_end_time
+            'schedule_end_time': user.rolllistuser.schedule_end_time,
+            'todo_style': user.rolllistuser.todo_style
         }
         form = EditUserProfileForm(initial=init_data)
 
