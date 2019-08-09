@@ -279,6 +279,8 @@ button.schedule-toggle {
   .todo-kanban_item--low {
     border-color: #d9efe3; }
 
+table.todo-kanban td.title {
+  text-align: center; }
 table.todo-kanban td.action--right {
   text-align: right; }
 
