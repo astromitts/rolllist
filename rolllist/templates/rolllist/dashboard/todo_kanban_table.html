@@ -1,5 +1,17 @@
 {% load static %}
 <div class="row">
+	<div class="col">
+		<a href="{% url 'add_todo_item' list_id=todo_list.pk %}" class="js-openmodal-todo button">
+		<button>+ Item</button>
+		</a>
+		<a href="{% url 'rollover_todo' datestr=datestr %}" class="js-todo-generic button">
+			<button><img src="{% static 'images/iconic/png/loop-circular-2x.png' %}" class="icon--recurrance">Rollover</button>
+		</a>
+	</div>
+</div>
+
+	<div class="spacer_5"></div>
+<div class="row">
 	{% for block in todo_blocks %}
 		<div class="col-sm todo-kanban_group">
 			<div class="todo-kanban_title">	
@@ -18,22 +30,17 @@
 								&nbsp;
 								{% endif %}
 							</td>
-							<td class="link">
-								<a href="{% url 'delete_todo_item' item_id=item.id %}" class="js-openmodal-todo">
-									<img src="{% static 'images/iconic/png/trash-2x.png' %}" />
-								</a>
-							</td>
 							<td class="title">
 								{% if item.rollover_count > 0 %}
 									<img src="{% static 'images/iconic/png/loop-circular-2x-g.png' %}" class="kanban--icon--recurrance">
 									<span class="text--mild">({{item.rollover_count}})</span>
 								{% endif %}
-								{{ item.title }}
-							</td>
-							<td class="link">
-								<a href="{% url 'edit_todo_item' item_id=item.id %}" class="js-openmodal-todo">
-									<img src="{% static 'images/iconic/png/pencil-2x.png' %}" />
-								</a>
+								{{ item.title }} <a href="" class="js-open-kanban-links" id="js-open-kanban-links_{{item.id}}">[...]</a>
+								<div id="js-open-kanban-links_{{item.id}}" class="js-open-kanban-links content--centered" style="display: none;">
+									<a href="{% url 'edit_todo_item' item_id=item.id %}" class="js-openmodal-todo">
+										edit</a>&nbsp;|&nbsp;
+									<a href="{% url 'delete_todo_item' item_id=item.id %}" class="js-openmodal-todo">delete</a>
+								</div>
 							</td>
 							<td class="action--right">
 								{% if block.next_action %}
@@ -51,17 +58,4 @@
 		</div>
 	{% endfor %}
 
-</div>
-<div class="row">
-	<div class="col">
-		<div class="spacer_5"></div>
-		<div>
-			<a href="{% url 'add_todo_item' list_id=todo_list.pk %}" class="js-openmodal-todo button">
-			<button>+ Item</button>
-			</a>
-			<a href="{% url 'rollover_todo' datestr=datestr %}" class="js-todo-generic button">
-				<button><img src="{% static 'images/iconic/png/loop-circular-2x.png' %}" class="icon--recurrance">Rollover</button>
-			</a>
-		</div>
-	</div>
 </div>

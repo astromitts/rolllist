@@ -261,7 +261,8 @@ button.schedule-toggle {
 
 .todo-kanban_item {
   background-color: #FFFFFF;
-  border: dotted 1px #B2B3B3;
+  border: solid 1px #B2B3B3;
+  border-width: 2px;
   border-radius: 3px;
   margin-bottom: 2px;
   padding-left: 3px;
@@ -272,22 +273,14 @@ button.schedule-toggle {
     margin-right: -2px;
     margin-top: -2px; }
   .todo-kanban_item--high {
-    background-color: #f9dede; }
+    border-color: #f7bbbb; }
   .todo-kanban_item--medium {
-    background-color: #fbe0ae; }
+    border-color: #fbe0ae; }
   .todo-kanban_item--low {
-    background-color: #d9efe3; }
+    border-color: #d9efe3; }
 
-table.todo-kanban td.action--left {
-  width: 15%; }
-table.todo-kanban td.link {
-  width: 2%; }
 table.todo-kanban td.action--right {
-  text-align: right;
-  width: 15%; }
-table.todo-kanban a.edit {
-  color: #000000;
-  text-decoration: underline; }
+  text-align: right; }
 
 .notescontainer-table {
   padding-left: 15px; }

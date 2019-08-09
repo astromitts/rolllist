@@ -155,6 +155,20 @@ function get_schedule_table(){
 }
 
 /* TO DO VIEW HANDLERS */
+
+function bind_toggle_kanban_links(){
+	$('a.js-open-kanban-links').click(function(event){
+		event.preventDefault();
+		var target_div = $('div#' + $(this).attr('id'));
+		if (target_div.is(":visible")){
+			target_div.hide();
+		} else {
+			target_div.show();
+		}
+		
+	});
+}
+
 function bind_modal_open_todo(datestr){
 	// Handle the modal opening function for the to-do view
 	$('a.js-openmodal-todo').click(function(event){
@@ -208,8 +222,9 @@ function get_todo_table(){
 		success: function(data){
 			$('div#todocontainter').html(data);
 			bind_modal_open_todo();
-			bind_todo_generic_handlers()
+			bind_todo_generic_handlers();
 			bind_modal_close();
+			bind_toggle_kanban_links();
 		},
 	})
 }

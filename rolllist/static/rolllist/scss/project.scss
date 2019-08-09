@@ -412,7 +412,8 @@ button.schedule-toggle {
 
 .todo-kanban_item {
 	background-color: $white;
-	border: $dotted-border;
+	border: $solid-border;
+	border-width: 2px;
 	border-radius: 3px;
 	margin-bottom: 2px;
 	padding-left: 3px;
@@ -426,32 +427,23 @@ button.schedule-toggle {
 	}
 
 	&--high {
-		background-color: $high-priority-mild-color;
+		border-color: #f7bbbb;
 	}
 	&--medium {
-		background-color: $medium-priority-mild-color;
+		border-color: $medium-priority-mild-color;
 	}
 	&--low {
-		background-color: $low-priority-mild-color;
+		border-color: $low-priority-mild-color;
 	}
 }
 
 table.todo-kanban {
 	td.action--left {
-		width: 15%;
-	}
-	td.link {
-		width: 2%;
 	}
 	td.title {
 	}
 	td.action--right {
 		text-align: right;
-		width: 15%;
-	}
-	a.edit {
-		color: $black;
-		text-decoration: underline;
 	}
 }
 
