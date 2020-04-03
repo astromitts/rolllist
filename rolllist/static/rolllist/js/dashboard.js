@@ -45,6 +45,10 @@ function bind_schedule_controls(){
 		var selected = $(this);
 		toggle_schedule_display(selected);
 	});
+	$('button.aslink').click(function(event){
+		action = $(this).attr('action');
+		location.href = action;
+	});
 }
 
 function init_schedule_display(){

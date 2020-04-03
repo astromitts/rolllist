@@ -19,7 +19,11 @@
 							<span class="item-label">
 								{{ schedule_block.item }} 
 								<button action="{% url 'delete_item_form' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule float--heavyright" id="{{ interval_id }}">delete</button>
-								<button action="{% url 'edit_item' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule float--lightright" id="-1">edit</button>
+								{% if schedule_block.item.recurrance %}
+									<button action="{% url 'manage_recurring_items'%}" class="aslink float--lightright">manage</button>
+								{% else %}
+									<button action="{% url 'edit_item' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule float--lightright" id="-1">edit</button>
+								{% endif %}
 							</span>
 						{% elif forloop.last %}
 								<div class="booked-item item-end">
