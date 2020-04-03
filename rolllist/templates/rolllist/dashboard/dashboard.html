@@ -1,13 +1,6 @@
-{% extends 'rolllist/base.html' %}
+{% extends 'rolllist/base_restyle.html' %}
 {% load static %}
 {% block main_content %}
-	{% comment %} hidden modal for ajaxy forms {% endcomment %}
-	<div id="modal"  style="display: none;">
-		<div id="closemodal">
-			<a href="" class="closemodal"><button>X</button></a>
-		</div>
-		<div id="modalcontent"></div>
-	</div>
 
 	{% comment %} hidden field for loading other views via date id {% endcomment %}
 	<div id="get_schedule" style="display: none;">{% url 'get_schedule' datestr=datestr %}</div>
@@ -18,23 +11,47 @@
 	{% comment %} content containers {% endcomment %}
 	<div class="row">
 	    <div class="col">
-			<div id="schedule-controls" class="float--left">
-				<button class="js-schedule-control schedule-toggle"  id="js-schedule-expand">+</button>
-				<button class="js-schedule-control js-schedule-control-selected schedule-toggle" id="js-schedule-collapse">-</button>
+			<div class="date-title">
+				<div class="date-nav-links">
+					<span class="date-nav">
+						<img src="{% static 'images/iconic/png/calendar-3x-orange.png' %}" id="datepicker" />
+					</span>
+					<span class="date-nav">
+						<a class="nav-link daytoggle daytoggle_prev" href="{% url 'day_view' datestr=target_previous_date %}">< Prev</a>
+					</span>
+					<span class="date-nav">
+						<a class="nav-link daytoggle daytoggle_next" href="{% url 'day_view' datestr=target_next_day %}">Next ></a>
+					</span>
+					</span>
+				</div>
 			</div>
-			<div class="float--left text-title date-title"><h1>{{day}}</h1></div>
+			<h1>{{day}}</h1>
 		</div>
 	</div>
 	<div class="row">
-	    <div class="col">
+    	<div class="col">
+    		<div id="schedule-controls" class="float--left">
+				<button class="js-schedule-control schedule-toggle"  id="js-schedule-expand">expand</button>
+				<button class="js-schedule-control js-schedule-control-selected schedule-toggle" id="js-schedule-collapse">collapse</button>
+			</div>
 			<div id="schedulecontainer" class="dashcontainer--padded"></div>
-			<div class="spacer_5"></div>
+			<div class="spacer_10"></div>
 			<div id="todocontainter" class="dashcontainer--padded"></div>
+			{% comment %}
+			holding off on this, I don't like it.
 			<div id="notescontainer" class="dashcontainer--padded"></div>
+			{% endcomment %}
+
 	    </div>
 	</div>
 
-
+	{% comment %} hidden modal for ajaxy forms {% endcomment %}
+	<div id="modal" class="modal_dashboard"  style="display: none;">
+		<div id="closemodal">
+			<a href="" class="closemodal"><button>X</button></a>
+		</div>
+		<div id="modalcontent"></div>
+	</div>
 {% endblock %}
 {% block extra_head %}
 
@@ -49,29 +66,6 @@
 
 {% endblock %}
 
-{% block footer %}
-	<div class="container">
-		<footer class="page-footer navbar-dark bg-dark fixed-bottom">
-			{% if user_logged_in %}
-				<div class="row">
-					<span class="bottomnav">
-							<div class="content--astable">
-								<div class="row">
-									<div class="cell">
-								        <a class="navbar-brand daytoggle daytoggle_prev" href="{% url 'day_view' datestr=target_previous_date %}">< Prev</a>
-								    </div>
-								    <div class="cell">
-								        <a class="navbar-brand daytoggle daytoggle_next" href="{% url 'day_view' datestr=target_next_day %}">Next ></a>
-								    </div>
-								    <div class="cell text--white">&nbsp;|&nbsp;</div>
-								    <div class="cell">
-										<img src="{% static 'images/iconic/png/calendar-3x-w.png' %}" id="datepicker" />
-								    </div>
-								</div>
-						</div>
-					</span>
-				</div>
-			   {% endif %}
-		</footer>
-	</div>
+{% block center_nav %}
+	
 {% endblock %}

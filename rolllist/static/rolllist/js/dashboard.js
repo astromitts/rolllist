@@ -10,8 +10,7 @@ function get_anchor(){
 
 function expand_schedule_table(){
 	// show the full schedule table
-	$('table.js-scheduletable-open').show();
-	$('table.js-scheduletable-scheduled').show();
+	$('div.toggle-open').show();
 	// $('button#js-schedule-hide').show();
 	$('button#js-schedule-expand').hide();
 	$('button#js-schedule-collapse').show();
@@ -19,8 +18,7 @@ function expand_schedule_table(){
 
 function collapse_schedule_table(){
 	// show only scheduled items of the schedule table
-	$('table.js-scheduletable-open').hide();
-	$('table.js-scheduletable-scheduled').show();
+	$('div.toggle-open').hide();
 	// $('button#js-schedule-hide').hide();
 	$('button#js-schedule-expand').show();
 	$('button#js-schedule-collapse').hide();
@@ -63,9 +61,9 @@ function init_schedule_display(){
 /* SCHEDULE VIEW HANDLERS */
 function bind_modal_open_schedule(datestr){
 	// Handle opening the modal for the schedule view functions
-	$('a.openmodalschedule').click(function(event){
+	$('button.openmodalschedule').click(function(event){
 		event.preventDefault();
-		var target_url = $(this).attr('href');
+		var target_url = $(this).attr('action');
 		var start_val = $(this).attr('id');
 		$.ajax({
 			type: 'GET',
@@ -276,12 +274,12 @@ $(document).ready(function(){
 	var datestr = $('div#datestr').text();
 	get_schedule_table();
 	get_todo_table();
-	get_notes_table();
+	//get_notes_table();
 	$(function () {
 		$( "#datepicker" ).datepicker({
 			format: "YYYYMMDD",
 			showOn: "button",
-			buttonImage: "{% static 'images/iconic/png/calendar-3x-w.png' %}",
+			buttonImage: "{% static 'images/iconic/png/calendar-3x-orange.png' %}",
 			buttonImageOnly: true
 		}).on('changeDate', function(ev) {
         	var selected = $( "#datepicker" ).datepicker('getDate');

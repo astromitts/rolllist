@@ -17,44 +17,49 @@
 			<div class="todo-kanban_title">	
 				{{block.title}}:
 			</div>
-			{% for item in block.items %}
-				<div class="todo-kanban_item todo-kanban_item--{{item.priority_display}}">
-					<table class="todo-kanban">
-						<tr>
-							<td class="action--left">
-								{% if block.previous_action %}
-									<a href="{% url 'move_kanban_item' item_id=item.id target_status=block.previous_action %}" class="js-todo-generic">
-										<img src="{% static 'images/iconic/arrow-previous.png' %}" />
-									</a>
-								{% else %}
-								&nbsp;
-								{% endif %}
-							</td>
-							<td class="title">
-								{% if item.rollover_count > 0 %}
-									<img src="{% static 'images/iconic/png/loop-circular-2x-g.png' %}" class="kanban--icon--recurrance">
-									<span class="text--mild">({{item.rollover_count}})</span>
-								{% endif %}
-								{{ item.title }} <a href="" class="js-open-kanban-links" id="js-open-kanban-links_{{item.id}}">[...]</a>
-								<div id="js-open-kanban-links_{{item.id}}" class="js-open-kanban-links content--centered" style="display: none;">
-									<a href="{% url 'edit_todo_item' item_id=item.id %}" class="js-openmodal-todo">
-										edit</a>&nbsp;|&nbsp;
-									<a href="{% url 'delete_todo_item' item_id=item.id %}" class="js-openmodal-todo">delete</a>
-								</div>
-							</td>
-							<td class="action--right">
-								{% if block.next_action %}
-									<a href="{% url 'move_kanban_item' item_id=item.id target_status=block.next_action %}" class="js-todo-generic">
-										<img src="{% static 'images/iconic/arrow-next.png' %}" />
-									</a>
-								{% else %}
-								&nbsp;
-								{% endif %}
-							</td>
-						</tr>
-					</table>
-				</div>
-			{% endfor %}
+			<div class="kanban_group--block">
+				{% for item in block.items %}
+					<div class="todo-kanban_item todo-kanban_item--{{item.priority_display}}">
+						<table class="todo-kanban">
+							<tr>
+								<td class="action--left">
+									{% if block.previous_action %}
+										<a href="{% url 'move_kanban_item' item_id=item.id target_status=block.previous_action %}" class="js-todo-generic">
+											<img src="{% static 'images/iconic/arrow-previous.png' %}" />
+										</a>
+									{% else %}
+									&nbsp;
+									{% endif %}
+								</td>
+								<td class="title">
+									{% if item.rollover_count > 0 %}
+										<img src="{% static 'images/iconic/png/loop-circular-2x-g.png' %}" class="kanban--icon--recurrance">
+										<span class="text--mild">({{item.rollover_count}})</span>
+									{% endif %}
+									{{ item.title }} <a href="" class="js-open-kanban-links" id="js-open-kanban-links_{{item.id}}">[...]</a>
+									<div id="js-open-kanban-links_{{item.id}}" class="js-open-kanban-links content--centered" style="display: none;">
+										<a href="{% url 'edit_todo_item' item_id=item.id %}" class="js-openmodal-todo">
+											edit</a>&nbsp;|&nbsp;
+										<a href="{% url 'delete_todo_item' item_id=item.id %}" class="js-openmodal-todo">delete</a>
+									</div>
+								</td>
+								<td class="action--right">
+									{% if block.next_action %}
+										<a href="{% url 'move_kanban_item' item_id=item.id target_status=block.next_action %}" class="js-todo-generic">
+											<img src="{% static 'images/iconic/arrow-next.png' %}" />
+										</a>
+									{% else %}
+									&nbsp;
+									{% endif %}
+								</td>
+							</tr>
+						</table>
+					</div>
+				{% endfor %}
+				{% if not block.items %}
+					<div class="todo-kanban_item">&nbsp;</div>
+				{% endif %}
+			</div>
 		</div>
 	{% endfor %}
 

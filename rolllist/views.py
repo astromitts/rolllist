@@ -73,7 +73,7 @@ def day_view(request, datestr=None):
 def schedule_view(request, datestr):
     """ View providing the time interval schedule for a given day
     """
-    template = loader.get_template('rolllist/dashboard/schedule_table.html')
+    template = loader.get_template('rolllist/dashboard/schedule_table_restyle.html')
     target_date = datetime.strptime(datestr, "%Y%m%d").date()
     target_day, target_day_created = Day.get_or_create(date=target_date)
     day_schedule = DayScheduleDeux(target_day, get_user(request))
