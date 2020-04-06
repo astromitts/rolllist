@@ -30,6 +30,11 @@ h1 {
   .navbar p {
     font-size: .75rem; }
 
+button.navbar-toggler-right {
+  position: absolute;
+  top: 1rem;
+  right: 0; }
+
 #backgroundcover {
   position: absolute;
   width: 100%;
