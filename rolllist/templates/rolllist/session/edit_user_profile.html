@@ -1,39 +1,28 @@
-{% extends 'rolllist/base.html' %}
+{% extends 'rolllist/session/user_base.html' %}
 {% load static %}
 {% block main_content %}
 	<div class="row">
-		<div class="col-xsm" id="user_profile-links">
-			<a href="{% url 'logout_handler' %}"><button class="button">Log out</button></a>
-			<div class="spacer_10"></div>
-			<ul>
-				<li><a href="{% url 'user_change_password' %}">Change Password</a></li>
-				<li><a href="{% url 'about' %}">About</a></li>
-				<li><a href="{% url 'manage_recurring_items' %}">Manage Recurring<br />Schedule Items</a></li>
-				<li><a href="{% url 'view_all_notes' %}">See all notes</a></li>
-			</ul>
-		</div>
 		<div class="col">
 			<form method="POST" action="{% url 'user_profile' %}">{% csrf_token %}
-				<table class="dashed">
-					<tr>
-						<td>email:</td><td width="100%">{{form.email}}</td>
-					</tr>
-					<tr>
-						<td>schedule&nbsp;start&nbsp;time:</td><td>{{form.schedule_start_time}}</td>
-					</tr>
-					<tr>
-						<td>schedule&nbsp;end&nbsp;time:</td><td>{{form.schedule_end_time}}</td>
-					</tr>
-					<tr>
-						<td>use kanban to-do style:</td><td>{{form.todo_style}}</td>
-					</tr>
-					<tr>
-						<td>current&nbsp;password:</td><td>{{form.password}} (required to make any user profile changes)</td>
-					</tr>
-					<tr>
-						<td colspan="100"><input type="submit" class="button float--right" value="update" /></td>
-					</tr>
-				</table>
+				<div class="content--astable">
+					<div class="trow trow--dotted-bottom">
+							<div class="tcell tcell--padded theader">email:</div><div class="tcell">{{form.email}}</div>
+					</div>
+					<div class="trow trow--dotted-bottom">
+						<div class="tcell tcell--padded theader">schedule&nbsp;start&nbsp;time:</div><div class="tcell">{{form.schedule_start_time}}</div>
+					</div>
+					<div class="trow trow--dotted-bottom">
+						<div class="tcell tcell--padded theader">schedule&nbsp;end&nbsp;time:</div><div class="tcell">{{form.schedule_end_time}}</div>
+					</div>
+					<div class="trow trow--dotted-bottom">
+						<div class="tcell tcell--padded theader">current&nbsp;password:</div><div class="tcell">{{form.password}} (required to make any user profile changes)</div>
+					</div>
+					<div class="trow trow--dotted-bottom">
+						<div class="tcell tcell--padded theader"></div>
+						<div class="tcell tcell--padded theader">	
+							<input type="submit" class="button float--right" value="update" />
+						</div>
+				</div>
 			</form>
 
 		</div>

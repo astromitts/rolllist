@@ -1,0 +1,75 @@
+{% extends 'rolllist/base_restyle.html' %}
+{% load static %}
+{% block sidenav %}
+	<div class="sidebar" data-color="orange">
+		{% if user_logged_in %}
+			<div class="logo">
+				<a href="/"  class="simple-text logo-mini">
+		          <i class="now-ui-icons objects_spaceship"></i>
+		        </a>
+		        <a href="/" class="simple-text logo-normal">
+		          Dashboard
+		        </a>
+	      	</div>
+		    <div class="sidebar-wrapper" id="sidebar-wrapper">
+				<ul class="nav">
+					<li>
+						<a href="{% url 'logout_handler' %}">
+							<i class="now-ui-icons media-1_button-power"></i>
+							<p>Log Out</p>
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'user_profile' %}">
+							<i class="now-ui-icons users_single-02"></i>
+							<p>Profile</p>
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'user_change_password' %}">
+							<i class="now-ui-icons objects_key-25"></i>
+							<p>Change Password</p>
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'manage_recurring_items' %}">
+							<i class="now-ui-icons ui-1_calendar-60"></i>
+							<p>Recurring Schedule</p>
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'about' %}">
+							<i class="now-ui-icons travel_info"></i>
+							<p>About</p>
+						</a>
+					</li>
+				</ul>
+			</div>
+		{% else %}
+			<div class="logo">
+				<a href="{% url 'login_handler' %}"  class="simple-text logo-mini">
+		          <i class="now-ui-icons objects_spaceship"></i>
+		        </a>
+				<a href="{% url 'login_handler' %}"  class="simple-text logo-normal">
+					Log In
+				</a>
+	      	</div>
+			<div class="sidebar-wrapper" id="sidebar-wrapper">
+				<ul class="nav">
+					<li>
+						<a href="{% url 'create_user_handler' %}">
+							<i class="now-ui-icons users_single-02"></i>
+							<p>Register</p>
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'about' %}">
+							<i class="now-ui-icons travel_info"></i>
+							<p>About</p>
+						</a>
+					</li>
+				</ul>
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}

@@ -59,7 +59,8 @@ def day_view(request, datestr=None):
 
         context = {
             'datestr': target_day.display_string,
-            'day': target_day
+            'day': target_day,
+            'full_width_display': True,
         }
 
     else:
@@ -303,14 +304,15 @@ def delete_recurring_item_handler(request, item_id):
         target_day, created = Day.get_or_create(date=datetime.today())
         target_item.delete_current_and_future(target_day)
         return HttpResponse()
-    template = loader.get_template('rolllist/forms/generic_delete_form.html')
+    template = loader.get_template('rolllist/forms/generic_delete_form_native.html')
     context = {
         'item': target_item,
         'message': (
             'Deleting this recurring event will delete it from your schedule '
             'for today and all future dates. Confirm?'
         ),
-        'submit_text': 'Confirm'
+        'submit_text': 'Confirm',
+        'cancel_url': '/recurringschedule/'
     }
     return HttpResponse(template.render(context, request))
 
@@ -318,7 +320,7 @@ def delete_recurring_item_handler(request, item_id):
 @login_required(login_url='login/')
 def edit_recurring_item_handler(request, item_id):
     """ Handler for editing a RecurringScheduleItem """
-    template = loader.get_template('rolllist/forms/schedule_item_form.html')
+    template = loader.get_template('rolllist/forms/schedule_item_form_native.html')
     target_item = RecurringScheduleItem.objects.get(pk=item_id)
     if request.POST:
         data = request.POST.copy()
@@ -346,8 +348,7 @@ def edit_recurring_item_handler(request, item_id):
                     update_vars[flag_name] = False
 
             target_item.update_current_and_future(target_day, update_vars)
-
-            return HttpResponse()
+            return redirect('/recurringschedule/')
         else:
             context = {'form': form}
             return HttpResponse(template.render(context, request))

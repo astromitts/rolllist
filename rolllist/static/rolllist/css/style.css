@@ -5,7 +5,7 @@ h1 {
   font-size: 2rem;
   padding-top: .4rem; }
 
-.main-panel {
+.main-panel-full {
   width: 100%;
   height: 100%; }
 
@@ -61,6 +61,22 @@ h1 {
 .spacer_5 {
   display: block;
   padding: 5px; }
+
+.content--astable {
+  display: table;
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%; }
+  .content--astable .trow {
+    display: table-row; }
+    .content--astable .trow--dotted-bottom {
+      border-bottom: 1px dotted; }
+  .content--astable .tcell {
+    display: table-cell; }
+    .content--astable .tcell--padded {
+      padding: 1rem; }
+  .content--astable .theader {
+    font-weight: bold; }
 
 .schedulecontainer {
   display: table;

@@ -1,35 +1,30 @@
-{% extends 'rolllist/base.html' %}
+{% extends 'rolllist/session/user_base.html' %}
 {% load static extras %}
 {% block main_content %}
-	{% comment %} hidden modal for ajaxy forms {% endcomment %}
-	<div id="modal"  style="display: none;">
-		<div id="closemodal">
-			<a href="" class="closemodal"><button>X</button></a>
-		</div>
-		<div id="modalcontent"></div>
-	</div>
+	<div class="row">
+		<h1> Recurring Scheduled Items </h1>
+		{% for item in recurring_items %}
+			<div id="managerecurringschedulecontainer">
+					<div class="content--astable">
+					<div class="trow trow--dotted-bottom">
+						<div class="tcell tcell--padded theader">{{ item.title }} @{{item.location}}
+						</div>
+						<div class="tcell tcell--padded">
+							{% if item.all_day %} ALL DAY {% else %}{{ item.start }}-{{ item.end }}{% endif %}
 
-	{% for item in recurring_items %}
-		<div id="managerecurringschedulecontainer">
-			<div>{{ item.title }} @{{item.location}}
-				</div>
-				<div class="content--astable">
-				<div class="row">
-					<div class="cell">
-						{% if item.all_day %} ALL DAY {% else %}{{ item.start }}-{{ item.end }}{% endif %}
-
-					</div>
-					<div class="cell">{{ item.day_of_week_display }}</div>
-					<div class="cell">
-						<a class="js-delete" href="{% url 'delete_recurring_item' item_id=item.id %}">delete</a>
-					</div>
-					<div class="cell">
-						<a class="js-edit" href="{% url 'edit_recurring_item' item_id=item.id %}">edit</a>
+						</div>
+						<div class="tcell tcell--padded">{{ item.day_of_week_display }}</div>
+						<div class="tcell tcell--padded">
+							<a href="{% url 'delete_recurring_item' item_id=item.id %}">delete</a>
+						</div>
+						<div class="tcell tcell--padded">
+							<a href="{% url 'edit_recurring_item' item_id=item.id %}">edit</a>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	{% endfor %}
+		{% endfor %}
+	</div>
 {% endblock %}
 
 {% block extra_js %}

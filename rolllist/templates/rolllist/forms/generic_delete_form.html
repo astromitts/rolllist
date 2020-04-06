@@ -16,8 +16,12 @@
 	}
 </style>
 
-<form method="POST" action="{{ item.get_delete_url }}" class="ajaxme">{% csrf_token %}
+<form method="POST" action="{{ item.get_delete_url }}">{% csrf_token %}
 {{ message }}
 <input type="hidden" name="item_id" value="{{ item.id }}" />
 <input type="submit" class="btn btn-danger" value="{% if submit_text %}{{ submit_text }}{% else %}confirm{% endif %}"/>
+</form>
+<br />
+<form method="GET" action="{{ cancel_url }}">
+	<input type="submit" class="btn btn-primary" value="cancel"/>
 </form>

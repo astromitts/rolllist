@@ -24,9 +24,10 @@
 </head>
 
 <body class="">
+	{% block sidenav %}{% endblock %}
 	<div class="wrapper">
 		<!-- Navigation -->
-		<div class="main-panel" id="main-panel">
+		<div class="main-panel {% if full_width_display %}main-panel-full {% endif %}" id="main-panel">
 			<!-- Navbar -->
 			<nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
 				<div class="container-fluid">
@@ -52,6 +53,7 @@
 					</div>
 					<div class="collapse navbar-collapse justify-content-end" id="navigation">
 						<ul class="navbar-nav">
+							{% if user_logged_in %}
 							<li class="nav-item">
 								<a class="nav-link" href="{% url 'user_profile' %}">
 									<i class="now-ui-icons users_single-02"></i>
@@ -60,6 +62,7 @@
 									</p>
 								</a>
 							</li>
+							{% endif %}
 						</ul>
 					</div>
 				</div>
