@@ -21,7 +21,3 @@
 <input type="hidden" name="item_id" value="{{ item.id }}" />
 <input type="submit" class="btn btn-danger" value="{% if submit_text %}{{ submit_text }}{% else %}confirm{% endif %}"/>
 </form>
-<br />
-<form method="GET" action="{{ cancel_url }}">
-	<input type="submit" class="btn btn-primary" value="cancel"/>
-</form>

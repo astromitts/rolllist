@@ -303,7 +303,7 @@ def delete_recurring_item_handler(request, item_id):
     if request.POST:
         target_day, created = Day.get_or_create(date=datetime.today())
         target_item.delete_current_and_future(target_day)
-        return HttpResponse()
+        return redirect('/recurringschedule/')
     template = loader.get_template('rolllist/forms/generic_delete_form_native.html')
     context = {
         'item': target_item,

@@ -3,5 +3,9 @@
 {% block main_content %}
 	<div class="row">
 		{% include 'rolllist/forms/generic_delete_form.html' %}
+	<form method="GET" action="{{ cancel_url }}">
+		<input type="submit" class="btn btn-primary" value="cancel"/>
+	</form>
 	</div>
+	<br />
 {% endblock %}
