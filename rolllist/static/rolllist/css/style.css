@@ -27,6 +27,8 @@ h1 {
   font-size: 1.7rem; }
   .navbar a.navbar-brand {
     padding-top: 1rem; }
+  .navbar p {
+    font-size: .75rem; }
 
 #backgroundcover {
   position: absolute;
