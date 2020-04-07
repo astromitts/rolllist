@@ -1,11 +1,18 @@
 $small-breakpoint: 40em;
+$header-color: #3390B5;
+$sidebar-color: #BCC415;
+$sidebar-font: #095D86;
+$background-color: #FFFFFF;
 
 body {
-	background-color: #ebecf1;
+	background-color: $background-color;
 }
 h1 {
     font-size: 2rem;
 	padding-top: .4rem;
+}
+.main-panel {
+	background-color: $background-color;
 }
 .main-panel-full {
 	width: 100%;
@@ -20,6 +27,7 @@ h1 {
 }
 .panel-header {
 	padding-top: 0px;
+	background: $header-color;
 }
 .navbar .container-fluid {
 	width: 80%;
@@ -34,6 +42,44 @@ h1 {
 		font-size: .75rem;
 	}
 }
+.sidebar {
+	background-color: $sidebar-color;
+	.logo .simple-text, .nav li a {
+		font-weight: bold;
+		color: $sidebar-font !important;
+	}
+	.nav i {
+		color: $sidebar-font;
+	}
+	.logo:after {
+		background-color: $sidebar-font;
+	}
+}
+.off-canvas-sidebar:after, .sidebar:after {
+	background: $sidebar-color;
+
+}
+#alert-center {
+	margin-top: .75rem;
+	.alert{
+		color: #000000;
+		font-weight: bold;
+		border: 1px solid #CCC;
+		.close {
+			color: #000000 !important;
+		}
+		&-success {
+			background-color: #87c784;
+		}
+		&-warning {
+			background-color: #f1ce8f;
+		}
+		&-danger {
+			background-color: #d66060;
+		}
+	}
+}
+
 button.navbar-toggler-right {
 	position: absolute;
 	top: 1rem;

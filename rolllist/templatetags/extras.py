@@ -5,6 +5,20 @@ register = template.Library()
 
 
 @register.filter
+def pdb(item):
+    import pdb  # noqa
+    pdb.set_trace()  # noqa
+
+
+@register.filter
+def message_class(message):
+    if message.level_tag == 'error':
+        return 'danger'
+    else:
+        return message.level_tag
+
+
+@register.filter
 def set_row_class(timestr):
     if ':30' in timestr:
         return 'solid'

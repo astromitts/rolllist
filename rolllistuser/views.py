@@ -104,7 +104,6 @@ def user_profile(request):
         if form.is_valid and password_valid:
             user.rolllistuser.schedule_start_time = data['schedule_start_time']
             user.rolllistuser.schedule_end_time = data['schedule_end_time']
-            user.rolllistuser.todo_style = data['todo_style']
             user.rolllistuser.save()
             user.email = data['email']
             user.username = data['email']

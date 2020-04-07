@@ -1,9 +1,12 @@
 body {
-  background-color: #ebecf1; }
+  background-color: #FFFFFF; }
 
 h1 {
   font-size: 2rem;
   padding-top: .4rem; }
+
+.main-panel {
+  background-color: #FFFFFF; }
 
 .main-panel-full {
   width: 100%;
@@ -17,7 +20,8 @@ h1 {
   height: 80px; }
 
 .panel-header {
-  padding-top: 0px; }
+  padding-top: 0px;
+  background: #3390B5; }
 
 .navbar .container-fluid {
   width: 80%;
@@ -29,6 +33,34 @@ h1 {
     padding-top: 1rem; }
   .navbar p {
     font-size: .75rem; }
+
+.sidebar {
+  background-color: #BCC415; }
+  .sidebar .logo .simple-text, .sidebar .nav li a {
+    font-weight: bold;
+    color: #095D86 !important; }
+  .sidebar .nav i {
+    color: #095D86; }
+  .sidebar .logo:after {
+    background-color: #095D86; }
+
+.off-canvas-sidebar:after, .sidebar:after {
+  background: #BCC415; }
+
+#alert-center {
+  margin-top: .75rem; }
+  #alert-center .alert {
+    color: #000000;
+    font-weight: bold;
+    border: 1px solid #CCC; }
+    #alert-center .alert .close {
+      color: #000000 !important; }
+    #alert-center .alert-success {
+      background-color: #87c784; }
+    #alert-center .alert-warning {
+      background-color: #f1ce8f; }
+    #alert-center .alert-danger {
+      background-color: #d66060; }
 
 button.navbar-toggler-right {
   position: absolute;
