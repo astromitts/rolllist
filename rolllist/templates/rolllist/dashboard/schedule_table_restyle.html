@@ -16,15 +16,25 @@
 							{% else %}
 								<div class="booked-item item-start">
 							{% endif %}
-							<span class="item-label">
-								{{ schedule_block.item }} 
-								<button action="{% url 'delete_item_form' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule float--heavyright" id="{{ interval_id }}">delete</button>
-								{% if schedule_block.item.recurrance %}
-									<button action="{% url 'manage_recurring_items'%}" class="aslink float--lightright">manage</button>
-								{% else %}
-									<button action="{% url 'edit_item' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule float--lightright" id="-1">edit</button>
-								{% endif %}
-							</span>
+
+							<div class="item-details-wrapper">
+								<div class="item-details">
+									<div class="item-label">
+										<div class="item-title">{{ schedule_block.item.title }}</div>
+										 {% if schedule_block.item.location %} 
+										 	<div class="item-location">({{ schedule_block.item.location }})</div>
+										 {% endif %}
+									</div>
+									<div class="item-actions">
+										{% if schedule_block.item.recurrance %}
+											<button action="{% url 'manage_recurring_items'%}" class="aslink edit">manage</button>
+										{% else %}
+											<button action="{% url 'edit_item' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule edit" id="-1">edit</button>
+										{% endif %}
+										<button action="{% url 'delete_item_form' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule delete" id="{{ interval_id }}">delete</button>
+									</div>
+								</div>
+							</div>
 						{% elif forloop.last %}
 								<div class="booked-item item-end">
 						{% else %}

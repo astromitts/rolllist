@@ -128,6 +128,34 @@ button.navbar-toggler-right {
   display: table;
   border-collapse: collapse;
   width: 100%; }
+  .schedulecontainer .item-details-wrapper {
+    display: table;
+    border-collapse: collapse;
+    width: 100%; }
+    .schedulecontainer .item-details-wrapper .item-details {
+      display: table-row;
+      width: 100%; }
+      .schedulecontainer .item-details-wrapper .item-details .item-label {
+        display: table-cell;
+        padding-left: 1rem;
+        font-weight: bold;
+        vertical-align: middle; }
+        .schedulecontainer .item-details-wrapper .item-details .item-label .item-title {
+          float: left; }
+        @media (min-width: 40em) {
+          .schedulecontainer .item-details-wrapper .item-details .item-label .item-location {
+            float: left;
+            padding-left: 1rem; } }
+      .schedulecontainer .item-details-wrapper .item-details .item-actions {
+        display: table-cell;
+        border-left: 1px dotted;
+        width: 12rem;
+        vertical-align: middle; }
+        @media (max-width: 40em) {
+          .schedulecontainer .item-details-wrapper .item-details .item-actions {
+            width: 5rem; } }
+        .schedulecontainer .item-details-wrapper .item-details .item-actions button.edit {
+          margin-left: .5rem; }
 
 .schedulecontainer_row {
   display: table-row;
@@ -144,7 +172,7 @@ button.navbar-toggler-right {
 .booked-item {
   background-color: #f1ce8f;
   height: 100%;
-  padding: .5rem 0; }
+  padding-top: .75rem; }
 
 .item-start {
   border-top-left-radius: 15px;
@@ -163,10 +191,6 @@ button.navbar-toggler-right {
   border-left: 1px solid;
   border-right: 1px solid;
   border-bottom: 1px solid; }
-
-.item-label {
-  padding-left: 3rem;
-  font-weight: bold; }
 
 .todo-kanban_group {
   margin: .5rem;
