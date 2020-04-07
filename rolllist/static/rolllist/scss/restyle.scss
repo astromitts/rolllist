@@ -213,6 +213,7 @@ button.navbar-toggler-right {
 		display: table;
 		border-collapse: collapse;
 		width: 100%;
+
 		.item-details {
 			display: table-row;
 			width: 100%;
@@ -221,6 +222,10 @@ button.navbar-toggler-right {
 				padding-left: 1rem;
 				font-weight: bold;
 				vertical-align: middle;
+				@media (max-width: $small-breakpoint) {
+					padding: 0 .5rem;
+				}
+
 				.item-title {
 					float: left;
 				}
@@ -263,6 +268,9 @@ button.navbar-toggler-right {
 	background-color: #f1ce8f;
 	height: 100%;
 	padding-top: .75rem;
+	@media (max-width: $small-breakpoint) {
+		width: 80%
+	}
 }
 
 .item-start {

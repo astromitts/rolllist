@@ -172,6 +172,9 @@ button.navbar-toggler-right {
         padding-left: 1rem;
         font-weight: bold;
         vertical-align: middle; }
+        @media (max-width: 40em) {
+          .schedulecontainer .item-details-wrapper .item-details .item-label {
+            padding: 0 .5rem; } }
         .schedulecontainer .item-details-wrapper .item-details .item-label .item-title {
           float: left; }
         @media (min-width: 40em) {
@@ -205,6 +208,9 @@ button.navbar-toggler-right {
   background-color: #f1ce8f;
   height: 100%;
   padding-top: .75rem; }
+  @media (max-width: 40em) {
+    .booked-item {
+      width: 80%; } }
 
 .item-start {
   border-top-left-radius: 15px;
