@@ -72,6 +72,15 @@
 									</p>
 								</a>
 							</li>
+							{% else %}
+								<li class="nav-item">
+									<a class="nav-link" href="{% url 'login_handler' %}">
+										<i class="now-ui-icons media-1_button-power"></i>
+										<p>
+											<span class="navbar-vis">Log In</span>
+										</p>
+									</a>
+								</li>
 							{% endif %}
 						</ul>
 					</div>
@@ -88,12 +97,6 @@
 	<script src="{% static 'rolllist/vendor/now-ui-dashboard/assets/js/core/popper.min.js' %}"></script>
 	<script src="{% static 'rolllist/vendor/now-ui-dashboard/assets/js/core/bootstrap.min.js' %}"></script>
 	<script src="{% static 'rolllist/vendor/now-ui-dashboard/assets/js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
-	<!--  Google Maps Plugin    -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-	<!-- Chart JS -->
-	<script src="{% static 'rolllist/vendor/now-ui-dashboard/assets/js/plugins/chartjs.min.js' %}"></script>
-	<!--  Notifications Plugin    -->
-	<script src="{% static 'rolllist/vendor/now-ui-dashboard/assets/js/plugins/bootstrap-notify.js' %}"></script>
 	<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
 	<script src="{% static 'rolllist/vendor/now-ui-dashboard/assets/js/now-ui-dashboard.min.js' %}" type="text/javascript"></script>
 	<script src="{% static 'rolllist/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>

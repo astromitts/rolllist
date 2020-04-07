@@ -57,9 +57,19 @@ def day_view(request, datestr=None):
         else:
             target_day, created = Day.get_from_str(datestr)
 
+        is_today = datetime.today().date() - target_day.date == timedelta(0)
+        is_tomorrow = datetime.today().date() - target_day.date == timedelta(-1)
+
+        if is_today:
+            datestr_display = 'Today'
+        elif is_tomorrow:
+            datestr_display = 'Tomorrow'
+        else:
+            datestr_display = target_day
+
         context = {
             'datestr': target_day.display_string,
-            'day': target_day,
+            'day': datestr_display,
             'full_width_display': True,
         }
 

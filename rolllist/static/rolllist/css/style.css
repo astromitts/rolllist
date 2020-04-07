@@ -85,6 +85,45 @@ button.navbar-toggler-right {
   .content--astable .theader {
     font-weight: bold; }
 
+.dashboard-nav {
+  border-bottom: solid 1px;
+  display: block;
+  padding-top: .4rem;
+  font-size: 1.6rem; }
+  @media (max-width: 40em) {
+    .dashboard-nav {
+      font-size: 1rem; } }
+  @media (max-width: 40em) {
+    .dashboard-nav .date-title {
+      text-align: center; } }
+  @media (min-width: 40em) {
+    .dashboard-nav .date-title {
+      float: right; } }
+  @media (max-width: 40em) {
+    .dashboard-nav .date-title h1 {
+      font-size: 1.2rem; } }
+  @media (min-width: 40em) {
+    .dashboard-nav .date-nav-links-wrapper {
+      float: left; } }
+  @media (max-width: 40em) {
+    .dashboard-nav .date-nav-links-wrapper {
+      margin-top: -2rem;
+      width: 100%;
+      display: block;
+      padding-left: 3.25rem; } }
+  .dashboard-nav .date-nav-links-wrapper img {
+    padding-top: .6rem; }
+  .dashboard-nav .date-nav-links-wrapper .date-nav-link {
+    display: block;
+    float: left; }
+
+#schedulecontainer-wrapper {
+  display: block; }
+
+#schedule-display-controls {
+  display: block;
+  padding: .5rem 0; }
+
 .schedulecontainer {
   display: table;
   border-collapse: collapse;
@@ -138,18 +177,5 @@ button.navbar-toggler-right {
   border: 1px solid #999999;
   border-radius: 15px;
   padding: 1rem; }
-
-.date-title h1 {
-  float: left; }
-
-.date-nav {
-  float: left;
-  display: block; }
-
-.date-nav-links {
-  padding-top: .4rem;
-  font-size: 1.6rem; }
-  .date-nav-links img {
-    padding-top: .6rem; }
 
 /*# sourceMappingURL=style.css.map */
