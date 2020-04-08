@@ -256,7 +256,8 @@ button.navbar-toggler-right {
 				@media (max-width: $small-breakpoint) {
 					display: none;
 					border-top: 1px dotted;
-					padding-top: 1rem;
+					padding-top: .25rem;
+					padding-bottom: .25rem;
 					.item-actions-button {
 						margin-left: 1rem;
 						display: inline;
