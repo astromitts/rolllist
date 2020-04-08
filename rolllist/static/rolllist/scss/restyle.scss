@@ -218,12 +218,12 @@ button.navbar-toggler-right {
 			display: table-row;
 			width: 100%;
 			.item-label {
+				width: 80%;
 				@media (min-width: $small-breakpoint) {
 					display: table-cell;
 					padding-left: 1rem;
 					font-weight: bold;
 					vertical-align: middle;
-					width: 85%;
 					.item-title {
 						float: left;
 					}
@@ -256,6 +256,7 @@ button.navbar-toggler-right {
 				@media (max-width: $small-breakpoint) {
 					display: none;
 					border-top: 1px dotted;
+					padding-top: 1rem;
 					.item-actions-button {
 						margin-left: 1rem;
 						display: inline;

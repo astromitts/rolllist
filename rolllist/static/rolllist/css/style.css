@@ -167,24 +167,25 @@ button.navbar-toggler-right {
     .schedulecontainer .item-details-wrapper .item-details {
       display: table-row;
       width: 100%; }
-      @media (min-width: 40em) {
-        .schedulecontainer .item-details-wrapper .item-details .item-label {
-          display: table-cell;
-          padding-left: 1rem;
-          font-weight: bold;
-          vertical-align: middle;
-          width: 85%; }
-          .schedulecontainer .item-details-wrapper .item-details .item-label .item-title {
-            float: left; }
-          .schedulecontainer .item-details-wrapper .item-details .item-label .item-expand {
-            display: none; } }
-      @media (max-width: 40em) {
-        .schedulecontainer .item-details-wrapper .item-details .item-label {
-          display: table-row; }
-          .schedulecontainer .item-details-wrapper .item-details .item-label .item-full {
-            display: none; }
-          .schedulecontainer .item-details-wrapper .item-details .item-label .item-title, .schedulecontainer .item-details-wrapper .item-details .item-label .item-location {
-            margin-left: 1rem; } }
+      .schedulecontainer .item-details-wrapper .item-details .item-label {
+        width: 80%; }
+        @media (min-width: 40em) {
+          .schedulecontainer .item-details-wrapper .item-details .item-label {
+            display: table-cell;
+            padding-left: 1rem;
+            font-weight: bold;
+            vertical-align: middle; }
+            .schedulecontainer .item-details-wrapper .item-details .item-label .item-title {
+              float: left; }
+            .schedulecontainer .item-details-wrapper .item-details .item-label .item-expand {
+              display: none; } }
+        @media (max-width: 40em) {
+          .schedulecontainer .item-details-wrapper .item-details .item-label {
+            display: table-row; }
+            .schedulecontainer .item-details-wrapper .item-details .item-label .item-full {
+              display: none; }
+            .schedulecontainer .item-details-wrapper .item-details .item-label .item-title, .schedulecontainer .item-details-wrapper .item-details .item-label .item-location {
+              margin-left: 1rem; } }
       @media (min-width: 40em) {
         .schedulecontainer .item-details-wrapper .item-details .item-actions {
           display: table-cell;
@@ -199,7 +200,8 @@ button.navbar-toggler-right {
       @media (max-width: 40em) {
         .schedulecontainer .item-details-wrapper .item-details .item-actions {
           display: none;
-          border-top: 1px dotted; }
+          border-top: 1px dotted;
+          padding-top: 1rem; }
           .schedulecontainer .item-details-wrapper .item-details .item-actions .item-actions-button {
             margin-left: 1rem;
             display: inline; } }
