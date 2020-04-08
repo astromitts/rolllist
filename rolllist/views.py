@@ -198,7 +198,6 @@ def add_schedule_item_form(request, start_time_int=None, datestr=None):
                 'end_time': data['end_time'],
                 'title': data['title'],
                 'all_day': data.get('all_day', '') == 'on',
-                'location': data['location'],
                 'user': get_user(request),
             }
             save_data['day'] = target_day
@@ -245,7 +244,6 @@ def edit_schedule_item_form(request, item_id, recurring):
             existing_item.start_time = data['start_time']
             existing_item.end_time = data['end_time']
             existing_item.title = data['title']
-            existing_item.location = data['location']
             existing_item.all_day = data.get('all_day', '') == 'on'
 
             # if they requested recurring, set it as recurring
