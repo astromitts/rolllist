@@ -174,12 +174,7 @@ button.navbar-toggler-right {
           font-weight: bold;
           vertical-align: middle; }
           .schedulecontainer .item-details-wrapper .item-details .item-label .item-title {
-            float: left; } }
-  @media (min-width: 40em) and (min-width: 40em) {
-    .schedulecontainer .item-details-wrapper .item-details .item-label .item-location {
-      float: left;
-      padding-left: 1rem; } }
-      @media (min-width: 40em) {
+            float: left; }
           .schedulecontainer .item-details-wrapper .item-details .item-label .item-expand {
             display: none; } }
       @media (max-width: 40em) {
@@ -203,7 +198,8 @@ button.navbar-toggler-right {
             margin-left: .5rem; } }
       @media (max-width: 40em) {
         .schedulecontainer .item-details-wrapper .item-details .item-actions {
-          display: none; }
+          display: none;
+          border-top: 1px dotted; }
           .schedulecontainer .item-details-wrapper .item-details .item-actions .item-actions-button {
             margin-left: 1rem;
             display: inline; } }
@@ -226,7 +222,7 @@ button.navbar-toggler-right {
   padding-top: .75rem; }
   @media (max-width: 40em) {
     .booked-item {
-      width: 80%; } }
+      width: 98%; } }
 
 .item-start {
   border-top-left-radius: 15px;

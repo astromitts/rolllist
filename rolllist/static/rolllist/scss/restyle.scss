@@ -226,12 +226,6 @@ button.navbar-toggler-right {
 					.item-title {
 						float: left;
 					}
-					.item-location {
-						@media (min-width: $small-breakpoint) {
-							float: left;
-							padding-left: 1rem;
-						}
-					}
 					.item-expand {
 						display: none;
 					}
@@ -261,6 +255,7 @@ button.navbar-toggler-right {
 				}
 				@media (max-width: $small-breakpoint) {
 					display: none;
+					border-top: 1px dotted;
 					.item-actions-button {
 						margin-left: 1rem;
 						display: inline;
@@ -288,7 +283,7 @@ button.navbar-toggler-right {
 	height: 100%;
 	padding-top: .75rem;
 	@media (max-width: $small-breakpoint) {
-		width: 80%
+		width: 98%
 	}
 }
 
