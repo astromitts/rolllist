@@ -223,6 +223,7 @@ button.navbar-toggler-right {
 					padding-left: 1rem;
 					font-weight: bold;
 					vertical-align: middle;
+					width: 85%;
 					.item-title {
 						float: left;
 					}
@@ -244,7 +245,6 @@ button.navbar-toggler-right {
 				@media (min-width: $small-breakpoint) {
 					display: table-cell;
 					border-left: 1px dotted;
-					width: 12rem;
 					vertical-align: middle;
 					@media (max-width: $small-breakpoint) {
 						width: 5rem;

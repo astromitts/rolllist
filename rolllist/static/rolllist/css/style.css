@@ -172,7 +172,8 @@ button.navbar-toggler-right {
           display: table-cell;
           padding-left: 1rem;
           font-weight: bold;
-          vertical-align: middle; }
+          vertical-align: middle;
+          width: 85%; }
           .schedulecontainer .item-details-wrapper .item-details .item-label .item-title {
             float: left; }
           .schedulecontainer .item-details-wrapper .item-details .item-label .item-expand {
@@ -188,7 +189,6 @@ button.navbar-toggler-right {
         .schedulecontainer .item-details-wrapper .item-details .item-actions {
           display: table-cell;
           border-left: 1px dotted;
-          width: 12rem;
           vertical-align: middle; } }
   @media (min-width: 40em) and (max-width: 40em) {
     .schedulecontainer .item-details-wrapper .item-details .item-actions {
