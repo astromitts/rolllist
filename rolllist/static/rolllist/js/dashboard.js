@@ -49,6 +49,18 @@ function bind_schedule_controls(){
 		action = $(this).attr('action');
 		location.href = action;
 	});
+	$('button.item-expand').click(function(){
+		var $targetSpan = $('span#item-full-' + $(this).attr('id'));
+		var $buttonSpan = $('div#item-actions-' + $(this).attr('id'));
+		if ( $targetSpan.is(':visible')) {
+			$targetSpan.hide();
+			$buttonSpan.hide();
+		} else {
+			$targetSpan.show();
+			$buttonSpan.show();
+		}
+		
+	});
 }
 
 function init_schedule_display(){

@@ -19,6 +19,18 @@ def message_class(message):
 
 
 @register.filter
+def set_schedule_item_display(item):
+    html = '<span class="item-preview">{}</span><span class="item-full" id="item-full-{}">{}</span><button id="{}" class="item-expand">...</button>'
+    rendered_html = html.format(
+        item.title[0:18],
+        item.pk,
+        item.title[19:],
+        item.pk
+    )
+    return rendered_html
+
+
+@register.filter
 def set_row_class(timestr):
     if ':30' in timestr:
         return 'solid'

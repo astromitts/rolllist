@@ -20,18 +20,19 @@
 							<div class="item-details-wrapper">
 								<div class="item-details">
 									<div class="item-label">
-										<div class="item-title">{{ schedule_block.item.title }}</div>
-										 {% if schedule_block.item.location %} 
-										 	<div class="item-location">({{ schedule_block.item.location }})</div>
-										 {% endif %}
+										<div class="item-title">{{ schedule_block.item|set_schedule_item_display|safe }}</div>
 									</div>
-									<div class="item-actions">
-										{% if schedule_block.item.recurrance %}
-											<button action="{% url 'manage_recurring_items'%}" class="aslink edit">manage</button>
-										{% else %}
-											<button action="{% url 'edit_item' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule edit" id="-1">edit</button>
+									<div class="item-actions" id="item-actions-{{schedule_block.item.pk}}">
+										<span class="item-actions-button">
+											{% if schedule_block.item.recurrance %}
+												<button action="{% url 'manage_recurring_items'%}" class="aslink edit">manage</button>
+											{% else %}
+												<button action="{% url 'edit_item' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule edit" id="-1">edit</button>
+										</span>
 										{% endif %}
-										<button action="{% url 'delete_item_form' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule delete" id="{{ interval_id }}">delete</button>
+										<span class="item-actions-button">
+											<button action="{% url 'delete_item_form' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule delete" id="{{ interval_id }}">delete</button>
+										</span>
 									</div>
 								</div>
 							</div>

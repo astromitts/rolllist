@@ -167,30 +167,46 @@ button.navbar-toggler-right {
     .schedulecontainer .item-details-wrapper .item-details {
       display: table-row;
       width: 100%; }
-      .schedulecontainer .item-details-wrapper .item-details .item-label {
-        display: table-cell;
-        padding-left: 1rem;
-        font-weight: bold;
-        vertical-align: middle; }
-        @media (max-width: 40em) {
-          .schedulecontainer .item-details-wrapper .item-details .item-label {
-            padding: 0 .5rem; } }
-        .schedulecontainer .item-details-wrapper .item-details .item-label .item-title {
-          float: left; }
-        @media (min-width: 40em) {
-          .schedulecontainer .item-details-wrapper .item-details .item-label .item-location {
-            float: left;
-            padding-left: 1rem; } }
-      .schedulecontainer .item-details-wrapper .item-details .item-actions {
-        display: table-cell;
-        border-left: 1px dotted;
-        width: 12rem;
-        vertical-align: middle; }
-        @media (max-width: 40em) {
-          .schedulecontainer .item-details-wrapper .item-details .item-actions {
-            width: 5rem; } }
-        .schedulecontainer .item-details-wrapper .item-details .item-actions button.edit {
-          margin-left: .5rem; }
+      @media (min-width: 40em) {
+        .schedulecontainer .item-details-wrapper .item-details .item-label {
+          display: table-cell;
+          padding-left: 1rem;
+          font-weight: bold;
+          vertical-align: middle; }
+          .schedulecontainer .item-details-wrapper .item-details .item-label .item-title {
+            float: left; } }
+  @media (min-width: 40em) and (min-width: 40em) {
+    .schedulecontainer .item-details-wrapper .item-details .item-label .item-location {
+      float: left;
+      padding-left: 1rem; } }
+      @media (min-width: 40em) {
+          .schedulecontainer .item-details-wrapper .item-details .item-label .item-expand {
+            display: none; } }
+      @media (max-width: 40em) {
+        .schedulecontainer .item-details-wrapper .item-details .item-label {
+          display: table-row; }
+          .schedulecontainer .item-details-wrapper .item-details .item-label .item-full {
+            display: none; }
+          .schedulecontainer .item-details-wrapper .item-details .item-label .item-title, .schedulecontainer .item-details-wrapper .item-details .item-label .item-location {
+            margin-left: 1rem; } }
+      @media (min-width: 40em) {
+        .schedulecontainer .item-details-wrapper .item-details .item-actions {
+          display: table-cell;
+          border-left: 1px dotted;
+          width: 12rem;
+          vertical-align: middle; } }
+  @media (min-width: 40em) and (max-width: 40em) {
+    .schedulecontainer .item-details-wrapper .item-details .item-actions {
+      width: 5rem; } }
+      @media (min-width: 40em) {
+          .schedulecontainer .item-details-wrapper .item-details .item-actions button.edit {
+            margin-left: .5rem; } }
+      @media (max-width: 40em) {
+        .schedulecontainer .item-details-wrapper .item-details .item-actions {
+          display: none; }
+          .schedulecontainer .item-details-wrapper .item-details .item-actions .item-actions-button {
+            margin-left: 1rem;
+            display: inline; } }
 
 .schedulecontainer_row {
   display: table-row;
