@@ -33,6 +33,11 @@ h1 {
     padding-top: 1rem; }
   .navbar p {
     font-size: .75rem; }
+  .navbar img.logo {
+    width: 50px;
+    height: 44px;
+    margin-top: -.5rem;
+    margin-right: .5rem; }
 
 .sidebar {
   background-color: #BCC415; }

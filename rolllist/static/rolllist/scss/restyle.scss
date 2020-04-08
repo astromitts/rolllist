@@ -41,6 +41,12 @@ h1 {
 	p {
 		font-size: .75rem;
 	}
+	img.logo {
+		width: 50px;
+		height: 44px;
+		margin-top: -.5rem;
+		margin-right: .5rem;
+	}
 }
 .sidebar {
 	background-color: $sidebar-color;
