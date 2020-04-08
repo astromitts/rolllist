@@ -1,4 +1,4 @@
-$small-breakpoint: 40em;
+$small-breakpoint: 991px;
 $header-color: #3390B5;
 $sidebar-color: #BCC415;
 $sidebar-font: #095D86;
@@ -32,6 +32,10 @@ h1 {
 .navbar .container-fluid {
 	width: 80%;
 	margin: auto;
+	@media (max-width: $small-breakpoint) {
+		width: 90%;
+		padding-left: 0;
+	}
 }
 .navbar {
 	font-size: 1.7rem;
