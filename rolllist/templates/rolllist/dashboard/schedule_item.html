@@ -1,0 +1,32 @@
+{% if forloop.first %}
+	{% if forloop.last %}
+		<div class="booked-item item-start item-end {% if schedule_block.start_time_display|is_primary_time %} item-start__primary item-end__primary {% else %} item-start__secondary item-end__secondary {% endif %}">
+	{% else %}
+		<div class="booked-item item-start {% if schedule_block.start_time_display|is_primary_time %} item-start__primary {% else %} item-start__secondary {% endif %}">
+	{% endif %}
+
+	<div class="item-details-wrapper">
+		<div class="item-details">
+			<div class="item-label">
+				<div class="item-title">{{ schedule_block.item|set_schedule_item_display|safe }}</div>
+			</div>
+			<div class="item-actions" id="item-actions-{{schedule_block.item.pk}}">
+				<span class="item-actions-button">
+					{% if schedule_block.item.recurrance %}
+						<button action="{% url 'manage_recurring_items'%}" class="aslink edit">manage</button>
+					{% else %}
+						<button action="{% url 'edit_item' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule edit" id="-1">edit</button>
+				</span>
+				{% endif %}
+				<span class="item-actions-button">
+					<button action="{% url 'delete_item_form' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule delete" id="{{ interval_id }}">delete</button>
+				</span>
+			</div>
+		</div>
+	</div>
+{% elif forloop.last %}
+	<div class="booked-item item-end {% if schedule_block.start_time_display|is_primary_time %} item-end__primary {% else %} item-end__secondary {% endif %}">
+{% else %}
+	<div class="booked-item item-middle">
+{% endif %}
+</div>

@@ -215,108 +215,63 @@ button.navbar-toggler-right {
 	padding: .5rem 0;	
 }
 
+$rowheight: 2rem;
+$rowpartial: $rowheight / 2;
 .schedulecontainer {
-	display: table;
-	border-collapse: collapse;
-	width: 100%;
-	.item-details-wrapper {
-		display: table;
-		border-collapse: collapse;
-		width: 100%;
-
-		.item-details {
-			display: table-row;
+	border: 1px dotted #cccccc;
+	padding: 1rem;
+	.table {
+		position: relative;
+		.tr {
+			display: block;
 			width: 100%;
-			.item-label {
-				width: 80%;
-				@media (min-width: $small-breakpoint) {
-					display: table-cell;
-					padding-left: 1rem;
-					font-weight: bold;
-					vertical-align: middle;
-					.item-title {
-						float: left;
-					}
-					.item-expand {
-						display: none;
-					}
-				}
-				@media (max-width: $small-breakpoint) {
-					display: table-row;
-					.item-full {
-						display: none;
-					}
-					.item-title, .item-location {
-						margin-left: 1rem;
-					}
-				}
+			height: $rowheight;
+			border-top: 1px dotted;
+			&-primary {
+				border-top: 1px solid;
 			}
-			.item-actions {
-				@media (min-width: $small-breakpoint) {
-					display: table-cell;
-					border-left: 1px dotted;
-					vertical-align: middle;
-					@media (max-width: $small-breakpoint) {
-						width: 5rem;
-					}
-					button.edit {
-						margin-left: .5rem;
-					}
-				}
+		}
+		.td {
+			float: left;
+		}
+		.item-time {
+			width: 4rem;
+		}
+		.item-holder {
+			width: 100%;
+			div.booked-item {
+				height: 100%;
+				padding: .25rem;
 				@media (max-width: $small-breakpoint) {
-					display: none;
-					border-top: 1px dotted;
-					padding-top: .25rem;
-					padding-bottom: .25rem;
-					.item-actions-button {
-						margin-left: 1rem;
-						display: inline;
-					}
+					width: 98%
+				}
+				margin-left: 8rem;
+			}
+			.item {
+				margin: 0;
+				padding-left: 1rem;
+				border-radius: 15px;
+				background-color: #f1ce8f;
+				border: 1px solid;
+				width: 70%;
+				position: absolute; 
+				left: 7rem;
+				&-actions {
+					float: right;
+					margin-right: 1rem;
+				}
+				&-add {
+
+				}
+				&-time {
+					display: block;
+					float: left;
+					height: 100%; 
+					width: 6rem;
 				}
 			}
 		}
 	}
-}
-.schedulecontainer_row {
-	display: table-row;
-	border-bottom: 1px dotted;
-}
-.schedulecontainer_cell {
-	display: table-cell;
-	height: 2rem;
-}
-.open-item {
-	height: 100%;
-	padding: .5rem 0;
-}
-
-.booked-item {
-	background-color: #f1ce8f;
-	height: 100%;
-	padding-top: .75rem;
-	@media (max-width: $small-breakpoint) {
-		width: 98%
-	}
-}
-
-.item-start {
-	border-top-left-radius: 15px;
-	border-top-right-radius: 15px;
-	border-top: 1px solid;
-	border-left: 1px solid;
-	border-right: 1px solid;
-}
-.item-middle {
-	border-left: 1px solid;
-	border-right: 1px solid;
-}
-
-.item-end {
-	border-bottom-left-radius: 15px;
-	border-bottom-right-radius: 15px;
-	border-left: 1px solid;
-	border-right: 1px solid;
-	border-bottom: 1px solid;
 }
 
 .todo-kanban_group {

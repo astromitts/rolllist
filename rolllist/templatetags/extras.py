@@ -19,8 +19,49 @@ def message_class(message):
 
 
 @register.filter
+def is_primary_time(time_string):
+    return ':00' in time_string or ':30' in time_string
+
+
+@register.filter
+def get_dynamic_style(schedule_item, schedule):
+    table_position = schedule_item.start_time - schedule[0]['interval']
+    styles = []
+    if schedule_item.end_time - schedule_item.start_time == 1:
+        styles.append('padding-top: .25rem;')
+    else:
+        styles.append('padding-top: {}rem;'.format((schedule_item.end_time - schedule_item.start_time) - 1))
+    styles.append('top: {}rem;'.format(table_position * 2))
+    styles.append('height: {}rem;'.format((schedule_item.end_time - schedule_item.start_time) * 2))
+    return ' '.join(styles)
+
+
+@register.filter
+def schedule_item_class(forloop, time_string):
+    is_first = forloop['first']
+    is_last = forloop['last']
+    is_primary = is_primary_time(time_string)
+    classes = ['booked-item']
+    if is_first:
+        classes.append('item-start')
+        if is_primary:
+            classes.append('item-start__primary')
+        else:
+            classes.append('item-start__secondary')
+    if is_last:
+        classes.append('item-end')
+        if is_primary:
+            classes.append('item-end__primary')
+        else:
+            classes.append('item-end__secondary')
+    if not is_first and not is_last:
+        classes.append('item-middle')
+    return ' '.join(classes)
+
+
+@register.filter
 def set_schedule_item_display(item):
-    html = '<span class="item-preview">{}</span><span class="item-full" id="item-full-{}">{}</span><button id="{}" class="item-expand">...</button>'
+    html = '<span class="item-preview">{}</span><span class="item-full" id="item-full-{}">{}</span><button id="{}" class="item-expand">...</button>'  # noqa
     rendered_html = html.format(
         item.title[0:18],
         item.pk,

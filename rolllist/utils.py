@@ -1,18 +1,28 @@
+from collections import OrderedDict
+
 time_options_strings = []
 
 time_options_strings.append('12:00 AM')
+time_options_strings.append('12:15 AM')
 time_options_strings.append('12:30 AM')
+time_options_strings.append('12:45 AM')
 
 for i in range(1, 12):
     time_options_strings.append('%s:00 AM' % i)
+    time_options_strings.append('%s:15 AM' % i)
     time_options_strings.append('%s:30 AM' % i)
+    time_options_strings.append('%s:45 AM' % i)
 
 time_options_strings.append('12:00 PM')
+time_options_strings.append('12:15 PM')
 time_options_strings.append('12:30 PM')
+time_options_strings.append('12:45 PM')
 
 for i in range(1, 12):
     time_options_strings.append('%s:00 PM' % i)
+    time_options_strings.append('%s:15 PM' % i)
     time_options_strings.append('%s:30 PM' % i)
+    time_options_strings.append('%s:45 PM' % i)
 
 # TODO move this to a user preferences
 earliest_time_index = time_options_strings.index('8:00 AM')
@@ -101,24 +111,22 @@ class DayScheduleDeux(object):
         self.items_by_time = {i.start_time: i for i in self.scheduled_items}
         self.schedule = []
         used_intervals = []
-        self.relevant_time_dict = {
-            i: time_options_strings[i] for i in range(user.schedule_start_time, user.schedule_end_time + 1)
-        }
+        self.relevant_time_dict = OrderedDict()
+        for i in range(user.schedule_start_time, user.schedule_end_time + 1):
+            self.relevant_time_dict[i] = time_options_strings[i]
 
         self.relevant_keys = [i for i in self.relevant_time_dict.keys()]
-
         for i, string in self.relevant_time_dict.items():
-            if i not in used_intervals:
-                data = {
-                    'start_time_display': string,
-                    'intervals': None,
-                    'item': None,
-                }
-                if i in items_time_dict:
-                    data['item'] = items_time_dict[i]
+            # if i not in used_intervals:
+            data = {
+                'start_time_display': string,
+                'intervals': None,
+                'item': None,
+            }
+            if i in items_time_dict:
+                data['item'] = items_time_dict[i]
 
-                    data['intervals'] = self._get_item_intervals(items_time_dict[i])
-                    used_intervals += data['intervals']
-                else:
-                    data['interval'] = i
-                self.schedule.append(data)
+                data['intervals'] = self._get_item_intervals(items_time_dict[i])
+                used_intervals += data['intervals']
+            data['interval'] = i
+            self.schedule.append(data)

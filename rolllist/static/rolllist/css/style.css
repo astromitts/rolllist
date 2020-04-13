@@ -166,93 +166,47 @@ button.navbar-toggler-right {
   padding: .5rem 0; }
 
 .schedulecontainer {
-  display: table;
-  border-collapse: collapse;
-  width: 100%; }
-  .schedulecontainer .item-details-wrapper {
-    display: table;
-    border-collapse: collapse;
-    width: 100%; }
-    .schedulecontainer .item-details-wrapper .item-details {
-      display: table-row;
+  border: 1px dotted #cccccc;
+  padding: 1rem; }
+  .schedulecontainer .table {
+    position: relative; }
+    .schedulecontainer .table .tr {
+      display: block;
+      width: 100%;
+      height: 2rem;
+      border-top: 1px dotted; }
+      .schedulecontainer .table .tr-primary {
+        border-top: 1px solid; }
+    .schedulecontainer .table .td {
+      float: left; }
+    .schedulecontainer .table .item-time {
+      width: 4rem; }
+    .schedulecontainer .table .item-holder {
       width: 100%; }
-      .schedulecontainer .item-details-wrapper .item-details .item-label {
-        width: 80%; }
-        @media (min-width: 991px) {
-          .schedulecontainer .item-details-wrapper .item-details .item-label {
-            display: table-cell;
-            padding-left: 1rem;
-            font-weight: bold;
-            vertical-align: middle; }
-            .schedulecontainer .item-details-wrapper .item-details .item-label .item-title {
-              float: left; }
-            .schedulecontainer .item-details-wrapper .item-details .item-label .item-expand {
-              display: none; } }
+      .schedulecontainer .table .item-holder div.booked-item {
+        height: 100%;
+        padding: .25rem;
+        margin-left: 8rem; }
         @media (max-width: 991px) {
-          .schedulecontainer .item-details-wrapper .item-details .item-label {
-            display: table-row; }
-            .schedulecontainer .item-details-wrapper .item-details .item-label .item-full {
-              display: none; }
-            .schedulecontainer .item-details-wrapper .item-details .item-label .item-title, .schedulecontainer .item-details-wrapper .item-details .item-label .item-location {
-              margin-left: 1rem; } }
-      @media (min-width: 991px) {
-        .schedulecontainer .item-details-wrapper .item-details .item-actions {
-          display: table-cell;
-          border-left: 1px dotted;
-          vertical-align: middle; } }
-  @media (min-width: 991px) and (max-width: 991px) {
-    .schedulecontainer .item-details-wrapper .item-details .item-actions {
-      width: 5rem; } }
-      @media (min-width: 991px) {
-          .schedulecontainer .item-details-wrapper .item-details .item-actions button.edit {
-            margin-left: .5rem; } }
-      @media (max-width: 991px) {
-        .schedulecontainer .item-details-wrapper .item-details .item-actions {
-          display: none;
-          border-top: 1px dotted;
-          padding-top: .25rem;
-          padding-bottom: .25rem; }
-          .schedulecontainer .item-details-wrapper .item-details .item-actions .item-actions-button {
-            margin-left: 1rem;
-            display: inline; } }
-
-.schedulecontainer_row {
-  display: table-row;
-  border-bottom: 1px dotted; }
-
-.schedulecontainer_cell {
-  display: table-cell;
-  height: 2rem; }
-
-.open-item {
-  height: 100%;
-  padding: .5rem 0; }
-
-.booked-item {
-  background-color: #f1ce8f;
-  height: 100%;
-  padding-top: .75rem; }
-  @media (max-width: 991px) {
-    .booked-item {
-      width: 98%; } }
-
-.item-start {
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  border-top: 1px solid;
-  border-left: 1px solid;
-  border-right: 1px solid; }
-
-.item-middle {
-  border-left: 1px solid;
-  border-right: 1px solid; }
-
-.item-end {
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-  border-left: 1px solid;
-  border-right: 1px solid;
-  border-bottom: 1px solid; }
+          .schedulecontainer .table .item-holder div.booked-item {
+            width: 98%; } }
+      .schedulecontainer .table .item-holder .item {
+        margin: 0;
+        padding-left: 1rem;
+        border-radius: 15px;
+        background-color: #f1ce8f;
+        border: 1px solid;
+        width: 70%;
+        position: absolute;
+        left: 7rem; }
+        .schedulecontainer .table .item-holder .item-actions {
+          float: right;
+          margin-right: 1rem; }
+        .schedulecontainer .table .item-holder .item-time {
+          display: block;
+          float: left;
+          height: 100%;
+          width: 6rem; }
 
 .todo-kanban_group {
   margin: .5rem;
