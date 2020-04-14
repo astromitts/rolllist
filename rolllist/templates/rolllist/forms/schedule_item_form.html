@@ -1,27 +1,29 @@
-<form method="POST" action="" class="ajaxme">{% csrf_token %}
+{% load extras %}
+<form method="POST" action="edit" id="schedule_edit">{% csrf_token %}
 {{form.start_time_init}}
 {{form.end_time_init}}
-<table>
-	<tr>
-		<td colspan='2'>All day: {{form.all_day}}</td>
-	</tr>
-	<tr>
-		<td>Start time: {{form.start_time}}</td>
-		<td>End time: {{form.end_time}}</td>
-	</tr>
-	<tr>
-		<td colspan="100">Title: {{form.title}}</td>
-	</tr>
-	<tr><td colspan='2'>Set as recurring:</td></tr>
-	<tr>
-		<td colspan='2'>{{form.recurrance_0}} Monday {{form.recurrance_1}} Tuesday {{form.recurrance_2}} Wednesday</td>
-	</tr>
-	<tr>
-		<td colspan='2'>{{form.recurrance_3}} Thursday {{form.recurrance_4}} Friday</td>
-	</tr>
-	<tr>
-		<td colspan='2'>{{form.recurrance_5}} Saturday {{form.recurrance_6}} Sunday</td>
-	</tr>
-</table>
-<input type="submit" value="submit"/>
+	<div class="schedule-edit-form">
+		<div class="schedule-edit-form-row">
+			<div class="schedule-edit-form-group">
+				<div class="label">Start time:</div><div class="field">{{form.start_time}}</div>
+			</div>
+			<div class="schedule-edit-form-group">
+				<div class="label">End time:</div><div class="field">{{form.end_time}}</div>
+			</div>
+		</div>
+		<div class="schedule-edit-form-row">
+			<div class="label">Title:</div><div class="field">{{form.title}}</div>
+		</div>
+		<div class="schedule-edit-form-row">
+			<div class="label">Location:</div><div class="field">{{form.location}}</div>
+		</div>
+		<div class="schedule-edit-form-row">
+			<input type="submit" class="btn btn-warn" value="submit"/>
+		</div>
+	</div>
 </form>
+{% if request.GET.show_delete %}
+	<form method="POST" id="schedule_delete" action="delete">{% csrf_token %}
+		<input type="submit" class="btn btn-danger float--heavyright" value="delete"/>
+	</form>
+{% endif %}

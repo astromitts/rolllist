@@ -34,10 +34,12 @@
 		</div>
 	</div>
 	<div id="schedulecontainer-wrapper">
+		{% comment %} this broken with the relative styling
 		<div id="schedule-display-controls" class="">
 			<button class="js-schedule-control schedule-toggle"  id="js-schedule-expand">expand</button>
 			<button class="js-schedule-control js-schedule-control-selected schedule-toggle" id="js-schedule-collapse">collapse</button>
 		</div>
+		{% endcomment %}
 		<div id="schedulecontainer" class=""></div>
 	</div>
 	<div class="todocontainter-wrapper">
@@ -66,6 +68,7 @@
   	<script src="{% static 'rolllist/vendor/jquery/js.cookie.js' %}"></script>
   	<script src="{% static 'rolllist/js/modal-handler.js' %}"></script>
   	<script src="{% static 'rolllist/js/dashboard.js' %}"></script>
+  	<script src="{% static 'rolllist/js/schedule_table.js' %}"></script>
 
 {% endblock %}
 

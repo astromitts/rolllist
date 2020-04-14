@@ -8,20 +8,17 @@
 					{{ schedule_block.start_time_display }}
 				</div>
 				<div class="td item-add">
-					<button action="{% url 'add_item' start_time_int=schedule_block.interval datestr=datestr %}" class="openmodalschedule" id="{{interval_id}}">+</button>
+					<button action="{% url 'add_item' start_time_int=schedule_block.interval datestr=datestr %}" class="openmodalschedule addscheduleitem" id="{{interval_id}}">+</button>
 				</div>
 				<div class="td item-holder">
 					{% if schedule_block.item %}
-						<div class="item" style="{{schedule_block.item|get_dynamic_style:day_schedule}}">
+						<div class="item js-edit-item" style="{{schedule_block.item|get_dynamic_style:day_schedule}}" 
+							data-edit-url="{% url 'edit_item' item_id=schedule_block.item.id %}"
+							data-delete-url="{% url 'delete_item_handler' item_id=schedule_block.item.id %}">
 							{{ schedule_block.item.title }}
-							<span class="item-actions">
-							{% if schedule_block.item.recurrance %}
-								<button action="{% url 'manage_recurring_items'%}" class="aslink edit">manage</button>
-							{% else %}
-								<button action="{% url 'edit_item' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule edit" id="-1">edit</button>
+							{% if schedule_block.item.location %}
+							 @ {{schedule_block.item.location}}
 							{% endif %}
-								<button action="{% url 'delete_item_form' item_id=schedule_block.item.id recurring=schedule_block.item|is_recurring_item %}" class="openmodalschedule delete" id="{{ interval_id }}">delete</button>
-							</span>
 						</div>
 					{% endif %}
 				</div>

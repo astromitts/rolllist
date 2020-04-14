@@ -1,172 +1,4 @@
-/* DISPLAY HANDLERS */
-function get_anchor(){
-	// function to get the persisted display setting, otherwise default to collapsed
-	var anchor = Cookies.get('_rollist-anchor');
-	if (anchor == 'undefined' || anchor == undefined) {
-		anchor = 'js-schedule-collapse';
-	}
-	return anchor;
-}
 
-function expand_schedule_table(){
-	// show the full schedule table
-	$('div.toggle-open').show();
-	// $('button#js-schedule-hide').show();
-	$('button#js-schedule-expand').hide();
-	$('button#js-schedule-collapse').show();
-}
-
-function collapse_schedule_table(){
-	// show only scheduled items of the schedule table
-	$('div.toggle-open').hide();
-	// $('button#js-schedule-hide').hide();
-	$('button#js-schedule-expand').show();
-	$('button#js-schedule-collapse').hide();
-}
-
-function toggle_schedule_display(selected){
-	var action = selected.attr('id');
-	$('button.js-schedule-control').each(function(){
-		$(this).removeClass('js-schedule-control-selected');
-	});
-	selected.addClass('js-schedule-control-selected');
-
-	if (action == 'js-schedule-expand') {
-		expand_schedule_table();
-	} else if (action == 'js-schedule-collapse') { 
-		collapse_schedule_table();
-	}
-	Cookies.set('_rollist-anchor', action);
-}
-
-function bind_schedule_controls(){
-	$('button.js-schedule-control').click(function(event){
-		event.preventDefault();
-		var selected = $(this);
-		toggle_schedule_display(selected);
-	});
-	$('button.aslink').click(function(event){
-		action = $(this).attr('action');
-		location.href = action;
-	});
-	$('button.item-expand').click(function(){
-		var $targetSpan = $('span#item-full-' + $(this).attr('id'));
-		var $buttonSpan = $('div#item-actions-' + $(this).attr('id'));
-		if ( $targetSpan.is(':visible')) {
-			$targetSpan.hide();
-			$buttonSpan.hide();
-		} else {
-			$targetSpan.show();
-			$buttonSpan.show();
-		}
-		
-	});
-}
-
-function init_schedule_display(){
-	// on schedule table load set schedule display to default or pre-selected val
-	init_location = get_anchor();
-	Cookies.set('_rollist-anchor', init_location);
-	selected = $('button#' + init_location);
-	toggle_schedule_display(selected);
-}
-
-
-// ##############  END display style of the schedule table ##########
-
-/* SCHEDULE VIEW HANDLERS */
-function bind_modal_open_schedule(datestr){
-	// Handle opening the modal for the schedule view functions
-	$('button.openmodalschedule').click(function(event){
-		event.preventDefault();
-		var target_url = $(this).attr('action');
-		var start_val = $(this).attr('id');
-		$.ajax({
-			type: 'GET',
-			url: target_url,
-			success: function(data){
-				$('div#modalcontent').html(data);
-				var start_init = $('input#id_start_time_init').val();
-				var end_init = $('input#id_end_time_init').val();
-
-				$('select#id_end_time').val(end_init);
-				$('select#id_start_time').val(start_init);
-
-				show_modal_and_overlay();
-				bind_all_day_toggle();
-				bind_ajax_form_submit($('form.ajaxme'), target_url, get_schedule_table);
-			},
-			error: function(data){
-				alert("there was an error");
-			}
-		});
-	});
-}
-
-function bind_all_day_toggle(){
-	var init_checked = $('input#id_all_day').attr('checked') == "checked";
-
-	if (init_checked) {
-    	$('select#id_start_time').prop("disabled", true);
-    	$('select#id_end_time').prop("disabled", true);
-	}
-
-	$('input#id_all_day').change(function() {
-	    if(this.checked) {
-	    	$('select#id_start_time').prop("disabled", true);
-	    	$('select#id_end_time').prop("disabled", true);
-	    } else {
-	    	$('select#id_start_time').prop("disabled", false);
-	    	$('select#id_end_time').prop("disabled", false);
-	    }
-	});
-}
-
-
-function bind_schedule_generic_handlers(){
-	// Bind ajax workflow to schedule actions
-	$('a.schedulegeneric').click(function(event){
-		event.preventDefault();
-		var action = $(this).attr('href');
-		$.ajax({
-			url: action,
-			type: 'GET',
-			success: function(data){
-				get_schedule_table();
-			},
-		})
-	});
-}
-
-function bind_show_hide_edit_links(){
-	$('a.js-schedule-links-toggle').click(function(event){
-		event.preventDefault();
-		var links_div = $('div#js-schedule-links-toggle-' + $(this).attr('id'));
-		if (links_div.is(":visible")) {
-			links_div.hide();
-		} else {
-			links_div.show();
-		}
-
-	});
-}
-
-function get_schedule_table(){
-	// Load or refresh the schedule table div contents from ajax call
-	$.ajax({
-		url: $('div#get_schedule').text(),
-		type: 'GET',
-		success: function(data){
-			$('div#schedulecontainer').html(data);
-			bind_modal_open_schedule();
-			bind_schedule_generic_handlers();
-			bind_modal_close();
-			bind_schedule_controls();
-			bind_show_hide_edit_links();
-			init_schedule_display();
-		},
-	})
-}
 
 /* TO DO VIEW HANDLERS */
 
@@ -276,7 +108,7 @@ function get_notes_table(){
 			bind_notes_form_handlers();
 			bind_modal_close();
 		},
-	})
+	});
 }
 
 function pad2(n) {
@@ -288,7 +120,6 @@ function pad2(n) {
 /* DOC HANDLER */
 $(document).ready(function(){
 	var datestr = $('div#datestr').text();
-	get_schedule_table();
 	get_todo_table();
 	//get_notes_table();
 	$(function () {

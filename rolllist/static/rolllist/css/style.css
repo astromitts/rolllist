@@ -26,7 +26,7 @@ h1 {
 .navbar .container-fluid {
   width: 80%;
   margin: auto; }
-  @media (max-width: 991px) {
+  @media (max-width: 40em) {
     .navbar .container-fluid {
       width: 90%;
       padding-left: 0; } }
@@ -86,7 +86,7 @@ button.navbar-toggler-right {
 
 .modal_dashboard {
   z-index: 200;
-  background-color: #f1ce8f;
+  background-color: #d8a64c;
   position: fixed;
   top: 50%;
   width: 80%;
@@ -94,6 +94,10 @@ button.navbar-toggler-right {
   border-radius: 15px;
   border: solid 1px;
   padding: 10px; }
+  @media (max-width: 40em) {
+    .modal_dashboard {
+      width: 98%;
+      left: 1%; } }
 
 .float--heavyright {
   float: right;
@@ -131,22 +135,22 @@ button.navbar-toggler-right {
   display: block;
   padding-top: .4rem;
   font-size: 1.6rem; }
-  @media (max-width: 991px) {
+  @media (max-width: 40em) {
     .dashboard-nav {
       font-size: 1rem; } }
-  @media (max-width: 991px) {
+  @media (max-width: 40em) {
     .dashboard-nav .date-title {
       text-align: center; } }
-  @media (min-width: 991px) {
+  @media (min-width: 40em) {
     .dashboard-nav .date-title {
       float: right; } }
-  @media (max-width: 991px) {
+  @media (max-width: 40em) {
     .dashboard-nav .date-title h1 {
       font-size: 1.2rem; } }
-  @media (min-width: 991px) {
+  @media (min-width: 40em) {
     .dashboard-nav .date-nav-links-wrapper {
       float: left; } }
-  @media (max-width: 991px) {
+  @media (max-width: 40em) {
     .dashboard-nav .date-nav-links-wrapper {
       margin-top: -2rem;
       width: 100%;
@@ -164,6 +168,29 @@ button.navbar-toggler-right {
 #schedule-display-controls {
   display: block;
   padding: .5rem 0; }
+
+.schedule-edit-form {
+  display: block;
+  width: 30em;
+  margin: auto; }
+  @media (max-width: 40em) {
+    .schedule-edit-form {
+      width: 23em; } }
+  .schedule-edit-form-group {
+    display: inline; }
+  .schedule-edit-form-row {
+    display: flex;
+    width: 100%; }
+    .schedule-edit-form-row .label {
+      float: left;
+      margin-left: 1rem;
+      width: 5rem; }
+    .schedule-edit-form-row .field {
+      float: left;
+      margin-left: 1rem; }
+      @media (min-width: 40em) {
+        .schedule-edit-form-row .field input {
+          width: 18rem; } }
 
 .schedulecontainer {
   border: 1px dotted #cccccc;
@@ -187,7 +214,7 @@ button.navbar-toggler-right {
         height: 100%;
         padding: .25rem;
         margin-left: 8rem; }
-        @media (max-width: 991px) {
+        @media (max-width: 40em) {
           .schedulecontainer .table .item-holder div.booked-item {
             width: 98%; } }
       .schedulecontainer .table .item-holder .item {
@@ -196,9 +223,14 @@ button.navbar-toggler-right {
         border-radius: 15px;
         background-color: #f1ce8f;
         border: 1px solid;
-        width: 70%;
+        width: 90%;
         position: absolute;
         left: 7rem; }
+        .schedulecontainer .table .item-holder .item:hover {
+          background-color: #d8a64c; }
+        @media (max-width: 40em) {
+          .schedulecontainer .table .item-holder .item {
+            width: 55%; } }
         .schedulecontainer .table .item-holder .item-actions {
           float: right;
           margin-right: 1rem; }

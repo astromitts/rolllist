@@ -1,8 +1,11 @@
-$small-breakpoint: 991px;
+$small-breakpoint: 40em;
 $header-color: #3390B5;
 $sidebar-color: #BCC415;
 $sidebar-font: #095D86;
 $background-color: #FFFFFF;
+
+$schedule-color-primary: #f1ce8f;
+$schedule-color-secondary: #d8a64c;
 
 body {
 	background-color: $background-color;
@@ -108,11 +111,15 @@ button.navbar-toggler-right {
 
 .modal_dashboard {
 	z-index: 200; 
-	background-color: #f1ce8f;
+	background-color: $schedule-color-secondary;
 	position: fixed;
 	top: 50%;
 	width: 80%;
 	left: 10%;
+	@media (max-width: $small-breakpoint) {
+		width: 98%;
+		left: 1%;
+	}
 	border-radius: 15px;
 	border: solid 1px;
 	padding: 10px;
@@ -215,6 +222,43 @@ button.navbar-toggler-right {
 	padding: .5rem 0;	
 }
 
+.schedule-edit-form {
+	display: block;
+	width: 30em;
+	@media (max-width: $small-breakpoint) {
+		width: 23em;
+	}
+	margin: auto;
+	&-group {
+		display: inline;
+		@media (max-width: $small-breakpoint) {
+			//display: block;
+			//width: 100%;
+		}
+	}
+	&-row {
+		display: flex;
+		width: 100%;
+		@media (max-width: $small-breakpoint) {
+			//display: block;
+		}
+		.label{
+			float: left;
+			margin-left: 1rem;
+			width: 5rem;
+		}
+		.field {
+			float: left;
+			margin-left: 1rem;
+			@media (min-width: $small-breakpoint) {
+				input {
+					width: 18rem;
+				}
+			}
+		}
+	}
+}
+
 $rowheight: 2rem;
 $rowpartial: $rowheight / 2;
 .schedulecontainer {
@@ -248,12 +292,18 @@ $rowpartial: $rowheight / 2;
 				margin-left: 8rem;
 			}
 			.item {
+				&:hover {
+					background-color: $schedule-color-secondary;
+				}
 				margin: 0;
 				padding-left: 1rem;
 				border-radius: 15px;
-				background-color: #f1ce8f;
+				background-color: $schedule-color-primary;
 				border: 1px solid;
-				width: 70%;
+				width: 90%;
+				@media (max-width: $small-breakpoint) {
+					width: 55%;
+				}
 				position: absolute; 
 				left: 7rem;
 				&-actions {
@@ -280,7 +330,7 @@ $rowpartial: $rowheight / 2;
 
 }
 .kanban_group--block {
-	background-color: #f1ce8f;
+	background-color: $schedule-color-primary;
 	border: 1px solid #999999;
 	border-radius: 15px;
 	padding: 1rem;

@@ -25,9 +25,9 @@ urlpatterns = [
     path('gettodolist/<str:datestr>/', views.todo_list_view, name='get_todo'),
 
     # schedule item handlers
-    path('editscheduleitem/<int:item_id>/<int:recurring>/', views.edit_schedule_item_form, name='edit_item'),
+    path('editscheduleitem/<int:item_id>/', views.edit_schedule_item_form, name='edit_item'),
     path('addscheduleitem/<str:datestr>/<int:start_time_int>/', views.add_schedule_item_form, name='add_item'),
-    path('deletescheduleitemform/<int:item_id>/<int:recurring>/', views.delete_schedule_item_handler, name='delete_item_form'),
+    path('deletescheduleitem/<int:item_id>/', views.delete_schedule_item_handler, name='delete_item_handler'),
     path('recurringschedule/', views.manage_recurring_items, name='manage_recurring_items'),
     path('recurringschedule/<int:item_id>/edit/', views.edit_recurring_item_handler, name='edit_recurring_item'),
     path('recurringschedule/<int:item_id>/delete/', views.delete_recurring_item_handler, name='delete_recurring_item'),

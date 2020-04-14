@@ -38,7 +38,7 @@ def get_user(request):
     return RollListUser.objects.get(user=user)
 
 
-def get_item(item_id, recurring):
+def get_item(item_id):
     item = ScheduleItem.objects.get(pk=item_id)
     return item
 
@@ -197,7 +197,7 @@ def add_schedule_item_form(request, start_time_int=None, datestr=None):
                 'start_time': data['start_time'],
                 'end_time': data['end_time'],
                 'title': data['title'],
-                'all_day': data.get('all_day', '') == 'on',
+                'location': data['location'],
                 'user': get_user(request),
             }
             save_data['day'] = target_day
@@ -227,30 +227,20 @@ def add_schedule_item_form(request, start_time_int=None, datestr=None):
 
 
 @login_required(login_url='login/')
-def edit_schedule_item_form(request, item_id, recurring):
+def edit_schedule_item_form(request, item_id):
     """ Handler for edit schedule item form
     """
     template = loader.get_template('rolllist/forms/schedule_item_form.html')
-    existing_item = get_item(item_id, recurring)
+    existing_item = get_item(item_id)
 
     if request.POST:
         data = request.POST.copy()
-        if data.get('all_day', '') == 'on':
-            data['start_time'] = time_options_strings.index('8:00 AM')
-            data['end_time'] = time_options_strings.index('8:00 AM')
-
         form = ScheduleItemForm(data)
         if form.is_valid():
             existing_item.start_time = data['start_time']
             existing_item.end_time = data['end_time']
             existing_item.title = data['title']
-            existing_item.all_day = data.get('all_day', '') == 'on'
-
-            # if they requested recurring, set it as recurring
-            requested_recurrances = _requested_recurrances(data)
-            if requested_recurrances:
-                existing_item, recurring_item = existing_item.make_recurring(requested_recurrances)
-
+            existing_item.location = data['location']
             existing_item.save()
 
             return HttpResponse()
@@ -268,28 +258,13 @@ def edit_schedule_item_form(request, item_id, recurring):
 
 
 @login_required(login_url='login/')
-def delete_schedule_item_handler(request, item_id, recurring):
+def delete_schedule_item_handler(request, item_id):
     """ Delete schedule item of given ID """
-    item = get_item(item_id, recurring)
+    item = get_item(item_id)
 
     if request.POST:
-        if recurring:
-            item.is_active = False
-            item.save()
-        else:
-            item.delete()
+        item.delete()
         return HttpResponse()
-
-    template = loader.get_template('rolllist/forms/generic_delete_form.html')
-    if recurring:
-        msg = "'%s' is a recurring event - Delete it for today only?" % item.title
-    else:
-        msg = 'Delete %s?' % item.title
-    context = {
-        'item': item,
-        'message': msg,
-    }
-    return HttpResponse(template.render(context, request))
 
 
 @login_required(login_url='login/')
