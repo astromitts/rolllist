@@ -10,27 +10,31 @@
 
 	{% comment %} content containers {% endcomment %}
 	<div class="dashboard-nav">
-		<div class="row">
-		    <div class="col">
-				<div class="date-title">
-				    <div class="col">
-						<h1>{{day}}</h1>
-					</div>
+		<div id="dashboard-nav__date">
+			<div class="date-nav-links-wrapper">
+				<div class="date-nav-link">
+					<img src="{% static 'images/iconic/png/calendar-3x-orange.png' %}" id="datepicker" />
 				</div>
-				<div class="col">
-					<div class="date-nav-links-wrapper">
-						<div class="date-nav-link">
-							<img src="{% static 'images/iconic/png/calendar-3x-orange.png' %}" id="datepicker" />
-						</div>
-						<div class="date-nav-link">
-							<a class="nav-link daytoggle daytoggle_prev" href="{% url 'day_view' datestr=target_previous_date %}">< Prev</a>
-						</div>
-						<div class="date-nav-link">
-							<a class="nav-link daytoggle daytoggle_next" href="{% url 'day_view' datestr=target_next_day %}">Next ></a>
-						</div>
-					</div>
+				<div class="date-nav-link">
+					<a class="nav-link daytoggle daytoggle_prev" href="{% url 'day_view' datestr=target_previous_date %}">< Prev</a>
 				</div>
+				<div class="date-nav-link">
+					<a class="nav-link daytoggle daytoggle_next" href="{% url 'day_view' datestr=target_next_day %}">Next ></a>
+				</div>
+			</div>
+		</div>
+		<div class="mobile-dash-nav-lower">
+		    <div id="dashboard-nav__view">
+		    	<div class="view-toggle">
+		    		<a id="link-schedulecontainer-wrapper" data-show-div="schedulecontainer-wrapper" data-hide-div="todocontainter-wrapper" href="" class="active">Schedule</a>
+		    		<a id="link-todocontainter-wrapper" data-hide-div="schedulecontainer-wrapper" data-show-div="todocontainter-wrapper" href="" class="inactive">Tasks</a>
+		    	</div>
 		    </div>
+		    <div id="dashboard-nav__date-display">
+				<div class="date-title">
+					<h1>{{day}}</h1>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div id="schedulecontainer-wrapper">
@@ -42,7 +46,7 @@
 		{% endcomment %}
 		<div id="schedulecontainer" class=""></div>
 	</div>
-	<div class="todocontainter-wrapper">
+	<div id="todocontainter-wrapper">
 		<div id="todocontainter" class=""></div>
 	</div>
 	{% comment %}
@@ -69,6 +73,7 @@
   	<script src="{% static 'rolllist/js/modal-handler.js' %}"></script>
   	<script src="{% static 'rolllist/js/dashboard.js' %}"></script>
   	<script src="{% static 'rolllist/js/schedule_table.js' %}"></script>
+  	<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 
 {% endblock %}
 

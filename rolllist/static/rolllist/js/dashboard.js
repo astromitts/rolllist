@@ -117,10 +117,41 @@ function pad2(n) {
   return n.length >= 2 ? n : new Array(2 - n.length + 1).join(z) + n;
 }
 
+function toggle_view(showdiv, hidediv) {
+	$('#' + showdiv).show();
+	$('#' + hidediv).hide();
+
+	$('a#link-' + showdiv).removeClass('inactive');
+	$('a#link-' + showdiv).addClass('active');
+	
+	$('a#link-' + hidediv).addClass('inactive');
+	$('a#link-' + hidediv).removeClass('active');
+
+	Cookies.set("_rollist-dash-show", showdiv);
+	Cookies.set("_rollist-dash-hide", hidediv);
+}
+
+function init_view_toggle () {
+	var showdiv = Cookies.get("_rollist-dash-show");
+	var hidediv = Cookies.get("_rollist-dash-hide");
+	if (showdiv == undefined) {
+		showdiv = 'schedulecontainer-wrapper';
+		hidediv = 'todocontainter-wrapper';
+	}
+	toggle_view(showdiv, hidediv);
+	$('div.view-toggle a').click(function(event){
+		event.preventDefault();
+		var showdiv = $(this).attr('data-show-div');
+		var hidediv = $(this).attr('data-hide-div');
+		toggle_view(showdiv, hidediv);
+	});
+}
+
 /* DOC HANDLER */
 $(document).ready(function(){
 	var datestr = $('div#datestr').text();
 	get_todo_table();
+	init_view_toggle();
 	//get_notes_table();
 	$(function () {
 		$( "#datepicker" ).datepicker({

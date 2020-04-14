@@ -10,8 +10,8 @@
 	</div>
 </div>
 
-	<div class="spacer_5"></div>
-<div class="row">
+<div class="spacer_5"></div>
+<div class="row todo-kanban">
 	{% for block in todo_blocks %}
 		<div class="col-sm todo-kanban_group">
 			<div class="todo-kanban_title">	
@@ -20,9 +20,8 @@
 			<div class="kanban_group--block">
 				{% for item in block.items %}
 					<div class="todo-kanban_item todo-kanban_item--{{item.priority_display}}">
-						<table class="todo-kanban">
-							<tr>
-								<td class="action--left">
+						<div class="todo-kanban_card">
+								<div class="action--left">
 									{% if block.previous_action %}
 										<a href="{% url 'move_kanban_item' item_id=item.id target_status=block.previous_action %}" class="js-todo-generic">
 											<img src="{% static 'images/iconic/arrow-previous.png' %}" />
@@ -30,8 +29,8 @@
 									{% else %}
 									&nbsp;
 									{% endif %}
-								</td>
-								<td class="title">
+								</div>
+								<div class="title">
 									{% if item.rollover_count > 0 %}
 										<img src="{% static 'images/iconic/png/loop-circular-2x-g.png' %}" class="kanban--icon--recurrance">
 										<span class="text--mild">({{item.rollover_count}})</span>
@@ -42,8 +41,8 @@
 											edit</a>&nbsp;|&nbsp;
 										<a href="{% url 'delete_todo_item' item_id=item.id %}" class="js-openmodal-todo">delete</a>
 									</div>
-								</td>
-								<td class="action--right">
+								</div>
+								<div class="action--right">
 									{% if block.next_action %}
 										<a href="{% url 'move_kanban_item' item_id=item.id target_status=block.next_action %}" class="js-todo-generic">
 											<img src="{% static 'images/iconic/arrow-next.png' %}" />
@@ -51,9 +50,8 @@
 									{% else %}
 									&nbsp;
 									{% endif %}
-								</td>
-							</tr>
-						</table>
+								</div>
+							</div>
 					</div>
 				{% endfor %}
 				{% if not block.items %}

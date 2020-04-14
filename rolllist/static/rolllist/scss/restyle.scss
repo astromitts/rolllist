@@ -3,6 +3,7 @@ $header-color: #3390B5;
 $sidebar-color: #BCC415;
 $sidebar-font: #095D86;
 $background-color: #FFFFFF;
+$highlight-font: #f96332;
 
 $schedule-color-primary: #f1ce8f;
 $schedule-color-secondary: #d8a64c;
@@ -171,44 +172,71 @@ button.navbar-toggler-right {
 }
 
 .dashboard-nav {
-	border-bottom: solid 1px;
-	display: block;
-	padding-top: .4rem;
-	font-size: 1.6rem;
+	#dashboard-nav__view a.inactive {
+		color: #cccccc;		
+		&:hover {
+			color: $highlight-font;
+		}
+	}
+	.date-nav-links-wrapper a.active {
+		&:hover {
+			text-decoration: none;
+		}
+	}
 
 	@media (max-width: $small-breakpoint) {
-		font-size: 1rem;
-	}
-
-	.date-title {
-		@media (max-width: $small-breakpoint) {
-			text-align: center;
-		}
-		@media (min-width: $small-breakpoint) {
-			float: right;
-		}
-		h1 {
-			@media (max-width: $small-breakpoint) {
-				font-size: 1.2rem;
-			}
-		}
-	}
-	.date-nav-links-wrapper {
-		@media (min-width: $small-breakpoint) {
-			float: left;
-		}
-		@media (max-width: $small-breakpoint) {
-			margin-top: -2rem;
+		font-size: .7rem;
+		display: block;
+		height: 4.12rem;
+		.mobile-dash-nav-lower {
+			border-top: solid 1px #cccccc;
 			width: 100%;
 			display: block;
-			padding-left: 3.25rem;
+			padding-top: .5rem;
 		}
-		img {
-			padding-top: .6rem;
+		.date-title {
+			h1 { font-size: .7rem; }
 		}
-		.date-nav-link {
-			display: block;
+		.date-nav-links-wrapper {
+			margin-left: auto;
+			margin-right: auto;
+			display: flex;
+			width: 10rem;
+			img {
+				padding-top: .6rem;
+				width: 1.1rem;
+			}
+		}
+		.view-toggle {
 			float: left;
+		}
+		.date-title {
+			float: right;
+		}
+	}
+	@media (min-width: $small-breakpoint + 1) {
+		justify-content: space-between;
+		padding-top: .4rem;
+		font-size: 1.6rem;
+		#dashboard-nav__view {
+			margin-top: .5rem;
+		}
+		.date-title {
+			text-align: right;
+		}
+		.view-toggle {
+		}
+		.date-nav-links-wrapper {
+			display: flex;
+			float: left;
+			img {
+				margin-top: .5rem;
+			}
+		}
+		.mobile-dash-nav-lower {
+			display: flex;
+			justify-content: space-around;
+			max-width: 100%;
 		}
 	}
 }
@@ -262,8 +290,6 @@ button.navbar-toggler-right {
 $rowheight: 2rem;
 $rowpartial: $rowheight / 2;
 .schedulecontainer {
-	border: 1px dotted #cccccc;
-	padding: 1rem;
 	.table {
 		position: relative;
 		.tr {
@@ -324,10 +350,21 @@ $rowpartial: $rowheight / 2;
 	}
 }
 
-.todo-kanban_group {
-	margin: .5rem;
-	height: auto;
-
+.todo-kanban {
+	border-top: 1px solid;
+	&_group {
+		margin: .5rem;
+		height: auto;
+	}
+	&_card {
+		display: flex;
+		justify-content: space-between;
+		background-color: #FFFFFF;
+		border: 1px solid;
+		border-radius: 7px;
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
 }
 .kanban_group--block {
 	background-color: $schedule-color-primary;
