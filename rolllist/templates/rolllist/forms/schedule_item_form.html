@@ -1,8 +1,13 @@
 {% load extras %}
-<form method="POST" action="edit" id="schedule_edit">{% csrf_token %}
-{{form.start_time_init}}
-{{form.end_time_init}}
-	<div class="schedule-edit-form">
+	{% if request.GET.show_delete %}
+		<form method="POST" id="schedule_delete" action="delete">{% csrf_token %}
+			<input type="submit" class="btn btn-danger" value="delete"/>
+		</form>
+	{% endif %}
+<div class="schedule-edit-form">
+	<form method="POST" action="edit" id="schedule_edit">{% csrf_token %}
+	{{form.start_time_init}}
+	{{form.end_time_init}}
 		<div class="schedule-edit-form-row">
 			<div class="schedule-edit-form-group">
 				<div class="label">Start time:</div><div class="field">{{form.start_time}}</div>
@@ -18,12 +23,7 @@
 			<div class="label">Location:</div><div class="field">{{form.location}}</div>
 		</div>
 		<div class="schedule-edit-form-row">
-			<input type="submit" class="btn btn-warn" value="submit"/>
+			<input type="submit" class="btn btn-success" value="submit"/>
 		</div>
-	</div>
-</form>
-{% if request.GET.show_delete %}
-	<form method="POST" id="schedule_delete" action="delete">{% csrf_token %}
-		<input type="submit" class="btn btn-danger float--heavyright" value="delete"/>
 	</form>
-{% endif %}
+</div>

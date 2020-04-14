@@ -23,6 +23,11 @@ h1 {
   padding-top: 0px;
   background: #3390B5; }
 
+.btn-success {
+  background-color: #588E55; }
+  .btn-success:hover {
+    background-color: #6DAD69; }
+
 .navbar .container-fluid {
   width: 80%;
   margin: auto; }
@@ -65,11 +70,11 @@ h1 {
     #alert-center .alert .close {
       color: #000000 !important; }
     #alert-center .alert-success {
-      background-color: #87c784; }
+      background-color: #87C784; }
     #alert-center .alert-warning {
-      background-color: #f1ce8f; }
+      background-color: #F1CE8F; }
     #alert-center .alert-danger {
-      background-color: #d66060; }
+      background-color: #D66060; }
 
 button.navbar-toggler-right {
   position: absolute;
@@ -80,13 +85,13 @@ button.navbar-toggler-right {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: #000;
+  background-color: #000000;
   opacity: 0.5;
   z-index: 100; }
 
 .modal_dashboard {
   z-index: 200;
-  background-color: #d8a64c;
+  background-color: #D8A64C;
   position: fixed;
   top: 50%;
   width: 80%;
@@ -131,9 +136,9 @@ button.navbar-toggler-right {
     font-weight: bold; }
 
 .dashboard-nav #dashboard-nav__view a.inactive {
-  color: #cccccc; }
+  color: #CCCCCC; }
   .dashboard-nav #dashboard-nav__view a.inactive:hover {
-    color: #f96332; }
+    color: #F96332; }
 .dashboard-nav .date-nav-links-wrapper a.active:hover {
   text-decoration: none; }
 @media (max-width: 40em) {
@@ -142,7 +147,7 @@ button.navbar-toggler-right {
     display: block;
     height: 4.12rem; }
     .dashboard-nav .mobile-dash-nav-lower {
-      border-top: solid 1px #cccccc;
+      border-top: solid 1px #CCCCCC;
       width: 100%;
       display: block;
       padding-top: .5rem; }
@@ -185,6 +190,13 @@ button.navbar-toggler-right {
 #schedule-display-controls {
   display: block;
   padding: .5rem 0; }
+
+form#schedule_delete input {
+  position: absolute;
+  right: 0;
+  margin-right: 1.5rem;
+  margin-top: 1.5rem;
+  top: 0; }
 
 .schedule-edit-form {
   display: block;
@@ -235,13 +247,13 @@ button.navbar-toggler-right {
       margin: 0;
       padding-left: 1rem;
       border-radius: 15px;
-      background-color: #f1ce8f;
+      background-color: #F1CE8F;
       border: 1px solid;
       width: 90%;
       position: absolute;
       left: 7rem; }
       .schedulecontainer .table .item-holder .item:hover {
-        background-color: #d8a64c; }
+        background-color: #D8A64C; }
       @media (max-width: 40em) {
         .schedulecontainer .table .item-holder .item {
           width: 55%; } }
@@ -269,7 +281,7 @@ button.navbar-toggler-right {
     padding-right: 1rem; }
 
 .kanban_group--block {
-  background-color: #f1ce8f;
+  background-color: #F1CE8F;
   border: 1px solid #999999;
   border-radius: 15px;
   padding: 1rem; }
