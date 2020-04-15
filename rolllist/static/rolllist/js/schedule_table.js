@@ -39,18 +39,31 @@ function toggle_schedule_display(selected){
 	Cookies.set('_rollist-anchor', action);
 }
 
-function schedule_toggled_view(show_button){
+function schedule_toggled_view(show_target_button){ // i.e. "expand"
 
-	var showdiv = $('div.' + show_button.attr('id'));
-	var hidediv = $('div.' + show_button.attr('data-hide-div'));
-	var new_show_button_id = show_button.attr('data-hide-div');
-	var new_show_button = $('button#' + new_show_button_id);
+	var selected_target_id = show_target_button.attr('id'); // i.e. table-toggled-view_full
+	var deselected_target_id = show_target_button.attr('data-hide-div'); // i.e. table-toggled-view_collapsed
 	
-	showdiv.show();
-	hidediv.hide();
-	show_button.hide();
-	new_show_button.show();
-	Cookies.set('_rollist-schedule-view', showdiv);
+	var new_visible_button_id = deselected_target_id;
+	var new_visible_button = $('button#' + new_visible_button_id);
+
+	var selected_target_div = $('div.' + selected_target_id);
+	var deselected_target_div = $('div.' + deselected_target_id);
+	
+	
+	selected_target_div.show();
+	show_target_button.hide();
+
+	deselected_target_div.hide();
+	new_visible_button.show();
+
+	Cookies.set('_rollist-schedule-view', selected_target_id);
+}
+
+function bind_schedule_toggle_to_buttons() {
+	$('button.js-schedule-toggle').click(function(){
+		schedule_toggled_view($(this));
+	});
 }
 
 function init_schedule_toggled_view() {
@@ -61,9 +74,7 @@ function init_schedule_toggled_view() {
 	}
 	var show_button = $('button#' + show_button_id);
 	schedule_toggled_view(show_button);
-	$('button.js-schedule-toggle').click(function(){
-		schedule_toggled_view($(this));
-	});
+	bind_schedule_toggle_to_buttons();
 }
 
 

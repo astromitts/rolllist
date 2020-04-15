@@ -221,35 +221,8 @@ form#schedule_delete input {
         .schedule-edit-form-row .field input {
           width: 18rem; } }
 
-.schedulecontainer .table-toggled-view_collapsed {
-  display: table; }
-  .schedulecontainer .table-toggled-view_collapsed .tr {
-    display: table-row; }
-  .schedulecontainer .table-toggled-view_collapsed .td {
-    display: table-cell; }
-  .schedulecontainer .table-toggled-view_collapsed .item-holder_collapsed {
-    width: 90%; }
-    @media (max-width: 40em) {
-      .schedulecontainer .table-toggled-view_collapsed .item-holder_collapsed .item_collapsed {
-        width: 100%; } }
-.schedulecontainer .table-toggled-view_full {
-  position: relative; }
-  .schedulecontainer .table-toggled-view_full .item-holder {
-    width: 100%; }
-    .schedulecontainer .table-toggled-view_full .item-holder .item {
-      position: absolute;
-      left: 7rem; }
-  .schedulecontainer .table-toggled-view_full .tr {
-    display: block;
-    width: 100%;
-    height: 2rem;
-    border-top: 1px dotted; }
-    .schedulecontainer .table-toggled-view_full .tr-primary {
-      border-top: 1px solid; }
-  .schedulecontainer .table-toggled-view_full .td {
-    float: left; }
-  .schedulecontainer .table-toggled-view_full .item-time {
-    width: 4rem; }
+.schedulecontainer button.addscheduleitem {
+  margin-top: .2rem; }
 .schedulecontainer .table .item-holder div.booked-item {
   height: 100%;
   padding: .25rem;
@@ -277,6 +250,36 @@ form#schedule_delete input {
     float: left;
     height: 100%;
     width: 6rem; }
+.schedulecontainer .table-toggled-view_collapsed {
+  display: table; }
+  .schedulecontainer .table-toggled-view_collapsed .tr {
+    display: table-row; }
+  .schedulecontainer .table-toggled-view_collapsed .td {
+    display: table-cell; }
+  .schedulecontainer .table-toggled-view_collapsed .item-holder_collapsed {
+    width: 90%; }
+    @media (max-width: 40em) {
+      .schedulecontainer .table-toggled-view_collapsed .item-holder_collapsed .item_collapsed {
+        width: 90%;
+        margin-left: .7rem; } }
+.schedulecontainer .table-toggled-view_full {
+  position: relative; }
+  .schedulecontainer .table-toggled-view_full .item-holder {
+    width: 100%; }
+    .schedulecontainer .table-toggled-view_full .item-holder .item {
+      position: absolute;
+      left: 7rem; }
+  .schedulecontainer .table-toggled-view_full .tr {
+    display: block;
+    width: 100%;
+    height: 2rem;
+    border-top: 1px dotted; }
+    .schedulecontainer .table-toggled-view_full .tr-primary {
+      border-top: 1px solid; }
+  .schedulecontainer .table-toggled-view_full .td {
+    float: left; }
+  .schedulecontainer .table-toggled-view_full .item-time {
+    width: 4rem; }
 
 .todo-kanban {
   border-top: 1px solid; }

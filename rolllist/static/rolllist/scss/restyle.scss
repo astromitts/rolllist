@@ -315,8 +315,46 @@ form#schedule_delete input {
 
 $rowheight: 2rem;
 $rowpartial: $rowheight / 2;
-.schedulecontainer {			
+.schedulecontainer {
+	button.addscheduleitem {
+		margin-top: .2rem;
+	}			
 	.table {		
+		.item-holder {
+			div.booked-item {
+				height: 100%;
+				padding: .25rem;
+				@media (max-width: $small-breakpoint) {
+					width: 98%
+				}
+				margin-left: 8rem;
+			}
+			.item {
+				&:hover {
+					background-color: $schedule-color-secondary;
+				}
+				margin: 0;
+				padding-left: 1rem;
+				border-radius: 15px;
+				background-color: $schedule-color-primary;
+				border: 1px solid;
+				width: 90%;
+				@media (max-width: $small-breakpoint) {
+					width: 55%;
+				}
+				&-actions {
+					float: right;
+					margin-right: 1rem;
+				}
+				&-time {
+					display: block;
+					float: left;
+					height: 100%; 
+					width: 6rem;
+				}
+			}
+		}
+
 		&-toggled-view_collapsed {
 			display: table;
 			.tr {
@@ -329,7 +367,8 @@ $rowpartial: $rowheight / 2;
 				width: 90%;
 				.item_collapsed {
 					@media (max-width: $small-breakpoint) {
-						width: 100%
+						width: 90%;
+						margin-left: .7rem;
 					}
 				}
 			}
@@ -358,43 +397,6 @@ $rowpartial: $rowheight / 2;
 			}
 			.item-time {
 				width: 4rem;
-			}
-		}
-		.item-holder {
-			div.booked-item {
-				height: 100%;
-				padding: .25rem;
-				@media (max-width: $small-breakpoint) {
-					width: 98%
-				}
-				margin-left: 8rem;
-			}
-			.item {
-				&:hover {
-					background-color: $schedule-color-secondary;
-				}
-				margin: 0;
-				padding-left: 1rem;
-				border-radius: 15px;
-				background-color: $schedule-color-primary;
-				border: 1px solid;
-				width: 90%;
-				@media (max-width: $small-breakpoint) {
-					width: 55%;
-				}
-				&-actions {
-					float: right;
-					margin-right: 1rem;
-				}
-				&-add {
-
-				}
-				&-time {
-					display: block;
-					float: left;
-					height: 100%; 
-					width: 6rem;
-				}
 			}
 		}
 	}
