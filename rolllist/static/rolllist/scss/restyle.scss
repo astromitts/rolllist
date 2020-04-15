@@ -19,6 +19,8 @@ $dark-gray: #999999;
 $light-gray: #E8E2E2;
 $white: #FFFFFF;
 $black: #000000;
+$orange: #F9A589;
+$red: #EA4343;
 
 body {
 	background-color: $background-color;
@@ -417,8 +419,18 @@ $rowpartial: $rowheight / 2;
 		border-radius: 7px;
 		padding-left: 1rem;
 		padding-right: 1rem;
+		margin-bottom: .5rem;
 		&:hover {
 			background-color: $light-gray;
+		}
+		&--high {
+			border-color: $red;
+		}
+		&--medium {
+			border-color: $orange;
+		}
+		&--low {
+			border-color: $gray;
 		}
 	}
 	.js-edit-kanbanitem {

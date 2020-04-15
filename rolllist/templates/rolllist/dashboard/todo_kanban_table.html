@@ -8,8 +8,8 @@
 			</div>
 			<div class="kanban_group--block">
 				{% for item in block.items %}
-					<div class="todo-kanban_item todo-kanban_item--{{item.priority_display}}">
-						<div class="todo-kanban_card js-kanban-card">
+					<div class="todo-kanban_item">
+						<div class="todo-kanban_card todo-kanban_card--{{item.priority_display}} js-kanban-card">
 								<div class="action--left">
 									{% if block.previous_action %}
 										<a href="{% url 'move_kanban_item' item_id=item.id target_status=block.previous_action %}" class="js-todo-generic">

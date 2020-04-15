@@ -293,9 +293,16 @@ form.modal-delete input {
     border: 1px solid;
     border-radius: 7px;
     padding-left: 1rem;
-    padding-right: 1rem; }
+    padding-right: 1rem;
+    margin-bottom: .5rem; }
     .todo-kanban_card:hover {
       background-color: #E8E2E2; }
+    .todo-kanban_card--high {
+      border-color: #EA4343; }
+    .todo-kanban_card--medium {
+      border-color: #F9A589; }
+    .todo-kanban_card--low {
+      border-color: #CCCCCC; }
   .todo-kanban .js-edit-kanbanitem {
     width: 100%;
     text-align: center; }
