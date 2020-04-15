@@ -26,6 +26,21 @@ def is_primary_time(time_string):
 
 
 @register.filter
+def get_dynamic_style_collapsed(schedule_item, schedule):
+    """ Produces dynamic positions for a given schedule item relative to the given schedule
+    """
+    table_position = schedule_item.start_time - schedule[0]['interval']
+    styles = []
+    if schedule_item.end_time - schedule_item.start_time == 1:
+        styles.append('padding-top: .25rem;')
+    else:
+        styles.append('padding-top: {}rem;'.format((schedule_item.end_time - schedule_item.start_time) - 1))
+    styles.append('top: {}rem;'.format(table_position * 2))
+    styles.append('height: {}rem;'.format((schedule_item.end_time - schedule_item.start_time) * 2))
+    return ' '.join(styles)
+
+
+@register.filter
 def get_dynamic_style(schedule_item, schedule):
     """ Produces dynamic positions for a given schedule item relative to the given schedule
     """

@@ -221,50 +221,62 @@ form#schedule_delete input {
         .schedule-edit-form-row .field input {
           width: 18rem; } }
 
-.schedulecontainer .table {
+.schedulecontainer .table-toggled-view_collapsed {
+  display: table; }
+  .schedulecontainer .table-toggled-view_collapsed .tr {
+    display: table-row; }
+  .schedulecontainer .table-toggled-view_collapsed .td {
+    display: table-cell; }
+  .schedulecontainer .table-toggled-view_collapsed .item-holder_collapsed {
+    width: 90%; }
+    @media (max-width: 40em) {
+      .schedulecontainer .table-toggled-view_collapsed .item-holder_collapsed .item_collapsed {
+        width: 100%; } }
+.schedulecontainer .table-toggled-view_full {
   position: relative; }
-  .schedulecontainer .table .tr {
+  .schedulecontainer .table-toggled-view_full .item-holder {
+    width: 100%; }
+    .schedulecontainer .table-toggled-view_full .item-holder .item {
+      position: absolute;
+      left: 7rem; }
+  .schedulecontainer .table-toggled-view_full .tr {
     display: block;
     width: 100%;
     height: 2rem;
     border-top: 1px dotted; }
-    .schedulecontainer .table .tr-primary {
+    .schedulecontainer .table-toggled-view_full .tr-primary {
       border-top: 1px solid; }
-  .schedulecontainer .table .td {
+  .schedulecontainer .table-toggled-view_full .td {
     float: left; }
-  .schedulecontainer .table .item-time {
+  .schedulecontainer .table-toggled-view_full .item-time {
     width: 4rem; }
-  .schedulecontainer .table .item-holder {
-    width: 100%; }
+.schedulecontainer .table .item-holder div.booked-item {
+  height: 100%;
+  padding: .25rem;
+  margin-left: 8rem; }
+  @media (max-width: 40em) {
     .schedulecontainer .table .item-holder div.booked-item {
-      height: 100%;
-      padding: .25rem;
-      margin-left: 8rem; }
-      @media (max-width: 40em) {
-        .schedulecontainer .table .item-holder div.booked-item {
-          width: 98%; } }
+      width: 98%; } }
+.schedulecontainer .table .item-holder .item {
+  margin: 0;
+  padding-left: 1rem;
+  border-radius: 15px;
+  background-color: #F1CE8F;
+  border: 1px solid;
+  width: 90%; }
+  .schedulecontainer .table .item-holder .item:hover {
+    background-color: #D8A64C; }
+  @media (max-width: 40em) {
     .schedulecontainer .table .item-holder .item {
-      margin: 0;
-      padding-left: 1rem;
-      border-radius: 15px;
-      background-color: #F1CE8F;
-      border: 1px solid;
-      width: 90%;
-      position: absolute;
-      left: 7rem; }
-      .schedulecontainer .table .item-holder .item:hover {
-        background-color: #D8A64C; }
-      @media (max-width: 40em) {
-        .schedulecontainer .table .item-holder .item {
-          width: 55%; } }
-      .schedulecontainer .table .item-holder .item-actions {
-        float: right;
-        margin-right: 1rem; }
-      .schedulecontainer .table .item-holder .item-time {
-        display: block;
-        float: left;
-        height: 100%;
-        width: 6rem; }
+      width: 55%; } }
+  .schedulecontainer .table .item-holder .item-actions {
+    float: right;
+    margin-right: 1rem; }
+  .schedulecontainer .table .item-holder .item-time {
+    display: block;
+    float: left;
+    height: 100%;
+    width: 6rem; }
 
 .todo-kanban {
   border-top: 1px solid; }

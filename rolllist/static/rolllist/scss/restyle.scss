@@ -315,26 +315,52 @@ form#schedule_delete input {
 
 $rowheight: 2rem;
 $rowpartial: $rowheight / 2;
-.schedulecontainer {
-	.table {
-		position: relative;
-		.tr {
-			display: block;
-			width: 100%;
-			height: $rowheight;
-			border-top: 1px dotted;
-			&-primary {
-				border-top: 1px solid;
+.schedulecontainer {			
+	.table {		
+		&-toggled-view_collapsed {
+			display: table;
+			.tr {
+				display: table-row;
+			}
+			.td {
+				display: table-cell;
+			}
+			.item-holder_collapsed {
+				width: 90%;
+				.item_collapsed {
+					@media (max-width: $small-breakpoint) {
+						width: 100%
+					}
+				}
+			}
+
+		}
+		&-toggled-view_full {
+			position: relative;
+			.item-holder {
+				width: 100%;
+				.item {
+					position: absolute; 
+					left: 7rem;
+				}
+			}
+			.tr {
+				display: block;
+				width: 100%;
+				height: $rowheight;
+				border-top: 1px dotted;
+				&-primary {
+					border-top: 1px solid;
+				}
+			}
+			.td {
+				float: left;
+			}
+			.item-time {
+				width: 4rem;
 			}
 		}
-		.td {
-			float: left;
-		}
-		.item-time {
-			width: 4rem;
-		}
 		.item-holder {
-			width: 100%;
 			div.booked-item {
 				height: 100%;
 				padding: .25rem;
@@ -356,8 +382,6 @@ $rowpartial: $rowheight / 2;
 				@media (max-width: $small-breakpoint) {
 					width: 55%;
 				}
-				position: absolute; 
-				left: 7rem;
 				&-actions {
 					float: right;
 					margin-right: 1rem;

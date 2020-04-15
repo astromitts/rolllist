@@ -39,32 +39,31 @@ function toggle_schedule_display(selected){
 	Cookies.set('_rollist-anchor', action);
 }
 
-function bind_schedule_controls(){
-	$('button.js-schedule-control').click(function(event){
-		event.preventDefault();
-		var selected = $(this);
-		toggle_schedule_display(selected);
-	});
-	$('button.item-expand').click(function(){
-		var $targetSpan = $('span#item-full-' + $(this).attr('id'));
-		var $buttonSpan = $('div#item-actions-' + $(this).attr('id'));
-		if ( $targetSpan.is(':visible')) {
-			$targetSpan.hide();
-			$buttonSpan.hide();
-		} else {
-			$targetSpan.show();
-			$buttonSpan.show();
-		}
-		
-	});
+function schedule_toggled_view(show_button){
+
+	var showdiv = $('div.' + show_button.attr('id'));
+	var hidediv = $('div.' + show_button.attr('data-hide-div'));
+	var new_show_button_id = show_button.attr('data-hide-div');
+	var new_show_button = $('button#' + new_show_button_id);
+	
+	showdiv.show();
+	hidediv.hide();
+	show_button.hide();
+	new_show_button.show();
+	Cookies.set('_rollist-schedule-view', showdiv);
 }
 
-function init_schedule_display(){
-	// on schedule table load set schedule display to default or pre-selected val
-	init_location = get_anchor();
-	Cookies.set('_rollist-anchor', init_location);
-	selected = $('button#' + init_location);
-	toggle_schedule_display(selected);
+function init_schedule_toggled_view() {
+	valid_toggle_options = ['table-toggled-view_full', 'table-toggled-view_collapsed'];
+	var show_button_id = Cookies.get('_rollist-schedule-view');
+	if ($.inArray(show_button_id, valid_toggle_options) < 0) {
+		show_button_id = valid_toggle_options[0];
+	}
+	var show_button = $('button#' + show_button_id);
+	schedule_toggled_view(show_button);
+	$('button.js-schedule-toggle').click(function(){
+		schedule_toggled_view($(this));
+	});
 }
 
 
@@ -176,9 +175,8 @@ function get_schedule_table(){
 			$('div#schedulecontainer').html(data);
 			bind_modal_open_schedule_options();
 			bind_modal_close();
-			bind_schedule_controls();
+			init_schedule_toggled_view();
 			bind_add_item();
-			init_schedule_display();
 		},
 	})
 }

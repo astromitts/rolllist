@@ -1,7 +1,28 @@
 {% load static extras %}
 
 <div class="schedulecontainer">
-	<div class="table">
+	<div class="table toggled-view table-toggled-view_collapsed">
+		{% for schedule_block in day_schedule %}
+			{% if schedule_block.item %}
+			<div class="tr {% if schedule_block.start_time_display|is_primary_time %} tr-primary {% endif %}">
+				<div class="td">{{ schedule_block.item.start }}</div>
+				<div class="td">-</div>
+				<div class="td">{{ schedule_block.item.end }}</div>
+				<div class="td item-holder item-holder_collapsed">
+						<div class="item item_collapsed js-edit-item" style="" 
+							data-edit-url="{% url 'edit_item' item_id=schedule_block.item.id %}"
+							data-delete-url="{% url 'delete_item_handler' item_id=schedule_block.item.id %}">
+							{{ schedule_block.item.title }}
+							{% if schedule_block.item.location %}
+							 @ {{schedule_block.item.location}}
+							{% endif %}
+						</div>
+				</div>
+			</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+	<div class="table toggled-view table-toggled-view_full">
 		{% for schedule_block in day_schedule %}
 			<div class="tr toggle-open open {% if schedule_block.start_time_display|is_primary_time %} tr-primary {% endif %}">
 				<div class="td item-time">
@@ -10,9 +31,9 @@
 				<div class="td item-add">
 					<button action="{% url 'add_item' start_time_int=schedule_block.interval datestr=datestr %}" class="openmodalschedule addscheduleitem" id="{{interval_id}}">+</button>
 				</div>
-				<div class="td item-holder">
+				<div class="td item-holder item-holder_full">
 					{% if schedule_block.item %}
-						<div class="item js-edit-item" style="{{schedule_block.item|get_dynamic_style:day_schedule}}" 
+						<div class="item item_full js-edit-item" style="{{schedule_block.item|get_dynamic_style:day_schedule}}" 
 							data-edit-url="{% url 'edit_item' item_id=schedule_block.item.id %}"
 							data-delete-url="{% url 'delete_item_handler' item_id=schedule_block.item.id %}">
 							{{ schedule_block.item.title }}

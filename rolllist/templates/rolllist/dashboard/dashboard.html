@@ -38,12 +38,11 @@
 		</div>
 	</div>
 	<div id="schedulecontainer-wrapper">
-		{% comment %} this broken with the relative styling
 		<div id="schedule-display-controls" class="">
-			<button class="js-schedule-control schedule-toggle"  id="js-schedule-expand">expand</button>
-			<button class="js-schedule-control js-schedule-control-selected schedule-toggle" id="js-schedule-collapse">collapse</button>
+			<button class="js-schedule-toggle"  id="table-toggled-view_full" data-hide-div="table-toggled-view_collapsed">expand</button>
+			<button class="js-schedule-toggle" id="table-toggled-view_collapsed" data-hide-div="table-toggled-view_full">collapse</button>
 		</div>
-		{% endcomment %}
+
 		<div id="schedulecontainer" class=""></div>
 	</div>
 	<div id="todocontainter-wrapper">
