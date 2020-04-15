@@ -347,13 +347,18 @@ def edit_recurring_item_handler(request, item_id):
 
 
 @login_required(login_url='login/')
-def add_to_do_item_form(request, list_id=None):
+def add_to_do_item_form(request, datestr=None):
     """ Handler for add to do item form
     """
-    template = loader.get_template('rolllist/forms/generic_form.html')
+    template = loader.get_template('rolllist/forms/kanban_item_form.html')
+    if not datestr:
+        target_day, created = Day.get_or_create(date=localdate())
+    else:
+        target_day, created = Day.get_from_str(datestr)
+    user = get_user(request)
     if request.POST:
         form = ToDoItemForm(request.POST)
-        to_do_list = ToDoList.objects.get(pk=list_id)
+        to_do_list = ToDoList.objects.get(day=target_day, user=user)
         if form.is_valid:
             save_data = {
                 'to_do_list': to_do_list,
@@ -376,7 +381,7 @@ def add_to_do_item_form(request, list_id=None):
 def edit_to_do_item_form(request, item_id=None):
     """ Handler for edit to do item form
     """
-    template = loader.get_template('rolllist/forms/generic_form.html')
+    template = loader.get_template('rolllist/forms/kanban_item_form.html')
     to_do_item = ToDoItem.objects.get(pk=item_id)
     if request.POST:
         form = ToDoItemForm(request.POST)
@@ -431,7 +436,7 @@ def delete_todo_item(request, item_id):
         item.delete()
         return HttpResponse()
 
-    template = loader.get_template('rolllist/forms/generic_delete_form.html')
+    template = loader.get_template('rolllist/forms/kanban_item_form.html')
     context = {
         'item': item,
         'message': "Delete '%s'?" % item.title,

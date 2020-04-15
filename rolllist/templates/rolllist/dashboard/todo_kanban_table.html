@@ -1,15 +1,4 @@
 {% load static %}
-<div class="row">
-	<div class="col">
-		<a href="{% url 'add_todo_item' list_id=todo_list.pk %}" class="js-openmodal-todo button">
-		<button>+ Item</button>
-		</a>
-		<a href="{% url 'rollover_todo' datestr=datestr %}" class="js-todo-generic button">
-			<button><img src="{% static 'images/iconic/png/loop-circular-2x.png' %}" class="icon--recurrance">Rollover</button>
-		</a>
-	</div>
-</div>
-
 <div class="spacer_5"></div>
 <div class="row todo-kanban">
 	{% for block in todo_blocks %}
@@ -20,7 +9,7 @@
 			<div class="kanban_group--block">
 				{% for item in block.items %}
 					<div class="todo-kanban_item todo-kanban_item--{{item.priority_display}}">
-						<div class="todo-kanban_card">
+						<div class="todo-kanban_card js-kanban-card">
 								<div class="action--left">
 									{% if block.previous_action %}
 										<a href="{% url 'move_kanban_item' item_id=item.id target_status=block.previous_action %}" class="js-todo-generic">
@@ -30,18 +19,17 @@
 									&nbsp;
 									{% endif %}
 								</div>
-								<div class="title">
-									{% if item.rollover_count > 0 %}
-										<img src="{% static 'images/iconic/png/loop-circular-2x-g.png' %}" class="kanban--icon--recurrance">
-										<span class="text--mild">({{item.rollover_count}})</span>
-									{% endif %}
-									{{ item.title }} <a href="" class="js-open-kanban-links" id="js-open-kanban-links_{{item.id}}">[...]</a>
-									<div id="js-open-kanban-links_{{item.id}}" class="js-open-kanban-links content--centered" style="display: none;">
-										<a href="{% url 'edit_todo_item' item_id=item.id %}" class="js-openmodal-todo">
-											edit</a>&nbsp;|&nbsp;
-										<a href="{% url 'delete_todo_item' item_id=item.id %}" class="js-openmodal-todo">delete</a>
+								<span class="js-edit-kanbanitem"
+									data-edit-url="{% url 'edit_todo_item' item_id=item.id %}"
+									data-delete-url="{% url 'delete_todo_item' item_id=item.id %}">
+									<div class="title">
+										{% if item.rollover_count > 0 %}
+											<img src="{% static 'images/iconic/png/loop-circular-2x-g.png' %}" class="kanban--icon--recurrance">
+											<span class="text--mild">({{item.rollover_count}})</span>
+										{% endif %}
+										{{ item.title }} 
 									</div>
-								</div>
+								</span>
 								<div class="action--right">
 									{% if block.next_action %}
 										<a href="{% url 'move_kanban_item' item_id=item.id target_status=block.next_action %}" class="js-todo-generic">

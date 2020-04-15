@@ -125,12 +125,12 @@ function bind_modal_open_schedule_options(datestr){
 	$('div.js-edit-item').click(function(){
 		var edit_url = $(this).attr('data-edit-url');
 		var delete_url = $(this).attr('data-delete-url');
-		var is_recurring = $(this).attr('data-recurring-item');
+
 		var start_val = $(this).attr('id');
 		$.ajax({
 			type: 'GET',
 			url: edit_url,
-			data: {'show_delete': 1, 'is_recurring': is_recurring},
+			data: {'show_delete': 1},
 			success: function(data){
 				$('div#modalcontent').html(data);
 				var start_init = $('input#id_start_time_init').val();

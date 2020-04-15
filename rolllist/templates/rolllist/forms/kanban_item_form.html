@@ -1,0 +1,29 @@
+{% load static %}
+<style>
+	li{
+		list-style: none;
+		display: table-row;
+		width: 100%;
+	}
+	label{
+		width: 90px;
+		display: table-cell;
+		padding: 5px;
+	}
+	select, input: {
+		display: table-cell;
+		padding: 5px;
+	}
+</style>
+{% if request.GET.show_delete %}
+	<form method="POST" class="modal-delete" id="kanban_delete" action="delete">{% csrf_token %}
+		<input type="submit" class="btn btn-danger" value="delete"/>
+	</form>
+{% endif %}
+<div class="modal-edit-form">
+	<form method="POST" id="kanban_edit" action="edit" class="ajaxme">{% csrf_token %}
+	{{ form.as_ul|safe }}
+	<input type="submit" class="btn btn-primary" value="submit"/>
+	</form>
+</div>
+

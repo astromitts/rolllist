@@ -1,10 +1,10 @@
 {% load extras %}
 	{% if request.GET.show_delete %}
-		<form method="POST" id="schedule_delete" action="delete">{% csrf_token %}
+		<form method="POST" class="modal-delete" id="schedule_delete" action="delete">{% csrf_token %}
 			<input type="submit" class="btn btn-danger" value="delete"/>
 		</form>
 	{% endif %}
-<div class="schedule-edit-form">
+<div class="modal-edit-form">
 	<form method="POST" action="edit" id="schedule_edit">{% csrf_token %}
 	{{form.start_time_init}}
 	{{form.end_time_init}}

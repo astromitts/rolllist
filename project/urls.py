@@ -32,16 +32,8 @@ urlpatterns = [
     path('recurringschedule/<int:item_id>/edit/', views.edit_recurring_item_handler, name='edit_recurring_item'),
     path('recurringschedule/<int:item_id>/delete/', views.delete_recurring_item_handler, name='delete_recurring_item'),
 
-    # schedule notes handlers
-    path('viewnotes/', views.view_all_notes, name='view_all_notes'),
-    path('getnotes/<str:datestr>/', views.note_view, name='get_notes'),
-    path('editnote/<int:note_id>/', views.edit_note_form, name='edit_note'),
-    path('addnote/<str:datestr>/', views.add_note_form, name='add_note'),
-    path('editnote/<int:note_id>/<str:src>/', views.edit_note_form, name='edit_note_src'),
-    path('addnote/<str:datestr>/<str:src>/', views.add_note_form, name='add_note_src'),
-    path('deletenoteform/<int:note_id>/', views.delete_note_form, name='delete_note'),
     # to do list item handlers
-    path('addtodoitem/<int:list_id>/', views.add_to_do_item_form, name='add_todo_item'),
+    path('addtodoitem/<str:datestr>/', views.add_to_do_item_form, name='add_todo_item'),
     path('rollovertodo/<str:datestr>/', views.rollover_todo, name='rollover_todo'),
     path('edittodoitem/<int:item_id>/', views.edit_to_do_item_form, name='edit_todo_item'),
     path('deletetodoitem/<int:item_id>/', views.delete_todo_item, name='delete_todo_item'),

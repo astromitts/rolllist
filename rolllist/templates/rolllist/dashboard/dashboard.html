@@ -5,7 +5,6 @@
 	{% comment %} hidden field for loading other views via date id {% endcomment %}
 	<div id="get_schedule" style="display: none;">{% url 'get_schedule' datestr=datestr %}</div>
 	<div id="get_todo" style="display: none;">{% url 'get_todo' datestr=datestr %}</div>
-	<div id="get_notes" style="display: none;">{% url 'get_notes' datestr=datestr %}</div>
 	<div id="datestr" style="display: none;">{{ datestr }}</div>
 
 	{% comment %} content containers {% endcomment %}
@@ -46,6 +45,16 @@
 		<div id="schedulecontainer" class=""></div>
 	</div>
 	<div id="todocontainter-wrapper">
+		<div class="row">
+			<div class="col">
+				<a href="{% url 'add_todo_item' datestr=datestr %}" class="js-add-kanban button">
+					<button>+ Item</button>
+				</a>
+				<a href="{% url 'rollover_todo' datestr=datestr %}" class="js-todo-generic button">
+					<button><img src="{% static 'images/iconic/png/loop-circular-2x.png' %}" class="icon--recurrance">Rollover</button>
+				</a>
+			</div>
+		</div>
 		<div id="todocontainter" class=""></div>
 	</div>
 	{% comment %}
@@ -72,6 +81,7 @@
   	<script src="{% static 'rolllist/js/modal-handler.js' %}"></script>
   	<script src="{% static 'rolllist/js/dashboard.js' %}"></script>
   	<script src="{% static 'rolllist/js/schedule_table.js' %}"></script>
+  	<script src="{% static 'rolllist/js/kanban.js' %}"></script>
   	<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 
 {% endblock %}

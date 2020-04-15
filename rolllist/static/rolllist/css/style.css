@@ -191,34 +191,34 @@ button.navbar-toggler-right {
   display: block;
   padding: .5rem 0; }
 
-form#schedule_delete input {
+form.modal-delete input {
   position: absolute;
   right: 0;
   margin-right: 1.5rem;
   margin-top: 1.5rem;
   top: 0; }
 
-.schedule-edit-form {
+.modal-edit-form {
   display: block;
   width: 30em;
   margin: auto; }
   @media (max-width: 40em) {
-    .schedule-edit-form {
+    .modal-edit-form {
       width: 23em; } }
-  .schedule-edit-form-group {
+  .modal-edit-form-group {
     display: inline; }
-  .schedule-edit-form-row {
+  .modal-edit-form-row {
     display: flex;
     width: 100%; }
-    .schedule-edit-form-row .label {
+    .modal-edit-form-row .label {
       float: left;
       margin-left: 1rem;
       width: 5rem; }
-    .schedule-edit-form-row .field {
+    .modal-edit-form-row .field {
       float: left;
       margin-left: 1rem; }
       @media (min-width: 40em) {
-        .schedule-edit-form-row .field input {
+        .modal-edit-form-row .field input {
           width: 18rem; } }
 
 .schedulecontainer button.addscheduleitem {
@@ -294,6 +294,11 @@ form#schedule_delete input {
     border-radius: 7px;
     padding-left: 1rem;
     padding-right: 1rem; }
+    .todo-kanban_card:hover {
+      background-color: #E8E2E2; }
+  .todo-kanban .js-edit-kanbanitem {
+    width: 100%;
+    text-align: center; }
 
 .kanban_group--block {
   background-color: #F1CE8F;
