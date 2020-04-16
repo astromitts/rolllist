@@ -82,7 +82,7 @@ function init_schedule_toggled_view() {
 
 
 /* SCHEDULE VIEW HANDLERS */
-function bind_delete_from_modal(delete_url){
+function schedule_bind_delete_from_modal(delete_url){
 	$('form#schedule_delete').submit(function(event){
 		event.preventDefault();
 		$.ajax({
@@ -101,7 +101,7 @@ function bind_delete_from_modal(delete_url){
 	});
 }
 
-function bind_edit_from_modal(edit_url){
+function schedule_bind_edit_from_modal(edit_url){
 	$('form#schedule_edit').submit(function(event){
 		event.preventDefault();
 		$.ajax({
@@ -140,8 +140,8 @@ function bind_modal_open_schedule_options(datestr){
 				$('select#id_start_time').val(start_init);
 
 				show_modal_and_overlay();
-				bind_edit_from_modal(edit_url);
-				bind_delete_from_modal(delete_url);
+				schedule_bind_edit_from_modal(edit_url);
+				schedule_bind_delete_from_modal(delete_url);
 			},
 			error: function(data){
 				alert("there was an error");
@@ -150,7 +150,7 @@ function bind_modal_open_schedule_options(datestr){
 	});
 }
 
-function bind_add_item() {
+function schedule_bind_add_item() {
 	$('button.addscheduleitem').click(function(){
 		var edit_url = $(this).attr('action');
 		var start_val = $(this).attr('id');
@@ -166,8 +166,8 @@ function bind_add_item() {
 				$('select#id_end_time').val(end_init);
 				$('select#id_start_time').val(start_init);
 
+				schedule_bind_edit_from_modal(edit_url);
 				show_modal_and_overlay();
-				bind_edit_from_modal(edit_url);
 			},
 			error: function(data){
 				alert("there was an error");
@@ -187,7 +187,7 @@ function get_schedule_table(){
 			bind_modal_open_schedule_options();
 			bind_modal_close();
 			init_schedule_toggled_view();
-			bind_add_item();
+			schedule_bind_add_item();
 		},
 	})
 }

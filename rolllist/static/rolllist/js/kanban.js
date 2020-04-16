@@ -13,7 +13,7 @@ function bind_toggle_kanban_links(){
 	});
 }
 
-function bind_delete_from_modal(delete_url){
+function kanban_bind_delete_from_modal(delete_url){
 	$('form#kanban_delete').submit(function(event){
 		event.preventDefault();
 		$.ajax({
@@ -32,7 +32,7 @@ function bind_delete_from_modal(delete_url){
 	});
 }
 
-function bind_edit_from_modal(edit_url){
+function kanban_bind_edit_from_modal(edit_url){
 	$('form#kanban_edit').submit(function(event){
 		event.preventDefault();
 		$.ajax({
@@ -64,8 +64,8 @@ function bind_modal_kanban_edit(){
 			success: function(data){
 				$('div#modalcontent').html(data);
 				show_modal_and_overlay();
-				bind_edit_from_modal(target_url);
-				bind_delete_from_modal(delete_url);
+				kanban_bind_edit_from_modal(target_url);
+				kanban_bind_delete_from_modal(delete_url);
 			},
 			error: function(data){
 				alert("there was an error");
@@ -85,7 +85,7 @@ function bind_modal_kanban_add(){
 			success: function(data){
 				$('div#modalcontent').html(data);
 				show_modal_and_overlay();
-				bind_edit_from_modal(target_url);
+				kanban_bind_edit_from_modal(target_url);
 			},
 			error: function(data){
 				alert("there was an error");
