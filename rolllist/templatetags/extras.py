@@ -26,6 +26,16 @@ def is_primary_time(time_string):
 
 
 @register.filter
+def get_tr_class(time_string):
+    class_name = 'primary'
+    if ':30' in time_string:
+        return 'secondary'
+    elif ':15' in time_string or ':45' in time_string:
+        return 'partial'
+    return class_name
+
+
+@register.filter
 def get_dynamic_style_collapsed(schedule_item, schedule):
     """ Produces dynamic positions for a given schedule item relative to the given schedule
     """

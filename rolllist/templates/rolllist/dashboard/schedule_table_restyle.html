@@ -4,7 +4,7 @@
 	<div class="table toggled-view table-toggled-view_collapsed">
 		{% for schedule_block in day_schedule %}
 			{% if schedule_block.item %}
-			<div class="tr {% if schedule_block.start_time_display|is_primary_time %} tr-primary {% endif %}">
+			<div class="tr">
 				<div class="td">{{ schedule_block.item.start }}</div>
 				<div class="td">-</div>
 				<div class="td">{{ schedule_block.item.end }}</div>
@@ -24,7 +24,7 @@
 	</div>
 	<div class="table toggled-view table-toggled-view_full">
 		{% for schedule_block in day_schedule %}
-			<div class="tr toggle-open open {% if schedule_block.start_time_display|is_primary_time %} tr-primary {% endif %}">
+			<div class="tr toggle-open open tr-{{schedule_block.start_time_display|get_tr_class}}">
 				<div class="td item-time">
 					{{ schedule_block.start_time_display }}
 				</div>

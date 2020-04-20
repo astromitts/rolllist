@@ -272,8 +272,11 @@ form.modal-delete input {
   .schedulecontainer .table-toggled-view_full .tr {
     display: block;
     width: 100%;
-    height: 2rem;
-    border-top: 1px dotted; }
+    height: 2rem; }
+    .schedulecontainer .table-toggled-view_full .tr-partial {
+      border-top: 1px dotted; }
+    .schedulecontainer .table-toggled-view_full .tr-secondary {
+      border-top: 1px dashed; }
     .schedulecontainer .table-toggled-view_full .tr-primary {
       border-top: 1px solid; }
   .schedulecontainer .table-toggled-view_full .td {

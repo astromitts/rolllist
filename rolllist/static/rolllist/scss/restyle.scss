@@ -390,7 +390,12 @@ $rowpartial: $rowheight / 2;
 				display: block;
 				width: 100%;
 				height: $rowheight;
-				border-top: 1px dotted;
+				&-partial {
+					border-top: 1px dotted;
+				}
+				&-secondary {
+					border-top: 1px dashed;
+				}
 				&-primary {
 					border-top: 1px solid;
 				}
